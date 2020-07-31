@@ -16,3 +16,5 @@ set(CMAKE_AUTORCC ON)
 add_library(terminalgui tgscreen.cpp tgscreen.h tgwidget.cpp tgwidget.h)
 
 target_link_libraries(terminalgui PUBLIC backend Qt5::Core)
+
+target_include_directories(terminalgui PUBLIC ../)

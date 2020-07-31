@@ -1,46 +1,44 @@
-#include "consolescreen.h"
+#include "tgscreen.h"
 
-#include <ncursesw/ncurses.h>
+#include <backend/backend.h>
 
 #include <QDebug>
 
-ConsoleScreen::ConsoleScreen(QObject *parent) : ConsoleWidget(parent)
+TgScreen::TgScreen(QObject *parent) : QObject(parent)
 {
-    initscr();
-
-    setPosition(QPoint(0, 0));
-    setSize(QSize(COLS, LINES));
+    const Terminal::Size size = Terminal::updateSize();
+    _size.setWidth(size.width);
+    _size.setHeight(size.height);
+    emit sizeChanged(_size);
 
     _timer.setInterval(1000);
     _timer.setSingleShot(false);
     _timer.setTimerType(Qt::TimerType::VeryCoarseTimer);
 
     connect(&_timer, &QTimer::timeout,
-            this, &ConsoleScreen::checkIfQuit);
+            this, &TgScreen::checkIfQuit);
 
-    qDebug() << "ConsoleScreen info:" << position() << size();
+    //qDebug() << "TgScreen info:" << position() << size();
 }
 
-ConsoleScreen::~ConsoleScreen()
+TgScreen::~TgScreen()
 {
-    endwin();
 }
 
-void ConsoleScreen::show()
-{
-    // Console screen is not shown
-    //ConsoleWidget::show();
-}
-
-void ConsoleScreen::waitForQuit()
+void TgScreen::waitForQuit()
 {
     _timer.start();
 }
 
-void ConsoleScreen::checkIfQuit()
+QSize TgScreen::size() const
 {
-    noecho();
-    const int character = getch();
+    return _size;
+}
+
+void TgScreen::checkIfQuit()
+{
+    //noecho();
+    const int character = std::getchar();
     if (character == 'q') {
         emit end();
     }

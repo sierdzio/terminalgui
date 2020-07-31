@@ -1,6 +1,4 @@
-#include "consolewidget.h"
-
-#include <ncursesw/ncurses.h>
+#include "tgwidget.h"
 
 ConsoleWidget::ConsoleWidget(QObject *parent) : QObject(parent)
 {
@@ -21,10 +19,10 @@ QSize ConsoleWidget::size() const
     return _size;
 }
 
-QColor ConsoleWidget::backgroundColor() const
-{
-    return _backgroundColor;
-}
+//QColor ConsoleWidget::backgroundColor() const
+//{
+//    return _backgroundColor;
+//}
 
 bool ConsoleWidget::visible() const
 {
@@ -49,14 +47,14 @@ void ConsoleWidget::setSize(const QSize &size)
     emit sizeChanged(_size);
 }
 
-void ConsoleWidget::setBackgroundColor(const QColor &backgroundColor)
-{
-    if (_backgroundColor == backgroundColor)
-        return;
+//void ConsoleWidget::setBackgroundColor(const QColor &backgroundColor)
+//{
+//    if (_backgroundColor == backgroundColor)
+//        return;
 
-    _backgroundColor = backgroundColor;
-    emit backgroundColorChanged(_backgroundColor);
-}
+//    _backgroundColor = backgroundColor;
+//    emit backgroundColorChanged(_backgroundColor);
+//}
 
 void ConsoleWidget::setVisible(const bool visible)
 {
@@ -70,13 +68,6 @@ void ConsoleWidget::setVisible(const bool visible)
 void ConsoleWidget::draw()
 {
     if (visible()) {
-        // https://tldp.org/HOWTO/NCURSES-Programming-HOWTO/windows.html
-        auto _window = newwin(_size.height(), _size.width(),
-                         _position.y(), _position.x());
-        box(_window, '+', '=');		/* 0, 0 gives default characters
-                     * for the vertical and horizontal
-                     * lines			*/
-        wrefresh(_window);		/* Show that box 		*/
     }
 }
 

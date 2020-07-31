@@ -1,29 +1,32 @@
 #pragma once
 
-#include "consolewidget.h"
-
 #include <QObject>
 #include <QTimer>
+#include <QSize>
 
-class ConsoleScreen : public ConsoleWidget
+class TgScreen : public QObject
 {
     Q_OBJECT
 
-public:
-    ConsoleScreen(QObject *parent = nullptr);
-    ~ConsoleScreen();
+    Q_PROPERTY(QSize size READ size NOTIFY sizeChanged)
 
-    void show() override;
+public:
+    TgScreen(QObject *parent = nullptr);
+    ~TgScreen();
 
     void waitForQuit();
 
+    QSize size() const;
+
 signals:
     void end() const;
+    void sizeChanged(const QSize &size) const;
 
 private slots:
     void checkIfQuit();
 
 private:
     QTimer _timer;
+    QSize _size;
 };
 
