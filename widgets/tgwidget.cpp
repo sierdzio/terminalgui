@@ -1,35 +1,35 @@
 #include "tgwidget.h"
 
-ConsoleWidget::ConsoleWidget(QObject *parent) : QObject(parent)
+TgWidget::TgWidget(QObject *parent) : QObject(parent)
 {
 }
 
-void ConsoleWidget::show()
+void TgWidget::show()
 {
     setVisible(true);
 }
 
-QPoint ConsoleWidget::position() const
+QPoint TgWidget::position() const
 {
     return _position;
 }
 
-QSize ConsoleWidget::size() const
+QSize TgWidget::size() const
 {
     return _size;
 }
 
-//QColor ConsoleWidget::backgroundColor() const
-//{
-//    return _backgroundColor;
-//}
+Terminal::Color TgWidget::backgroundColor() const
+{
+    return _backgroundColor;
+}
 
-bool ConsoleWidget::visible() const
+bool TgWidget::visible() const
 {
     return _visible;
 }
 
-void ConsoleWidget::setPosition(const QPoint &position)
+void TgWidget::setPosition(const QPoint &position)
 {
     if (_position == position)
         return;
@@ -38,7 +38,7 @@ void ConsoleWidget::setPosition(const QPoint &position)
     emit positionChanged(_position);
 }
 
-void ConsoleWidget::setSize(const QSize &size)
+void TgWidget::setSize(const QSize &size)
 {
     if (_size == size)
         return;
@@ -47,25 +47,29 @@ void ConsoleWidget::setSize(const QSize &size)
     emit sizeChanged(_size);
 }
 
-//void ConsoleWidget::setBackgroundColor(const QColor &backgroundColor)
-//{
-//    if (_backgroundColor == backgroundColor)
-//        return;
+void TgWidget::setBackgroundColor(const Terminal::Color backgroundColor)
+{
+    if (_backgroundColor == backgroundColor)
+        return;
 
-//    _backgroundColor = backgroundColor;
-//    emit backgroundColorChanged(_backgroundColor);
-//}
+    _backgroundColor = backgroundColor;
+    emit backgroundColorChanged(_backgroundColor);
+}
 
-void ConsoleWidget::setVisible(const bool visible)
+void TgWidget::setVisible(const bool visible)
 {
     if (_visible == visible)
         return;
 
     _visible = visible;
+
+    if (visible)
+        draw();
+
     emit visibleChanged(_visible);
 }
 
-void ConsoleWidget::draw()
+void TgWidget::draw()
 {
     if (visible()) {
     }

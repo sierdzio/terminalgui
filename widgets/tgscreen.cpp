@@ -18,7 +18,9 @@ TgScreen::TgScreen(QObject *parent) : QObject(parent)
     connect(&_timer, &QTimer::timeout,
             this, &TgScreen::checkIfQuit);
 
-    //qDebug() << "TgScreen info:" << position() << size();
+    _timer.start();
+
+    qDebug() << "TgScreen info:" << _size.width() << _size.height();
 }
 
 TgScreen::~TgScreen()
@@ -37,7 +39,6 @@ QSize TgScreen::size() const
 
 void TgScreen::checkIfQuit()
 {
-    //noecho();
     const int character = std::getchar();
     if (character == 'q') {
         emit end();
