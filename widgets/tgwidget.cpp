@@ -41,6 +41,7 @@ void Tg::Widget::setPosition(const QPoint &position)
 
     _position = position;
     emit positionChanged(_position);
+    draw();
 }
 
 void Tg::Widget::setSize(const QSize &size)
@@ -50,6 +51,7 @@ void Tg::Widget::setSize(const QSize &size)
 
     _size = size;
     emit sizeChanged(_size);
+    draw();
 }
 
 void Tg::Widget::setBackgroundColor(const Terminal::Color backgroundColor)
@@ -59,6 +61,7 @@ void Tg::Widget::setBackgroundColor(const Terminal::Color backgroundColor)
 
     _backgroundColor = backgroundColor;
     emit backgroundColorChanged(_backgroundColor);
+    draw();
 }
 
 void Tg::Widget::setTextColor(const Terminal::Color textColor)
@@ -68,6 +71,7 @@ void Tg::Widget::setTextColor(const Terminal::Color textColor)
 
     _textColor = textColor;
     emit textColorChanged(_textColor);
+    draw();
 }
 
 void Tg::Widget::setVisible(const bool visible)
@@ -85,6 +89,6 @@ void Tg::Widget::setVisible(const bool visible)
 
 void Tg::Widget::draw()
 {
-    if (visible()) {
-    }
+//    if (visible()) {
+//    }
 }

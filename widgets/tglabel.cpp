@@ -27,6 +27,7 @@ void Tg::Label::setText(const QString &text)
     }
 
     emit textChanged(_text);
+    draw();
 }
 
 void Tg::Label::draw()
