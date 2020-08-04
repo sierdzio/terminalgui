@@ -35,14 +35,8 @@ void Tg::Label::draw()
     if (visible()) {
         Tg::TextStream stream(stdout);
 
-        if (position().x() > 0) {
-            //qDebug() << "Capabilities:" << stream.device()->isSequential()
-            //         << stream.device()->isOpen() << stream.device()->isReadable()
-            //         << stream.device()->isWritable();
-
-            for (int i = 0; i < position().x(); ++i) {
-                stream << Commands::forward;
-            }
+        if (position().x() > 0 || position().y() > 0) {
+            stream << Commands::moveToPosition(position().x(), position().y());
         }
 
         stream << Terminal::colorCode(textColor());

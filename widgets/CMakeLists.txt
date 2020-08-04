@@ -14,7 +14,8 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
 add_library(terminalgui tgscreen.cpp tgscreen.h tgwidget.cpp tgwidget.h
-    tglabel.cpp tglabel.h textstream.cpp textstream.h)
+    tglabel.cpp tglabel.h textstream.cpp textstream.h
+    reversibleanimation.cpp reversibleanimation.h)
 
 target_link_libraries(terminalgui PUBLIC backend Qt5::Core)
 

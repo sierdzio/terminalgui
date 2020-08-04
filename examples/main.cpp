@@ -3,6 +3,7 @@
 #include <QDebug>
 
 #include <backend/backend.h>
+#include <widgets/reversibleanimation.h>
 #include <widgets/tgscreen.h>
 #include <widgets/tglabel.h>
 
@@ -19,7 +20,7 @@ int main(int argc, char *argv[])
     QPropertyAnimation animation(&label, "position");
     animation.setDuration(5000);
     animation.setStartValue(QPoint(0, 0));
-    animation.setEndValue(QPoint(screen.size().width() - label.text().size(), 0));
+    animation.setEndValue(QPoint(screen.size().width()/* - label.text().size()*/, 0));
     animation.start();
 
     QObject::connect(&screen, &Tg::Screen::end,

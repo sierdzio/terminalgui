@@ -16,6 +16,16 @@ Terminal::Size Terminal::updateSize()
     return result;
 }
 
+Terminal::Position Terminal::currentPosition()
+{
+    winsize w;
+    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+    Terminal::Position result;
+    result.x = w.ws_xpixel;
+    result.y = w.ws_ypixel;
+    return result;
+}
+
 // TODO: use std::hash instead!
 std::string Terminal::colorCode(const Terminal::Color color)
 {
@@ -56,3 +66,9 @@ std::string Terminal::colorCode(const Terminal::Color color)
 
     return std::string();
 }
+
+std::string Commands::moveToPosition(const int x, const int y)
+{
+    return "\033[" + std::to_string(y) + ";" + std::to_string(x) + "H";
+}
+

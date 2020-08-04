@@ -8,7 +8,13 @@ namespace Terminal {
         int height = 24;
     };
 
+    struct Position {
+        int x = 0;
+        int y = 0;
+    };
+
     Size updateSize();
+    Position currentPosition();
 
     const Size defaultSize;
     static Size size = updateSize();
@@ -50,6 +56,8 @@ const std::string erase = "\033[K";
 
 const std::string save = "\033[s";
 const std::string restore = "\033[u";
+
+std::string moveToPosition(const int x, const int y);
 }
 
 // http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x329.html
