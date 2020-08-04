@@ -1,40 +1,40 @@
 #include "tgwidget.h"
 
-TgWidget::TgWidget(QObject *parent) : QObject(parent)
+Tg::Widget::Widget(QObject *parent) : QObject(parent)
 {
 }
 
-void TgWidget::show()
+void Tg::Widget::show()
 {
     setVisible(true);
 }
 
-QPoint TgWidget::position() const
+QPoint Tg::Widget::position() const
 {
     return _position;
 }
 
-QSize TgWidget::size() const
+QSize Tg::Widget::size() const
 {
     return _size;
 }
 
-Terminal::Color TgWidget::backgroundColor() const
+Terminal::Color Tg::Widget::backgroundColor() const
 {
     return _backgroundColor;
 }
 
-Terminal::Color TgWidget::textColor() const
+Terminal::Color Tg::Widget::textColor() const
 {
     return _textColor;
 }
 
-bool TgWidget::visible() const
+bool Tg::Widget::visible() const
 {
     return _visible;
 }
 
-void TgWidget::setPosition(const QPoint &position)
+void Tg::Widget::setPosition(const QPoint &position)
 {
     if (_position == position)
         return;
@@ -43,7 +43,7 @@ void TgWidget::setPosition(const QPoint &position)
     emit positionChanged(_position);
 }
 
-void TgWidget::setSize(const QSize &size)
+void Tg::Widget::setSize(const QSize &size)
 {
     if (_size == size)
         return;
@@ -52,7 +52,7 @@ void TgWidget::setSize(const QSize &size)
     emit sizeChanged(_size);
 }
 
-void TgWidget::setBackgroundColor(const Terminal::Color backgroundColor)
+void Tg::Widget::setBackgroundColor(const Terminal::Color backgroundColor)
 {
     if (_backgroundColor == backgroundColor)
         return;
@@ -61,7 +61,7 @@ void TgWidget::setBackgroundColor(const Terminal::Color backgroundColor)
     emit backgroundColorChanged(_backgroundColor);
 }
 
-void TgWidget::setTextColor(const Terminal::Color textColor)
+void Tg::Widget::setTextColor(const Terminal::Color textColor)
 {
     if (_textColor == textColor)
         return;
@@ -70,7 +70,7 @@ void TgWidget::setTextColor(const Terminal::Color textColor)
     emit textColorChanged(_textColor);
 }
 
-void TgWidget::setVisible(const bool visible)
+void Tg::Widget::setVisible(const bool visible)
 {
     if (_visible == visible)
         return;
@@ -83,7 +83,7 @@ void TgWidget::setVisible(const bool visible)
     emit visibleChanged(_visible);
 }
 
-void TgWidget::draw()
+void Tg::Widget::draw()
 {
     if (visible()) {
     }

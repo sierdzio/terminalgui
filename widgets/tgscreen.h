@@ -4,7 +4,8 @@
 #include <QTimer>
 #include <QSize>
 
-class TgScreen : public QObject
+namespace Tg {
+class Screen : public QObject
 {
     Q_OBJECT
 
@@ -13,8 +14,8 @@ class TgScreen : public QObject
     Q_PROPERTY(QSize size READ size NOTIFY sizeChanged)
 
 public:
-    TgScreen(QObject *parent = nullptr);
-    ~TgScreen();
+    Screen(QObject *parent = nullptr);
+    ~Screen();
 
     void waitForQuit();
 
@@ -31,4 +32,4 @@ private:
     QTimer _timer;
     QSize _size;
 };
-
+}

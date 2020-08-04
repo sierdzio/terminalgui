@@ -1,10 +1,10 @@
 #include "textstream.h"
 
-TextStream::TextStream() : QTextStream()
+Tg::TextStream::TextStream() : QTextStream()
 {
 }
 
-QTextStream &TextStream::operator<<(const std::string &string)
+QTextStream &Tg::TextStream::operator<<(const std::string &string)
 {
     QTextStream::operator<<(QString::fromStdString(string));
     return (*this);

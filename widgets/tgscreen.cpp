@@ -4,7 +4,7 @@
 
 #include <QDebug>
 
-TgScreen::TgScreen(QObject *parent) : QObject(parent)
+Tg::Screen::Screen(QObject *parent) : QObject(parent)
 {
     const Terminal::Size size = Terminal::updateSize();
     _size.setWidth(size.width);
@@ -16,28 +16,28 @@ TgScreen::TgScreen(QObject *parent) : QObject(parent)
     _timer.setTimerType(Qt::TimerType::VeryCoarseTimer);
 
     connect(&_timer, &QTimer::timeout,
-            this, &TgScreen::checkIfQuit);
+            this, &Screen::checkIfQuit);
 
     _timer.start();
 
     qDebug() << "TgScreen info:" << _size.width() << _size.height();
 }
 
-TgScreen::~TgScreen()
+Tg::Screen::~Screen()
 {
 }
 
-void TgScreen::waitForQuit()
+void Tg::Screen::waitForQuit()
 {
     _timer.start();
 }
 
-QSize TgScreen::size() const
+QSize Tg::Screen::size() const
 {
     return _size;
 }
 
-void TgScreen::checkIfQuit()
+void Tg::Screen::checkIfQuit()
 {
     const int character = std::getchar();
     if (character == 'q') {

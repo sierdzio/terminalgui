@@ -13,7 +13,8 @@ namespace Terminal {
     Q_ENUM_NS(Terminal::Color);
 }
 
-class TgWidget : public QObject
+namespace Tg {
+class Widget : public QObject
 {
     Q_OBJECT
 
@@ -24,7 +25,7 @@ class TgWidget : public QObject
     Q_PROPERTY(bool visible READ visible WRITE setVisible NOTIFY visibleChanged)
 
 public:
-    explicit TgWidget(QObject *parent = nullptr);
+    explicit Widget(QObject *parent = nullptr);
 
     virtual void show();
 
@@ -58,4 +59,4 @@ private:
     bool _visible = false;
     Terminal::Color _textColor;
 };
-
+}

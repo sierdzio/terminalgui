@@ -2,14 +2,15 @@
 
 #include <widgets/tgwidget.h>
 
-class TgLabel : public TgWidget
+namespace Tg {
+class Label : public Tg::Widget
 {
     Q_OBJECT
 
     Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
 
 public:
-    TgLabel(const QString &text = QString(), QObject *parent = nullptr);
+    Label(const QString &text = QString(), QObject *parent = nullptr);
 
     QString text() const;
 
@@ -25,4 +26,4 @@ protected:
 private:
     QString _text;
 };
-
+}

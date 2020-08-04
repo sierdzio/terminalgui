@@ -2,6 +2,7 @@
 
 #include <QTextStream>
 
+namespace Tg {
 class TextStream : public QTextStream
 {
 public:
@@ -10,4 +11,4 @@ public:
     using QTextStream::operator<<;
     QTextStream &operator<<(const std::string &string);
 };
-
+}

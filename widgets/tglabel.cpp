@@ -3,17 +3,17 @@
 #include "textstream.h"
 #include <backend/backend.h>
 
-TgLabel::TgLabel(const QString &text, QObject *parent) : TgWidget(parent)
+Tg::Label::Label(const QString &text, QObject *parent) : Tg::Widget(parent)
 {
     setText(text);
 }
 
-QString TgLabel::text() const
+QString Tg::Label::text() const
 {
     return _text;
 }
 
-void TgLabel::setText(const QString &text)
+void Tg::Label::setText(const QString &text)
 {
     if (_text == text)
         return;
@@ -29,10 +29,10 @@ void TgLabel::setText(const QString &text)
     emit textChanged(_text);
 }
 
-void TgLabel::draw()
+void Tg::Label::draw()
 {
     if (visible()) {
-        TextStream stream(stdout);
+        Tg::TextStream stream(stdout);
 
         if (position().x() > 0) {
             //qDebug() << "Capabilities:" << stream.device()->isSequential()
