@@ -24,6 +24,11 @@ Terminal::Color TgWidget::backgroundColor() const
     return _backgroundColor;
 }
 
+Terminal::Color TgWidget::textColor() const
+{
+    return _textColor;
+}
+
 bool TgWidget::visible() const
 {
     return _visible;
@@ -56,6 +61,15 @@ void TgWidget::setBackgroundColor(const Terminal::Color backgroundColor)
     emit backgroundColorChanged(_backgroundColor);
 }
 
+void TgWidget::setTextColor(const Terminal::Color textColor)
+{
+    if (_textColor == textColor)
+        return;
+
+    _textColor = textColor;
+    emit textColorChanged(_textColor);
+}
+
 void TgWidget::setVisible(const bool visible)
 {
     if (_visible == visible)
@@ -74,4 +88,3 @@ void TgWidget::draw()
     if (visible()) {
     }
 }
-

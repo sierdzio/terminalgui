@@ -15,3 +15,44 @@ Terminal::Size Terminal::updateSize()
     result.height = w.ws_row;
     return result;
 }
+
+// TODO: use std::hash instead!
+std::string Terminal::colorCode(const Terminal::Color color)
+{
+    switch (color) {
+    case Terminal::Color::Black:
+        return Colors::black;
+    case Terminal::Color::Gray:
+        return Colors::gray;
+    case Terminal::Color::Red:
+        return Colors::red;
+    case Terminal::Color::Pink:
+        return Colors::pink;
+    case Terminal::Color::Green:
+        return Colors::green;
+    case Terminal::Color::LightGreen:
+        return Colors::lightGreen;
+    case Terminal::Color::Brown:
+        return Colors::brown;
+    case Terminal::Color::Yellow:
+        return Colors::yellow;
+    case Terminal::Color::Blue:
+        return Colors::blue;
+    case Terminal::Color::LightBlue:
+        return Colors::lightBlue;
+    case Terminal::Color::Purple:
+        return Colors::purple;
+    case Terminal::Color::LightPurple:
+        return Colors::lightPurple;
+    case Terminal::Color::Cyan:
+        return Colors::cyan;
+    case Terminal::Color::LightCyan:
+        return Colors::lightCyan;
+    case Terminal::Color::LightGray:
+        return Colors::lightGray;
+    case Terminal::Color::White:
+        return Colors::white;
+    }
+
+    return std::string();
+}

@@ -1,7 +1,7 @@
 #include "tglabel.h"
 
-#include <QTextStream>
-#include <QDebug>
+#include "textstream.h"
+#include <backend/backend.h>
 
 TgLabel::TgLabel(const QString &text, QObject *parent) : TgWidget(parent)
 {
@@ -32,7 +32,7 @@ void TgLabel::setText(const QString &text)
 void TgLabel::draw()
 {
     if (visible()) {
-        QTextStream stream(stdout);
+        TextStream stream(stdout);
 
         if (position().x() > 0) {
             //qDebug() << "Capabilities:" << stream.device()->isSequential()
@@ -44,6 +44,8 @@ void TgLabel::draw()
             }
         }
 
+        stream << Terminal::colorCode(textColor());
         stream << text();
+        stream << Colors::end;
     }
 }
