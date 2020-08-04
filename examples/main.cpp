@@ -10,6 +10,7 @@ int main(int argc, char *argv[])
 
     TgScreen screen;
     TgLabel label(QObject::tr("Hello world!"), &screen);
+    label.setPosition(QPoint(5, 0));
     label.show();
 
     QObject::connect(&screen, &TgScreen::end,
