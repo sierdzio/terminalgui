@@ -1,9 +1,17 @@
 #include "tglabel.h"
-
+#include "tgscreen.h"
 #include "textstream.h"
+
 #include <backend/backend.h>
 
-Tg::Label::Label(const QString &text, QObject *parent) : Tg::Widget(parent)
+#include <QRect>
+
+Tg::Label::Label(const QString &text, Widget *parent) : Tg::Widget(parent)
+{
+    setText(text);
+}
+
+Tg::Label::Label(const QString &text, Tg::Screen *screen) : Tg::Widget(screen)
 {
     setText(text);
 }
@@ -37,16 +45,18 @@ void Tg::Label::draw()
 
         // TODO: do not clear here, but in screen painter!
         stream << Commands::clear;
-        //stream << Colors::end;
 
         if (position().x() > 0 || position().y() > 0) {
             stream << Commands::moveToPosition(position().x(), position().y());
-            //stream << Colors::end;
         }
 
         stream << Terminal::colorCode(textColor());
-        //if (position().x() + text().size() > screen.size())
-        stream << text();
+        if (boundingRectangle().right() > screen()->size().width()) {
+            QString clippedText = text();
+            clippedText.chop(boundingRectangle().right() - screen()->size().width());
+        } else {
+            stream << text();
+        }
         stream << Colors::end;
     }
 }

@@ -3,6 +3,7 @@
 #include <QObject>
 #include <QPoint>
 #include <QSize>
+#include <QPointer>
 
 #include <QMetaEnum>
 
@@ -14,6 +15,8 @@ namespace Terminal {
 }
 
 namespace Tg {
+class Screen;
+
 class Widget : public QObject
 {
     Q_OBJECT
@@ -25,15 +28,20 @@ class Widget : public QObject
     Q_PROPERTY(bool visible READ visible WRITE setVisible NOTIFY visibleChanged)
 
 public:
-    explicit Widget(QObject *parent = nullptr);
+    explicit Widget(Widget *parent);
+    explicit Widget(Screen *parentScreen);
 
     virtual void show();
 
     QPoint position() const;
     QSize size() const;
+    QRect boundingRectangle() const;
     Terminal::Color backgroundColor() const;
     Terminal::Color textColor() const;
     bool visible() const;
+
+    Screen *screen() const;
+    Widget *parentWidget() const;
 
 public slots:
     void setPosition(const QPoint &position);
@@ -53,6 +61,9 @@ protected:
     virtual void draw();
 
 private:
+    QPointer<Screen> _screen;
+    QPointer<Widget> _parentWidget;
+
     QPoint _position = { 0, 0 };
     QSize _size = { 0, 0 };
     Terminal::Color _backgroundColor = Terminal::Color::Default;

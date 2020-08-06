@@ -10,7 +10,8 @@ class Label : public Tg::Widget
     Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
 
 public:
-    Label(const QString &text = QString(), QObject *parent = nullptr);
+    Label(const QString &text = QString(), Tg::Widget *parent = nullptr);
+    Label(const QString &text = QString(), Tg::Screen *screen = nullptr);
 
     QString text() const;
 

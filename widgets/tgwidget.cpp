@@ -1,6 +1,19 @@
 #include "tgwidget.h"
+#include "tgscreen.h"
 
-Tg::Widget::Widget(QObject *parent) : QObject(parent)
+#include <QRect>
+
+Tg::Widget::Widget(Widget *parent)
+    : QObject(parent),
+      _screen(parent->screen()),
+      _parentWidget(parent)
+{
+}
+
+Tg::Widget::Widget(Tg::Screen *parentScreen)
+    : QObject(parentScreen),
+      _screen(parentScreen),
+      _parentWidget(nullptr)
 {
 }
 
@@ -19,6 +32,11 @@ QSize Tg::Widget::size() const
     return _size;
 }
 
+QRect Tg::Widget::boundingRectangle() const
+{
+    return QRect(position(), size());
+}
+
 Terminal::Color Tg::Widget::backgroundColor() const
 {
     return _backgroundColor;
@@ -32,6 +50,16 @@ Terminal::Color Tg::Widget::textColor() const
 bool Tg::Widget::visible() const
 {
     return _visible;
+}
+
+Tg::Screen *Tg::Widget::screen() const
+{
+    return _screen;
+}
+
+Tg::Widget *Tg::Widget::parentWidget() const
+{
+    return _parentWidget;
 }
 
 void Tg::Widget::setPosition(const QPoint &position)
