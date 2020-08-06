@@ -17,14 +17,13 @@ int main(int argc, char *argv[])
     label.setTextColor(Terminal::Color::Green);
     label.show();
 
-    QPropertyAnimation animation(&label, "position");
-    animation.setDuration(5000);
+    Tg::ReversibleAnimation animation(&label, "position");
+    animation.setDuration(8000);
     animation.setStartValue(QPoint(0, 0));
-    animation.setEndValue(QPoint(screen.size().width()/* - label.text().size()*/, 0));
+    //qDebug() << "Screen size" << screen.size();
+    const int endX = screen.size().width() - label.text().size();
+    animation.setEndValue(QPoint(endX, 0));
     animation.start();
-
-    QObject::connect(&screen, &Tg::Screen::end,
-                     &app, &QCoreApplication::quit);
 
     return app.exec();
 }

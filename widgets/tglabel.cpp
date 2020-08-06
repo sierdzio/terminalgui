@@ -35,11 +35,17 @@ void Tg::Label::draw()
     if (visible()) {
         Tg::TextStream stream(stdout);
 
+        // TODO: do not clear here, but in screen painter!
+        stream << Commands::clear;
+        //stream << Colors::end;
+
         if (position().x() > 0 || position().y() > 0) {
             stream << Commands::moveToPosition(position().x(), position().y());
+            //stream << Colors::end;
         }
 
         stream << Terminal::colorCode(textColor());
+        //if (position().x() + text().size() > screen.size())
         stream << text();
         stream << Colors::end;
     }

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <QObject>
-#include <QTimer>
 #include <QSize>
 
 namespace Tg {
@@ -22,14 +21,9 @@ public:
     QSize size() const;
 
 signals:
-    void end() const;
     void sizeChanged(const QSize &size) const;
 
-private slots:
-    void checkIfQuit();
-
 private:
-    QTimer _timer;
     QSize _size;
 };
 }
