@@ -10,6 +10,8 @@ class Label : public Tg::Widget
     Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
 
 public:
+    Label(Tg::Widget *parent);
+    Label(Tg::Screen *screen);
     Label(const QString &text = QString(), Tg::Widget *parent = nullptr);
     Label(const QString &text = QString(), Tg::Screen *screen = nullptr);
 
@@ -21,10 +23,11 @@ signals:
     void textChanged(const QString &text) const;
 
 public slots:
-    void setText(const QString &text);
+    void setText(const QString &text, const bool expand = true);
 
 private:
     void init();
+    QStringList layoutText() const;
 
     QString _text;
 };

@@ -12,8 +12,9 @@ int main(int argc, char *argv[])
     QCoreApplication app(argc, argv);
 
     Tg::Screen screen;
-    Tg::Label labelBelow(QObject::tr("Below"), &screen);
+    Tg::Label labelBelow(QObject::tr("Below with some extra text!"), &screen);
     labelBelow.setPosition(QPoint(20, 0));
+    labelBelow.setSize(QSize(6, 3)); // 6 characters per line, 3 lines
     labelBelow.setTextColor(Terminal::Color::Red);
     labelBelow.show();
 

@@ -126,6 +126,7 @@ void Tg::Widget::setVisible(const bool visible)
 
 void Tg::Widget::init()
 {
+    // TODO: do not emit signal if widget is not visible!
     connect(this, &Widget::sizeChanged,
             this, &Widget::needsRedraw);
     connect(this, &Widget::visibleChanged,
