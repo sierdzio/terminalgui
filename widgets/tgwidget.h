@@ -71,6 +71,6 @@ private:
     QSize _size = { 0, 0 };
     Terminal::Color _backgroundColor = Terminal::Color::Default;
     bool _visible = false;
-    Terminal::Color _textColor;
+    Terminal::Color _textColor = Terminal::Color::Default;
 };
 }

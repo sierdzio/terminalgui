@@ -5,6 +5,7 @@
 #include <backend/backend.h>
 #include <widgets/reversibleanimation.h>
 #include <widgets/tgscreen.h>
+#include <widgets/tgwidget.h>
 #include <widgets/tglabel.h>
 
 int main(int argc, char *argv[])
@@ -24,7 +25,7 @@ int main(int argc, char *argv[])
     label.show();
 
     Tg::Label labelAbove(QObject::tr("Above"), &label);
-    labelAbove.setPosition(QPoint(40, 1));
+    labelAbove.setPosition(QPoint(40, 4));
     labelAbove.setTextColor(Terminal::Color::Cyan);
     labelAbove.show();
 
@@ -34,11 +35,16 @@ int main(int argc, char *argv[])
     labelNotOnFirstRow.setTextColor(Terminal::Color::Blue);
     labelNotOnFirstRow.show();
 
+    Tg::Widget widget(&screen);
+    widget.setPosition(QPoint(18, 5));
+    widget.setSize(QSize(8, 9));
+    widget.show();
+
     Tg::ReversibleAnimation animation(&label, "position");
     animation.setDuration(5000);
     animation.setStartValue(QPoint(1, 1));
     const int endX = screen.size().width() - label.text().size();
-    animation.setEndValue(QPoint(endX, 1));
+    animation.setEndValue(QPoint(endX, 7));
     animation.start();
 
     return app.exec();
