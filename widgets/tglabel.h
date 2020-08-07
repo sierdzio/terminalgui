@@ -25,10 +25,13 @@ signals:
 public slots:
     void setText(const QString &text, const bool expand = true);
 
+private slots:
+    void layoutText();
+
 private:
     void init();
-    QStringList layoutText() const;
 
     QString _text;
+    QStringList _laidOutTextCache;
 };
 }

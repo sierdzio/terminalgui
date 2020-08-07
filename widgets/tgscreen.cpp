@@ -48,6 +48,8 @@ void Tg::Screen::onNeedsRedraw()
             const QPoint pixel(x, y);
 
             // TODO: sort by Z value...
+            // TODO: "bundle" pixels from same widget to prevent
+            // multiple loop passes for the same widget
             for (const Widget *widget : qAsConst(_widgets)) {
                 if (widget->visible() && widget->boundingRectangle().contains(pixel)) {
                     stream << Commands::moveToPosition(x, y);

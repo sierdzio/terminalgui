@@ -41,8 +41,8 @@ QString Tg::Label::drawPixel(const QPoint &pixel) const
 
     const int charX = pixel.x() - position().x();
     const int charY = pixel.y() - position().y();
-    // TODO: optimize. Do text layout only once!
-    const QStringList wrappedText(layoutText());
+
+    const QStringList wrappedText(_laidOutTextCache);
     result.append(wrappedText.at(charY).at(charX));
     result.append(QString::fromStdString(Colors::end));
     return result;
@@ -69,17 +69,19 @@ void Tg::Label::init()
 {
     connect(this, &Label::textChanged,
             this, &Label::needsRedraw);
+    connect(this, &Label::needsRedraw,
+            this, &Label::layoutText);
 }
 
-QStringList Tg::Label::layoutText() const
+void Tg::Label::layoutText()
 {
-    QStringList result;
+    _laidOutTextCache.clear();
 
     const int width = size().width();
     const int height = size().height();
     if (text().size() <= width) {
-        result.append(text());
-        return result;
+        _laidOutTextCache.append(text());
+        return;
     } else {
         int currentX = 0;
         int currentY = 0;
@@ -93,11 +95,12 @@ QStringList Tg::Label::layoutText() const
                 currentString.append(character);
                 currentX++;
             } else {
-                result.append(currentString);
+                _laidOutTextCache.append(currentString);
                 currentString.clear();
-                currentString.append(character);
                 currentY++;
-                currentX = 0;
+                currentString.append(character);
+                // One because one character is already added, in line above
+                currentX = 1;
             }
         }
 
@@ -105,8 +108,6 @@ QStringList Tg::Label::layoutText() const
             // Fill with spaces
             currentString.append(' ');
         }
-        result.append(currentString);
+        _laidOutTextCache.append(currentString);
     }
-
-    return result;
 }
