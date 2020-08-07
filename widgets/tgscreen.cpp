@@ -1,7 +1,11 @@
 #include "tgscreen.h"
+#include "tgwidget.h"
+#include "textstream.h"
 
 #include <backend/backend.h>
 
+#include <QPoint>
+#include <QRect>
 #include <QDebug>
 
 Tg::Screen::Screen(QObject *parent) : QObject(parent)
@@ -21,4 +25,36 @@ Tg::Screen::~Screen()
 QSize Tg::Screen::size() const
 {
     return _size;
+}
+
+void Tg::Screen::registerWidget(Tg::Widget *widget)
+{
+    _widgets.append(widget);
+}
+
+void Tg::Screen::deregisterWidget(Tg::Widget *widget)
+{
+    _widgets.removeOne(widget);
+}
+
+void Tg::Screen::onNeedsRedraw()
+{
+    Tg::TextStream stream(stdout);
+    // TODO: do not clear everything. Make only partial redraws!
+    stream << Commands::clear;
+
+    for (int y = 0; y < size().width(); ++y) {
+        for (int x = 0; x < size().width(); ++x) {
+            const QPoint pixel(x, y);
+
+            // TODO: sort by Z value...
+            for (const Widget *widget : qAsConst(_widgets)) {
+                if (widget->visible() && widget->boundingRectangle().contains(pixel)) {
+                    stream << Commands::moveToPosition(x, y);
+                    stream << widget->drawPixel(pixel);
+                    continue;
+                }
+            }
+        }
+    }
 }

@@ -15,16 +15,17 @@ public:
 
     QString text() const;
 
-public slots:
-    void setText(const QString &text);
+    QString drawPixel(const QPoint &pixel) const override;
 
 signals:
     void textChanged(const QString &text) const;
 
-protected:
-    void draw() override;
+public slots:
+    void setText(const QString &text);
 
 private:
+    void init();
+
     QString _text;
 };
 }

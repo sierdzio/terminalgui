@@ -2,12 +2,14 @@
 #include "tgscreen.h"
 
 #include <QRect>
+#include <QDebug>
 
 Tg::Widget::Widget(Widget *parent)
     : QObject(parent),
       _screen(parent->screen()),
       _parentWidget(parent)
 {
+    init();
 }
 
 Tg::Widget::Widget(Tg::Screen *parentScreen)
@@ -15,6 +17,14 @@ Tg::Widget::Widget(Tg::Screen *parentScreen)
       _screen(parentScreen),
       _parentWidget(nullptr)
 {
+    init();
+}
+
+Tg::Widget::~Widget()
+{
+    if (_screen) {
+        _screen->deregisterWidget(this);
+    }
 }
 
 void Tg::Widget::show()
@@ -62,6 +72,12 @@ Tg::Widget *Tg::Widget::parentWidget() const
     return _parentWidget;
 }
 
+QString Tg::Widget::drawPixel(const QPoint &pixel) const
+{
+    Q_UNUSED(pixel)
+    return QString{};
+}
+
 void Tg::Widget::setPosition(const QPoint &position)
 {
     if (_position == position)
@@ -69,7 +85,6 @@ void Tg::Widget::setPosition(const QPoint &position)
 
     _position = position;
     emit positionChanged(_position);
-    draw();
 }
 
 void Tg::Widget::setSize(const QSize &size)
@@ -79,7 +94,6 @@ void Tg::Widget::setSize(const QSize &size)
 
     _size = size;
     emit sizeChanged(_size);
-    draw();
 }
 
 void Tg::Widget::setBackgroundColor(const Terminal::Color backgroundColor)
@@ -89,7 +103,6 @@ void Tg::Widget::setBackgroundColor(const Terminal::Color backgroundColor)
 
     _backgroundColor = backgroundColor;
     emit backgroundColorChanged(_backgroundColor);
-    draw();
 }
 
 void Tg::Widget::setTextColor(const Terminal::Color textColor)
@@ -99,7 +112,6 @@ void Tg::Widget::setTextColor(const Terminal::Color textColor)
 
     _textColor = textColor;
     emit textColorChanged(_textColor);
-    draw();
 }
 
 void Tg::Widget::setVisible(const bool visible)
@@ -109,14 +121,27 @@ void Tg::Widget::setVisible(const bool visible)
 
     _visible = visible;
 
-    if (visible)
-        draw();
-
     emit visibleChanged(_visible);
 }
 
-void Tg::Widget::draw()
+void Tg::Widget::init()
 {
-//    if (visible()) {
-//    }
+    connect(this, &Widget::sizeChanged,
+            this, &Widget::needsRedraw);
+    connect(this, &Widget::visibleChanged,
+            this, &Widget::needsRedraw);
+    connect(this, &Widget::positionChanged,
+            this, &Widget::needsRedraw);
+    connect(this, &Widget::textColorChanged,
+            this, &Widget::needsRedraw);
+    connect(this, &Widget::backgroundColorChanged,
+            this, &Widget::needsRedraw);
+
+    if (_screen) {
+        connect(this, &Widget::needsRedraw,
+                _screen, &Screen::onNeedsRedraw);
+        _screen->registerWidget(this);
+    } else {
+        qCritical() << "Screen is missing, can't draw the widget!" << this;
+    }
 }

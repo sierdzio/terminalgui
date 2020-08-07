@@ -30,8 +30,9 @@ class Widget : public QObject
 public:
     explicit Widget(Widget *parent);
     explicit Widget(Screen *parentScreen);
+    ~Widget();
 
-    virtual void show();
+    void show();
 
     QPoint position() const;
     QSize size() const;
@@ -43,6 +44,16 @@ public:
     Screen *screen() const;
     Widget *parentWidget() const;
 
+    virtual QString drawPixel(const QPoint &pixel) const;
+
+signals:
+    void needsRedraw() const;
+    void positionChanged(const QPoint &position) const;
+    void sizeChanged(const QSize &size) const;
+    void backgroundColorChanged(const Terminal::Color backgroundColor) const;
+    void textColorChanged(const Terminal::Color textColor) const;
+    void visibleChanged(const bool visible) const;
+
 public slots:
     void setPosition(const QPoint &position);
     void setSize(const QSize &size);
@@ -50,17 +61,9 @@ public slots:
     void setTextColor(const Terminal::Color textColor);
     void setVisible(const bool visible);
 
-signals:
-    void positionChanged(const QPoint &position) const;
-    void sizeChanged(const QSize &size) const;
-    void backgroundColorChanged(const Terminal::Color backgroundColor) const;
-    void textColorChanged(const Terminal::Color textColor) const;
-    void visibleChanged(const bool visible) const;
-
-protected:
-    virtual void draw();
-
 private:
+    void init();
+
     QPointer<Screen> _screen;
     QPointer<Widget> _parentWidget;
 

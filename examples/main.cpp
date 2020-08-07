@@ -25,7 +25,6 @@ int main(int argc, char *argv[])
     Tg::ReversibleAnimation animation(&label, "position");
     animation.setDuration(5000);
     animation.setStartValue(QPoint(0, 0));
-    //qDebug() << "Screen size" << screen.size();
     const int endX = screen.size().width() - label.text().size();
     animation.setEndValue(QPoint(endX, 0));
     animation.start();

@@ -1,9 +1,12 @@
 #pragma once
 
 #include <QObject>
+#include <QVector>
 #include <QSize>
 
 namespace Tg {
+class Widget;
+
 class Screen : public QObject
 {
     Q_OBJECT
@@ -11,6 +14,8 @@ class Screen : public QObject
     // TODO: differentiate between Terminal size and size of screen reserved
     // for application
     Q_PROPERTY(QSize size READ size NOTIFY sizeChanged)
+
+    friend class Widget;
 
 public:
     Screen(QObject *parent = nullptr);
@@ -20,10 +25,18 @@ public:
 
     QSize size() const;
 
+    void registerWidget(Widget *widget);
+    void deregisterWidget(Widget *widget);
+
 signals:
     void sizeChanged(const QSize &size) const;
 
+private slots:
+    // TODO: make it const?
+    void onNeedsRedraw();
+
 private:
     QSize _size;
+    QVector<Widget*> _widgets;
 };
 }
