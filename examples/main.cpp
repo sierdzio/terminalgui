@@ -38,6 +38,7 @@ int main(int argc, char *argv[])
     Tg::Widget widget(&screen);
     widget.setPosition(QPoint(18, 5));
     widget.setSize(QSize(8, 9));
+    widget.setBackgroundColor(Terminal::Color::Yellow);
     widget.show();
 
     Tg::ReversibleAnimation animation(&label, "position");

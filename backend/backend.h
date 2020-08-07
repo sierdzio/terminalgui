@@ -39,6 +39,12 @@ namespace Terminal {
         Default = White
     };
 
+    enum class ColorType {
+        Foreground,
+        ForegroundLight,
+        Background
+    };
+
     std::string colorCode(const Color color);
 }
 
@@ -72,18 +78,23 @@ std::string moveToPosition(const int x, const int y);
  * and then make sure your **end** the color declaration with `Colors::end`.
  *
  * This can be automated using Terminal::colorize RAII type.
+ *
+ * \todo Automate FG/BG colors. Improve this API!
  */
 namespace Colors {
 const std::string black = "\033[0;30m";
+const std::string bgBlack = "\033[0;40m";
 const std::string gray = "\033[1;30m";
 
 const std::string red = "\033[0;31m";
 const std::string pink = "\033[1;31m";
 
 const std::string green = "\033[0;32m";
+const std::string bgGreen = "\033[0;42m";
 const std::string lightGreen = "\033[1;32m";
 
 const std::string brown = "\033[0;33m";
+const std::string bgBrown = "\033[0;43m";
 const std::string yellow = "\033[1;33m";
 
 const std::string blue = "\033[0;34m";

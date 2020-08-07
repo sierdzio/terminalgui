@@ -26,6 +26,7 @@ class Widget : public QObject
     Q_PROPERTY(Terminal::Color backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
     Q_PROPERTY(Terminal::Color textColor READ textColor WRITE setTextColor NOTIFY textColorChanged)
     Q_PROPERTY(bool visible READ visible WRITE setVisible NOTIFY visibleChanged)
+    Q_PROPERTY(bool borderVisible READ borderVisible WRITE setBorderVisible NOTIFY borderVisibleChanged)
 
 public:
     explicit Widget(Widget *parent);
@@ -37,14 +38,18 @@ public:
     QPoint position() const;
     QSize size() const;
     QRect boundingRectangle() const;
+    QRect contentsRectangle() const;
+
     Terminal::Color backgroundColor() const;
     Terminal::Color textColor() const;
     bool visible() const;
+    bool borderVisible() const;
 
     Screen *screen() const;
     Widget *parentWidget() const;
 
     virtual QString drawPixel(const QPoint &pixel) const;
+    bool isBorder(const QPoint &pixel) const;
 
 signals:
     void needsRedraw() const;
@@ -53,6 +58,7 @@ signals:
     void backgroundColorChanged(const Terminal::Color backgroundColor) const;
     void textColorChanged(const Terminal::Color textColor) const;
     void visibleChanged(const bool visible) const;
+    void borderVisibleChanged(const bool borderVisible) const;
 
 public slots:
     void setPosition(const QPoint &position);
@@ -60,6 +66,7 @@ public slots:
     void setBackgroundColor(const Terminal::Color backgroundColor);
     void setTextColor(const Terminal::Color textColor);
     void setVisible(const bool visible);
+    void setBorderVisible(bool borderVisible);
 
 private:
     void init();
@@ -67,10 +74,12 @@ private:
     QPointer<Screen> _screen;
     QPointer<Widget> _parentWidget;
 
-    QPoint _position = { 0, 0 };
-    QSize _size = { 0, 0 };
+    QPoint _position = { 1, 1 };
+    QSize _size = { 1, 1 };
     Terminal::Color _backgroundColor = Terminal::Color::Default;
-    bool _visible = false;
     Terminal::Color _textColor = Terminal::Color::Default;
+    bool _visible = false;
+    bool _borderVisible = true;
+    const int _borderWidth = 1;
 };
 }

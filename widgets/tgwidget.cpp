@@ -47,6 +47,19 @@ QRect Tg::Widget::boundingRectangle() const
     return QRect(position(), size());
 }
 
+QRect Tg::Widget::contentsRectangle() const
+{
+    QPoint pos = position();
+    pos.setX(pos.x() + _borderWidth);
+    pos.setY(pos.y() + _borderWidth);
+
+    QSize siz = size();
+    const int twiceBorderWidth = 2 * _borderWidth;
+    siz.setWidth(siz.width() - twiceBorderWidth);
+    siz.setHeight(siz.height() - twiceBorderWidth);
+    return QRect(pos, siz);
+}
+
 Terminal::Color Tg::Widget::backgroundColor() const
 {
     return _backgroundColor;
@@ -62,6 +75,11 @@ bool Tg::Widget::visible() const
     return _visible;
 }
 
+bool Tg::Widget::borderVisible() const
+{
+    return _borderVisible;
+}
+
 Tg::Screen *Tg::Widget::screen() const
 {
     return _screen;
@@ -74,8 +92,33 @@ Tg::Widget *Tg::Widget::parentWidget() const
 
 QString Tg::Widget::drawPixel(const QPoint &pixel) const
 {
-    Q_UNUSED(pixel)
-    return QString{};
+    QString result;
+    if (isBorder(pixel)) {
+        result.append(QString::fromStdString(Colors::bgBrown));
+    } else {
+        result.append(QString::fromStdString(Colors::bgGreen));
+    }
+    result.append(' ');
+    result.append(QString::fromStdString(Colors::end));
+    return result;
+}
+
+bool Tg::Widget::isBorder(const QPoint &pixel) const
+{
+    if (borderVisible() == false) {
+        return false;
+    }
+
+    const QRect rect = boundingRectangle();
+    if (pixel.x() == rect.left() or pixel.x() == rect.right()) {
+        return true;
+    }
+
+    if (pixel.y() == rect.top() or pixel.y() == rect.bottom()) {
+        return true;
+    }
+
+    return false;
 }
 
 void Tg::Widget::setPosition(const QPoint &position)
@@ -132,12 +175,23 @@ void Tg::Widget::setVisible(const bool visible)
     emit visibleChanged(_visible);
 }
 
+void Tg::Widget::setBorderVisible(bool borderVisible)
+{
+    if (_borderVisible == borderVisible)
+        return;
+
+    _borderVisible = borderVisible;
+    emit borderVisibleChanged(_borderVisible);
+}
+
 void Tg::Widget::init()
 {
     // TODO: do not emit signal if widget is not visible!
     connect(this, &Widget::sizeChanged,
             this, &Widget::needsRedraw);
     connect(this, &Widget::visibleChanged,
+            this, &Widget::needsRedraw);
+    connect(this, &Widget::borderVisibleChanged,
             this, &Widget::needsRedraw);
     connect(this, &Widget::positionChanged,
             this, &Widget::needsRedraw);
@@ -152,5 +206,9 @@ void Tg::Widget::init()
         _screen->registerWidget(this);
     } else {
         qCritical() << "Screen is missing, can't draw the widget!" << this;
+    }
+
+    if (_parentWidget) {
+        setBorderVisible(false);
     }
 }
