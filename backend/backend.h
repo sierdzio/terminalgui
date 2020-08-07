@@ -57,6 +57,12 @@ const std::string erase = "\033[K";
 const std::string save = "\033[s";
 const std::string restore = "\033[u";
 
+/*!
+ * Returns terminal command which will move the cursor to position \a x, \a y.
+ *
+ * \warning \a x and \a y start in top left corner of the screen and they both
+ * start with `1` (one), not zero!
+ */
 std::string moveToPosition(const int x, const int y);
 }
 

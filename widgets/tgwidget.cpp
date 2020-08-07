@@ -83,6 +83,14 @@ void Tg::Widget::setPosition(const QPoint &position)
     if (_position == position)
         return;
 
+    if (position.x() == 0) {
+        qWarning() << "Minimal x coordinate on terminal is 1, not 0";
+    }
+
+    if (position.y() == 0) {
+        qWarning() << "Minimal y coordinate on terminal is 1, not 0";
+    }
+
     _position = position;
     emit positionChanged(_position);
 }
