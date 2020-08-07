@@ -101,14 +101,11 @@ QStringList Tg::Label::layoutText() const
             }
         }
 
-        // Make sure last row is inserted:
-        if (result.contains(currentString) == false) {
-            while (currentString.length() < width) {
-                // Fill with spaces
-                currentString.append(' ');
-            }
-            result.append(currentString);
+        while (currentString.length() < width) {
+            // Fill with spaces
+            currentString.append(' ');
         }
+        result.append(currentString);
     }
 
     return result;

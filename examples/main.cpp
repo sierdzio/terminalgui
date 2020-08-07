@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
     Tg::Screen screen;
     Tg::Label labelBelow(QObject::tr("Below with some extra text!"), &screen);
     labelBelow.setPosition(QPoint(20, 0));
-    labelBelow.setSize(QSize(6, 3)); // 6 characters per line, 3 lines
+    labelBelow.setSize(QSize(6, 4)); // 6 characters per line, 3 lines
     labelBelow.setTextColor(Terminal::Color::Red);
     labelBelow.show();
 
@@ -27,6 +27,12 @@ int main(int argc, char *argv[])
     labelAbove.setPosition(QPoint(40, 0));
     labelAbove.setTextColor(Terminal::Color::Cyan);
     labelAbove.show();
+
+    Tg::Label labelNotOnFirstRow(QObject::tr("Detached with some extra text!"), &screen);
+    labelNotOnFirstRow.setPosition(QPoint(30, 6));
+    labelNotOnFirstRow.setSize(QSize(6, 5)); // 6 characters per line, 5 lines
+    labelNotOnFirstRow.setTextColor(Terminal::Color::Blue);
+    labelNotOnFirstRow.show();
 
     Tg::ReversibleAnimation animation(&label, "position");
     animation.setDuration(5000);
