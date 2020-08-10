@@ -17,7 +17,7 @@ public:
 
     QString text() const;
 
-    QString drawPixel(const QPoint &pixel) const override;
+    std::string drawPixel(const QPoint &pixel) const override;
 
 signals:
     void textChanged(const QString &text) const;

@@ -3,49 +3,50 @@
 #include <string>
 
 namespace Terminal {
-    struct Size {
-        int width = 80;
-        int height = 24;
-    };
+struct Size {
+    int width = 80;
+    int height = 24;
+};
 
-    struct Position {
-        int x = 0;
-        int y = 0;
-    };
+struct Position {
+    int x = 0;
+    int y = 0;
+};
 
-    Size updateSize();
-    Position currentPosition();
+Size updateSize();
+Position currentPosition();
 
-    const Size defaultSize;
-    static Size size = updateSize();
+const Size defaultSize;
+static Size size = updateSize();
 
-    enum class Color {
-        Black,
-        Gray,
-        Red,
-        Pink,
-        Green,
-        LightGreen,
-        Brown,
-        Yellow,
-        Blue,
-        LightBlue,
-        Purple,
-        LightPurple,
-        Cyan,
-        LightCyan,
-        LightGray,
-        White,
-        Default = White
-    };
+enum class Color4Bit {
+    Black = 30,
+    Red = 31,
+    Green = 32,
+    Yellow = 33,
+    Blue = 34,
+    Magenta = 35,
+    Cyan = 36,
+    White = 37,
+    Gray = 90,
+    Pink = 91,
+    LightRed = Pink,
+    LightGreen = 92,
+    LightYellow = 93,
+    LightBlue = 94,
+    LightMagenta = 95,
+    LightCyan = 96,
+    LightWhite = 97
+};
 
-    enum class ColorType {
-        Foreground,
-        ForegroundLight,
-        Background
-    };
+enum class ColorType {
+    Foreground,
+    Background
+};
 
-    std::string colorCode(const Color color);
+std::string colorCode(const Color4Bit foregroundColor,
+                      const Color4Bit backgroundColor = Color4Bit::Black);
+std::string colorEnd();
 }
 
 // http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x361.html
@@ -71,49 +72,3 @@ const std::string restore = "\033[u";
  */
 std::string moveToPosition(const int x, const int y);
 }
-
-// http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x329.html
-/*!
- * To make text colorful, push chosen color to `stdout`, then your text
- * and then make sure your **end** the color declaration with `Colors::end`.
- *
- * This can be automated using Terminal::colorize RAII type.
- *
- * \todo Automate FG/BG colors. Improve this API!
- */
-namespace Colors {
-const std::string black = "\033[0;30m";
-const std::string bgBlack = "\033[0;40m";
-const std::string gray = "\033[1;30m";
-
-const std::string red = "\033[0;31m";
-const std::string pink = "\033[1;31m";
-
-const std::string green = "\033[0;32m";
-const std::string bgGreen = "\033[0;42m";
-const std::string lightGreen = "\033[1;32m";
-
-const std::string brown = "\033[0;33m";
-const std::string bgBrown = "\033[0;43m";
-const std::string yellow = "\033[1;33m";
-
-const std::string blue = "\033[0;34m";
-const std::string lightBlue = "\033[1;34m";
-
-const std::string purple = "\033[0;35m";
-const std::string lightPurple = "\033[1;35m";
-
-const std::string cyan = "\033[0;36m";
-const std::string lightCyan = "\033[1;36m";
-
-const std::string lightGray = "\033[0;37m";
-const std::string white = "\033[1;37m";
-
-const std::string end = "\033[0m";
-
-}
-
-//#define CYAN(x) "\033[1;36m" << x << "\033[0m"
-//#define BLUE(x) "\033[1;34m" << x << "\033[0m"
-//#define RED(x) "\033[1;31m" << x << "\033[0m"
-//#define GREEN(x) "\033[1;32m" << x << "\033[0m"

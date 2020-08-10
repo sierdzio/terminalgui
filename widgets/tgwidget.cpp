@@ -60,12 +60,12 @@ QRect Tg::Widget::contentsRectangle() const
     return QRect(pos, siz);
 }
 
-Terminal::Color Tg::Widget::backgroundColor() const
+Terminal::Color4Bit Tg::Widget::backgroundColor() const
 {
     return _backgroundColor;
 }
 
-Terminal::Color Tg::Widget::textColor() const
+Terminal::Color4Bit Tg::Widget::textColor() const
 {
     return _textColor;
 }
@@ -90,16 +90,18 @@ Tg::Widget *Tg::Widget::parentWidget() const
     return _parentWidget;
 }
 
-QString Tg::Widget::drawPixel(const QPoint &pixel) const
+std::string Tg::Widget::drawPixel(const QPoint &pixel) const
 {
-    QString result;
+    std::string result;
     if (isBorder(pixel)) {
-        result.append(QString::fromStdString(Colors::bgBrown));
+        result.append(Terminal::colorCode(Terminal::Color4Bit::Pink,
+                                          Terminal::Color4Bit::Yellow));
     } else {
-        result.append(QString::fromStdString(Colors::bgGreen));
+        result.append(Terminal::colorCode(Terminal::Color4Bit::Red,
+                                          Terminal::Color4Bit::Green));
     }
-    result.append(' ');
-    result.append(QString::fromStdString(Colors::end));
+    result.push_back('x');
+    result.append(Terminal::colorEnd());
     return result;
 }
 
@@ -147,7 +149,7 @@ void Tg::Widget::setSize(const QSize &size)
     emit sizeChanged(_size);
 }
 
-void Tg::Widget::setBackgroundColor(const Terminal::Color backgroundColor)
+void Tg::Widget::setBackgroundColor(const Terminal::Color4Bit backgroundColor)
 {
     if (_backgroundColor == backgroundColor)
         return;
@@ -156,7 +158,7 @@ void Tg::Widget::setBackgroundColor(const Terminal::Color backgroundColor)
     emit backgroundColorChanged(_backgroundColor);
 }
 
-void Tg::Widget::setTextColor(const Terminal::Color textColor)
+void Tg::Widget::setTextColor(const Terminal::Color4Bit textColor)
 {
     if (_textColor == textColor)
         return;

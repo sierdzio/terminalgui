@@ -34,17 +34,17 @@ QString Tg::Label::text() const
     return _text;
 }
 
-QString Tg::Label::drawPixel(const QPoint &pixel) const
+std::string Tg::Label::drawPixel(const QPoint &pixel) const
 {
-    QString result;
-    result.append(QString::fromStdString(Terminal::colorCode(textColor())));
+    std::string result;
+    result.append(Terminal::colorCode(textColor(), backgroundColor()));
 
     const int charX = pixel.x() - position().x();
     const int charY = pixel.y() - position().y();
 
     const QStringList wrappedText(_laidOutTextCache);
-    result.append(wrappedText.at(charY).at(charX));
-    result.append(QString::fromStdString(Colors::end));
+    result.push_back(wrappedText.at(charY).at(charX).unicode());
+    result.append(Terminal::colorEnd());
     return result;
 }
 
