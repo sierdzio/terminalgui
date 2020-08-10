@@ -27,6 +27,7 @@ class Widget : public QObject
     Q_PROPERTY(QSize size READ size WRITE setSize NOTIFY sizeChanged)
     Q_PROPERTY(Terminal::Color4Bit backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
     Q_PROPERTY(Terminal::Color4Bit textColor READ textColor WRITE setTextColor NOTIFY textColorChanged)
+    Q_PROPERTY(Terminal::Color4Bit borderColor READ borderColor WRITE setBorderColor NOTIFY borderColorChanged)
     Q_PROPERTY(bool visible READ visible WRITE setVisible NOTIFY visibleChanged)
     Q_PROPERTY(bool borderVisible READ borderVisible WRITE setBorderVisible NOTIFY borderVisibleChanged)
 
@@ -44,6 +45,8 @@ public:
 
     Terminal::Color4Bit backgroundColor() const;
     Terminal::Color4Bit textColor() const;
+    Terminal::Color4Bit borderColor() const;
+
     bool visible() const;
     bool borderVisible() const;
 
@@ -59,6 +62,7 @@ signals:
     void sizeChanged(const QSize &size) const;
     void backgroundColorChanged(const Terminal::Color4Bit backgroundColor) const;
     void textColorChanged(const Terminal::Color4Bit textColor) const;
+    void borderColorChanged(const Terminal::Color4Bit borderColor) const;
     void visibleChanged(const bool visible) const;
     void borderVisibleChanged(const bool borderVisible) const;
 
@@ -67,6 +71,7 @@ public slots:
     void setSize(const QSize &size);
     void setBackgroundColor(const Terminal::Color4Bit backgroundColor);
     void setTextColor(const Terminal::Color4Bit textColor);
+    void setBorderColor(Terminal::Color4Bit borderColor);
     void setVisible(const bool visible);
     void setBorderVisible(bool borderVisible);
 
@@ -78,8 +83,9 @@ private:
 
     QPoint _position = { 1, 1 };
     QSize _size = { 1, 1 };
-    Terminal::Color4Bit _backgroundColor = Terminal::Color4Bit::Black;
+    Terminal::Color4Bit _backgroundColor = Terminal::Color4Bit::Gray;
     Terminal::Color4Bit _textColor = Terminal::Color4Bit::White;
+    Terminal::Color4Bit _borderColor = Terminal::Color4Bit::LightBlue;
     bool _visible = false;
     bool _borderVisible = true;
     const int _borderWidth = 1;

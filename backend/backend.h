@@ -20,6 +20,7 @@ const Size defaultSize;
 static Size size = updateSize();
 
 enum class Color4Bit {
+    Empty = 0,
     Black = 30,
     Red = 31,
     Green = 32,
@@ -45,7 +46,7 @@ enum class ColorType {
 };
 
 std::string colorCode(const Color4Bit foregroundColor,
-                      const Color4Bit backgroundColor = Color4Bit::Black);
+                      const Color4Bit backgroundColor = Color4Bit::Empty);
 std::string colorEnd();
 }
 

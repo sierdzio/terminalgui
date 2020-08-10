@@ -29,8 +29,11 @@ Terminal::Position Terminal::currentPosition()
 std::string Terminal::colorCode(const Terminal::Color4Bit foregroundColor,
                                 const Terminal::Color4Bit backgroundColor)
 {
+    const int padding = (backgroundColor == Terminal::Color4Bit::Empty)? 0 : 10;
+
     return "\033[" + std::to_string(int(foregroundColor))
-        + ";" + std::to_string(int(backgroundColor) + 10) + "m";
+        + ";" + std::to_string(int(backgroundColor) + padding)
+        + "m";
 }
 
 std::string Terminal::colorEnd()

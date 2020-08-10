@@ -36,6 +36,10 @@ QString Tg::Label::text() const
 
 std::string Tg::Label::drawPixel(const QPoint &pixel) const
 {
+    if (isBorder(pixel)) {
+        return Tg::Widget::drawPixel(pixel);
+    }
+
     std::string result;
     result.append(Terminal::colorCode(textColor(), backgroundColor()));
 

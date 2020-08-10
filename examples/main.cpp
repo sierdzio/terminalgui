@@ -15,8 +15,10 @@ int main(int argc, char *argv[])
     Tg::Screen screen;
     Tg::Label labelBelow(QObject::tr("Below with some extra text!"), &screen);
     labelBelow.setPosition(QPoint(20, 1));
-    labelBelow.setSize(QSize(6, 4)); // 6 characters per line, 3 lines
+    labelBelow.setSize(QSize(6, 4));
     labelBelow.setTextColor(Terminal::Color4Bit::Red);
+    labelBelow.setBackgroundColor(Terminal::Color4Bit::Black);
+    labelBelow.setBorderVisible(false);
     labelBelow.show();
 
     Tg::Label label(QObject::tr("Hello world!"), &labelBelow);
@@ -29,16 +31,16 @@ int main(int argc, char *argv[])
     labelAbove.setTextColor(Terminal::Color4Bit::Cyan);
     labelAbove.show();
 
-    Tg::Label labelNotOnFirstRow(QObject::tr("Detached with some extra text!"), &screen);
-    labelNotOnFirstRow.setPosition(QPoint(1, 6));
-    labelNotOnFirstRow.setSize(QSize(6, 5)); // 6 characters per line, 5 lines
-    labelNotOnFirstRow.setTextColor(Terminal::Color4Bit::Blue);
-    labelNotOnFirstRow.show();
+    // TODO: fix issue with label trying to draw on border and segfaulting.
+//    Tg::Label labelNotOnFirstRow(QObject::tr("Detached with some extra text!"), &screen);
+//    labelNotOnFirstRow.setPosition(QPoint(1, 6));
+//    labelNotOnFirstRow.setSize(QSize(8, 7));
+//    labelNotOnFirstRow.setTextColor(Terminal::Color4Bit::Blue);
+//    labelNotOnFirstRow.show();
 
     Tg::Widget widget(&screen);
     widget.setPosition(QPoint(18, 6));
     widget.setSize(QSize(18, 9));
-    widget.setBackgroundColor(Terminal::Color4Bit::Yellow);
     widget.show();
 
     Tg::ReversibleAnimation animation(&label, "position");

@@ -70,6 +70,11 @@ Terminal::Color4Bit Tg::Widget::textColor() const
     return _textColor;
 }
 
+Terminal::Color4Bit Tg::Widget::borderColor() const
+{
+    return _borderColor;
+}
+
 bool Tg::Widget::visible() const
 {
     return _visible;
@@ -94,13 +99,13 @@ std::string Tg::Widget::drawPixel(const QPoint &pixel) const
 {
     std::string result;
     if (isBorder(pixel)) {
-        result.append(Terminal::colorCode(Terminal::Color4Bit::Pink,
-                                          Terminal::Color4Bit::Yellow));
+        result.append(Terminal::colorCode(Terminal::Color4Bit::Empty,
+                                          borderColor()));
     } else {
-        result.append(Terminal::colorCode(Terminal::Color4Bit::Red,
-                                          Terminal::Color4Bit::Green));
+        result.append(Terminal::colorCode(Terminal::Color4Bit::Empty,
+                                          backgroundColor()));
     }
-    result.push_back('x');
+    result.push_back(' ');
     return result;
 }
 
@@ -166,6 +171,15 @@ void Tg::Widget::setTextColor(const Terminal::Color4Bit textColor)
     emit textColorChanged(_textColor);
 }
 
+void Tg::Widget::setBorderColor(Terminal::Color4Bit borderColor)
+{
+    if (_borderColor == borderColor)
+        return;
+
+    _borderColor = borderColor;
+    emit borderColorChanged(_borderColor);
+}
+
 void Tg::Widget::setVisible(const bool visible)
 {
     if (_visible == visible)
@@ -211,5 +225,6 @@ void Tg::Widget::init()
 
     if (_parentWidget) {
         setBorderVisible(false);
+        setBackgroundColor(Terminal::Color4Bit::Black);
     }
 }
