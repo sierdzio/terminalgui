@@ -47,6 +47,7 @@ void Tg::Screen::onNeedsRedraw()
         for (int x = 1; x < size().width(); ++x) {
             const QPoint pixel(x, y);
 
+            bool drawn = false;
             // TODO: sort by Z value...
             // TODO: "bundle" pixels from same widget to prevent
             // multiple loop passes for the same widget
@@ -54,8 +55,13 @@ void Tg::Screen::onNeedsRedraw()
                 if (widget->visible() && widget->boundingRectangle().contains(pixel)) {
                     stream << Commands::moveToPosition(x, y);
                     stream << widget->drawPixel(pixel);
+                    drawn = true;
                     continue;
                 }
+            }
+
+            if (drawn == false) {
+                stream << Terminal::colorEnd();
             }
         }
     }

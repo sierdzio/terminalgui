@@ -101,7 +101,6 @@ std::string Tg::Widget::drawPixel(const QPoint &pixel) const
                                           Terminal::Color4Bit::Green));
     }
     result.push_back('x');
-    result.append(Terminal::colorEnd());
     return result;
 }
 

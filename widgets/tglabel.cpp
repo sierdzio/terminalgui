@@ -44,7 +44,6 @@ std::string Tg::Label::drawPixel(const QPoint &pixel) const
 
     const QStringList wrappedText(_laidOutTextCache);
     result.push_back(wrappedText.at(charY).at(charX).unicode());
-    result.append(Terminal::colorEnd());
     return result;
 }
 
