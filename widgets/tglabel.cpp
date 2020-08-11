@@ -43,8 +43,9 @@ std::string Tg::Label::drawPixel(const QPoint &pixel) const
     std::string result;
     result.append(Terminal::colorCode(textColor(), backgroundColor()));
 
-    const int charX = pixel.x() - position().x();
-    const int charY = pixel.y() - position().y();
+    const QRect contents = contentsRectangle();
+    const int charX = pixel.x() - contents.x();
+    const int charY = pixel.y() - contents.y();
 
     const QStringList wrappedText(_laidOutTextCache);
     result.push_back(wrappedText.at(charY).at(charX).unicode());
@@ -70,18 +71,20 @@ void Tg::Label::setText(const QString &text, const bool expand)
 
 void Tg::Label::init()
 {
-    connect(this, &Label::textChanged,
-            this, &Label::needsRedraw);
     connect(this, &Label::needsRedraw,
             this, &Label::layoutText);
+    connect(this, &Label::textChanged,
+            this, &Label::needsRedraw);
 }
 
 void Tg::Label::layoutText()
 {
     _laidOutTextCache.clear();
 
-    const int width = size().width();
-    const int height = size().height();
+    const QRect contents = contentsRectangle();
+    const int width = contents.width();
+    const int height = contents.height();
+
     if (text().size() <= width) {
         _laidOutTextCache.append(text());
         return;

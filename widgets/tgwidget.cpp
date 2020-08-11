@@ -49,12 +49,13 @@ QRect Tg::Widget::boundingRectangle() const
 
 QRect Tg::Widget::contentsRectangle() const
 {
+    const int borderWidth = effectiveBorderWidth();
     QPoint pos = position();
-    pos.setX(pos.x() + _borderWidth);
-    pos.setY(pos.y() + _borderWidth);
+    pos.setX(pos.x() + borderWidth);
+    pos.setY(pos.y() + borderWidth);
 
     QSize siz = size();
-    const int twiceBorderWidth = 2 * _borderWidth;
+    const int twiceBorderWidth = 2 * borderWidth;
     siz.setWidth(siz.width() - twiceBorderWidth);
     siz.setHeight(siz.height() - twiceBorderWidth);
     return QRect(pos, siz);
@@ -190,7 +191,7 @@ void Tg::Widget::setVisible(const bool visible)
     emit visibleChanged(_visible);
 }
 
-void Tg::Widget::setBorderVisible(bool borderVisible)
+void Tg::Widget::setBorderVisible(const bool borderVisible)
 {
     if (_borderVisible == borderVisible)
         return;
@@ -202,17 +203,19 @@ void Tg::Widget::setBorderVisible(bool borderVisible)
 void Tg::Widget::init()
 {
     // TODO: do not emit signal if widget is not visible!
+    connect(this, &Widget::positionChanged,
+            this, &Widget::needsRedraw);
     connect(this, &Widget::sizeChanged,
+            this, &Widget::needsRedraw);
+    connect(this, &Widget::backgroundColorChanged,
+            this, &Widget::needsRedraw);
+    connect(this, &Widget::textColorChanged,
+            this, &Widget::needsRedraw);
+    connect(this, &Widget::borderColorChanged,
             this, &Widget::needsRedraw);
     connect(this, &Widget::visibleChanged,
             this, &Widget::needsRedraw);
     connect(this, &Widget::borderVisibleChanged,
-            this, &Widget::needsRedraw);
-    connect(this, &Widget::positionChanged,
-            this, &Widget::needsRedraw);
-    connect(this, &Widget::textColorChanged,
-            this, &Widget::needsRedraw);
-    connect(this, &Widget::backgroundColorChanged,
             this, &Widget::needsRedraw);
 
     if (_screen) {
@@ -227,4 +230,13 @@ void Tg::Widget::init()
         setBorderVisible(false);
         setBackgroundColor(Terminal::Color4Bit::Black);
     }
+}
+
+int Tg::Widget::effectiveBorderWidth() const
+{
+    if (borderVisible()) {
+        return _borderWidth;
+    }
+
+    return 0;
 }

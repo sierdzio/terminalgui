@@ -21,9 +21,11 @@ int main(int argc, char *argv[])
     labelBelow.setBorderVisible(false);
     labelBelow.show();
 
-    Tg::Label label(QObject::tr("Hello world!"), &labelBelow);
+    Tg::Label label(QObject::tr("Hello world!"), &screen);
     label.setPosition(QPoint(1, 1));
     label.setTextColor(Terminal::Color4Bit::Green);
+    label.setBackgroundColor(Terminal::Color4Bit::Black);
+    label.setBorderVisible(false);
     label.show();
 
     Tg::Label labelAbove(QObject::tr("Above"), &label);
@@ -31,12 +33,11 @@ int main(int argc, char *argv[])
     labelAbove.setTextColor(Terminal::Color4Bit::Cyan);
     labelAbove.show();
 
-    // TODO: fix issue with label trying to draw on border and segfaulting.
-//    Tg::Label labelNotOnFirstRow(QObject::tr("Detached with some extra text!"), &screen);
-//    labelNotOnFirstRow.setPosition(QPoint(1, 6));
-//    labelNotOnFirstRow.setSize(QSize(8, 7));
-//    labelNotOnFirstRow.setTextColor(Terminal::Color4Bit::Blue);
-//    labelNotOnFirstRow.show();
+    Tg::Label labelNotOnFirstRow(QObject::tr("Detached with some extra text!"), &screen);
+    labelNotOnFirstRow.setPosition(QPoint(1, 6));
+    labelNotOnFirstRow.setSize(QSize(8, 7));
+    labelNotOnFirstRow.setTextColor(Terminal::Color4Bit::Blue);
+    labelNotOnFirstRow.show();
 
     Tg::Widget widget(&screen);
     widget.setPosition(QPoint(18, 6));
