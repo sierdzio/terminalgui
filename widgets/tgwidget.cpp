@@ -200,6 +200,15 @@ void Tg::Widget::setBorderVisible(const bool borderVisible)
     emit borderVisibleChanged(_borderVisible);
 }
 
+int Tg::Widget::effectiveBorderWidth() const
+{
+    if (borderVisible()) {
+        return _borderWidth;
+    }
+
+    return 0;
+}
+
 void Tg::Widget::init()
 {
     // TODO: do not emit signal if widget is not visible!
@@ -230,13 +239,4 @@ void Tg::Widget::init()
         setBorderVisible(false);
         setBackgroundColor(Terminal::Color4Bit::Black);
     }
-}
-
-int Tg::Widget::effectiveBorderWidth() const
-{
-    if (borderVisible()) {
-        return _borderWidth;
-    }
-
-    return 0;
 }

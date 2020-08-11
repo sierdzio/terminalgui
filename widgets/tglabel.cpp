@@ -62,7 +62,7 @@ void Tg::Label::setText(const QString &text, const bool expand)
     QSize current(size());
     if (expand && current.width() != _text.length()) {
         current.setWidth(text.length());
-        current.setHeight(_text.isEmpty()? 0 : 1);
+        current.setHeight(1);
         setSize(current);
     }
 

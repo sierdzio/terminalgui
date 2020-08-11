@@ -75,9 +75,11 @@ public slots:
     void setVisible(const bool visible);
     void setBorderVisible(const bool borderVisible);
 
+protected:
+    int effectiveBorderWidth() const;
+
 private:
     void init();
-    int effectiveBorderWidth() const;
 
     QPointer<Screen> _screen;
     QPointer<Widget> _parentWidget;
@@ -87,9 +89,9 @@ private:
     // TODO: use 256 bit colors by default. Introduce some "Terminal::Color"
     // class which will dynamically switch between color types based
     // on user settings or terminal capabilities
-    Terminal::Color4Bit _backgroundColor = Terminal::Color4Bit::Gray;
+    Terminal::Color4Bit _backgroundColor = Terminal::Color4Bit::Black;
     Terminal::Color4Bit _textColor = Terminal::Color4Bit::White;
-    Terminal::Color4Bit _borderColor = Terminal::Color4Bit::LightBlue;
+    Terminal::Color4Bit _borderColor = Terminal::Color4Bit::LightYellow;
     bool _visible = false;
     bool _borderVisible = true;
     const int _borderWidth = 1;
