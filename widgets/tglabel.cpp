@@ -37,7 +37,7 @@ QString Tg::Label::text() const
 std::string Tg::Label::drawPixel(const QPoint &pixel) const
 {
     if (isBorder(pixel)) {
-        return Tg::Widget::drawPixel(pixel);
+        return drawBorderPixel(pixel);
     }
 
     std::string result;

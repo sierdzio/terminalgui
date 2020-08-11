@@ -53,6 +53,7 @@ public:
     Screen *screen() const;
     Widget *parentWidget() const;
 
+    virtual std::string drawBorderPixel(const QPoint &pixel) const;
     virtual std::string drawPixel(const QPoint &pixel) const;
     bool isBorder(const QPoint &pixel) const;
 
@@ -91,7 +92,7 @@ private:
     // on user settings or terminal capabilities
     Terminal::Color4Bit _backgroundColor = Terminal::Color4Bit::Black;
     Terminal::Color4Bit _textColor = Terminal::Color4Bit::White;
-    Terminal::Color4Bit _borderColor = Terminal::Color4Bit::LightYellow;
+    Terminal::Color4Bit _borderColor = Terminal::Color4Bit::Yellow;
     bool _visible = false;
     bool _borderVisible = true;
     const int _borderWidth = 1;

@@ -96,12 +96,40 @@ Tg::Widget *Tg::Widget::parentWidget() const
     return _parentWidget;
 }
 
+std::string Tg::Widget::drawBorderPixel(const QPoint &pixel) const
+{
+    std::string result;
+
+    result.append(Terminal::colorCode(borderColor(),
+                                      Terminal::Color4Bit::Empty));
+
+    const QRect rect = boundingRectangle();
+    // https://en.wikipedia.org/wiki/Geometric_Shapes
+    // TODO: allow full customization of border styles!
+    if (pixel == rect.topLeft()) {
+        result.append("\u25E2");
+    } else if (pixel == rect.topRight()) {
+        result.append("\u25E3");
+    } else if (pixel == rect.bottomLeft()) {
+        result.append("\u25E5");
+    } else if (pixel == rect.bottomRight()) {
+        result.append("\u25E4");
+    } else if (pixel.y() == rect.top() or pixel.y() == rect.bottom()) {
+        result.append("\u25AA");
+    } else if (pixel.x() == rect.left() or pixel.x() == rect.right()) {
+        result.append("\u25AA");
+    } else {
+        result.push_back('x');
+    }
+
+    return result;
+}
+
 std::string Tg::Widget::drawPixel(const QPoint &pixel) const
 {
     std::string result;
     if (isBorder(pixel)) {
-        result.append(Terminal::colorCode(Terminal::Color4Bit::Empty,
-                                          borderColor()));
+        return drawBorderPixel(pixel);
     } else {
         result.append(Terminal::colorCode(Terminal::Color4Bit::Empty,
                                           backgroundColor()));
