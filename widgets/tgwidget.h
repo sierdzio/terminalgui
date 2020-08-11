@@ -30,6 +30,7 @@ class Widget : public QObject
     Q_PROPERTY(Terminal::Color4Bit borderColor READ borderColor WRITE setBorderColor NOTIFY borderColorChanged)
     Q_PROPERTY(bool visible READ visible WRITE setVisible NOTIFY visibleChanged)
     Q_PROPERTY(bool borderVisible READ borderVisible WRITE setBorderVisible NOTIFY borderVisibleChanged)
+    Q_PROPERTY(bool acceptsFocus READ acceptsFocus NOTIFY acceptsFocusChanged)
 
 public:
     explicit Widget(Widget *parent);
@@ -49,6 +50,7 @@ public:
 
     bool visible() const;
     bool borderVisible() const;
+    bool acceptsFocus() const;
 
     Screen *screen() const;
     Widget *parentWidget() const;
@@ -66,6 +68,7 @@ signals:
     void borderColorChanged(const Terminal::Color4Bit borderColor) const;
     void visibleChanged(const bool visible) const;
     void borderVisibleChanged(const bool borderVisible) const;
+    void acceptsFocusChanged(const bool acceptsFocus) const;
 
 public slots:
     void setPosition(const QPoint &position);
@@ -82,6 +85,8 @@ protected:
 private:
     void init();
 
+    const int _borderWidth = 1;
+
     QPointer<Screen> _screen;
     QPointer<Widget> _parentWidget;
 
@@ -95,6 +100,6 @@ private:
     Terminal::Color4Bit _borderColor = Terminal::Color4Bit::Yellow;
     bool _visible = false;
     bool _borderVisible = true;
-    const int _borderWidth = 1;
+    bool _acceptsFocus = false;
 };
 }

@@ -86,6 +86,11 @@ bool Tg::Widget::borderVisible() const
     return _borderVisible;
 }
 
+bool Tg::Widget::acceptsFocus() const
+{
+    return _acceptsFocus;
+}
+
 Tg::Screen *Tg::Widget::screen() const
 {
     return _screen;
