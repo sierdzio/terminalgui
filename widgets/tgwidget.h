@@ -31,6 +31,7 @@ class Widget : public QObject
     Q_PROPERTY(bool visible READ visible WRITE setVisible NOTIFY visibleChanged)
     Q_PROPERTY(bool borderVisible READ borderVisible WRITE setBorderVisible NOTIFY borderVisibleChanged)
     Q_PROPERTY(bool acceptsFocus READ acceptsFocus NOTIFY acceptsFocusChanged)
+    Q_PROPERTY(bool hasFocus READ hasFocus NOTIFY hasFocusChanged)
 
 public:
     explicit Widget(Widget *parent);
@@ -51,6 +52,10 @@ public:
     bool visible() const;
     bool borderVisible() const;
     bool acceptsFocus() const;
+    bool hasFocus() const;
+
+    void setAcceptsFocus(const bool acceptsFocus);
+    void setHasFocus(const bool hasFocus);
 
     Screen *screen() const;
     Widget *parentWidget() const;
@@ -69,6 +74,7 @@ signals:
     void visibleChanged(const bool visible) const;
     void borderVisibleChanged(const bool borderVisible) const;
     void acceptsFocusChanged(const bool acceptsFocus) const;
+    void hasFocusChanged(const bool hasFocus) const;
 
 public slots:
     void setPosition(const QPoint &position);
@@ -81,10 +87,9 @@ public slots:
 
 protected:
     int effectiveBorderWidth() const;
+    virtual void init();
 
 private:
-    void init();
-
     const int _borderWidth = 1;
 
     QPointer<Screen> _screen;
@@ -101,5 +106,6 @@ private:
     bool _visible = false;
     bool _borderVisible = true;
     bool _acceptsFocus = false;
+    bool _hasFocus = false;
 };
 }

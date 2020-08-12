@@ -9,6 +9,9 @@ Tg::Widget::Widget(Widget *parent)
       _screen(parent->screen()),
       _parentWidget(parent)
 {
+    // TODO: when parenting under a Widget, make sure position() and size()
+    // are adjusted to fit the parent. And that the two will now move together
+
     init();
 }
 
@@ -89,6 +92,22 @@ bool Tg::Widget::borderVisible() const
 bool Tg::Widget::acceptsFocus() const
 {
     return _acceptsFocus;
+}
+
+bool Tg::Widget::hasFocus() const
+{
+    return _hasFocus;
+}
+
+void Tg::Widget::setAcceptsFocus(const bool acceptsFocus)
+{
+    _acceptsFocus = acceptsFocus;
+}
+
+void Tg::Widget::setHasFocus(const bool hasFocus)
+{
+    qDebug() << "I HAVE FOCUS!" << objectName();
+    _hasFocus = hasFocus;
 }
 
 Tg::Screen *Tg::Widget::screen() const

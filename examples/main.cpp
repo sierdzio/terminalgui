@@ -7,6 +7,8 @@
 #include <widgets/tgscreen.h>
 #include <widgets/tgwidget.h>
 #include <widgets/tglabel.h>
+#include <widgets/tgbutton.h>
+
 
 int main(int argc, char *argv[])
 {
@@ -28,9 +30,11 @@ int main(int argc, char *argv[])
     label.setBorderVisible(false);
     label.show();
 
-    Tg::Label labelAbove(QObject::tr("Above"), &label);
+    Tg::Label labelAbove(QObject::tr("Above"), &screen);
     labelAbove.setPosition(QPoint(40, 4));
     labelAbove.setTextColor(Terminal::Color4Bit::Cyan);
+    labelAbove.setBackgroundColor(Terminal::Color4Bit::Black);
+    labelAbove.setBorderVisible(false);
     labelAbove.show();
 
     Tg::Label labelNotOnFirstRow(QObject::tr("Detached with some extra text!"), &screen);
@@ -44,12 +48,19 @@ int main(int argc, char *argv[])
     widget.setSize(QSize(18, 9));
     widget.show();
 
-    Tg::ReversibleAnimation animation(&label, "position");
-    animation.setDuration(5000);
-    animation.setStartValue(QPoint(1, 1));
-    const int endX = screen.size().width() - label.text().size();
-    animation.setEndValue(QPoint(endX, 7));
-    animation.start();
+    Tg::Button button(QObject::tr("OK"), &widget);
+    // TODO: auto-position widgets!
+    button.setPosition(QPoint(19, 7));
+    // TODO: fix crash!
+    //button.setSize(QSize(8, 3));
+    button.show();
+
+//    Tg::ReversibleAnimation animation(&label, "position");
+//    animation.setDuration(5000);
+//    animation.setStartValue(QPoint(1, 1));
+//    const int endX = screen.size().width() - label.text().size();
+//    animation.setEndValue(QPoint(endX, 7));
+//    animation.start();
 
     return app.exec();
 }

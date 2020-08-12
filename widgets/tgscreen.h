@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QObject>
+#include <QPointer>
 #include <QVector>
 #include <QSize>
 
@@ -37,6 +38,7 @@ private slots:
 
 private:
     QSize _size;
-    QVector<Widget*> _widgets;
+    QVector<QPointer<Widget>> _widgets;
+    QPointer<Widget> _activeFocusWidget;
 };
 }

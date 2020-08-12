@@ -3,17 +3,17 @@
 #include <widgets/tgwidget.h>
 
 namespace Tg {
-class Label : public Tg::Widget
+class Label : public Widget
 {
     Q_OBJECT
 
     Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
 
 public:
-    Label(Tg::Widget *parent);
-    Label(Tg::Screen *screen);
-    Label(const QString &text = QString(), Tg::Widget *parent = nullptr);
-    Label(const QString &text = QString(), Tg::Screen *screen = nullptr);
+    Label(Widget *parent);
+    Label(Screen *screen);
+    Label(const QString &text = QString(), Widget *parent = nullptr);
+    Label(const QString &text = QString(), Screen *screen = nullptr);
 
     QString text() const;
 
@@ -25,12 +25,13 @@ signals:
 public slots:
     void setText(const QString &text, const bool expand = true);
 
+protected:
+    void init() override;
+
 private slots:
     void layoutText();
 
 private:
-    void init();
-
     QString _text;
     QStringList _laidOutTextCache;
 };

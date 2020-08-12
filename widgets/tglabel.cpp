@@ -75,6 +75,8 @@ void Tg::Label::init()
             this, &Label::layoutText);
     connect(this, &Label::textChanged,
             this, &Label::needsRedraw);
+
+    Widget::init();
 }
 
 void Tg::Label::layoutText()
@@ -86,6 +88,11 @@ void Tg::Label::layoutText()
     const int height = contents.height();
 
     if (text().size() <= width) {
+        QString txt = text();
+        while (txt.length() < width) {
+            // Fill with spaces
+            txt.append(' ');
+        }
         _laidOutTextCache.append(text());
         return;
     } else {

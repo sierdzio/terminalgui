@@ -30,6 +30,10 @@ QSize Tg::Screen::size() const
 void Tg::Screen::registerWidget(Tg::Widget *widget)
 {
     _widgets.append(widget);
+    if (widget->acceptsFocus() && _activeFocusWidget.isNull()) {
+        _activeFocusWidget = widget;
+        widget->setHasFocus(true);
+    }
 }
 
 void Tg::Screen::deregisterWidget(Tg::Widget *widget)
