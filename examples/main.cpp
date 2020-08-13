@@ -57,12 +57,12 @@ int main(int argc, char *argv[])
     //button.setSize(QSize(8, 3));
     button.show();
 
-//    Tg::ReversibleAnimation animation(&label, "position");
-//    animation.setDuration(5000);
-//    animation.setStartValue(QPoint(1, 1));
-//    const int endX = screen.size().width() - label.text().size();
-//    animation.setEndValue(QPoint(endX, 7));
-//    animation.start();
+    Tg::ReversibleAnimation animation(&label, "position");
+    animation.setDuration(5000);
+    animation.setStartValue(QPoint(1, 1));
+    const int endX = screen.size().width() - label.text().size();
+    animation.setEndValue(QPoint(endX, 7));
+    animation.start();
 
     return app.exec();
 }

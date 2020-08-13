@@ -33,6 +33,8 @@ class Widget : public QObject
     Q_PROPERTY(bool acceptsFocus READ acceptsFocus NOTIFY acceptsFocusChanged)
     Q_PROPERTY(bool hasFocus READ hasFocus NOTIFY hasFocusChanged)
 
+    friend class Screen;
+
 public:
     explicit Widget(Widget *parent);
     explicit Widget(Screen *parentScreen);
@@ -88,6 +90,7 @@ public slots:
 protected:
     int effectiveBorderWidth() const;
     virtual void init();
+    virtual void consumeKeyboardBuffer(const QByteArray &keyboardBuffer);
 
 private:
     const int _borderWidth = 1;

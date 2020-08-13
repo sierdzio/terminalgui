@@ -18,5 +18,6 @@ signals:
 
 protected:
     void init() override;
+    void consumeKeyboardBuffer(const QByteArray &keyboardBuffer) override;
 };
 }

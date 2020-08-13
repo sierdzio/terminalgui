@@ -85,17 +85,13 @@ void Tg::Screen::checkKeyboard()
 {
     const int bufferSize = Terminal::keyboardBufferSize();
 
-    if (bufferSize > 0) {
+    if (bufferSize > 0 && _activeFocusWidget) {
         QByteArray characters;
         for (int i = 0; i < bufferSize; ++i) {
             const char c = getchar();
             characters.append(c);
         }
 
-        if (_activeFocusWidget) {
-            QString text = _activeFocusWidget->property("text").toString();
-            text.append(characters);
-            _activeFocusWidget->setProperty("text", text);
-        }
+        _activeFocusWidget->consumeKeyboardBuffer(characters);
     }
 }

@@ -26,3 +26,10 @@ void Tg::Button::init()
 
     Label::init();
 }
+
+void Tg::Button::consumeKeyboardBuffer(const QByteArray &keyboardBuffer)
+{
+    QString txt = text();
+    txt.append(keyboardBuffer);
+    setText(txt);
+}

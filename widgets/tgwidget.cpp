@@ -292,3 +292,8 @@ void Tg::Widget::init()
         setBackgroundColor(Terminal::Color4Bit::Black);
     }
 }
+
+void Tg::Widget::consumeKeyboardBuffer(const QByteArray &keyboardBuffer)
+{
+    Q_UNUSED(keyboardBuffer)
+}
