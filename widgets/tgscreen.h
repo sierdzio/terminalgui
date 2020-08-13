@@ -4,6 +4,7 @@
 #include <QPointer>
 #include <QVector>
 #include <QSize>
+#include <QTimer>
 
 namespace Tg {
 class Widget;
@@ -33,11 +34,13 @@ signals:
     void sizeChanged(const QSize &size) const;
 
 private slots:
-    // TODO: make it const?
-    void onNeedsRedraw();
+    void onNeedsRedraw() const;
+    void checkKeyboard();
 
 private:
+    QTimer _keyboardTimer;
     QSize _size;
+
     QVector<QPointer<Widget>> _widgets;
     QPointer<Widget> _activeFocusWidget;
 };

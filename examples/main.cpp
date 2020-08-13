@@ -14,6 +14,8 @@ int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
 
+    Terminal::RawTerminalLocker locker;
+
     Tg::Screen screen;
     Tg::Label labelBelow(QObject::tr("Below with some extra text!"), &screen);
     labelBelow.setPosition(QPoint(20, 1));

@@ -48,7 +48,12 @@ std::string Tg::Label::drawPixel(const QPoint &pixel) const
     const int charY = pixel.y() - contents.y();
 
     const QStringList wrappedText(_laidOutTextCache);
-    result.push_back(wrappedText.at(charY).at(charX).unicode());
+    const QString line(wrappedText.at(charY));
+    if (line.size() > charX) {
+        result.push_back(line.at(charX).unicode());
+    } else {
+        result.push_back(' ');
+    }
     return result;
 }
 

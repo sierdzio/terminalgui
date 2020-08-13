@@ -46,5 +46,28 @@ std::string Commands::moveToPosition(const int x, const int y)
     return "\033[" + std::to_string(y) + ";" + std::to_string(x) + "H";
 }
 
+int Terminal::keyboardBufferSize()
+{
+    int i;
+    ioctl(standardInputIndex, FIONREAD, &i);
+    return i;
+}
 
+// TODO: use termios! Right?
+//#include <termios.h>
 
+Terminal::RawTerminalLocker::RawTerminalLocker()
+{
+    //struct termios term;
+    //tcgetattr(standardInputIndex, &term);
+    //term.c_lflag &= ~ICANON;
+    //tcsetattr(standardInputIndex, TCSANOW, &term);
+    //setbuf(stdin, NULL);
+
+    system("stty raw -echo");
+}
+
+Terminal::RawTerminalLocker::~RawTerminalLocker()
+{
+    system("stty cooked echo");
+}

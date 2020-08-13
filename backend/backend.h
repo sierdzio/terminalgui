@@ -48,6 +48,19 @@ enum class ColorType {
 std::string colorCode(const Color4Bit foregroundColor,
                       const Color4Bit backgroundColor = Color4Bit::Empty);
 std::string colorEnd();
+
+/*!
+ * Returns number of characters available in keyboard buffer.
+ */
+int keyboardBufferSize();
+
+class RawTerminalLocker {
+public:
+    RawTerminalLocker();
+    ~RawTerminalLocker();
+};
+
+const int standardInputIndex = 0;
 }
 
 // http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x361.html
