@@ -93,12 +93,9 @@ void Tg::Screen::checkKeyboard()
         }
 
         if (_activeFocusWidget) {
-            _activeFocusWidget->setProperty("text", characters);
-        }
-    } else {
-        if (_activeFocusWidget) {
-            _activeFocusWidget->setProperty("text", bufferSize);
+            QString text = _activeFocusWidget->property("text").toString();
+            text.append(characters);
+            _activeFocusWidget->setProperty("text", text);
         }
     }
-
 }
