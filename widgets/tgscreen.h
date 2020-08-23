@@ -17,8 +17,6 @@ class Screen : public QObject
     // for application
     Q_PROPERTY(QSize size READ size NOTIFY sizeChanged)
 
-    //friend class Widget;
-
 public:
     Screen(QObject *parent = nullptr);
     ~Screen();
