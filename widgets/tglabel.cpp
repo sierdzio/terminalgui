@@ -50,11 +50,13 @@ std::string Tg::Label::drawPixel(const QPoint &pixel) const
 
     const QStringList wrappedText(_laidOutTextCache);
     const QString line(wrappedText.at(charY));
+
     if (line.size() > charX) {
         result.push_back(line.at(charX).unicode());
     } else {
         result.push_back(' ');
     }
+
     return result;
 }
 

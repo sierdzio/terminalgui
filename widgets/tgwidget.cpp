@@ -31,11 +31,6 @@ Tg::Widget::~Widget()
     }
 }
 
-void Tg::Widget::show()
-{
-    setVisible(true);
-}
-
 QPoint Tg::Widget::position() const
 {
     return _position;
@@ -242,6 +237,16 @@ void Tg::Widget::setVisible(const bool visible)
     _visible = visible;
 
     emit visibleChanged(_visible);
+}
+
+void Tg::Widget::show()
+{
+    setVisible(true);
+}
+
+void Tg::Widget::hide()
+{
+    setVisible(false);
 }
 
 void Tg::Widget::setBorderVisible(const bool borderVisible)

@@ -40,8 +40,6 @@ public:
     explicit Widget(Screen *parentScreen);
     ~Widget();
 
-    void show();
-
     QPoint position() const;
     QSize size() const;
     QRect boundingRectangle() const;
@@ -85,6 +83,8 @@ public slots:
     void setTextColor(const Terminal::Color4Bit textColor);
     void setBorderColor(Terminal::Color4Bit borderColor);
     void setVisible(const bool visible);
+    void show();
+    void hide();
     void setBorderVisible(const bool borderVisible);
 
 protected:

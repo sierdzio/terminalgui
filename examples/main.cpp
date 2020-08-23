@@ -3,12 +3,12 @@
 #include <QDebug>
 
 #include <backend/backend.h>
+#include <widgets/tghelpers.h>
 #include <widgets/reversibleanimation.h>
 #include <widgets/tgscreen.h>
 #include <widgets/tgwidget.h>
 #include <widgets/tglabel.h>
 #include <widgets/tgbutton.h>
-
 
 int main(int argc, char *argv[])
 {
@@ -56,6 +56,9 @@ int main(int argc, char *argv[])
     // TODO: fix crash!
     //button.setSize(QSize(8, 3));
     button.show();
+
+    CHECK(QObject::connect(&button, &Tg::Button::clicked,
+                           &labelNotOnFirstRow, &Tg::Label::hide));
 
     Tg::ReversibleAnimation animation(&label, "position");
     animation.setDuration(5000);
