@@ -17,7 +17,7 @@ class Screen : public QObject
     // for application
     Q_PROPERTY(QSize size READ size NOTIFY sizeChanged)
 
-    friend class Widget;
+    //friend class Widget;
 
 public:
     Screen(QObject *parent = nullptr);
@@ -30,15 +30,21 @@ public:
     void registerWidget(Widget *widget);
     void deregisterWidget(Widget *widget);
 
+public slots:
+    void needsRedraw();
+
 signals:
     void sizeChanged(const QSize &size) const;
 
 private slots:
-    void onNeedsRedraw() const;
+    void redrawImmediately() const;
     void checkKeyboard();
 
 private:
+    void compressRedraws();
+
     QTimer _keyboardTimer;
+    QTimer _redrawTimer;
     QSize _size;
 
     QVector<QPointer<Widget>> _widgets;

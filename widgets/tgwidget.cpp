@@ -281,7 +281,7 @@ void Tg::Widget::init()
 
     if (_screen) {
         connect(this, &Widget::needsRedraw,
-                _screen, &Screen::onNeedsRedraw);
+                _screen, &Screen::needsRedraw);
         _screen->registerWidget(this);
     } else {
         qCritical() << "Screen is missing, can't draw the widget!" << this;

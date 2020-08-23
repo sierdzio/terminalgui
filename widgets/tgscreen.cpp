@@ -15,13 +15,19 @@ Tg::Screen::Screen(QObject *parent) : QObject(parent)
     _size.setHeight(size.height);
     emit sizeChanged(_size);
 
-    qDebug() << "TgScreen info:" << _size.width() << _size.height();
+    //qDebug() << "TgScreen info:" << _size.width() << _size.height();
 
     _keyboardTimer.setInterval(1000);
     _keyboardTimer.setSingleShot(false);
 
     connect(&_keyboardTimer, &QTimer::timeout,
             this, &Screen::checkKeyboard);
+
+    _redrawTimer.setInterval(100);
+    _redrawTimer.setSingleShot(true);
+
+    connect(&_redrawTimer, &QTimer::timeout,
+            this, &Screen::redrawImmediately);
 }
 
 Tg::Screen::~Screen()
@@ -51,7 +57,12 @@ void Tg::Screen::deregisterWidget(Tg::Widget *widget)
     _widgets.removeOne(widget);
 }
 
-void Tg::Screen::onNeedsRedraw() const
+void Tg::Screen::needsRedraw()
+{
+    compressRedraws();
+}
+
+void Tg::Screen::redrawImmediately() const
 {
     Tg::TextStream stream(stdout);
     // TODO: do not clear everything. Make only partial redraws!
@@ -93,5 +104,12 @@ void Tg::Screen::checkKeyboard()
         }
 
         _activeFocusWidget->consumeKeyboardBuffer(characters);
+    }
+}
+
+void Tg::Screen::compressRedraws()
+{
+    if (_redrawTimer.isActive() == false) {
+        _redrawTimer.start();
     }
 }
