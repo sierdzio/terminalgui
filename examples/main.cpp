@@ -9,6 +9,7 @@
 #include <widgets/tgwidget.h>
 #include <widgets/tglabel.h>
 #include <widgets/tgbutton.h>
+#include <widgets/tglineedit.h>
 
 int main(int argc, char *argv[])
 {
@@ -56,6 +57,10 @@ int main(int argc, char *argv[])
     // TODO: fix crash!
     //button.setSize(QSize(8, 3));
     button.show();
+
+    Tg::LineEdit lineEdit(QObject::tr("Placeholder"), &widget);
+    lineEdit.setPosition(QPoint(19, 9));
+    lineEdit.show();
 
     CHECK(QObject::connect(&button, &Tg::Button::clicked,
                            &labelNotOnFirstRow, &Tg::Label::hide));

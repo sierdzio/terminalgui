@@ -104,6 +104,8 @@ void Tg::Screen::checkKeyboard()
             characters.append(c);
         }
 
+        // TODO: handle focus-chaning keys like TAB
+
         _activeFocusWidget->consumeKeyboardBuffer(characters);
     }
 }
