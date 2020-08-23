@@ -2,6 +2,8 @@
 
 #include <widgets/tglabel.h>
 
+#include <QTimer>
+
 namespace Tg {
 class Button : public Label
 {
@@ -19,5 +21,11 @@ signals:
 protected:
     void init() override;
     void consumeKeyboardBuffer(const QByteArray &keyboardBuffer) override;
+
+protected slots:
+    void onButtonPressTimeout();
+
+private:
+    QTimer _buttonPressTimer;
 };
 }

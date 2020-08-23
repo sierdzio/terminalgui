@@ -17,7 +17,7 @@ Tg::Screen::Screen(QObject *parent) : QObject(parent)
 
     qDebug() << "TgScreen info:" << _size.width() << _size.height();
 
-    _keyboardTimer.setInterval(500);
+    _keyboardTimer.setInterval(1000);
     _keyboardTimer.setSingleShot(false);
 
     connect(&_keyboardTimer, &QTimer::timeout,
