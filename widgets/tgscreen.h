@@ -31,7 +31,7 @@ public:
     void deregisterWidget(Widget *widget);
 
 public slots:
-    void needsRedraw();
+    void onNeedsRedraw();
 
 signals:
     void sizeChanged(const QSize &size) const;

@@ -1,6 +1,7 @@
 #include "tglabel.h"
 #include "tgscreen.h"
 #include "textstream.h"
+#include "tghelpers.h"
 
 #include <backend/backend.h>
 
@@ -76,10 +77,10 @@ void Tg::Label::setText(const QString &text, const bool expand)
 
 void Tg::Label::init()
 {
-    connect(this, &Label::needsRedraw,
-            this, &Label::layoutText);
-    connect(this, &Label::textChanged,
-            this, &Label::needsRedraw);
+    CHECK(connect(this, &Label::needsRedraw,
+                  this, &Label::layoutText));
+    CHECK(connect(this, &Label::textChanged,
+                  this, &Label::scheduleRedraw));
 
     Widget::init();
 }

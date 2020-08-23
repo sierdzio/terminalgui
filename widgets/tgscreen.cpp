@@ -1,6 +1,7 @@
 #include "tgscreen.h"
 #include "tgwidget.h"
 #include "textstream.h"
+#include "tghelpers.h"
 
 #include <backend/backend.h>
 
@@ -20,14 +21,14 @@ Tg::Screen::Screen(QObject *parent) : QObject(parent)
     _keyboardTimer.setInterval(1000);
     _keyboardTimer.setSingleShot(false);
 
-    connect(&_keyboardTimer, &QTimer::timeout,
-            this, &Screen::checkKeyboard);
+    CHECK(connect(&_keyboardTimer, &QTimer::timeout,
+                  this, &Screen::checkKeyboard));
 
     _redrawTimer.setInterval(100);
     _redrawTimer.setSingleShot(true);
 
-    connect(&_redrawTimer, &QTimer::timeout,
-            this, &Screen::redrawImmediately);
+    CHECK(connect(&_redrawTimer, &QTimer::timeout,
+                  this, &Screen::redrawImmediately));
 }
 
 Tg::Screen::~Screen()
@@ -57,7 +58,7 @@ void Tg::Screen::deregisterWidget(Tg::Widget *widget)
     _widgets.removeOne(widget);
 }
 
-void Tg::Screen::needsRedraw()
+void Tg::Screen::onNeedsRedraw()
 {
     compressRedraws();
 }

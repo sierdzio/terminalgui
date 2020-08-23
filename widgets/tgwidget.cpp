@@ -1,5 +1,6 @@
 #include "tgwidget.h"
 #include "tgscreen.h"
+#include "tghelpers.h"
 
 #include <QRect>
 #include <QDebug>
@@ -263,25 +264,24 @@ int Tg::Widget::effectiveBorderWidth() const
 
 void Tg::Widget::init()
 {
-    // TODO: do not emit signal if widget is not visible!
-    connect(this, &Widget::positionChanged,
-            this, &Widget::needsRedraw);
-    connect(this, &Widget::sizeChanged,
-            this, &Widget::needsRedraw);
-    connect(this, &Widget::backgroundColorChanged,
-            this, &Widget::needsRedraw);
-    connect(this, &Widget::textColorChanged,
-            this, &Widget::needsRedraw);
-    connect(this, &Widget::borderColorChanged,
-            this, &Widget::needsRedraw);
-    connect(this, &Widget::visibleChanged,
-            this, &Widget::needsRedraw);
-    connect(this, &Widget::borderVisibleChanged,
-            this, &Widget::needsRedraw);
+    CHECK(connect(this, &Widget::positionChanged,
+                  this, &Widget::scheduleRedraw));
+    CHECK(connect(this, &Widget::sizeChanged,
+                  this, &Widget::scheduleRedraw));
+    CHECK(connect(this, &Widget::backgroundColorChanged,
+                  this, &Widget::scheduleRedraw));
+    CHECK(connect(this, &Widget::textColorChanged,
+                  this, &Widget::scheduleRedraw));
+    CHECK(connect(this, &Widget::borderColorChanged,
+                  this, &Widget::scheduleRedraw));
+    CHECK(connect(this, &Widget::visibleChanged,
+                  this, &Widget::scheduleRedraw));
+    CHECK(connect(this, &Widget::borderVisibleChanged,
+                  this, &Widget::scheduleRedraw));
 
     if (_screen) {
-        connect(this, &Widget::needsRedraw,
-                _screen, &Screen::needsRedraw);
+        CHECK(connect(this, &Widget::needsRedraw,
+                      _screen, &Screen::onNeedsRedraw));
         _screen->registerWidget(this);
     } else {
         qCritical() << "Screen is missing, can't draw the widget!" << this;
@@ -296,4 +296,11 @@ void Tg::Widget::init()
 void Tg::Widget::consumeKeyboardBuffer(const QByteArray &keyboardBuffer)
 {
     Q_UNUSED(keyboardBuffer)
+}
+
+void Tg::Widget::scheduleRedraw() const
+{
+    if (visible() == true) {
+        emit needsRedraw();
+    }
 }

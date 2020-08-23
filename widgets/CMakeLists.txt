@@ -14,6 +14,7 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
 add_library(terminalgui
+    tghelpers.h
     tgscreen.cpp tgscreen.h
     tgwidget.cpp tgwidget.h
     tglabel.cpp tglabel.h

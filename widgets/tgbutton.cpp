@@ -1,4 +1,5 @@
 #include "tgbutton.h"
+#include "tghelpers.h"
 
 Tg::Button::Button(Tg::Widget *parent) : Tg::Label(parent)
 {
@@ -28,10 +29,10 @@ void Tg::Button::init()
     _buttonPressTimer.setInterval(500);
     _buttonPressTimer.setSingleShot(true);
 
-    connect(this, &Button::clicked,
-            &_buttonPressTimer, qOverload<>(&QTimer::start));
-    connect(&_buttonPressTimer, &QTimer::timeout,
-            this, &Button::onButtonPressTimeout);
+    CHECK(connect(this, &Button::clicked,
+                  &_buttonPressTimer, qOverload<>(&QTimer::start)));
+    CHECK(connect(&_buttonPressTimer, &QTimer::timeout,
+                  this, &Button::onButtonPressTimeout));
 
     setBackgroundColor(Terminal::Color4Bit::Gray);
     setTextColor(Terminal::Color4Bit::White);

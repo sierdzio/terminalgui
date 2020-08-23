@@ -92,6 +92,9 @@ protected:
     virtual void init();
     virtual void consumeKeyboardBuffer(const QByteArray &keyboardBuffer);
 
+protected slots:
+    void scheduleRedraw() const;
+
 private:
     const int _borderWidth = 1;
 

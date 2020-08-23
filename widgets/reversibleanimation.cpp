@@ -1,4 +1,5 @@
 #include "reversibleanimation.h"
+#include "tghelpers.h"
 
 #include <QDebug>
 
@@ -24,14 +25,10 @@ void Tg::ReversibleAnimation::toggleDirection()
     }
 
     start();
-
-    //qDebug() << "Direction reversed!";
 }
 
 void Tg::ReversibleAnimation::init()
 {
-    connect(this, &ReversibleAnimation::finished,
-            this, &ReversibleAnimation::toggleDirection);
-
-    //setLoopCount(-1);
+    CHECK(connect(this, &ReversibleAnimation::finished,
+                  this, &ReversibleAnimation::toggleDirection));
 }
