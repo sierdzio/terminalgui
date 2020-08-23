@@ -58,12 +58,12 @@ int main(int argc, char *argv[])
     //button.setSize(QSize(8, 3));
     button.show();
 
+    CHECK(QObject::connect(&button, &Tg::Button::clicked,
+                           &labelNotOnFirstRow, &Tg::Label::hide));
+
     Tg::LineEdit lineEdit(QObject::tr("Placeholder"), &widget);
     lineEdit.setPosition(QPoint(19, 9));
     lineEdit.show();
-
-    CHECK(QObject::connect(&button, &Tg::Button::clicked,
-                           &labelNotOnFirstRow, &Tg::Label::hide));
 
     Tg::ReversibleAnimation animation(&label, "position");
     animation.setDuration(5000);

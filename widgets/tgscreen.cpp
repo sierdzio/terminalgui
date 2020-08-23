@@ -63,6 +63,38 @@ void Tg::Screen::onNeedsRedraw()
     compressRedraws();
 }
 
+void Tg::Screen::moveFocusToNextWidget()
+{
+    QVectorIterator<WidgetPointer> iterator(_widgets);
+    const bool result = iterator.findNext(_activeFocusWidget);
+    if (result == false) {
+        _activeFocusWidget = nullptr;
+        return;
+    }
+
+    // Search from current focus widget forward
+    while (iterator.hasNext()) {
+        const WidgetPointer widget = iterator.next();
+        if (widget != _activeFocusWidget and widget->acceptsFocus()) {
+            _activeFocusWidget = widget;
+            return;
+        }
+    }
+
+    // Search from root up to current focus widget
+    iterator.toFront();
+
+    while (iterator.hasNext()) {
+        const WidgetPointer widget = iterator.next();
+        if (widget == _activeFocusWidget) {
+            return;
+        } else if (widget->acceptsFocus()) {
+            _activeFocusWidget = widget;
+            return;
+        }
+    }
+}
+
 void Tg::Screen::redrawImmediately() const
 {
     Tg::TextStream stream(stdout);
@@ -104,7 +136,10 @@ void Tg::Screen::checkKeyboard()
             characters.append(c);
         }
 
-        // TODO: handle focus-chaning keys like TAB
+        if (characters.contains('\t')) {
+            // Move to next input
+            moveFocusToNextWidget();
+        }
 
         _activeFocusWidget->consumeKeyboardBuffer(characters);
     }

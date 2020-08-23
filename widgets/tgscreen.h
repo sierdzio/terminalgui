@@ -9,6 +9,8 @@
 namespace Tg {
 class Widget;
 
+using WidgetPointer = QPointer<Widget>;
+
 class Screen : public QObject
 {
     Q_OBJECT
@@ -30,6 +32,7 @@ public:
 
 public slots:
     void onNeedsRedraw();
+    void moveFocusToNextWidget();
 
 signals:
     void sizeChanged(const QSize &size) const;
@@ -45,7 +48,7 @@ private:
     QTimer _redrawTimer;
     QSize _size;
 
-    QVector<QPointer<Widget>> _widgets;
-    QPointer<Widget> _activeFocusWidget;
+    QVector<WidgetPointer> _widgets;
+    WidgetPointer _activeFocusWidget;
 };
 }
