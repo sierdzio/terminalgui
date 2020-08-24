@@ -57,6 +57,7 @@ void Tg::LineEdit::consumeKeyboardBuffer(const QByteArray &keyboardBuffer)
     } else {
         _realText.append(keyboardBuffer);
         setText(_realText);
+        setTextColor(Terminal::Color4Bit::LightWhite);
     }
 }
 
