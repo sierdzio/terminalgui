@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
     Tg::Screen screen;
     Tg::Label labelBelow(QObject::tr("Below with some extra text!"), &screen);
     labelBelow.setPosition(QPoint(20, 1));
-    labelBelow.setSize(QSize(6, 4));
+    labelBelow.setSize(QSize(6, 5));
     labelBelow.setTextColor(Terminal::Color4Bit::Red);
     labelBelow.setBackgroundColor(Terminal::Color4Bit::Black);
     labelBelow.setBorderVisible(false);
@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
     label.show();
 
     Tg::Label labelAbove(QObject::tr("Above"), &screen);
-    labelAbove.setPosition(QPoint(40, 4));
+    labelAbove.setPosition(QPoint(40, 5));
     labelAbove.setTextColor(Terminal::Color4Bit::Cyan);
     labelAbove.setBackgroundColor(Terminal::Color4Bit::Black);
     labelAbove.setBorderVisible(false);
