@@ -61,8 +61,18 @@ int main(int argc, char *argv[])
     CHECK(QObject::connect(&button, &Tg::Button::clicked,
                            &labelNotOnFirstRow, &Tg::Label::hide));
 
+    Tg::Button quitButton(QObject::tr("Quit"), &widget);
+    // TODO: auto-position widgets!
+    quitButton.setPosition(QPoint(19, 9));
+    // TODO: fix crash!
+    //button.setSize(QSize(8, 3));
+    quitButton.show();
+
+    CHECK(QObject::connect(&quitButton, &Tg::Button::clicked,
+                           &app, &QCoreApplication::quit));
+
     Tg::LineEdit lineEdit(QObject::tr("Placeholder"), &widget);
-    lineEdit.setPosition(QPoint(19, 9));
+    lineEdit.setPosition(QPoint(19, 11));
     lineEdit.show();
 
     Tg::ReversibleAnimation animation(&label, "position");
