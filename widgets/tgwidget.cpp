@@ -298,7 +298,7 @@ void Tg::Widget::init()
     }
 }
 
-void Tg::Widget::consumeKeyboardBuffer(const QByteArray &keyboardBuffer)
+void Tg::Widget::consumeKeyboardBuffer(const QString &keyboardBuffer)
 {
     Q_UNUSED(keyboardBuffer)
 }

@@ -38,7 +38,7 @@ void Tg::Button::init()
     setTextColor(Terminal::Color4Bit::White);
 }
 
-void Tg::Button::consumeKeyboardBuffer(const QByteArray &keyboardBuffer)
+void Tg::Button::consumeKeyboardBuffer(const QString &keyboardBuffer)
 {
     if (keyboardBuffer.contains('\n') or keyboardBuffer.contains('\r')) {
         if (textColor() == Terminal::Color4Bit::Green) {

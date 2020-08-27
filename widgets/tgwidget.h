@@ -90,7 +90,7 @@ public slots:
 protected:
     int effectiveBorderWidth() const;
     virtual void init();
-    virtual void consumeKeyboardBuffer(const QByteArray &keyboardBuffer);
+    virtual void consumeKeyboardBuffer(const QString &keyboardBuffer);
 
 protected slots:
     void scheduleRedraw() const;

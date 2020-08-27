@@ -130,15 +130,15 @@ void Tg::Screen::checkKeyboard()
     const int bufferSize = Terminal::keyboardBufferSize();
 
     if (bufferSize > 0 && _activeFocusWidget) {
-        QByteArray characters;
+        QString characters;
         for (int i = 0; i < bufferSize; ++i) {
-            const char c = getchar();
-            characters.append(c);
+            characters.append(getchar());
         }
 
         if (characters.contains('\t')) {
             // Move to next input
             moveFocusToNextWidget();
+            characters.remove('\t');
         }
 
         _activeFocusWidget->consumeKeyboardBuffer(characters);
