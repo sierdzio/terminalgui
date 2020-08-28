@@ -40,6 +40,18 @@ void Tg::Button::init()
 
 void Tg::Button::consumeKeyboardBuffer(const QString &keyboardBuffer)
 {
+//    // Up Arrow
+//    if (keyboardBuffer.contains("\033[A")) {
+//        emit moveFocusToPreviousWidget();
+//        return;
+//    }
+
+//    // Down Arrow
+//    if (keyboardBuffer.contains("\033[B")) {
+//        emit moveFocusToNextWidget();
+//        return;
+//    }
+
     if (keyboardBuffer.contains('\n') or keyboardBuffer.contains('\r')) {
         if (textColor() == Terminal::Color4Bit::Green) {
             setTextColor(Terminal::Color4Bit::Pink);

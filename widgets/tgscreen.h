@@ -32,6 +32,7 @@ public:
 
 public slots:
     void onNeedsRedraw();
+    void moveFocusToPreviousWidget();
     void moveFocusToNextWidget();
 
 signals:

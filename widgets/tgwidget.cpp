@@ -97,13 +97,18 @@ bool Tg::Widget::hasFocus() const
 
 void Tg::Widget::setAcceptsFocus(const bool acceptsFocus)
 {
-    _acceptsFocus = acceptsFocus;
+    if (_acceptsFocus != acceptsFocus) {
+        _acceptsFocus = acceptsFocus;
+        emit acceptsFocusChanged(acceptsFocus);
+    }
 }
 
 void Tg::Widget::setHasFocus(const bool hasFocus)
 {
-    qDebug() << "I HAVE FOCUS!" << objectName();
-    _hasFocus = hasFocus;
+    if (_hasFocus != hasFocus) {
+        _hasFocus = hasFocus;
+        emit hasFocusChanged(hasFocus);
+    }
 }
 
 Tg::Screen *Tg::Widget::screen() const

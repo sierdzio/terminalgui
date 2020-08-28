@@ -75,6 +75,8 @@ signals:
     void borderVisibleChanged(const bool borderVisible) const;
     void acceptsFocusChanged(const bool acceptsFocus) const;
     void hasFocusChanged(const bool hasFocus) const;
+    void moveFocusToPreviousWidget() const;
+    void moveFocusToNextWidget() const;
 
 public slots:
     void setPosition(const QPoint &position);

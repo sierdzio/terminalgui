@@ -43,6 +43,12 @@ QSize Tg::Screen::size() const
 void Tg::Screen::registerWidget(Tg::Widget *widget)
 {
     _widgets.append(widget);
+
+    CHECK(connect(widget, &Widget::moveFocusToPreviousWidget,
+                  this, &Screen::moveFocusToPreviousWidget));
+    CHECK(connect(widget, &Widget::moveFocusToNextWidget,
+                  this, &Screen::moveFocusToNextWidget));
+
     if (widget->acceptsFocus() && _activeFocusWidget.isNull()) {
         _activeFocusWidget = widget;
         widget->setHasFocus(true);
@@ -63,11 +69,49 @@ void Tg::Screen::onNeedsRedraw()
     compressRedraws();
 }
 
+void Tg::Screen::moveFocusToPreviousWidget()
+{
+    QVectorIterator<WidgetPointer> iterator(_widgets);
+    const bool result = iterator.findNext(_activeFocusWidget);
+    if (result == false) {
+        _activeFocusWidget->setHasFocus(false);
+        _activeFocusWidget = nullptr;
+        return;
+    }
+
+    // Search from current focus widget backward
+    while (iterator.hasPrevious()) {
+        const WidgetPointer widget = iterator.previous();
+        if (widget != _activeFocusWidget and widget->acceptsFocus()) {
+            _activeFocusWidget->setHasFocus(false);
+            _activeFocusWidget = widget;
+            _activeFocusWidget->setHasFocus(true);
+            return;
+        }
+    }
+
+    // Search from back up to current focus widget
+    iterator.toBack();
+
+    while (iterator.hasPrevious()) {
+        const WidgetPointer widget = iterator.previous();
+        if (widget == _activeFocusWidget) {
+            return;
+        } else if (widget->acceptsFocus()) {
+            _activeFocusWidget->setHasFocus(false);
+            _activeFocusWidget = widget;
+            _activeFocusWidget->setHasFocus(true);
+            return;
+        }
+    }
+}
+
 void Tg::Screen::moveFocusToNextWidget()
 {
     QVectorIterator<WidgetPointer> iterator(_widgets);
     const bool result = iterator.findNext(_activeFocusWidget);
     if (result == false) {
+        _activeFocusWidget->setHasFocus(false);
         _activeFocusWidget = nullptr;
         return;
     }
@@ -76,7 +120,9 @@ void Tg::Screen::moveFocusToNextWidget()
     while (iterator.hasNext()) {
         const WidgetPointer widget = iterator.next();
         if (widget != _activeFocusWidget and widget->acceptsFocus()) {
+            _activeFocusWidget->setHasFocus(false);
             _activeFocusWidget = widget;
+            _activeFocusWidget->setHasFocus(true);
             return;
         }
     }
@@ -89,7 +135,9 @@ void Tg::Screen::moveFocusToNextWidget()
         if (widget == _activeFocusWidget) {
             return;
         } else if (widget->acceptsFocus()) {
+            _activeFocusWidget->setHasFocus(false);
             _activeFocusWidget = widget;
+            _activeFocusWidget->setHasFocus(true);
             return;
         }
     }
@@ -128,7 +176,6 @@ void Tg::Screen::redrawImmediately() const
 void Tg::Screen::checkKeyboard()
 {
     const int bufferSize = Terminal::keyboardBufferSize();
-
     if (bufferSize > 0 && _activeFocusWidget) {
         QString characters;
         for (int i = 0; i < bufferSize; ++i) {
@@ -139,6 +186,18 @@ void Tg::Screen::checkKeyboard()
             // Move to next input
             moveFocusToNextWidget();
             characters.remove('\t');
+        }
+
+        // Up Arrow
+        if (characters.contains("\033[A")) {
+            emit moveFocusToPreviousWidget();
+            characters.remove("\033[A");
+        }
+
+        // Down Arrow
+        if (characters.contains("\033[B")) {
+            emit moveFocusToNextWidget();
+            characters.remove("\033[B");
         }
 
         _activeFocusWidget->consumeKeyboardBuffer(characters);

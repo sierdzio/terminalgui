@@ -71,6 +71,18 @@ void Tg::LineEdit::consumeKeyboardBuffer(const QString &keyboardBuffer)
 {
     // TODO: move these ANSI escape sequences to Backend!
 
+    //// Up Arrow
+    //if (keyboardBuffer.contains("\033[A")) {
+    //    emit moveFocusToPreviousWidget();
+    //    return;
+    //}
+    //
+    //// Down Arrow
+    //if (keyboardBuffer.contains("\033[B")) {
+    //    emit moveFocusToNextWidget();
+    //    return;
+    //}
+
     // Right Arrow
     if (keyboardBuffer.contains("\033[C")) {
         if (cursorPosition() <= _realText.size()) {
