@@ -44,12 +44,9 @@ std::string Tg::Label::drawPixel(const QPoint &pixel) const
     std::string result;
     result.append(Terminal::colorCode(textColor(), backgroundColor()));
 
-//    const QRect contents = contentsRectangle();
-//    const int charX = pixel.x() - contents.x();
-//    const int charY = pixel.y() - contents.y();
-
-    const int charX = pixel.x();
-    const int charY = pixel.y();
+    const QRect contents = contentsRectangle();
+    const int charX = pixel.x() - contents.x();
+    const int charY = pixel.y() - contents.y();
 
     const QStringList wrappedText(_laidOutTextCache);
 

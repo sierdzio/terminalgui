@@ -54,9 +54,7 @@ QRect Tg::Widget::globalBoundingRectangle() const
 QRect Tg::Widget::contentsRectangle() const
 {
     const int borderWidth = effectiveBorderWidth();
-    QPoint pos(0, 0/*position()*/);
-    pos.setX(pos.x() + borderWidth);
-    pos.setY(pos.y() + borderWidth);
+    const QPoint pos(borderWidth, borderWidth);
 
     QSize siz = size();
     const int twiceBorderWidth = 2 * borderWidth;
@@ -133,7 +131,7 @@ std::string Tg::Widget::drawBorderPixel(const QPoint &pixel) const
     result.append(Terminal::colorCode(borderColor(),
                                       Terminal::Color4Bit::Empty));
 
-    const QRect rect = boundingRectangle();
+    const QRect rect(QPoint(0, 0), size());
     // https://en.wikipedia.org/wiki/Geometric_Shapes
     // TODO: allow full customization of border styles!
     if (pixel == rect.topLeft()) {
@@ -174,7 +172,7 @@ bool Tg::Widget::isBorder(const QPoint &pixel) const
         return false;
     }
 
-    const QRect rect = boundingRectangle();
+    const QRect rect(QPoint(0, 0), size());
     if (pixel.x() == rect.left() or pixel.x() == rect.right()) {
         return true;
     }
