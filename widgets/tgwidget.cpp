@@ -46,10 +46,15 @@ QRect Tg::Widget::boundingRectangle() const
     return QRect(position(), size());
 }
 
+QRect Tg::Widget::globalBoundingRectangle() const
+{
+    return QRect(mapToGlobal(position()), size());
+}
+
 QRect Tg::Widget::contentsRectangle() const
 {
     const int borderWidth = effectiveBorderWidth();
-    QPoint pos = position();
+    QPoint pos(position());
     pos.setX(pos.x() + borderWidth);
     pos.setY(pos.y() + borderWidth);
 
@@ -186,17 +191,41 @@ bool Tg::Widget::verticalArrowsMoveFocus() const
     return _verticalArrowsMoveFocus;
 }
 
+QPoint Tg::Widget::mapFromGlobal(const QPoint &position) const
+{
+    const QPoint result(position - this->position());
+
+    if (parentWidget()) {
+        return parentWidget()->mapFromGlobal(result);
+    }
+
+    return result;
+}
+
+QPoint Tg::Widget::mapToGlobal(const QPoint &position) const
+{
+    const QPoint result(position + this->position());
+
+    if (parentWidget()) {
+        return parentWidget()->mapToGlobal(result);
+    }
+
+    return result;
+}
+
 void Tg::Widget::setPosition(const QPoint &position)
 {
     if (_position == position)
         return;
 
-    if (position.x() == 0) {
-        qWarning() << "Minimal x coordinate on terminal is 1, not 0";
-    }
+    if (parentWidget() == nullptr) {
+        if (position.x() == 0) {
+            qWarning() << "Minimal x coordinate on terminal is 1, not 0";
+        }
 
-    if (position.y() == 0) {
-        qWarning() << "Minimal y coordinate on terminal is 1, not 0";
+        if (position.y() == 0) {
+            qWarning() << "Minimal y coordinate on terminal is 1, not 0";
+        }
     }
 
     _position = position;

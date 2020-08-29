@@ -43,6 +43,7 @@ public:
     QPoint position() const;
     QSize size() const;
     QRect boundingRectangle() const;
+    QRect globalBoundingRectangle() const;
     QRect contentsRectangle() const;
 
     Terminal::Color4Bit backgroundColor() const;
@@ -65,6 +66,9 @@ public:
     bool isBorder(const QPoint &pixel) const;
 
     bool verticalArrowsMoveFocus() const;
+
+    QPoint mapFromGlobal(const QPoint &position) const;
+    QPoint mapToGlobal(const QPoint &position) const;
 
 signals:
     void needsRedraw() const;
