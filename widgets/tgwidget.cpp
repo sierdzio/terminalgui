@@ -48,13 +48,13 @@ QRect Tg::Widget::boundingRectangle() const
 
 QRect Tg::Widget::globalBoundingRectangle() const
 {
-    return QRect(mapToGlobal(position()), size());
+    return QRect(mapToGlobal(QPoint(0, 0)), size());
 }
 
 QRect Tg::Widget::contentsRectangle() const
 {
     const int borderWidth = effectiveBorderWidth();
-    QPoint pos(position());
+    QPoint pos(0, 0/*position()*/);
     pos.setX(pos.x() + borderWidth);
     pos.setY(pos.y() + borderWidth);
 
