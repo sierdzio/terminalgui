@@ -38,10 +38,10 @@ std::string Terminal::colorCode(const Terminal::Color4Bit foregroundColor,
 
 std::string Terminal::colorEnd()
 {
-    return "\033[0m";
+    return Terminal::Command::colorEnd;
 }
 
-std::string Commands::moveToPosition(const int x, const int y)
+std::string Terminal::Command::moveToPosition(const int x, const int y)
 {
     return "\033[" + std::to_string(y) + ";" + std::to_string(x) + "H";
 }

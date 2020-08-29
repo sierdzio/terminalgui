@@ -61,11 +61,23 @@ public:
 };
 
 const int standardInputIndex = 0;
+
+namespace Key {
+const std::string up = "\033[A";
+const std::string down = "\033[B";
+const std::string right = "\033[C";
+const std::string left = "\033[D";
+
+const std::string tab = "\t";
+const std::string enter = "\n";
+const std::string ret = "\r";
+const int backspace = 0x007f;
+const std::string del = "\033[3~";
 }
 
 // http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x361.html
 // https://en.wikipedia.org/wiki/ANSI_escape_code
-namespace Commands {
+namespace Command {
 const std::string up = "\033[1A";
 const std::string down = "\033[1B";
 
@@ -78,6 +90,8 @@ const std::string erase = "\033[K";
 const std::string save = "\033[s";
 const std::string restore = "\033[u";
 
+const std::string colorEnd = "\033[0m";
+
 /*!
  * Returns terminal command which will move the cursor to position \a x, \a y.
  *
@@ -85,4 +99,5 @@ const std::string restore = "\033[u";
  * start with `1` (one), not zero!
  */
 std::string moveToPosition(const int x, const int y);
+}
 }

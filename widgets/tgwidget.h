@@ -64,6 +64,8 @@ public:
     virtual std::string drawPixel(const QPoint &pixel) const;
     bool isBorder(const QPoint &pixel) const;
 
+    bool verticalArrowsMoveFocus() const;
+
 signals:
     void needsRedraw() const;
     void positionChanged(const QPoint &position) const;
@@ -94,6 +96,8 @@ protected:
     virtual void init();
     virtual void consumeKeyboardBuffer(const QString &keyboardBuffer);
 
+    void setVerticalArrowsMoveFocus(const bool verticalArrowsMoveFocus);
+
 protected slots:
     void scheduleRedraw() const;
 
@@ -115,5 +119,6 @@ private:
     bool _borderVisible = true;
     bool _acceptsFocus = false;
     bool _hasFocus = false;
+    bool _verticalArrowsMoveFocus = false;
 };
 }

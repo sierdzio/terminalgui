@@ -16,7 +16,7 @@ set(CMAKE_AUTORCC ON)
 add_library(terminalgui
     reversibleanimation.cpp reversibleanimation.h
     textstream.cpp textstream.h
-    tghelpers.h
+    tghelpers.cpp tghelpers.h
     tgscreen.cpp tgscreen.h
     tgwidget.cpp tgwidget.h
     tglabel.cpp tglabel.h

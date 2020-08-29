@@ -69,8 +69,6 @@ void Tg::LineEdit::init()
 
 void Tg::LineEdit::consumeKeyboardBuffer(const QString &keyboardBuffer)
 {
-    // TODO: move these ANSI escape sequences to Backend!
-
     //// Up Arrow
     //if (keyboardBuffer.contains("\033[A")) {
     //    emit moveFocusToPreviousWidget();
@@ -84,7 +82,8 @@ void Tg::LineEdit::consumeKeyboardBuffer(const QString &keyboardBuffer)
     //}
 
     // Right Arrow
-    if (keyboardBuffer.contains("\033[C")) {
+    if (const QString command(Helpers::toString(Terminal::Key::right));
+        keyboardBuffer.contains(command)) {
         if (cursorPosition() <= _realText.size()) {
             setCursorPosition(cursorPosition() + 1);
         }
@@ -92,7 +91,8 @@ void Tg::LineEdit::consumeKeyboardBuffer(const QString &keyboardBuffer)
     }
 
     // Left Arrow
-    if (keyboardBuffer.contains("\033[D")) {
+    if (const QString command(Helpers::toString(Terminal::Key::left));
+        keyboardBuffer.contains(command)) {
         if (cursorPosition() > 0) {
             setCursorPosition(cursorPosition() - 1);
         }
@@ -100,7 +100,8 @@ void Tg::LineEdit::consumeKeyboardBuffer(const QString &keyboardBuffer)
     }
 
     // Backspace!
-    if (keyboardBuffer.contains(0x007f)) {
+    if (const int command(Terminal::Key::backspace);
+        keyboardBuffer.contains(command)) {
         if (_cursorPosition > 0) {
             setCursorPosition(cursorPosition() - 1);
             _realText.remove(cursorPosition(), 1);
@@ -111,7 +112,8 @@ void Tg::LineEdit::consumeKeyboardBuffer(const QString &keyboardBuffer)
     }
 
     // Delete!
-    if (keyboardBuffer.contains("\033[3~")) {
+    if (const QString command(Helpers::toString(Terminal::Key::del));
+        keyboardBuffer.contains(command)) {
         if (_realText.isEmpty() == false) {
             _realText.remove(cursorPosition(), 1);
             setText(_realText);

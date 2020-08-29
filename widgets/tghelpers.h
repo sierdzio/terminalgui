@@ -1,5 +1,9 @@
 #pragma once
 
+#include <string>
+
+class QString;
+
 /*!
  * Makes sure `condition` is true, otherwise crashes the application.
  *
@@ -27,3 +31,6 @@ CHECK(QMetaObject::invokeMethod(
 #endif
 #endif
 
+namespace Helpers {
+QString toString(const std::string &string);
+}

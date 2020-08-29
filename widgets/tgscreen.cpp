@@ -147,7 +147,7 @@ void Tg::Screen::redrawImmediately() const
 {
     Tg::TextStream stream(stdout);
     // TODO: do not clear everything. Make only partial redraws!
-    stream << Commands::clear;
+    stream << Terminal::Command::clear;
 
     for (int y = 1; y < size().width(); ++y) {
         for (int x = 1; x < size().width(); ++x) {
@@ -159,7 +159,7 @@ void Tg::Screen::redrawImmediately() const
             // multiple loop passes for the same widget
             for (const Widget *widget : qAsConst(_widgets)) {
                 if (widget->visible() && widget->boundingRectangle().contains(pixel)) {
-                    stream << Commands::moveToPosition(x, y);
+                    stream << Terminal::Command::moveToPosition(x, y);
                     stream << widget->drawPixel(pixel);
                     drawn = true;
                     continue;
@@ -182,22 +182,27 @@ void Tg::Screen::checkKeyboard()
             characters.append(getchar());
         }
 
-        if (characters.contains('\t')) {
+        if (const QString command(Helpers::toString(Terminal::Key::tab));
+            characters.contains(command)) {
             // Move to next input
             moveFocusToNextWidget();
-            characters.remove('\t');
+            characters.remove(command);
         }
 
-        // Up Arrow
-        if (characters.contains("\033[A")) {
-            emit moveFocusToPreviousWidget();
-            characters.remove("\033[A");
-        }
+        if (_activeFocusWidget->verticalArrowsMoveFocus()) {
+            // Up Arrow
+            if (const QString command(Helpers::toString(Terminal::Key::up));
+                characters.contains(command)) {
+                moveFocusToPreviousWidget();
+                characters.remove(command);
+            }
 
-        // Down Arrow
-        if (characters.contains("\033[B")) {
-            emit moveFocusToNextWidget();
-            characters.remove("\033[B");
+            // Down Arrow
+            if (const QString command(Helpers::toString(Terminal::Key::down));
+                characters.contains(command)) {
+                moveFocusToNextWidget();
+                characters.remove(command);
+            }
         }
 
         _activeFocusWidget->consumeKeyboardBuffer(characters);

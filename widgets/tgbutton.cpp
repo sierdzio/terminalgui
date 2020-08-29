@@ -24,6 +24,8 @@ Tg::Button::Button(const QString &text, Tg::Screen *screen) : Tg::Label(text, sc
 void Tg::Button::init()
 {
     setAcceptsFocus(true);
+    setVerticalArrowsMoveFocus(true);
+
     Label::init();
 
     _buttonPressTimer.setInterval(500);
@@ -40,19 +42,8 @@ void Tg::Button::init()
 
 void Tg::Button::consumeKeyboardBuffer(const QString &keyboardBuffer)
 {
-//    // Up Arrow
-//    if (keyboardBuffer.contains("\033[A")) {
-//        emit moveFocusToPreviousWidget();
-//        return;
-//    }
-
-//    // Down Arrow
-//    if (keyboardBuffer.contains("\033[B")) {
-//        emit moveFocusToNextWidget();
-//        return;
-//    }
-
-    if (keyboardBuffer.contains('\n') or keyboardBuffer.contains('\r')) {
+    if (keyboardBuffer.contains(Helpers::toString(Terminal::Key::enter))
+        or keyboardBuffer.contains(Helpers::toString(Terminal::Key::ret))) {
         if (textColor() == Terminal::Color4Bit::Green) {
             setTextColor(Terminal::Color4Bit::Pink);
         } else {

@@ -181,6 +181,11 @@ bool Tg::Widget::isBorder(const QPoint &pixel) const
     return false;
 }
 
+bool Tg::Widget::verticalArrowsMoveFocus() const
+{
+    return _verticalArrowsMoveFocus;
+}
+
 void Tg::Widget::setPosition(const QPoint &position)
 {
     if (_position == position)
@@ -306,6 +311,11 @@ void Tg::Widget::init()
 void Tg::Widget::consumeKeyboardBuffer(const QString &keyboardBuffer)
 {
     Q_UNUSED(keyboardBuffer)
+}
+
+void Tg::Widget::setVerticalArrowsMoveFocus(const bool verticalArrowsMoveFocus)
+{
+    _verticalArrowsMoveFocus = verticalArrowsMoveFocus;
 }
 
 void Tg::Widget::scheduleRedraw() const
