@@ -48,7 +48,13 @@ QRect Tg::Widget::boundingRectangle() const
 
 QRect Tg::Widget::globalBoundingRectangle() const
 {
-    return QRect(mapToGlobal(QPoint(0, 0)), size());
+    if (parentWidget()) {
+        //const int border = parentWidget()->effectiveBorderWidth();
+        //return QRect(mapToGlobal(QPoint(border, border)), size());
+        return QRect(mapToGlobal(QPoint(0, 0)), size());
+    } else {
+        return QRect(mapToGlobal(QPoint(0, 0)), size());
+    }
 }
 
 QRect Tg::Widget::contentsRectangle() const
