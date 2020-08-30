@@ -51,7 +51,6 @@ QRect Tg::Widget::globalBoundingRectangle() const
     if (parentWidget()) {
         const int border = parentWidget()->effectiveBorderWidth();
         return QRect(mapToGlobal(QPoint(border, border)), size());
-        //return QRect(mapToGlobal(QPoint(0, 0)), size());
     } else {
         return QRect(mapToGlobal(QPoint(0, 0)), size());
     }
@@ -327,6 +326,8 @@ void Tg::Widget::init()
     CHECK(connect(this, &Widget::visibleChanged,
                   this, &Widget::scheduleRedraw));
     CHECK(connect(this, &Widget::borderVisibleChanged,
+                  this, &Widget::scheduleRedraw));
+    CHECK(connect(this, &Widget::hasFocusChanged,
                   this, &Widget::scheduleRedraw));
 
     if (_screen) {
