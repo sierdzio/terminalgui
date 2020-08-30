@@ -128,6 +128,7 @@ void Tg::LineEdit::consumeKeyboardBuffer(const QString &keyboardBuffer)
         _realText.append(keyboardBuffer);
         setText(_realText);
         setCursorPosition(_realText.size());
+        // Use color from Tg::Style
         setTextColor(Terminal::Color4Bit::LightWhite);
     }
 }

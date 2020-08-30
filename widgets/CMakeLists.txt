@@ -17,6 +17,7 @@ add_library(terminalgui
     reversibleanimation.cpp reversibleanimation.h
     textstream.cpp textstream.h
     tghelpers.cpp tghelpers.h
+    tgstyle.cpp tgstyle.h
     tgscreen.cpp tgscreen.h
     tgwidget.cpp tgwidget.h
     tglabel.cpp tglabel.h
