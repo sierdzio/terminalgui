@@ -49,9 +49,9 @@ QRect Tg::Widget::boundingRectangle() const
 QRect Tg::Widget::globalBoundingRectangle() const
 {
     if (parentWidget()) {
-        //const int border = parentWidget()->effectiveBorderWidth();
-        //return QRect(mapToGlobal(QPoint(border, border)), size());
-        return QRect(mapToGlobal(QPoint(0, 0)), size());
+        const int border = parentWidget()->effectiveBorderWidth();
+        return QRect(mapToGlobal(QPoint(border, border)), size());
+        //return QRect(mapToGlobal(QPoint(0, 0)), size());
     } else {
         return QRect(mapToGlobal(QPoint(0, 0)), size());
     }
@@ -200,7 +200,9 @@ QPoint Tg::Widget::mapFromGlobal(const QPoint &position) const
     const QPoint result(position - this->position());
 
     if (parentWidget()) {
-        return parentWidget()->mapFromGlobal(result);
+        const int border = parentWidget()->effectiveBorderWidth();
+        return parentWidget()->mapFromGlobal(result) -
+            QPoint(border, border);
     }
 
     return result;
