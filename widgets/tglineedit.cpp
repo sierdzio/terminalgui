@@ -36,6 +36,24 @@ int Tg::LineEdit::cursorPosition() const
     return _cursorPosition;
 }
 
+Terminal::Color4Bit Tg::LineEdit::placeholderTextColor() const
+{
+    if (isColorEmpty(_placeholderTextColor)) {
+        return style()->placeholderTextColor;
+    } else {
+        return _placeholderTextColor;
+    }
+}
+
+Terminal::Color4Bit Tg::LineEdit::placeholderBackgroundColor() const
+{
+    if (isColorEmpty(_placeholderBackgroundColor)) {
+        return style()->placeholderBackgroundColor;
+    } else {
+        return _placeholderBackgroundColor;
+    }
+}
+
 void Tg::LineEdit::setPlaceholderText(const QString &placeholderText)
 {
     if (_placeholderText == placeholderText)
@@ -52,6 +70,24 @@ void Tg::LineEdit::setCursorPosition(const int cursorPosition)
 
     _cursorPosition = cursorPosition;
     emit cursorPositionChanged(_cursorPosition);
+}
+
+void Tg::LineEdit::setPlaceholderTextColor(const Terminal::Color4Bit placeholderTextColor)
+{
+    if (_placeholderTextColor == placeholderTextColor)
+        return;
+
+    _placeholderTextColor = placeholderTextColor;
+    emit placeholderTextColorChanged(_placeholderTextColor);
+}
+
+void Tg::LineEdit::setPlaceholderBackgroundColor(const Terminal::Color4Bit placeholderBackgroundColor)
+{
+    if (_placeholderBackgroundColor == placeholderBackgroundColor)
+        return;
+
+    _placeholderBackgroundColor = placeholderBackgroundColor;
+    emit placeholderBackgroundColorChanged(_placeholderBackgroundColor);
 }
 
 void Tg::LineEdit::init()
@@ -128,13 +164,13 @@ void Tg::LineEdit::consumeKeyboardBuffer(const QString &keyboardBuffer)
         _realText.append(keyboardBuffer);
         setText(_realText);
         setCursorPosition(_realText.size());
-        // Use color from Tg::Style
-        setTextColor(Terminal::Color4Bit::LightWhite);
+        setTextColor(style()->textColor);
     }
 }
 
 void Tg::LineEdit::displayPlaceholderText()
 {
     setText(placeholderText());
-    setTextColor(Terminal::Color4Bit::Gray);
+    setTextColor(placeholderTextColor());
+    setBackgroundColor(placeholderBackgroundColor());
 }

@@ -19,6 +19,7 @@ Position currentPosition();
 const Size defaultSize;
 static Size size = updateSize();
 
+// TODO: dedicated color class, supporting various color standards
 enum class Color4Bit {
     Empty = 0,
     Black = 30,

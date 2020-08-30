@@ -11,6 +11,8 @@
 
 Tg::Screen::Screen(QObject *parent) : QObject(parent)
 {
+    _style = StylePointer::create();
+
     const Terminal::Size size = Terminal::updateSize();
     _size.setWidth(size.width);
     _size.setHeight(size.height);
@@ -43,6 +45,7 @@ QSize Tg::Screen::size() const
 void Tg::Screen::registerWidget(Tg::Widget *widget)
 {
     _widgets.append(widget);
+    widget->setStyle(_style, true);
 
     CHECK(connect(widget, &Widget::moveFocusToPreviousWidget,
                   this, &Screen::moveFocusToPreviousWidget));

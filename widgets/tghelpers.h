@@ -2,6 +2,8 @@
 
 #include <string>
 
+#include <QPointer>
+
 class QString;
 
 /*!
@@ -33,4 +35,9 @@ CHECK(QMetaObject::invokeMethod(
 
 namespace Helpers {
 QString toString(const std::string &string);
+}
+
+namespace Tg {
+class Widget;
+using WidgetPointer = QPointer<Widget>;
 }

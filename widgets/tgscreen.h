@@ -6,11 +6,10 @@
 #include <QSize>
 #include <QTimer>
 
+#include "tghelpers.h"
+#include "tgstyle.h"
+
 namespace Tg {
-class Widget;
-
-using WidgetPointer = QPointer<Widget>;
-
 class Screen : public QObject
 {
     Q_OBJECT
@@ -51,5 +50,6 @@ private:
 
     QVector<WidgetPointer> _widgets;
     WidgetPointer _activeFocusWidget;
+    StylePointer _style;
 };
 }

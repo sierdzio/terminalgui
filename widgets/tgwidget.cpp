@@ -1,6 +1,6 @@
 #include "tgwidget.h"
 #include "tgscreen.h"
-#include "tghelpers.h"
+#include "tgstyle.h"
 
 #include <QRect>
 #include <QDebug>
@@ -70,17 +70,38 @@ QRect Tg::Widget::contentsRectangle() const
 
 Terminal::Color4Bit Tg::Widget::backgroundColor() const
 {
-    return _backgroundColor;
+    if (isColorEmpty(_backgroundColor)) {
+        return _style->backgroundColor;
+    } else {
+        return _backgroundColor;
+    }
 }
 
 Terminal::Color4Bit Tg::Widget::textColor() const
 {
-    return _textColor;
+    if (isColorEmpty(_textColor)) {
+        return _style->textColor;
+    } else {
+        return _textColor;
+    }
 }
 
-Terminal::Color4Bit Tg::Widget::borderColor() const
+Terminal::Color4Bit Tg::Widget::borderTextColor() const
 {
-    return _borderColor;
+    if (isColorEmpty(_borderTextColor)) {
+        return _style->borderTextColor;
+    } else {
+        return _borderTextColor;
+    }
+}
+
+Terminal::Color4Bit Tg::Widget::borderBackgroundColor() const
+{
+    if (isColorEmpty(_borderBackgroundColor)) {
+        return _style->borderBackgroundColor;
+    } else {
+        return _borderBackgroundColor;
+    }
 }
 
 bool Tg::Widget::visible() const
@@ -133,7 +154,7 @@ std::string Tg::Widget::drawBorderPixel(const QPoint &pixel) const
 {
     std::string result;
 
-    result.append(Terminal::colorCode(borderColor(),
+    result.append(Terminal::colorCode(borderTextColor(),
                                       Terminal::Color4Bit::Empty));
 
     const QRect rect(QPoint(0, 0), size());
@@ -218,6 +239,26 @@ QPoint Tg::Widget::mapToGlobal(const QPoint &position) const
     return result;
 }
 
+bool Tg::Widget::propagatesStyle() const
+{
+    return _propagatesStyle;
+}
+
+void Tg::Widget::setStyle(const Tg::StylePointer &style, const bool propagate)
+{
+    _style = style;
+    setPropagatesStyle(propagate);
+
+    if (propagate) {
+        const auto children = findChildren<Tg::Widget*>();
+        for (const Tg::Widget *child : children) {
+            if (child) {
+                setStyle(style, true);
+            }
+        }
+    }
+}
+
 void Tg::Widget::setPosition(const QPoint &position)
 {
     if (_position == position)
@@ -264,13 +305,22 @@ void Tg::Widget::setTextColor(const Terminal::Color4Bit textColor)
     emit textColorChanged(_textColor);
 }
 
-void Tg::Widget::setBorderColor(Terminal::Color4Bit borderColor)
+void Tg::Widget::setBorderTextColor(Terminal::Color4Bit borderColor)
 {
-    if (_borderColor == borderColor)
+    if (_borderTextColor == borderColor)
         return;
 
-    _borderColor = borderColor;
-    emit borderColorChanged(_borderColor);
+    _borderTextColor = borderColor;
+    emit borderTextColorChanged(_borderTextColor);
+}
+
+void Tg::Widget::setBorderBackgroundColor(const Terminal::Color4Bit borderBackgroundColor)
+{
+    if (_borderBackgroundColor == borderBackgroundColor)
+        return;
+
+    _borderBackgroundColor = borderBackgroundColor;
+    emit borderBackgroundColorChanged(_borderBackgroundColor);
 }
 
 void Tg::Widget::setVisible(const bool visible)
@@ -311,6 +361,11 @@ int Tg::Widget::effectiveBorderWidth() const
     return 0;
 }
 
+bool Tg::Widget::isColorEmpty(const Terminal::Color4Bit color) const
+{
+    return color == Terminal::Color4Bit::Empty;
+}
+
 void Tg::Widget::init()
 {
     CHECK(connect(this, &Widget::positionChanged,
@@ -321,7 +376,7 @@ void Tg::Widget::init()
                   this, &Widget::scheduleRedraw));
     CHECK(connect(this, &Widget::textColorChanged,
                   this, &Widget::scheduleRedraw));
-    CHECK(connect(this, &Widget::borderColorChanged,
+    CHECK(connect(this, &Widget::borderTextColorChanged,
                   this, &Widget::scheduleRedraw));
     CHECK(connect(this, &Widget::visibleChanged,
                   this, &Widget::scheduleRedraw));
@@ -352,6 +407,19 @@ void Tg::Widget::consumeKeyboardBuffer(const QString &keyboardBuffer)
 void Tg::Widget::setVerticalArrowsMoveFocus(const bool verticalArrowsMoveFocus)
 {
     _verticalArrowsMoveFocus = verticalArrowsMoveFocus;
+}
+
+void Tg::Widget::setPropagatesStyle(const bool propagatesStyle)
+{
+    if (propagatesStyle != _propagatesStyle) {
+        _propagatesStyle = propagatesStyle;
+        emit propagatesStyleChanged(propagatesStyle);
+    }
+}
+
+Tg::StylePointer Tg::Widget::style() const
+{
+    return _style;
 }
 
 void Tg::Widget::scheduleRedraw() const

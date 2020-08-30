@@ -23,32 +23,56 @@ Tg::Button::Button(const QString &text, Tg::Screen *screen) : Tg::Label(text, sc
 
 Terminal::Color4Bit Tg::Button::activeTextColor() const
 {
-    return _activeTextColor;
+    if (isColorEmpty(_activeTextColor)) {
+        return style()->activeTextColor;
+    } else {
+        return _activeTextColor;
+    }
 }
 
 Terminal::Color4Bit Tg::Button::activeBackgroundColor() const
 {
-    return _activeBackgroundColor;
+    if (isColorEmpty(_activeBackgroundColor)) {
+        return style()->activeBackgroundColor;
+    } else {
+        return _activeBackgroundColor;
+    }
 }
 
 Terminal::Color4Bit Tg::Button::inactiveTextColor() const
 {
-    return _inactiveTextColor;
+    if (isColorEmpty(_inactiveTextColor)) {
+        return style()->inactiveTextColor;
+    } else {
+        return _inactiveTextColor;
+    }
 }
 
 Terminal::Color4Bit Tg::Button::inactiveBackgroundColor() const
 {
-    return _inactiveBackgroundColor;
+    if (isColorEmpty(_inactiveBackgroundColor)) {
+        return style()->inactiveBackgroundColor;
+    } else {
+        return _inactiveBackgroundColor;
+    }
 }
 
 Terminal::Color4Bit Tg::Button::pressedTextColor() const
 {
-    return _pressedTextColor;
+    if (isColorEmpty(_pressedTextColor)) {
+        return style()->pressedTextColor;
+    } else {
+        return _pressedTextColor;
+    }
 }
 
 Terminal::Color4Bit Tg::Button::pressedBackgroundColor() const
 {
-    return _pressedBackgroundColor;
+    if (isColorEmpty(_pressedBackgroundColor)) {
+        return style()->pressedBackgroundColor;
+    } else {
+        return _pressedBackgroundColor;
+    }
 }
 
 void Tg::Button::setActiveTextColor(const Terminal::Color4Bit activeTextColor)

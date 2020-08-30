@@ -2,6 +2,8 @@
 
 #include <backend/backend.h>
 
+#include <QSharedPointer>
+
 namespace Tg {
 class Style
 {
@@ -38,4 +40,6 @@ public:
     Terminal::Color4Bit pressedTextColor = Terminal::Color4Bit::Green;
     Terminal::Color4Bit pressedBackgroundColor = Terminal::Color4Bit::LightWhite;
 };
+
+using StylePointer = QSharedPointer<const Tg::Style>;
 }

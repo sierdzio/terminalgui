@@ -51,9 +51,9 @@ int main(int argc, char *argv[])
     widget.setSize(QSize(18, 10));
     widget.show();
 
-    Tg::Button button(QObject::tr("OK"), &widget);
+    Tg::Button button(QObject::tr("Hide widget"), &widget);
     button.setPosition(QPoint(0, 1));
-    button.setSize(QSize(8, 2));
+    button.setSize(QSize(12, 2));
     button.show();
 
     CHECK(QObject::connect(&button, &Tg::Button::clicked,

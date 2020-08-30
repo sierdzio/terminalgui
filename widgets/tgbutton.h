@@ -59,11 +59,11 @@ protected slots:
 
 private:
     QTimer _buttonPressTimer;
-    Terminal::Color4Bit _activeTextColor = Terminal::Color4Bit::Black;
-    Terminal::Color4Bit _activeBackgroundColor = Terminal::Color4Bit::White;
-    Terminal::Color4Bit _inactiveTextColor = Terminal::Color4Bit::White;
-    Terminal::Color4Bit _inactiveBackgroundColor = Terminal::Color4Bit::Gray;
-    Terminal::Color4Bit _pressedTextColor = Terminal::Color4Bit::Green;
-    Terminal::Color4Bit _pressedBackgroundColor = Terminal::Color4Bit::LightWhite;
+    Terminal::Color4Bit _activeTextColor = Terminal::Color4Bit::Empty;
+    Terminal::Color4Bit _activeBackgroundColor = Terminal::Color4Bit::Empty;
+    Terminal::Color4Bit _inactiveTextColor = Terminal::Color4Bit::Empty;
+    Terminal::Color4Bit _inactiveBackgroundColor = Terminal::Color4Bit::Empty;
+    Terminal::Color4Bit _pressedTextColor = Terminal::Color4Bit::Empty;
+    Terminal::Color4Bit _pressedBackgroundColor = Terminal::Color4Bit::Empty;
 };
 }
