@@ -73,7 +73,7 @@ int main(int argc, char *argv[])
     Tg::ReversibleAnimation animation(&label, "position");
     animation.setDuration(5000);
     animation.setStartValue(QPoint(1, 1));
-    const int endX = screen.size().width() - label.text().size();
+    const int endX = screen.size().width() - label.size().width();
     animation.setEndValue(QPoint(endX, 7));
     animation.start();
 
