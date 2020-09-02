@@ -1,6 +1,6 @@
 #include "tgwidget.h"
 #include "tgscreen.h"
-#include "tgstyle.h"
+#include "tgchildfillsparentlayout.h"
 
 #include <QRect>
 #include <QDebug>
@@ -264,6 +264,29 @@ bool Tg::Widget::fillsParent() const
     return _fillsParent;
 }
 
+void Tg::Widget::setLayoutType(const Tg::Layout::Type type)
+{
+    if (_layout) {
+        if (_layout->type == type) {
+            return;
+        } else {
+            delete _layout;
+        }
+    }
+
+    switch (type) {
+    case Layout::Type::None:
+        _layout = new Layout;
+    case Layout::Type::ChildFillsParent:
+        _layout = new ChildFillsParentLayout;
+    default:
+        qWarning() << "Missing Layout implementations!";
+    }
+
+    _layout->type = type;
+    _layout->parent = this;
+}
+
 void Tg::Widget::setPosition(const QPoint &position)
 {
     if (_position == position)
@@ -290,6 +313,10 @@ void Tg::Widget::setSize(const QSize &size)
 
     _size = size;
     emit sizeChanged(_size);
+
+    if (_layout) {
+        _layout->doLayout();
+    }
 }
 
 void Tg::Widget::setBackgroundColor(const Terminal::Color4Bit backgroundColor)

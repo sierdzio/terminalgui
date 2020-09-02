@@ -19,6 +19,8 @@ add_library(terminalgui
     tgstyle.cpp tgstyle.h
     tgscreen.cpp tgscreen.h
     tgwidget.cpp tgwidget.h
+    tglayout.cpp tglayout.h
+    tgchildfillsparentlayout.cpp tgchildfillsparentlayout.h
     tglabel.cpp tglabel.h
     tgbutton.cpp tgbutton.h
     tglineedit.cpp tglineedit.h)

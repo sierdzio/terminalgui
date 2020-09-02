@@ -11,6 +11,7 @@
 #include <backend/backend.h>
 
 #include "tgstyle.h"
+#include "tglayout.h"
 
 #include <string>
 
@@ -40,6 +41,8 @@ class Widget : public QObject
     Q_PROPERTY(bool hasFocus READ hasFocus NOTIFY hasFocusChanged)
     Q_PROPERTY(bool propagatesStyle READ propagatesStyle NOTIFY propagatesStyleChanged)
     Q_PROPERTY(bool fillsParent READ fillsParent WRITE setFillsParent NOTIFY fillsParentChanged)
+
+    // TODO: add Layout property?
 
     friend class Screen;
 
@@ -83,6 +86,8 @@ public:
     void setStyle(const StylePointer &style, const bool propagate = true);
 
     bool fillsParent() const;
+
+    void setLayoutType(const Layout::Type type);
 
 signals:
     void needsRedraw() const;
@@ -135,6 +140,8 @@ private:
     QPointer<Screen> _screen;
     QPointer<Widget> _parentWidget;
     StylePointer _style;
+    // TODO: smart pointer
+    Layout *_layout = nullptr;
 
     QPoint _position = { 0, 0 };
     QSize _size = { 1, 1 };
