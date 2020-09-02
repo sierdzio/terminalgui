@@ -61,7 +61,6 @@ public:
     void setAcceptsFocus(const bool acceptsFocus);
     void setHasFocus(const bool hasFocus);
 
-    Screen *screen() const;
     Widget *parentWidget() const;
 
     virtual std::string drawBorderPixel(const QPoint &pixel) const;
@@ -118,8 +117,7 @@ protected slots:
 private:
     const int _borderWidth = 1;
 
-//    QPointer<Screen> _screen;
-//    QPointer<Widget> _parentWidget;
+    QPointer<Widget> _parentWidget;
     StylePointer _style;
 
     // TODO: use 256 bit colors by default. Introduce some "Terminal::Color"

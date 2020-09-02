@@ -6,19 +6,14 @@
 #include <QDebug>
 
 Tg::Widget::Widget(Widget *parent)
-    : QObject(parent),
-      _screen(parent->screen()),
+    : Layout(parent),
       _parentWidget(parent)
 {
-    // TODO: when parenting under a Widget, make sure position() and size()
-    // are adjusted to fit the parent. And that the two will now move together
-
     init();
 }
 
 Tg::Widget::Widget(Tg::Screen *parentScreen)
-    : QObject(parentScreen),
-      _screen(parentScreen),
+    : Layout(parentScreen),
       _parentWidget(nullptr)
 {
     init();
@@ -26,19 +21,9 @@ Tg::Widget::Widget(Tg::Screen *parentScreen)
 
 Tg::Widget::~Widget()
 {
-    if (_screen) {
-        _screen->deregisterWidget(this);
+    if (screen()) {
+        screen()->deregisterWidget(this);
     }
-}
-
-QPoint Tg::Widget::position() const
-{
-    return _position;
-}
-
-QSize Tg::Widget::size() const
-{
-    return _size;
 }
 
 QRect Tg::Widget::boundingRectangle() const
@@ -138,11 +123,6 @@ void Tg::Widget::setHasFocus(const bool hasFocus)
         _hasFocus = hasFocus;
         emit hasFocusChanged(hasFocus);
     }
-}
-
-Tg::Screen *Tg::Widget::screen() const
-{
-    return _screen;
 }
 
 Tg::Widget *Tg::Widget::parentWidget() const
@@ -259,34 +239,6 @@ void Tg::Widget::setStyle(const Tg::StylePointer &style, const bool propagate)
     }
 }
 
-void Tg::Widget::setPosition(const QPoint &position)
-{
-    if (_position == position)
-        return;
-
-    if (parentWidget() == nullptr) {
-        if (position.x() == 0) {
-            qWarning() << "Minimal x coordinate on terminal is 1, not 0";
-        }
-
-        if (position.y() == 0) {
-            qWarning() << "Minimal y coordinate on terminal is 1, not 0";
-        }
-    }
-
-    _position = position;
-    emit positionChanged(_position);
-}
-
-void Tg::Widget::setSize(const QSize &size)
-{
-    if (_size == size)
-        return;
-
-    _size = size;
-    emit sizeChanged(_size);
-}
-
 void Tg::Widget::setBackgroundColor(const Terminal::Color4Bit backgroundColor)
 {
     if (_backgroundColor == backgroundColor)
@@ -385,10 +337,10 @@ void Tg::Widget::init()
     CHECK(connect(this, &Widget::hasFocusChanged,
                   this, &Widget::scheduleRedraw));
 
-    if (_screen) {
+    if (screen()) {
         CHECK(connect(this, &Widget::needsRedraw,
-                      _screen, &Screen::onNeedsRedraw));
-        _screen->registerWidget(this);
+                      screen(), &Screen::onNeedsRedraw));
+        screen()->registerWidget(this);
     } else {
         qCritical() << "Screen is missing, can't draw the widget!" << this;
     }

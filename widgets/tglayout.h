@@ -20,36 +20,16 @@ class Layout : public QObject
 public:
     explicit Layout(Layout *parent);
     explicit Layout(Screen *parentScreen);
-    ~Layout();
 
-    QPoint position() const
-    {
-        return _position;
-    }
+    QPoint position() const;
+    QSize size() const;
 
-    QSize size() const
-    {
-        return _size;
-    }
+    Screen *screen() const;
+    Layout *parentLayout() const;
 
 public slots:
-    void setPosition(const QPoint &position)
-    {
-        if (_position == position)
-            return;
-
-        _position = position;
-        emit positionChanged(_position);
-    }
-
-    void setSize(const QSize &size)
-    {
-        if (_size == size)
-            return;
-
-        _size = size;
-        emit sizeChanged(_size);
-    }
+    void setPosition(const QPoint &position);
+    void setSize(const QSize &size);
 
 signals:
     void positionChanged(const QPoint &position) const;
@@ -57,7 +37,7 @@ signals:
 
 private:
     QPointer<Screen> _screen;
-    QPointer<Layout> _parentWidget;
+    QPointer<Layout> _parentLayout;
 
     QPoint _position = { 1, 1 };
     QSize _size = { 1, 1 };
