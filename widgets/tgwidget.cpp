@@ -259,6 +259,11 @@ void Tg::Widget::setStyle(const Tg::StylePointer &style, const bool propagate)
     }
 }
 
+bool Tg::Widget::fillsParent() const
+{
+    return _fillsParent;
+}
+
 void Tg::Widget::setPosition(const QPoint &position)
 {
     if (_position == position)
@@ -352,6 +357,19 @@ void Tg::Widget::setBorderVisible(const bool borderVisible)
     emit borderVisibleChanged(_borderVisible);
 }
 
+void Tg::Widget::setFillsParent(const bool fillsParent)
+{
+    if (fillsParent && parentWidget()) {
+        setSize(parentWidget()->contentsRectangle().size());
+    }
+
+    if (_fillsParent == fillsParent)
+        return;
+
+    _fillsParent = fillsParent;
+    emit fillsParentChanged(_fillsParent);
+}
+
 int Tg::Widget::effectiveBorderWidth() const
 {
     if (borderVisible()) {
@@ -383,6 +401,8 @@ void Tg::Widget::init()
     CHECK(connect(this, &Widget::borderVisibleChanged,
                   this, &Widget::scheduleRedraw));
     CHECK(connect(this, &Widget::hasFocusChanged,
+                  this, &Widget::scheduleRedraw));
+    CHECK(connect(this, &Widget::fillsParentChanged,
                   this, &Widget::scheduleRedraw));
 
     if (_screen) {

@@ -2,8 +2,6 @@
 #include <QPropertyAnimation>
 #include <QDebug>
 
-#include <backend/backend.h>
-#include <widgets/tghelpers.h>
 #include <widgets/reversibleanimation.h>
 #include <widgets/tgscreen.h>
 #include <widgets/tgwidget.h>

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(terminalgui-example LANGUAGES CXX)
+project(terminalgui-examples LANGUAGES CXX)
 
 find_package(Qt5 COMPONENTS REQUIRED Core)
 
@@ -13,6 +13,8 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
-add_executable(terminalgui-example main.cpp)
-
+add_executable(terminalgui-example terminalgui-example.cpp)
 target_link_libraries(terminalgui-example PUBLIC terminalgui Qt5::Core)
+
+add_executable(layouts-example layouts-example.cpp)
+target_link_libraries(layouts-example PUBLIC terminalgui Qt5::Core)

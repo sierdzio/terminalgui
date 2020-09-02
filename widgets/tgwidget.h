@@ -39,6 +39,7 @@ class Widget : public QObject
     Q_PROPERTY(bool acceptsFocus READ acceptsFocus NOTIFY acceptsFocusChanged)
     Q_PROPERTY(bool hasFocus READ hasFocus NOTIFY hasFocusChanged)
     Q_PROPERTY(bool propagatesStyle READ propagatesStyle NOTIFY propagatesStyleChanged)
+    Q_PROPERTY(bool fillsParent READ fillsParent WRITE setFillsParent NOTIFY fillsParentChanged)
 
     friend class Screen;
 
@@ -81,6 +82,8 @@ public:
     bool propagatesStyle() const;
     void setStyle(const StylePointer &style, const bool propagate = true);
 
+    bool fillsParent() const;
+
 signals:
     void needsRedraw() const;
     void positionChanged(const QPoint &position) const;
@@ -95,7 +98,8 @@ signals:
     void hasFocusChanged(const bool hasFocus) const;
     void moveFocusToPreviousWidget() const;
     void moveFocusToNextWidget() const;
-    void propagatesStyleChanged(const bool propagatesStyle) const;
+    void propagatesStyleChanged(const bool propagatesStyle) const;    
+    void fillsParentChanged(const bool fillsParent) const;
 
 public slots:
     void setPosition(const QPoint &position);
@@ -107,7 +111,8 @@ public slots:
     void setVisible(const bool visible);
     void show();
     void hide();
-    void setBorderVisible(const bool borderVisible);
+    void setBorderVisible(const bool borderVisible);    
+    void setFillsParent(const bool fillsParent);
 
 protected:
     int effectiveBorderWidth() const;
@@ -131,7 +136,7 @@ private:
     QPointer<Widget> _parentWidget;
     StylePointer _style;
 
-    QPoint _position = { 1, 1 };
+    QPoint _position = { 0, 0 };
     QSize _size = { 1, 1 };
     // TODO: use 256 bit colors by default. Introduce some "Terminal::Color"
     // class which will dynamically switch between color types based
@@ -147,5 +152,6 @@ private:
     bool _hasFocus = false;
     bool _verticalArrowsMoveFocus = false;
     bool _propagatesStyle = true;
+    bool _fillsParent = false;
 };
 }
