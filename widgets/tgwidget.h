@@ -11,7 +11,6 @@
 #include <backend/backend.h>
 
 #include "tgstyle.h"
-#include "tglayout.h"
 
 #include <string>
 
@@ -21,10 +20,14 @@ namespace Terminal {
 }
 
 namespace Tg {
+class Screen;
 
-class Widget : public Layout
+class Widget : public QObject
 {
     Q_OBJECT
+
+    Q_PROPERTY(QPoint position READ position WRITE setPosition NOTIFY positionChanged)
+    Q_PROPERTY(QSize size READ size WRITE setSize NOTIFY sizeChanged)
 
     Q_PROPERTY(Terminal::Color4Bit backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
     Q_PROPERTY(Terminal::Color4Bit textColor READ textColor WRITE setTextColor NOTIFY textColorChanged)
@@ -44,6 +47,8 @@ public:
     explicit Widget(Screen *parentScreen);
     ~Widget();
 
+    QPoint position() const;
+    QSize size() const;
     QRect boundingRectangle() const;
     QRect globalBoundingRectangle() const;
     QRect contentsRectangle() const;
@@ -78,6 +83,8 @@ public:
 
 signals:
     void needsRedraw() const;
+    void positionChanged(const QPoint &position) const;
+    void sizeChanged(const QSize &size) const;
     void backgroundColorChanged(const Terminal::Color4Bit backgroundColor) const;
     void textColorChanged(const Terminal::Color4Bit textColor) const;
     void borderTextColorChanged(const Terminal::Color4Bit borderColor) const;
@@ -91,6 +98,8 @@ signals:
     void propagatesStyleChanged(const bool propagatesStyle) const;
 
 public slots:
+    void setPosition(const QPoint &position);
+    void setSize(const QSize &size);
     void setBackgroundColor(const Terminal::Color4Bit backgroundColor);
     void setTextColor(const Terminal::Color4Bit textColor);
     void setBorderTextColor(Terminal::Color4Bit borderColor);
@@ -118,10 +127,12 @@ protected slots:
 private:
     const int _borderWidth = 1;
 
-//    QPointer<Screen> _screen;
-//    QPointer<Widget> _parentWidget;
+    QPointer<Screen> _screen;
+    QPointer<Widget> _parentWidget;
     StylePointer _style;
 
+    QPoint _position = { 1, 1 };
+    QSize _size = { 1, 1 };
     // TODO: use 256 bit colors by default. Introduce some "Terminal::Color"
     // class which will dynamically switch between color types based
     // on user settings or terminal capabilities
