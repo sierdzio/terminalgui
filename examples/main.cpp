@@ -51,24 +51,25 @@ int main(int argc, char *argv[])
     widget.setSize(QSize(18, 10));
     widget.show();
 
-    Tg::Button button(QObject::tr("Hide widget"), &widget);
-    button.setPosition(QPoint(0, 1));
-    button.setSize(QSize(12, 2));
-    button.show();
+//    Tg::Button button(QObject::tr("Hide widget"), &widget);
+//    button.setPosition(QPoint(0, 1));
+//    button.setSize(QSize(12, 2));
+//    button.show();
 
-    CHECK(QObject::connect(&button, &Tg::Button::clicked,
-                           &labelNotOnFirstRow, &Tg::Label::hide));
+//    CHECK(QObject::connect(&button, &Tg::Button::clicked,
+//                           &labelNotOnFirstRow, &Tg::Label::hide));
 
     Tg::Button quitButton(QObject::tr("Quit"), &widget);
-    quitButton.setPosition(QPoint(1, 4));
+//    quitButton.setPosition(QPoint(1, 4));
+    quitButton.setFillParent(true);
     quitButton.show();
 
     CHECK(QObject::connect(&quitButton, &Tg::Button::clicked,
                            &app, &QCoreApplication::quit));
 
-    Tg::LineEdit lineEdit(QObject::tr("Placeholder"), &widget);
-    lineEdit.setPosition(QPoint(2, 6));
-    lineEdit.show();
+//    Tg::LineEdit lineEdit(QObject::tr("Placeholder"), &widget);
+//    lineEdit.setPosition(QPoint(2, 6));
+//    lineEdit.show();
 
     Tg::ReversibleAnimation animation(&label, "position");
     animation.setDuration(5000);

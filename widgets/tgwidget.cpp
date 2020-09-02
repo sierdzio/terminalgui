@@ -324,6 +324,8 @@ void Tg::Widget::init()
                   this, &Widget::scheduleRedraw));
     CHECK(connect(this, &Widget::sizeChanged,
                   this, &Widget::scheduleRedraw));
+    CHECK(connect(this, &Widget::fillParentChanged,
+                  this, &Widget::scheduleRedraw));
     CHECK(connect(this, &Widget::backgroundColorChanged,
                   this, &Widget::scheduleRedraw));
     CHECK(connect(this, &Widget::textColorChanged,
