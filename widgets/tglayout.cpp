@@ -25,11 +25,6 @@ QSize Tg::Layout::size() const
     return _size;
 }
 
-bool Tg::Layout::fillParent() const
-{
-    return _fillParent;
-}
-
 Tg::Screen *Tg::Layout::screen() const
 {
     return _screen;
@@ -66,22 +61,4 @@ void Tg::Layout::setSize(const QSize &size)
 
     _size = size;
     emit sizeChanged(_size);
-}
-
-void Tg::Layout::setFillParent(const bool fillParent)
-{
-    if (fillParent && parentLayout()) {
-        // Stretch the layout to fill it's parent
-        // TODO: react to parent gaining or loosing it's border
-
-        // TODO: use contentsRectangle() and not size()
-        const QSize parentSize = parentLayout()->size();
-        setSize(parentSize);
-    }
-
-    if (_fillParent == fillParent)
-        return;
-
-    _fillParent = fillParent;
-    emit fillParentChanged(_fillParent);
 }
