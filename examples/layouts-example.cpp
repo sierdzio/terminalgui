@@ -16,26 +16,30 @@ int main(int argc, char *argv[])
 
     Tg::Screen screen;
     Tg::Widget widget(&screen);
+    widget.setObjectName("widget");
     widget.setPosition(QPoint(1, 1));
     widget.setSize(size);
+    widget.setLayoutType(Tg::Layout::Type::None);
     widget.show();
 
     Tg::Button quitButton(QObject::tr("Quit"), &widget);
-    quitButton.setFillsParent(true);
+    quitButton.setObjectName("quitButton");
     quitButton.show();    
 
-    Tg::Widget widgetWithFillLayout(&screen);
-    widgetWithFillLayout.setLayoutType(Tg::Layout::Type::ChildFillsParent);
-    widgetWithFillLayout.setPosition(QPoint(13, 1));
-    widgetWithFillLayout.show();
+    Tg::Widget widgetColumn(&screen);
+    widgetColumn.setObjectName("widgetColumn");
+    widgetColumn.setLayoutType(Tg::Layout::Type::ChildFillsParent);
+    widgetColumn.setPosition(QPoint(13, 1));
+    widgetColumn.setSize(size);
+    widgetColumn.show();
 
-    Tg::Button quitButton2(QObject::tr("Quit"), &widgetWithFillLayout);
-    // TODO: make sure size can be called at any point!
-    // TODO: make sure layout is redone when child widget is added!
-    widgetWithFillLayout.setSize(size);
+    Tg::Button quitButton2(QObject::tr("Quit"), &widgetColumn);
+    quitButton2.setObjectName("quitButton2");
     quitButton2.show();
 
     CHECK(QObject::connect(&quitButton, &Tg::Button::clicked,
+                           &app, &QCoreApplication::quit));
+    CHECK(QObject::connect(&quitButton2, &Tg::Button::clicked,
                            &app, &QCoreApplication::quit));
 
     return app.exec();

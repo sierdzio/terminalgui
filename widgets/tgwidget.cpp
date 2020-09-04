@@ -10,10 +10,11 @@ Tg::Widget::Widget(Widget *parent)
       _screen(parent->screen()),
       _parentWidget(parent)
 {
-    // TODO: when parenting under a Widget, make sure position() and size()
-    // are adjusted to fit the parent. And that the two will now move together
-
     init();
+
+    if (parent) {
+        parent->doLayout();
+    }
 }
 
 Tg::Widget::Widget(Tg::Screen *parentScreen)
@@ -259,9 +260,9 @@ void Tg::Widget::setStyle(const Tg::StylePointer &style, const bool propagate)
     }
 }
 
-bool Tg::Widget::fillsParent() const
+Tg::Layout::Type Tg::Widget::layoutType() const
 {
-    return _fillsParent;
+    return _layout->type;
 }
 
 void Tg::Widget::setLayoutType(const Tg::Layout::Type type)
@@ -285,6 +286,14 @@ void Tg::Widget::setLayoutType(const Tg::Layout::Type type)
 
     _layout->type = type;
     _layout->parent = this;
+    _layout->doLayout();
+}
+
+void Tg::Widget::doLayout()
+{
+    if (_layout) {
+        _layout->doLayout();
+    }
 }
 
 void Tg::Widget::setPosition(const QPoint &position)
@@ -363,6 +372,10 @@ void Tg::Widget::setVisible(const bool visible)
     _visible = visible;
 
     emit visibleChanged(_visible);
+
+    if (visible && parentWidget()) {
+        parentWidget()->doLayout();
+    }
 }
 
 void Tg::Widget::show()
@@ -382,19 +395,6 @@ void Tg::Widget::setBorderVisible(const bool borderVisible)
 
     _borderVisible = borderVisible;
     emit borderVisibleChanged(_borderVisible);
-}
-
-void Tg::Widget::setFillsParent(const bool fillsParent)
-{
-    if (fillsParent && parentWidget()) {
-        setSize(parentWidget()->contentsRectangle().size());
-    }
-
-    if (_fillsParent == fillsParent)
-        return;
-
-    _fillsParent = fillsParent;
-    emit fillsParentChanged(_fillsParent);
 }
 
 int Tg::Widget::effectiveBorderWidth() const
@@ -429,8 +429,6 @@ void Tg::Widget::init()
                   this, &Widget::scheduleRedraw));
     CHECK(connect(this, &Widget::hasFocusChanged,
                   this, &Widget::scheduleRedraw));
-    CHECK(connect(this, &Widget::fillsParentChanged,
-                  this, &Widget::scheduleRedraw));
 
     if (_screen) {
         CHECK(connect(this, &Widget::needsRedraw,
@@ -444,6 +442,8 @@ void Tg::Widget::init()
         setBorderVisible(false);
         setBackgroundColor(Terminal::Color4Bit::Black);
     }
+
+    setLayoutType(Layout::Type::None);
 }
 
 void Tg::Widget::consumeKeyboardBuffer(const QString &keyboardBuffer)

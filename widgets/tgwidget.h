@@ -40,7 +40,6 @@ class Widget : public QObject
     Q_PROPERTY(bool acceptsFocus READ acceptsFocus NOTIFY acceptsFocusChanged)
     Q_PROPERTY(bool hasFocus READ hasFocus NOTIFY hasFocusChanged)
     Q_PROPERTY(bool propagatesStyle READ propagatesStyle NOTIFY propagatesStyleChanged)
-    Q_PROPERTY(bool fillsParent READ fillsParent WRITE setFillsParent NOTIFY fillsParentChanged)
 
     // TODO: add Layout property?
 
@@ -85,9 +84,9 @@ public:
     bool propagatesStyle() const;
     void setStyle(const StylePointer &style, const bool propagate = true);
 
-    bool fillsParent() const;
-
+    Layout::Type layoutType() const;
     void setLayoutType(const Layout::Type type);
+    void doLayout();
 
 signals:
     void needsRedraw() const;
@@ -103,8 +102,7 @@ signals:
     void hasFocusChanged(const bool hasFocus) const;
     void moveFocusToPreviousWidget() const;
     void moveFocusToNextWidget() const;
-    void propagatesStyleChanged(const bool propagatesStyle) const;    
-    void fillsParentChanged(const bool fillsParent) const;
+    void propagatesStyleChanged(const bool propagatesStyle) const;
 
 public slots:
     void setPosition(const QPoint &position);
@@ -116,8 +114,7 @@ public slots:
     void setVisible(const bool visible);
     void show();
     void hide();
-    void setBorderVisible(const bool borderVisible);    
-    void setFillsParent(const bool fillsParent);
+    void setBorderVisible(const bool borderVisible);
 
 protected:
     int effectiveBorderWidth() const;
@@ -159,6 +156,5 @@ private:
     bool _hasFocus = false;
     bool _verticalArrowsMoveFocus = false;
     bool _propagatesStyle = true;
-    bool _fillsParent = false;
 };
 }

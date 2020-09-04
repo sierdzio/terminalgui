@@ -6,10 +6,12 @@
 void Tg::ChildFillsParentLayout::doLayout()
 {
     if (type == Layout::Type::ChildFillsParent && parent) {
-        const auto children = parent->findChildren<Widget *>(
-                    QString(), Qt::FindChildOption::FindDirectChildrenOnly);
-        if (children.isEmpty() == false) {
-            children.at(0)->setSize(parent->contentsRectangle().size());
+        for (const auto child : parent->children()) {
+            auto widget = qobject_cast<Widget*>(child);
+            if (widget) {
+                widget->setSize(parent->contentsRectangle().size());
+                break;
+            }
         }
     }
 }
