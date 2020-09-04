@@ -2,6 +2,7 @@
 #include "tgscreen.h"
 #include "tgchildfillsparentlayout.h"
 #include "tgcolumnlayout.h"
+#include "tgrowlayout.h"
 #include "tggridlayout.h"
 
 #include <QRect>
@@ -286,6 +287,9 @@ void Tg::Widget::setLayoutType(const Tg::Layout::Type type)
         break;
     case Layout::Type::Column:
         _layout = new ColumnLayout;
+        break;
+    case Layout::Type::Row:
+        _layout = new RowLayout;
         break;
     case Layout::Type::Grid:
         _layout = new GridLayout;

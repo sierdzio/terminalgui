@@ -10,9 +10,9 @@ public:
         None,
         ChildFillsParent,
         Column,
-        //Row,
-        //Form,
+        Row,
         Grid
+        //Form?
     };
 
     Layout();

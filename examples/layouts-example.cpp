@@ -61,10 +61,19 @@ int main(int argc, char *argv[])
 
     populateWidget(&widgetColumn);
 
+    Tg::Widget widgetRow(&screen);
+    widgetRow.setObjectName("widgetRow");
+    widgetRow.setLayoutType(Tg::Layout::Type::Row);
+    widgetRow.setPosition(QPoint(13, 7));
+    widgetRow.setSize(size);
+    widgetRow.show();
+
+    populateWidget(&widgetRow);
+
     Tg::Widget widgetGrid(&screen);
     widgetGrid.setObjectName("widgetGrid");
     widgetGrid.setLayoutType(Tg::Layout::Type::Grid);
-    widgetGrid.setPosition(QPoint(13, 7));
+    widgetGrid.setPosition(QPoint(1, 14));
     widgetGrid.setSize(size);
     widgetGrid.show();
 
