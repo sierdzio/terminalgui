@@ -8,17 +8,17 @@
 #include <widgets/tglayout.h>
 
 void populateWidget(Tg::Widget *parent) {
-    auto l1 = new Tg::Label("a", parent);
-    l1->show();
+    auto w1 = new Tg::Label("a", parent);
+    w1->show();
 
-    auto l2 = new Tg::Label("bc", parent);
-    l2->show();
+    auto w2 = new Tg::Button("bc", parent);
+    w2->show();
 
-    auto l3 = new Tg::Label("d", parent);
-    l3->show();
+    auto w3 = new Tg::Label("d", parent);
+    w3->show();
 
-    auto l4 = new Tg::Label("ef", parent);
-    l4->show();
+    auto w4 = new Tg::Label("ef", parent);
+    w4->show();
 }
 
 int main(int argc, char *argv[])
