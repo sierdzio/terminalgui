@@ -2,6 +2,7 @@
 #include "tgscreen.h"
 #include "tgchildfillsparentlayout.h"
 #include "tgcolumnlayout.h"
+#include "tggridlayout.h"
 
 #include <QRect>
 #include <QDebug>
@@ -279,10 +280,16 @@ void Tg::Widget::setLayoutType(const Tg::Layout::Type type)
     switch (type) {
     case Layout::Type::None:
         _layout = new Layout;
+        break;
     case Layout::Type::ChildFillsParent:
         _layout = new ChildFillsParentLayout;
+        break;
     case Layout::Type::Column:
         _layout = new ColumnLayout;
+        break;
+    case Layout::Type::Grid:
+        _layout = new GridLayout;
+        break;
     }
 
     _layout->parent = this;

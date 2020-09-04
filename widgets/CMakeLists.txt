@@ -17,11 +17,12 @@ add_library(terminalgui
     textstream.cpp textstream.h
     tghelpers.cpp tghelpers.h
     tgstyle.cpp tgstyle.h
-    tgscreen.cpp tgscreen.h
-    tgwidget.cpp tgwidget.h
     tglayout.cpp tglayout.h
     tgchildfillsparentlayout.cpp tgchildfillsparentlayout.h
     tgcolumnlayout.cpp tgcolumnlayout.h
+    tggridlayout.cpp tggridlayout.h
+    tgscreen.cpp tgscreen.h
+    tgwidget.cpp tgwidget.h
     tglabel.cpp tglabel.h
     tgbutton.cpp tgbutton.h
     tglineedit.cpp tglineedit.h)

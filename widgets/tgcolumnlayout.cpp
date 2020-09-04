@@ -9,27 +9,19 @@ void Tg::ColumnLayout::doLayout()
 {
     // TODO: LayoutSettings class!
 
-    const int columns = 2;
-    int currentColumn = 0;
-    int currentRow = 0;
-    int currentX = 0;
-    int currentY = 0;
-
     if (type == Layout::Type::Column && parent) {
+        const int width = parent->size().width();
+        int currentY = 0;
+
         for (const auto child : parent->children()) {
             auto widget = qobject_cast<Widget*>(child);
             if (widget) {
-                widget->setPosition(QPoint(currentX, currentRow));
-                const QSize size = widget->size();
-                currentX = currentX + size.width();
-                currentY = std::max(currentY, currentRow + size.height());
-                currentColumn++;
-
-                if (currentColumn >= columns) {
-                    currentColumn = 0;
-                    currentX = 0;
-                    currentRow = currentY;
-                }
+                const QSize currentSize = widget->size();
+                widget->setPosition(QPoint(0, currentY));
+                // TODO: if height can get smaller due to width getting larger,
+                // make it so!
+                widget->setSize(QSize(width, currentSize.height()));
+                currentY += currentSize.height();
             }
         }
     }

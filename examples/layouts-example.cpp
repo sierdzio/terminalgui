@@ -7,6 +7,20 @@
 #include <widgets/tgbutton.h>
 #include <widgets/tglayout.h>
 
+void populateWidget(Tg::Widget *parent) {
+    auto l1 = new Tg::Label("a", parent);
+    l1->show();
+
+    auto l2 = new Tg::Label("bc", parent);
+    l2->show();
+
+    auto l3 = new Tg::Label("d", parent);
+    l3->show();
+
+    auto l4 = new Tg::Label("ef", parent);
+    l4->show();
+}
+
 int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
@@ -45,17 +59,16 @@ int main(int argc, char *argv[])
     widgetColumn.setSize(size);
     widgetColumn.show();
 
-    Tg::Label l1("a", &widgetColumn);
-    l1.show();
+    populateWidget(&widgetColumn);
 
-    Tg::Label l2("ab", &widgetColumn);
-    l2.show();
+    Tg::Widget widgetGrid(&screen);
+    widgetGrid.setObjectName("widgetGrid");
+    widgetGrid.setLayoutType(Tg::Layout::Type::Grid);
+    widgetGrid.setPosition(QPoint(13, 7));
+    widgetGrid.setSize(size);
+    widgetGrid.show();
 
-    Tg::Label l3("c", &widgetColumn);
-    l3.show();
-
-    Tg::Label l4("d", &widgetColumn);
-    l4.show();
+    populateWidget(&widgetGrid);
 
     CHECK(QObject::connect(&quitButton, &Tg::Button::clicked,
                            &app, &QCoreApplication::quit));

@@ -12,7 +12,7 @@ public:
         Column,
         //Row,
         //Form,
-        //Grid
+        Grid
     };
 
     Layout();
