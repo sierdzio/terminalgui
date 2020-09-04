@@ -10,14 +10,15 @@ public:
         None,
         ChildFillsParent,
         Column,
-        Row,
-        Form,
-        Grid
+        //Row,
+        //Form,
+        //Grid
     };
 
+    Layout();
     virtual ~Layout();
 
-    Type type = Type::None;
+    const Type type = Type::None;
     Widget *parent = nullptr;
 
     /*!
@@ -25,5 +26,8 @@ public:
      * the whole widget.
      */
     virtual void doLayout();
+
+protected:
+    Layout(const Type type);
 };
 }

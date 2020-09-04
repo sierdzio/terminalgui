@@ -1,6 +1,7 @@
 #include "tgwidget.h"
 #include "tgscreen.h"
 #include "tgchildfillsparentlayout.h"
+#include "tgcolumnlayout.h"
 
 #include <QRect>
 #include <QDebug>
@@ -280,11 +281,10 @@ void Tg::Widget::setLayoutType(const Tg::Layout::Type type)
         _layout = new Layout;
     case Layout::Type::ChildFillsParent:
         _layout = new ChildFillsParentLayout;
-    default:
-        qWarning() << "Missing Layout implementations!";
+    case Layout::Type::Column:
+        _layout = new ColumnLayout;
     }
 
-    _layout->type = type;
     _layout->parent = this;
     _layout->doLayout();
 }

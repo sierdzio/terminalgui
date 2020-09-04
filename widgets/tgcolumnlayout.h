@@ -3,10 +3,10 @@
 #include "tglayout.h"
 
 namespace Tg {
-class ChildFillsParentLayout : public Layout
+class ColumnLayout : public Layout
 {
 public:
-    ChildFillsParentLayout();
+    ColumnLayout();
 
     void doLayout() override;
 };

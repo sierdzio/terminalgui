@@ -3,6 +3,10 @@
 
 #include <QRect>
 
+Tg::ChildFillsParentLayout::ChildFillsParentLayout() : Layout(Type::ChildFillsParent)
+{
+}
+
 void Tg::ChildFillsParentLayout::doLayout()
 {
     if (type == Layout::Type::ChildFillsParent && parent) {

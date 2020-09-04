@@ -3,6 +3,7 @@
 
 #include <widgets/tgscreen.h>
 #include <widgets/tgwidget.h>
+#include <widgets/tglabel.h>
 #include <widgets/tgbutton.h>
 #include <widgets/tglayout.h>
 
@@ -26,16 +27,35 @@ int main(int argc, char *argv[])
     quitButton.setObjectName("quitButton");
     quitButton.show();    
 
+    Tg::Widget widgetFill(&screen);
+    widgetFill.setObjectName("widgetFill");
+    widgetFill.setLayoutType(Tg::Layout::Type::ChildFillsParent);
+    widgetFill.setPosition(QPoint(13, 1));
+    widgetFill.setSize(size);
+    widgetFill.show();
+
+    Tg::Button quitButton2(QObject::tr("Quit"), &widgetFill);
+    quitButton2.setObjectName("quitButton2");
+    quitButton2.show();
+
     Tg::Widget widgetColumn(&screen);
     widgetColumn.setObjectName("widgetColumn");
-    widgetColumn.setLayoutType(Tg::Layout::Type::ChildFillsParent);
-    widgetColumn.setPosition(QPoint(13, 1));
+    widgetColumn.setLayoutType(Tg::Layout::Type::Column);
+    widgetColumn.setPosition(QPoint(1, 7));
     widgetColumn.setSize(size);
     widgetColumn.show();
 
-    Tg::Button quitButton2(QObject::tr("Quit"), &widgetColumn);
-    quitButton2.setObjectName("quitButton2");
-    quitButton2.show();
+    Tg::Label l1("a", &widgetColumn);
+    l1.show();
+
+    Tg::Label l2("ab", &widgetColumn);
+    l2.show();
+
+    Tg::Label l3("c", &widgetColumn);
+    l3.show();
+
+    Tg::Label l4("d", &widgetColumn);
+    l4.show();
 
     CHECK(QObject::connect(&quitButton, &Tg::Button::clicked,
                            &app, &QCoreApplication::quit));
