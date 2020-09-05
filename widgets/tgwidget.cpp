@@ -14,13 +14,6 @@ Tg::Widget::Widget(Widget *parent)
       _parentWidget(parent)
 {
     init();
-
-    if (parent) {
-        parent->doLayout();
-        if (parent->propagatesStyle()) {
-            parent->propagateStyleToChild(this);
-        }
-    }
 }
 
 Tg::Widget::Widget(Tg::Screen *parentScreen)
@@ -467,7 +460,11 @@ void Tg::Widget::init()
 
     if (_parentWidget) {
         setBorderVisible(false);
-        setBackgroundColor(Terminal::Color4Bit::Black);
+
+        _parentWidget->doLayout();
+        if (_parentWidget->propagatesStyle()) {
+            _parentWidget->propagateStyleToChild(this);
+        }
     }
 
     setLayoutType(Layout::Type::None);

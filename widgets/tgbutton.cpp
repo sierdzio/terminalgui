@@ -159,8 +159,13 @@ void Tg::Button::init()
     CHECK(connect(this, &Button::pressedBackgroundColorChanged,
                   this, &Button::scheduleRedraw));
 
-    setBackgroundColor(inactiveBackgroundColor());
-    setTextColor(inactiveTextColor());
+    if (hasFocus()) {
+        setBackgroundColor(activeBackgroundColor());
+        setTextColor(activeTextColor());
+    } else {
+        setBackgroundColor(inactiveBackgroundColor());
+        setTextColor(inactiveTextColor());
+    }
 }
 
 void Tg::Button::consumeKeyboardBuffer(const QString &keyboardBuffer)

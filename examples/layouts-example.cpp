@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
     auto style = Tg::StylePointer::create();
     style->setBorderStyleValues(Tg::TableBorderStyle());
     style->border->backgroundColor = Terminal::Color4Bit::Green;
-    style->backgroundColor = Terminal::Color4Bit::LightGreen;
+    style->backgroundColor = Terminal::Color4Bit::Red;
     style->inactiveBackgroundColor = Terminal::Color4Bit::LightMagenta;
     widgetColumn.setStyle(style, true);
 
