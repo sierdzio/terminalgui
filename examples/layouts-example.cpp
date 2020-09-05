@@ -58,7 +58,9 @@ int main(int argc, char *argv[])
     Tg::Widget widgetColumn(&screen);
     auto style = Tg::StylePointer::create();
     style->setBorderStyleValues(Tg::TableBorderStyle());
+    style->border->backgroundColor = Terminal::Color4Bit::Green;
     style->backgroundColor = Terminal::Color4Bit::LightGreen;
+    style->inactiveBackgroundColor = Terminal::Color4Bit::LightMagenta;
     widgetColumn.setStyle(style, true);
 
     widgetColumn.setObjectName("widgetColumn");

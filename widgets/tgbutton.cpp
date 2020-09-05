@@ -186,8 +186,7 @@ void Tg::Button::onHasFocusChanged()
         setTextColor(activeTextColor());
         setBackgroundColor(activeBackgroundColor());
     } else {
-        // TODO: use default color from TgStyle object!
-        setTextColor(inactiveTextColor());
-        setBackgroundColor(inactiveBackgroundColor());
+        setTextColor(style()->inactiveTextColor);
+        setBackgroundColor(style()->inactiveBackgroundColor);
     }
 }

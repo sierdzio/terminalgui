@@ -17,8 +17,8 @@ public:
     std::string horizontal = "\u2500";
     std::string vertical = "\u2502";
 
-    Terminal::Color4Bit textColor = Terminal::Color4Bit::Black;
-    Terminal::Color4Bit backgroundColor = Terminal::Color4Bit::Yellow;
+    Terminal::Color4Bit textColor = Terminal::Color4Bit::White;
+    Terminal::Color4Bit backgroundColor = Terminal::Color4Bit::Black;
 };
 
 using BorderStylePointer = QSharedPointer<Tg::BorderStyle>;

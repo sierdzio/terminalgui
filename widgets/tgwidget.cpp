@@ -17,6 +17,9 @@ Tg::Widget::Widget(Widget *parent)
 
     if (parent) {
         parent->doLayout();
+        if (parent->propagatesStyle()) {
+            parent->propagateStyleToChild(this);
+        }
     }
 }
 
@@ -75,7 +78,7 @@ QRect Tg::Widget::contentsRectangle() const
 Terminal::Color4Bit Tg::Widget::backgroundColor() const
 {
     if (isColorEmpty(_backgroundColor)) {
-        return _style->backgroundColor;
+        return style()->backgroundColor;
     } else {
         return _backgroundColor;
     }
@@ -84,7 +87,7 @@ Terminal::Color4Bit Tg::Widget::backgroundColor() const
 Terminal::Color4Bit Tg::Widget::textColor() const
 {
     if (isColorEmpty(_textColor)) {
-        return _style->textColor;
+        return style()->textColor;
     } else {
         return _textColor;
     }
@@ -93,7 +96,7 @@ Terminal::Color4Bit Tg::Widget::textColor() const
 Terminal::Color4Bit Tg::Widget::borderTextColor() const
 {
     if (isColorEmpty(_borderTextColor)) {
-        return _style->border->textColor;
+        return style()->border->textColor;
     } else {
         return _borderTextColor;
     }
@@ -102,7 +105,7 @@ Terminal::Color4Bit Tg::Widget::borderTextColor() const
 Terminal::Color4Bit Tg::Widget::borderBackgroundColor() const
 {
     if (isColorEmpty(_borderBackgroundColor)) {
-        return _style->border->backgroundColor;
+        return style()->border->backgroundColor;
     } else {
         return _borderBackgroundColor;
     }
@@ -159,7 +162,7 @@ std::string Tg::Widget::drawBorderPixel(const QPoint &pixel) const
     std::string result;
 
     result.append(Terminal::colorCode(borderTextColor(),
-                                      Terminal::Color4Bit::Empty));
+                                      borderBackgroundColor()));
 
     const QRect rect(QPoint(0, 0), size());
     // https://en.wikipedia.org/wiki/Geometric_Shapes
@@ -250,17 +253,23 @@ bool Tg::Widget::propagatesStyle() const
 
 void Tg::Widget::setStyle(const Tg::StylePointer &style, const bool propagate)
 {
+    if (style == _style and propagatesStyle() == propagate) {
+        return;
+    }
+
     _style = style;
     setPropagatesStyle(propagate);
 
     if (propagate) {
-        const auto children = findChildren<Tg::Widget*>();
-        for (const Tg::Widget *child : children) {
-            if (child) {
-                setStyle(style, true);
+        for (auto child : children()) {
+            auto widget = qobject_cast<Widget*>(child);
+            if (widget) {
+                propagateStyleToChild(widget);
             }
         }
     }
+
+    emit styleChanged();
 }
 
 Tg::Layout::Type Tg::Widget::layoutType() const
@@ -366,7 +375,8 @@ void Tg::Widget::setBorderTextColor(Terminal::Color4Bit borderColor)
     emit borderTextColorChanged(_borderTextColor);
 }
 
-void Tg::Widget::setBorderBackgroundColor(const Terminal::Color4Bit borderBackgroundColor)
+void Tg::Widget::setBorderBackgroundColor(
+        const Terminal::Color4Bit borderBackgroundColor)
 {
     if (_borderBackgroundColor == borderBackgroundColor)
         return;
@@ -386,6 +396,10 @@ void Tg::Widget::setVisible(const bool visible)
 
     if (visible && parentWidget()) {
         parentWidget()->doLayout();
+
+        if (parentWidget()->propagatesStyle()) {
+            parentWidget()->propagateStyleToChild(this);
+        }
     }
 }
 
@@ -440,6 +454,8 @@ void Tg::Widget::init()
                   this, &Widget::scheduleRedraw));
     CHECK(connect(this, &Widget::hasFocusChanged,
                   this, &Widget::scheduleRedraw));
+    CHECK(connect(this, &Widget::styleChanged,
+                  this, &Widget::scheduleRedraw));
 
     if (_screen) {
         CHECK(connect(this, &Widget::needsRedraw,
@@ -472,6 +488,13 @@ void Tg::Widget::setPropagatesStyle(const bool propagatesStyle)
     if (propagatesStyle != _propagatesStyle) {
         _propagatesStyle = propagatesStyle;
         emit propagatesStyleChanged(propagatesStyle);
+    }
+}
+
+void Tg::Widget::propagateStyleToChild(Tg::Widget *child) const
+{
+    if (child) {
+        child->setStyle(style(), true);
     }
 }
 

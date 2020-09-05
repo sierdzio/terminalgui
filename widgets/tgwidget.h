@@ -41,8 +41,6 @@ class Widget : public QObject
     Q_PROPERTY(bool hasFocus READ hasFocus NOTIFY hasFocusChanged)
     Q_PROPERTY(bool propagatesStyle READ propagatesStyle NOTIFY propagatesStyleChanged)
 
-    // TODO: add Layout property?
-
     friend class Screen;
 
 public:
@@ -103,6 +101,7 @@ signals:
     void moveFocusToPreviousWidget() const;
     void moveFocusToNextWidget() const;
     void propagatesStyleChanged(const bool propagatesStyle) const;
+    void styleChanged() const;
 
 public slots:
     void setPosition(const QPoint &position);
@@ -125,6 +124,8 @@ protected:
 
     void setVerticalArrowsMoveFocus(const bool verticalArrowsMoveFocus);
     void setPropagatesStyle(const bool propagatesStyle);
+
+    void propagateStyleToChild(Widget *child) const;
 
     StylePointer style() const;
 
