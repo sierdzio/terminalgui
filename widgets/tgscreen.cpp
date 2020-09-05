@@ -67,6 +67,11 @@ void Tg::Screen::deregisterWidget(Tg::Widget *widget)
     _widgets.removeOne(widget);
 }
 
+Tg::StylePointer Tg::Screen::style() const
+{
+    return _style;
+}
+
 void Tg::Screen::onNeedsRedraw()
 {
     compressRedraws();

@@ -93,7 +93,7 @@ Terminal::Color4Bit Tg::Widget::textColor() const
 Terminal::Color4Bit Tg::Widget::borderTextColor() const
 {
     if (isColorEmpty(_borderTextColor)) {
-        return _style->borderTextColor;
+        return _style->border->textColor;
     } else {
         return _borderTextColor;
     }
@@ -102,7 +102,7 @@ Terminal::Color4Bit Tg::Widget::borderTextColor() const
 Terminal::Color4Bit Tg::Widget::borderBackgroundColor() const
 {
     if (isColorEmpty(_borderBackgroundColor)) {
-        return _style->borderBackgroundColor;
+        return _style->border->backgroundColor;
     } else {
         return _borderBackgroundColor;
     }
@@ -165,17 +165,17 @@ std::string Tg::Widget::drawBorderPixel(const QPoint &pixel) const
     // https://en.wikipedia.org/wiki/Geometric_Shapes
     // TODO: allow full customization of border styles!
     if (pixel == rect.topLeft()) {
-        result.append(style()->borderTopLeft);
+        result.append(style()->border->topLeft);
     } else if (pixel == rect.topRight()) {
-        result.append(style()->borderTopRight);
+        result.append(style()->border->topRight);
     } else if (pixel == rect.bottomLeft()) {
-        result.append(style()->borderBottomLeft);
+        result.append(style()->border->bottomLeft);
     } else if (pixel == rect.bottomRight()) {
-        result.append(style()->borderBottomRight);
+        result.append(style()->border->bottomRight);
     } else if (pixel.y() == rect.top() or pixel.y() == rect.bottom()) {
-        result.append(style()->borderHorizontal);
+        result.append(style()->border->horizontal);
     } else if (pixel.x() == rect.left() or pixel.x() == rect.right()) {
-        result.append(style()->borderVertical);
+        result.append(style()->border->vertical);
     } else {
         result.push_back('x');
     }

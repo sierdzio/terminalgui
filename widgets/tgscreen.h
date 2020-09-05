@@ -29,6 +29,8 @@ public:
     void registerWidget(Widget *widget);
     void deregisterWidget(Widget *widget);
 
+    StylePointer style() const;
+
 public slots:
     void onNeedsRedraw();
     void moveFocusToPreviousWidget();

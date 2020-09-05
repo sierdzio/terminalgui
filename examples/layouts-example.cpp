@@ -7,6 +7,9 @@
 #include <widgets/tgbutton.h>
 #include <widgets/tglayout.h>
 
+#include <widgets/tgstyle.h>
+#include <widgets/tgtableborderstyle.h>
+
 void populateWidget(Tg::Widget *parent) {
     auto w1 = new Tg::Label("a", parent);
     w1->show();
@@ -53,6 +56,11 @@ int main(int argc, char *argv[])
     quitButton2.show();
 
     Tg::Widget widgetColumn(&screen);
+    auto style = Tg::StylePointer::create();
+    style->setBorderStyleValues(Tg::TableBorderStyle());
+    style->backgroundColor = Terminal::Color4Bit::LightGreen;
+    widgetColumn.setStyle(style, true);
+
     widgetColumn.setObjectName("widgetColumn");
     widgetColumn.setLayoutType(Tg::Layout::Type::Column);
     widgetColumn.setPosition(QPoint(1, 7));
