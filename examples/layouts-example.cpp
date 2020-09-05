@@ -1,14 +1,14 @@
 #include <QCoreApplication>
 #include <QDebug>
 
-#include <widgets/tgscreen.h>
+#include <tgscreen.h>
 #include <widgets/tgwidget.h>
 #include <widgets/tglabel.h>
 #include <widgets/tgbutton.h>
-#include <widgets/tglayout.h>
+#include <layouts/tglayout.h>
 
-#include <widgets/tgstyle.h>
-#include <widgets/tgtableborderstyle.h>
+#include <styles/tgstyle.h>
+#include <styles/tgtableborderstyle.h>
 
 void populateWidget(Tg::Widget *parent) {
     auto w1 = new Tg::Label("a", parent);

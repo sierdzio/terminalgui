@@ -1,9 +1,9 @@
 #include "tgwidget.h"
 #include "tgscreen.h"
-#include "tgchildfillsparentlayout.h"
-#include "tgcolumnlayout.h"
-#include "tgrowlayout.h"
-#include "tggridlayout.h"
+#include "layouts/tgchildfillsparentlayout.h"
+#include "layouts/tgcolumnlayout.h"
+#include "layouts/tgrowlayout.h"
+#include "layouts/tggridlayout.h"
 
 #include <QRect>
 #include <QDebug>

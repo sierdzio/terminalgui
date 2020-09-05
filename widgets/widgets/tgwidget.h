@@ -10,8 +10,8 @@
 
 #include <backend/backend.h>
 
-#include "tgstyle.h"
-#include "tglayout.h"
+#include "styles/tgstyle.h"
+#include "layouts/tglayout.h"
 
 #include <string>
 

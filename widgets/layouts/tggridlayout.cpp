@@ -1,5 +1,5 @@
 #include "tggridlayout.h"
-#include "tgwidget.h"
+#include "widgets/tgwidget.h"
 
 #include <QRect>
 

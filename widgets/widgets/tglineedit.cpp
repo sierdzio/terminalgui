@@ -1,6 +1,6 @@
 #include "tglineedit.h"
 
-#include "tghelpers.h"
+#include "utils/tghelpers.h"
 
 Tg::LineEdit::LineEdit(Tg::Widget *parent) : Tg::Label(parent)
 {

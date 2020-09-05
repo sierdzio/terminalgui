@@ -1,4 +1,4 @@
-#include "textstream.h"
+#include "tgtextstream.h"
 
 Tg::TextStream::TextStream() : QTextStream()
 {

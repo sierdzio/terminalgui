@@ -2,8 +2,9 @@
 #include <QPropertyAnimation>
 #include <QDebug>
 
-#include <widgets/reversibleanimation.h>
-#include <widgets/tgscreen.h>
+#include <utils/tgreversibleanimation.h>
+#include <utils/tghelpers.h>
+#include <tgscreen.h>
 #include <widgets/tgwidget.h>
 #include <widgets/tglabel.h>
 #include <widgets/tgbutton.h>

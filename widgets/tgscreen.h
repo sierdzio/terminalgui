@@ -6,8 +6,8 @@
 #include <QSize>
 #include <QTimer>
 
-#include "tghelpers.h"
-#include "tgstyle.h"
+#include "utils/tghelpers.h"
+#include "styles/tgstyle.h"
 
 namespace Tg {
 class Screen : public QObject

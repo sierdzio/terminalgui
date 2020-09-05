@@ -1,7 +1,5 @@
-#include "reversibleanimation.h"
+#include "tgreversibleanimation.h"
 #include "tghelpers.h"
-
-#include <QDebug>
 
 Tg::ReversibleAnimation::ReversibleAnimation(QObject *parent)
     : QPropertyAnimation(parent)

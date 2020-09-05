@@ -1,7 +1,6 @@
 #include "tgscreen.h"
-#include "tgwidget.h"
-#include "textstream.h"
-#include "tghelpers.h"
+#include "widgets/tgwidget.h"
+#include "utils/tgtextstream.h"
 
 #include <backend/backend.h>
 

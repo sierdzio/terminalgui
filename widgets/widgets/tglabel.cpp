@@ -1,7 +1,7 @@
 #include "tglabel.h"
 #include "tgscreen.h"
-#include "textstream.h"
-#include "tghelpers.h"
+#include "utils/tgtextstream.h"
+#include "utils/tghelpers.h"
 
 #include <backend/backend.h>
 

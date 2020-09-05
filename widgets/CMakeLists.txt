@@ -13,23 +13,24 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
 add_library(terminalgui
-    reversibleanimation.cpp reversibleanimation.h
-    textstream.cpp textstream.h
-    tghelpers.cpp tghelpers.h
-    tgborderstyle.h
-    tgtableborderstyle.h
-    tgstyle.cpp tgstyle.h
-    tglayout.cpp tglayout.h
-    tgchildfillsparentlayout.cpp tgchildfillsparentlayout.h
-    tgcolumnlayout.cpp tgcolumnlayout.h
-    tgrowlayout.cpp tgrowlayout.h
-    tggridlayout.cpp tggridlayout.h
+    utils/tgreversibleanimation.cpp utils/tgreversibleanimation.h
+    utils/tgtextstream.cpp utils/tgtextstream.h
+    utils/tghelpers.cpp utils/tghelpers.h
+    styles/tgborderstyle.h
+    styles/tgtableborderstyle.h
+    styles/tgstyle.cpp styles/tgstyle.h
+    layouts/tglayout.cpp layouts/tglayout.h
+    layouts/tgchildfillsparentlayout.cpp layouts/tgchildfillsparentlayout.h
+    layouts/tgcolumnlayout.cpp layouts/tgcolumnlayout.h
+    layouts/tgrowlayout.cpp layouts/tgrowlayout.h
+    layouts/tggridlayout.cpp layouts/tggridlayout.h
+    widgets/tgwidget.cpp widgets/tgwidget.h
+    widgets/tglabel.cpp widgets/tglabel.h
+    widgets/tgbutton.cpp widgets/tgbutton.h
+    widgets/tglineedit.cpp widgets/tglineedit.h
     tgscreen.cpp tgscreen.h
-    tgwidget.cpp tgwidget.h
-    tglabel.cpp tglabel.h
-    tgbutton.cpp tgbutton.h
-    tglineedit.cpp tglineedit.h)
+    )
 
 target_link_libraries(terminalgui PUBLIC backend Qt5::Core)
 
-target_include_directories(terminalgui PUBLIC ../)
+target_include_directories(terminalgui PUBLIC ./)
