@@ -1,6 +1,8 @@
 #include "tgrowlayout.h"
 #include "tgwidget.h"
 
+#include <QRect>
+
 Tg::RowLayout::RowLayout() : Layout(Type::Row)
 {
 }
@@ -8,7 +10,7 @@ Tg::RowLayout::RowLayout() : Layout(Type::Row)
 void Tg::RowLayout::doLayout()
 {
     if (type == Layout::Type::Row && parent) {
-        const int height = parent->size().height();
+        const int height = parent->contentsRectangle().size().height();
         int currentX = 0;
 
         for (const auto child : parent->children()) {

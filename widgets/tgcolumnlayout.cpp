@@ -1,6 +1,8 @@
 #include "tgcolumnlayout.h"
 #include "tgwidget.h"
 
+#include <QRect>
+
 Tg::ColumnLayout::ColumnLayout() : Layout(Type::Column)
 {
 }
@@ -10,7 +12,7 @@ void Tg::ColumnLayout::doLayout()
     // TODO: LayoutSettings class!
 
     if (type == Layout::Type::Column && parent) {
-        const int width = parent->size().width();
+        const int width = parent->contentsRectangle().size().width();
         int currentY = 0;
 
         for (const auto child : parent->children()) {
