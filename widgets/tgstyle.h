@@ -12,12 +12,19 @@ public:
     // Borders
     int borderWidth = 1;
 
-    std::string borderTopLeft = "\u25E2";
-    std::string borderTopRight = "\u25E3";
-    std::string borderBottomLeft = "\u25E5";
-    std::string borderBottomRight = "\u25E4";
-    std::string borderHorizontal = "\u25AA";
-    std::string borderVertical = "\u25AA";
+    std::string borderTopLeft = "\u256D";
+    std::string borderTopRight = "\u256E";
+    std::string borderBottomLeft = "\u2570";
+    std::string borderBottomRight = "\u256F";
+    std::string borderHorizontal = "\u2500";
+    std::string borderVertical = "\u2502";
+
+//    std::string borderTopLeft = "\u2554";
+//    std::string borderTopRight = "\u2557";
+//    std::string borderBottomLeft = "\u255A";
+//    std::string borderBottomRight = "\u255D";
+//    std::string borderHorizontal = "\u2550";
+//    std::string borderVertical = "\u2551";
 
     Terminal::Color4Bit borderTextColor = Terminal::Color4Bit::Black;
     Terminal::Color4Bit borderBackgroundColor = Terminal::Color4Bit::Yellow;

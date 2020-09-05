@@ -165,17 +165,17 @@ std::string Tg::Widget::drawBorderPixel(const QPoint &pixel) const
     // https://en.wikipedia.org/wiki/Geometric_Shapes
     // TODO: allow full customization of border styles!
     if (pixel == rect.topLeft()) {
-        result.append("\u25E2");
+        result.append(style()->borderTopLeft);
     } else if (pixel == rect.topRight()) {
-        result.append("\u25E3");
+        result.append(style()->borderTopRight);
     } else if (pixel == rect.bottomLeft()) {
-        result.append("\u25E5");
+        result.append(style()->borderBottomLeft);
     } else if (pixel == rect.bottomRight()) {
-        result.append("\u25E4");
+        result.append(style()->borderBottomRight);
     } else if (pixel.y() == rect.top() or pixel.y() == rect.bottom()) {
-        result.append("\u25AA");
+        result.append(style()->borderHorizontal);
     } else if (pixel.x() == rect.left() or pixel.x() == rect.right()) {
-        result.append("\u25AA");
+        result.append(style()->borderVertical);
     } else {
         result.push_back('x');
     }
