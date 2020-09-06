@@ -89,7 +89,7 @@ void Tg::Screen::moveFocusToPreviousWidget()
     // Search from current focus widget backward
     while (iterator.hasPrevious()) {
         const WidgetPointer widget = iterator.previous();
-        if (widget != _activeFocusWidget and widget->acceptsFocus()) {
+        if (widget != _activeFocusWidget && widget->acceptsFocus()) {
             _activeFocusWidget->setHasFocus(false);
             _activeFocusWidget = widget;
             _activeFocusWidget->setHasFocus(true);
@@ -126,7 +126,7 @@ void Tg::Screen::moveFocusToNextWidget()
     // Search from current focus widget forward
     while (iterator.hasNext()) {
         const WidgetPointer widget = iterator.next();
-        if (widget != _activeFocusWidget and widget->acceptsFocus()) {
+        if (widget != _activeFocusWidget && widget->acceptsFocus()) {
             _activeFocusWidget->setHasFocus(false);
             _activeFocusWidget = widget;
             _activeFocusWidget->setHasFocus(true);
@@ -188,7 +188,7 @@ void Tg::Screen::checkKeyboard()
     if (bufferSize > 0 && _activeFocusWidget) {
         QString characters;
         for (int i = 0; i < bufferSize; ++i) {
-            characters.append(getchar());
+            characters.append(Terminal::getChar());
         }
 
         if (const QString command(Helpers::toString(Terminal::Key::tab));

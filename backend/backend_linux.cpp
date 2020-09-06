@@ -33,6 +33,11 @@ int Terminal::keyboardBufferSize()
     return i;
 }
 
+int Terminal::getChar()
+{
+    return getchar();
+}
+
 // TODO: use termios! Right?
 //#include <termios.h>
 

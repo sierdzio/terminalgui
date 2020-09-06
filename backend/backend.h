@@ -55,6 +55,8 @@ std::string colorEnd();
  */
 int keyboardBufferSize();
 
+int getChar();
+
 class RawTerminalLocker {
 public:
     RawTerminalLocker();

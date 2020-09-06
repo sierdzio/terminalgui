@@ -168,9 +168,9 @@ std::string Tg::Widget::drawBorderPixel(const QPoint &pixel) const
         result.append(style()->border->bottomLeft);
     } else if (pixel == rect.bottomRight()) {
         result.append(style()->border->bottomRight);
-    } else if (pixel.y() == rect.top() or pixel.y() == rect.bottom()) {
+    } else if (pixel.y() == rect.top() || pixel.y() == rect.bottom()) {
         result.append(style()->border->horizontal);
-    } else if (pixel.x() == rect.left() or pixel.x() == rect.right()) {
+    } else if (pixel.x() == rect.left() || pixel.x() == rect.right()) {
         result.append(style()->border->vertical);
     } else {
         result.push_back('x');
@@ -199,11 +199,11 @@ bool Tg::Widget::isBorder(const QPoint &pixel) const
     }
 
     const QRect rect(QPoint(0, 0), size());
-    if (pixel.x() == rect.left() or pixel.x() == rect.right()) {
+    if (pixel.x() == rect.left() || pixel.x() == rect.right()) {
         return true;
     }
 
-    if (pixel.y() == rect.top() or pixel.y() == rect.bottom()) {
+    if (pixel.y() == rect.top() || pixel.y() == rect.bottom()) {
         return true;
     }
 
@@ -246,7 +246,7 @@ bool Tg::Widget::propagatesStyle() const
 
 void Tg::Widget::setStyle(const Tg::StylePointer &style, const bool propagate)
 {
-    if (style == _style and propagatesStyle() == propagate) {
+    if (style == _style && propagatesStyle() == propagate) {
         return;
     }
 
