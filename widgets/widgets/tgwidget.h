@@ -102,6 +102,7 @@ signals:
     void moveFocusToNextWidget() const;
     void propagatesStyleChanged(const bool propagatesStyle) const;
     void styleChanged() const;
+    void layoutOvershootChanged(const Layout::SizeOvershoot overshoot) const;
 
 public slots:
     void setPosition(const QPoint &position);
@@ -140,6 +141,7 @@ private:
     StylePointer _style;
     // TODO: smart pointer
     Layout *_layout = nullptr;
+    Layout::SizeOvershoot _overshoot = Layout::Overshoot::None;
 
     QPoint _position = { 0, 0 };
     QSize _size = { 1, 1 };

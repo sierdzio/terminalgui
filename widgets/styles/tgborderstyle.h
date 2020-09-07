@@ -17,6 +17,9 @@ public:
     std::string horizontal = "\u2500";
     std::string vertical = "\u2502";
 
+    std::string horizontalOvershoot = "\u2500";
+    std::string verticalOvershoot = "\u2502";
+
     Terminal::Color4Bit textColor = Terminal::Color4Bit::White;
     Terminal::Color4Bit backgroundColor = Terminal::Color4Bit::Black;
 };

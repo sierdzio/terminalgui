@@ -12,7 +12,9 @@ void Tg::ColumnLayout::doLayout()
     // TODO: LayoutSettings class!
 
     if (type == Layout::Type::Column && parent) {
-        const int width = parent->contentsRectangle().size().width();
+        _overshoot = Overshoot::None;
+        const QSize contentsSize = parent->contentsRectangle().size();
+        const int width = contentsSize.width();
         int currentY = 0;
 
         for (const auto child : parent->children()) {

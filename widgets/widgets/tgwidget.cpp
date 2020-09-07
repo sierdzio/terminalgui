@@ -299,13 +299,19 @@ void Tg::Widget::setLayoutType(const Tg::Layout::Type type)
     }
 
     _layout->parent = this;
-    _layout->doLayout();
+    doLayout();
 }
 
 void Tg::Widget::doLayout()
 {
     if (_layout) {
         _layout->doLayout();
+
+        const auto overshoot = _layout->overshoot();
+        if (overshoot != _overshoot) {
+            _overshoot = overshoot;
+            emit layoutOvershootChanged(_overshoot);
+        }
     }
 }
 
@@ -336,9 +342,7 @@ void Tg::Widget::setSize(const QSize &size)
     _size = size;
     emit sizeChanged(_size);
 
-    if (_layout) {
-        _layout->doLayout();
-    }
+    doLayout();
 }
 
 void Tg::Widget::setBackgroundColor(const Terminal::Color4Bit backgroundColor)

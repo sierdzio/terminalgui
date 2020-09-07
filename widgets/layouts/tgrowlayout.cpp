@@ -10,6 +10,7 @@ Tg::RowLayout::RowLayout() : Layout(Type::Row)
 void Tg::RowLayout::doLayout()
 {
     if (type == Layout::Type::Row && parent) {
+        _overshoot = Overshoot::None;
         const int height = parent->contentsRectangle().size().height();
         int currentX = 0;
 

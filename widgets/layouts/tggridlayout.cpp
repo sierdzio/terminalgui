@@ -12,6 +12,7 @@ void Tg::GridLayout::doLayout()
     // TODO: LayoutSettings class!
 
     if (type == Layout::Type::Grid && parent) {
+        _overshoot = Overshoot::None;
         const int width = parent->contentsRectangle().size().width();
         const int columns = 2;
         const int itemWidth = width / columns;
