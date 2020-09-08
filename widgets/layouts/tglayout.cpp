@@ -32,7 +32,7 @@ void Tg::Layout::doLayout()
     }
 }
 
-Tg::Layout::SizeOvershoot Tg::Layout::overshoot() const
+Tg::SizeOvershoot Tg::Layout::overshoot() const
 {
     return _overshoot;
 }

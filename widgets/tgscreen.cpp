@@ -165,7 +165,8 @@ void Tg::Screen::redrawImmediately() const
             // TODO: "bundle" pixels from same widget to prevent
             // multiple loop passes for the same widget
             for (const Widget *widget : qAsConst(_widgets)) {
-                if (widget->visible() && widget->globalBoundingRectangle().contains(pixel))
+                if (widget->visible() && widget->clipped() == false
+                        && widget->globalBoundingRectangle().contains(pixel))
                 {
                     const QPoint localPixel(widget->mapFromGlobal(pixel));
                     stream << Terminal::Command::moveToPosition(x, y);

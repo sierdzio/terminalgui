@@ -95,6 +95,7 @@ void Tg::Label::init()
 void Tg::Label::layoutText()
 {
     _laidOutTextCache.clear();
+    SizeOvershoot overshoot = widgetOvershoot();
 
     const QRect contents = contentsRectangle();
     const int width = contents.width();
@@ -114,6 +115,8 @@ void Tg::Label::layoutText()
         QString currentString;
         for (const QChar &character : text()) {
             if (currentY > height) {
+                overshoot = overshoot | Overshoot::Vertical;
+                setWidgetOvershoot(overshoot);
                 break;
             }
 

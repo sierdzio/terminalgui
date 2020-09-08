@@ -3,6 +3,7 @@
 #include <string>
 
 #include <QPointer>
+#include <QFlag>
 
 class QString;
 
@@ -40,4 +41,21 @@ QString toString(const std::string &string);
 namespace Tg {
 class Widget;
 using WidgetPointer = QPointer<Widget>;
+
+/*!
+ * Describes situation when items in layout cannot fit into parent widget
+ * or widget contents do not fit it's size.
+ */
+enum class Overshoot {
+    //! There is no overshoot - widgets in layout fit nicely into the
+    //! parent widget
+    None = 0x00,
+    //! Children widgets do not fit in the horizontal direction
+    Horizontal = 0x01,
+    //! Children widgets do not fit in the vertical direction
+    Vertical = 0x02
+};
+Q_DECLARE_FLAGS(SizeOvershoot, Overshoot)
+Q_DECLARE_OPERATORS_FOR_FLAGS(SizeOvershoot)
+
 }

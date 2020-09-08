@@ -15,7 +15,11 @@ void Tg::ChildFillsParentLayout::doLayout()
             auto widget = qobject_cast<Widget*>(child);
             if (widget) {
                 widget->setSize(parent->contentsRectangle().size());
-                // TODO: set overshoot if the widget cannot fill the given space!
+
+                if (widget->widgetOvershoot().testFlag(Overshoot::None) == false) {
+                    _overshoot = widget->widgetOvershoot();
+                }
+
                 break;
             }
         }

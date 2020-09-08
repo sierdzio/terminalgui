@@ -154,24 +154,50 @@ std::string Tg::Widget::drawBorderPixel(const QPoint &pixel) const
 {
     std::string result;
 
-    result.append(Terminal::colorCode(borderTextColor(),
-                                      borderBackgroundColor()));
+    const auto color = Terminal::colorCode(borderTextColor(), borderBackgroundColor());
+    // TODO: add property to make overshoot color customizable
+    const auto overshootColor = Terminal::colorCode(style()->border->overshootTextColor,
+                                                    style()->border->overshootBackgroundColor);
 
     const QRect rect(QPoint(0, 0), size());
     // https://en.wikipedia.org/wiki/Geometric_Shapes
     // TODO: allow full customization of border styles!
     if (pixel == rect.topLeft()) {
+        result.append(color);
         result.append(style()->border->topLeft);
     } else if (pixel == rect.topRight()) {
+        result.append(color);
         result.append(style()->border->topRight);
     } else if (pixel == rect.bottomLeft()) {
+        result.append(color);
         result.append(style()->border->bottomLeft);
     } else if (pixel == rect.bottomRight()) {
+        result.append(color);
         result.append(style()->border->bottomRight);
-    } else if (pixel.y() == rect.top() || pixel.y() == rect.bottom()) {
+    } else if (pixel.y() == rect.top()) {
+        result.append(color);
         result.append(style()->border->horizontal);
-    } else if (pixel.x() == rect.left() || pixel.x() == rect.right()) {
+    } else if (pixel.y() == rect.bottom()) {
+        if (widgetOvershoot().testFlag(Overshoot::Vertical)
+                || layoutOvershoot().testFlag(Overshoot::Vertical)) {
+            result.append(overshootColor);
+            result.append(style()->border->horizontalOvershoot);
+        } else {
+            result.append(color);
+            result.append(style()->border->horizontal);
+        }
+    } else if (pixel.x() == rect.left()) {
+        result.append(color);
         result.append(style()->border->vertical);
+    } else if (pixel.x() == rect.right()) {
+        if (widgetOvershoot().testFlag(Overshoot::Horizontal)
+                || layoutOvershoot().testFlag(Overshoot::Horizontal)) {
+            result.append(overshootColor);
+            result.append(style()->border->verticalOvershoot);
+        } else {
+            result.append(color);
+            result.append(style()->border->vertical);
+        }
     } else {
         result.push_back('x');
     }
@@ -308,11 +334,33 @@ void Tg::Widget::doLayout()
         _layout->doLayout();
 
         const auto overshoot = _layout->overshoot();
-        if (overshoot != _overshoot) {
-            _overshoot = overshoot;
-            emit layoutOvershootChanged(_overshoot);
+        if (overshoot != _layoutOvershoot) {
+            _layoutOvershoot = overshoot;
+            _widgetOvershoot = overshoot;
+            emit layoutOvershootChanged(_layoutOvershoot);
+            emit widgetOvershootChanged(_widgetOvershoot);
         }
     }
+}
+
+Tg::SizeOvershoot Tg::Widget::layoutOvershoot() const
+{
+    return _layoutOvershoot;
+}
+
+Tg::SizeOvershoot Tg::Widget::widgetOvershoot() const
+{
+    return _widgetOvershoot;
+}
+
+bool Tg::Widget::clipped() const
+{
+    return _clipped;
+}
+
+void Tg::Widget::setClipped(const bool clipped)
+{
+    _clipped = clipped;
 }
 
 void Tg::Widget::setPosition(const QPoint &position)
@@ -453,6 +501,10 @@ void Tg::Widget::init()
                   this, &Widget::scheduleRedraw));
     CHECK(connect(this, &Widget::styleChanged,
                   this, &Widget::scheduleRedraw));
+    CHECK(connect(this, &Widget::layoutOvershootChanged,
+                  this, &Widget::scheduleRedraw));
+    CHECK(connect(this, &Widget::widgetOvershootChanged,
+                  this, &Widget::scheduleRedraw));
 
     if (_screen) {
         CHECK(connect(this, &Widget::needsRedraw,
@@ -504,9 +556,17 @@ Tg::StylePointer Tg::Widget::style() const
     return _style;
 }
 
+void Tg::Widget::setWidgetOvershoot(const Tg::SizeOvershoot overshoot)
+{
+    if (_widgetOvershoot != overshoot) {
+        _widgetOvershoot = overshoot;
+        emit widgetOvershootChanged(overshoot);
+    }
+}
+
 void Tg::Widget::scheduleRedraw() const
 {
-    if (visible() == true) {
+    if (visible() == true && clipped() == false) {
         emit needsRedraw();
     }
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QFlag>
+#include "utils/tghelpers.h"
 
 namespace Tg {
 class Widget;
@@ -16,21 +16,6 @@ public:
         Grid
         //Form?
     };
-
-    /*!
-     * Describes situation when items in layout cannot fit into parent widget.
-     */
-    enum class Overshoot {
-        //! There is no overshoot - widgets in layout fit nicely into the
-        //! parent widget
-        None = 0x00,
-        //! Children widgets do not fit in the horizontal direction
-        Horizontal = 0x01,
-        //! Children widgets do not fit in the vertical direction
-        Vertical = 0x02
-    };
-    Q_DECLARE_FLAGS(SizeOvershoot, Layout::Overshoot)
-
 
     Layout();
     virtual ~Layout();
@@ -55,6 +40,4 @@ protected:
 
     SizeOvershoot _overshoot = Overshoot::None;
 };
-
-Q_DECLARE_OPERATORS_FOR_FLAGS(Layout::SizeOvershoot)
 }

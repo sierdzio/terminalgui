@@ -13,7 +13,10 @@ void Tg::GridLayout::doLayout()
 
     if (type == Layout::Type::Grid && parent) {
         _overshoot = Overshoot::None;
-        const int width = parent->contentsRectangle().size().width();
+        const QSize contentsSize = parent->contentsRectangle().size();
+        const int width = contentsSize.width();
+        const int height = contentsSize.height();
+
         const int columns = 2;
         const int itemWidth = width / columns;
 
@@ -25,12 +28,29 @@ void Tg::GridLayout::doLayout()
         for (const auto child : parent->children()) {
             auto widget = qobject_cast<Widget*>(child);
             if (widget) {
+                if (currentY >= height || currentX >= width) {
+                    if (currentY >= height) {
+                        _overshoot = _overshoot | Overshoot::Vertical;
+                        widget->setClipped(true);
+                    }
+
+                    if (currentX >= width) {
+                        _overshoot = _overshoot | Overshoot::Horizontal;
+                        widget->setClipped(true);
+                    }
+                    continue;
+                }
+
                 widget->setPosition(QPoint(currentX, currentRow));
                 const QSize size = widget->size();
                 currentX = currentX + itemWidth;
                 currentY = std::max(currentY, currentRow + size.height());
                 currentColumn++;
                 widget->setSize(QSize(itemWidth, currentY));
+
+                if (widget->widgetOvershoot().testFlag(Overshoot::None) == false) {
+                    _overshoot = _overshoot | widget->widgetOvershoot();
+                }
 
                 if (currentColumn >= columns) {
                     currentColumn = 0;

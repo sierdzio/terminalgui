@@ -10,6 +10,7 @@
 
 #include <backend/backend.h>
 
+#include "utils/tghelpers.h"
 #include "styles/tgstyle.h"
 #include "layouts/tglayout.h"
 
@@ -86,6 +87,12 @@ public:
     void setLayoutType(const Layout::Type type);
     void doLayout();
 
+    SizeOvershoot layoutOvershoot() const;
+    SizeOvershoot widgetOvershoot() const;
+
+    bool clipped() const;
+    void setClipped(const bool clipped);
+
 signals:
     void needsRedraw() const;
     void positionChanged(const QPoint &position) const;
@@ -102,7 +109,8 @@ signals:
     void moveFocusToNextWidget() const;
     void propagatesStyleChanged(const bool propagatesStyle) const;
     void styleChanged() const;
-    void layoutOvershootChanged(const Layout::SizeOvershoot overshoot) const;
+    void layoutOvershootChanged(const SizeOvershoot overshoot) const;
+    void widgetOvershootChanged(const SizeOvershoot overshoot) const;
 
 public slots:
     void setPosition(const QPoint &position);
@@ -129,6 +137,7 @@ protected:
     void propagateStyleToChild(Widget *child) const;
 
     StylePointer style() const;
+    void setWidgetOvershoot(const SizeOvershoot overshoot);
 
 protected slots:
     void scheduleRedraw() const;
@@ -141,7 +150,8 @@ private:
     StylePointer _style;
     // TODO: smart pointer
     Layout *_layout = nullptr;
-    Layout::SizeOvershoot _overshoot = Layout::Overshoot::None;
+    SizeOvershoot _layoutOvershoot = Overshoot::None;
+    SizeOvershoot _widgetOvershoot = Overshoot::None;
 
     QPoint _position = { 0, 0 };
     QSize _size = { 1, 1 };
@@ -159,5 +169,6 @@ private:
     bool _hasFocus = false;
     bool _verticalArrowsMoveFocus = false;
     bool _propagatesStyle = true;
+    bool _clipped = false;
 };
 }

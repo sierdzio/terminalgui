@@ -22,6 +22,12 @@ void populateWidget(Tg::Widget *parent) {
 
     auto w4 = new Tg::Label("ef", parent);
     w4->show();
+
+    auto w5 = new Tg::Label("ghij", parent);
+    w5->show();
+
+    auto w6 = new Tg::Label("kl", parent);
+    w6->show();
 }
 
 int main(int argc, char *argv[])
