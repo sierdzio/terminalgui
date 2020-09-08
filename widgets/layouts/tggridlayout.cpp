@@ -28,23 +28,26 @@ void Tg::GridLayout::doLayout()
         for (const auto child : parent->children()) {
             auto widget = qobject_cast<Widget*>(child);
             if (widget) {
-                if (currentY >= height || currentX >= width) {
-                    if (currentY >= height) {
+                const QSize currentSize = widget->size();
+                const bool tooTall = ((currentY + currentSize.height()) > height);
+                const bool tooWide = ((currentX + currentSize.width()) > width);
+                if (tooTall || tooWide) {
+                    if (tooTall) {
                         _overshoot = _overshoot | Overshoot::Vertical;
                         widget->setClipped(true);
                     }
 
-                    if (currentX >= width) {
+                    if (tooWide) {
                         _overshoot = _overshoot | Overshoot::Horizontal;
                         widget->setClipped(true);
                     }
+
                     continue;
                 }
 
                 widget->setPosition(QPoint(currentX, currentRow));
-                const QSize size = widget->size();
                 currentX = currentX + itemWidth;
-                currentY = std::max(currentY, currentRow + size.height());
+                currentY = std::max(currentY, currentRow + currentSize.height());
                 currentColumn++;
                 widget->setSize(QSize(itemWidth, currentY));
 

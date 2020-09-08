@@ -19,13 +19,13 @@ void Tg::RowLayout::doLayout()
         for (const auto child : parent->children()) {
             auto widget = qobject_cast<Widget*>(child);
             if (widget) {
-                if (currentX >= width) {
+                const QSize currentSize = widget->size();
+                if ((currentX + currentSize.width()) > width) {
                     _overshoot = _overshoot | Overshoot::Horizontal;
                     widget->setClipped(true);
                     continue;
                 }
 
-                const QSize currentSize = widget->size();
                 widget->setPosition(QPoint(currentX, 0));
                 // TODO: if width can get smaller due to height getting larger,
                 // make it so!

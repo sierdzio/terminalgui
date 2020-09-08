@@ -160,8 +160,6 @@ std::string Tg::Widget::drawBorderPixel(const QPoint &pixel) const
                                                     style()->border->overshootBackgroundColor);
 
     const QRect rect(QPoint(0, 0), size());
-    // https://en.wikipedia.org/wiki/Geometric_Shapes
-    // TODO: allow full customization of border styles!
     if (pixel == rect.topLeft()) {
         result.append(color);
         result.append(style()->border->topLeft);

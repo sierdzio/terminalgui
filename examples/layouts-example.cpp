@@ -95,6 +95,15 @@ int main(int argc, char *argv[])
 
     populateWidget(&widgetGrid);
 
+    Tg::Widget widgetBigGrid(&screen);
+    widgetBigGrid.setObjectName("widgetBigGrid");
+    widgetBigGrid.setLayoutType(Tg::Layout::Type::Grid);
+    widgetBigGrid.setPosition(QPoint(1, 21));
+    widgetBigGrid.setSize(QSize(20, 10));
+    widgetBigGrid.show();
+
+    populateWidget(&widgetBigGrid);
+
     CHECK(QObject::connect(&quitButton, &Tg::Button::clicked,
                            &app, &QCoreApplication::quit));
     CHECK(QObject::connect(&quitButton2, &Tg::Button::clicked,

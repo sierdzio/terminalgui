@@ -21,13 +21,13 @@ void Tg::ColumnLayout::doLayout()
         for (const auto child : parent->children()) {
             auto widget = qobject_cast<Widget*>(child);
             if (widget) {
-                if (currentY >= height) {
+                const QSize currentSize = widget->size();
+                if ((currentY + currentSize.height()) > height) {
                     _overshoot = _overshoot | Overshoot::Vertical;
                     widget->setClipped(true);
                     continue;
                 }
 
-                const QSize currentSize = widget->size();
                 widget->setPosition(QPoint(0, currentY));
                 // TODO: if height can get smaller due to width getting larger,
                 // make it so!
