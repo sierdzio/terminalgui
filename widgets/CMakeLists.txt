@@ -28,6 +28,7 @@ add_library(terminalgui
     widgets/tglabel.cpp widgets/tglabel.h
     widgets/tgbutton.cpp widgets/tgbutton.h
     widgets/tglineedit.cpp widgets/tglineedit.h
+    widgets/tgcheckbox.cpp widgets/tgcheckbox.h
     tgscreen.cpp tgscreen.h
     )
 

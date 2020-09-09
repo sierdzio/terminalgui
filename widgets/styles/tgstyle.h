@@ -30,6 +30,15 @@ public:
 
     Terminal::Color4Bit pressedTextColor = Terminal::Color4Bit::Green;
     Terminal::Color4Bit pressedBackgroundColor = Terminal::Color4Bit::LightWhite;
+
+    // CheckBox
+    std::string checkBoxChecked = "\u2612";
+    std::string checkBoxPartiallyChecked = "\u25A3";
+    std::string checkBoxUnChecked = "\u2610";
+
+    // RadioButton
+    std::string radioButtonChecked = "\u25C9";
+    std::string radioButtonUnChecked = "\u25CE";
 };
 
 using StylePointer = QSharedPointer<Tg::Style>;
