@@ -12,12 +12,12 @@ public:
     {
         width = 1;
 
-        topLeft = "\u2554";
-        topRight = "\u2557";
-        bottomLeft = "\u255A";
-        bottomRight = "\u255D";
-        horizontal = "\u2550";
-        vertical = "\u2551";
+        topLeft = u8"\u2554";
+        topRight = u8"\u2557";
+        bottomLeft = u8"\u255A";
+        bottomRight = u8"\u255D";
+        horizontal = u8"\u2550";
+        vertical = u8"\u2551";
 
         textColor = Terminal::Color4Bit::White;
         backgroundColor = Terminal::Color4Bit::Black;
