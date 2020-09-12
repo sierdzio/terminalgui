@@ -5,6 +5,7 @@
 #include <widgets/tgwidget.h>
 #include <widgets/tglabel.h>
 #include <widgets/tgbutton.h>
+#include <widgets/tgcheckbox.h>
 #include <layouts/tglayout.h>
 
 #include <styles/tgstyle.h>
@@ -103,6 +104,16 @@ int main(int argc, char *argv[])
     widgetBigGrid.show();
 
     populateWidget(&widgetBigGrid);
+
+    Tg::Widget widgetFill2(&screen);
+    widgetFill2.setObjectName("widgetFill");
+    widgetFill2.setLayoutType(Tg::Layout::Type::ChildFillsParent);
+    widgetFill2.setPosition(QPoint(22, 21));
+    widgetFill2.setSize(size * 2);
+    widgetFill2.show();
+
+    Tg::CheckBox checkBox(QObject::tr("Check me!"), &widgetFill2);
+    checkBox.show();
 
     CHECK(QObject::connect(&quitButton, &Tg::Button::clicked,
                            &app, &QCoreApplication::quit));

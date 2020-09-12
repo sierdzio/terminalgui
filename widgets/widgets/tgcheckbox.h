@@ -26,9 +26,12 @@ public slots:
 
 protected:
     void init() override;
-    //void consumeKeyboardBuffer(const QString &keyboardBuffer) override;
+    void consumeKeyboardBuffer(const QString &keyboardBuffer) override;
+    QChar reservedCharacter(const int index) const override;
 
 private:
+    QChar singleChar(const std::string &string) const;
+
     Qt::CheckState _checkState = Qt::CheckState::Unchecked;
 };
 }

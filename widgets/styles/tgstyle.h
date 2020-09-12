@@ -6,6 +6,8 @@
 
 #include <QSharedPointer>
 
+#include <string>
+
 namespace Tg {
 class Style
 {

@@ -28,10 +28,17 @@ public slots:
 protected:
     void init() override;
 
+    int reservedCharactersCount() const;
+    void setReservedCharactersCount(int reservedCharactersCount);
+    virtual QChar reservedCharacter(const int index) const;
+
 private slots:
     void layoutText();
 
 private:
+    // How many chars are reserved by widget to draw special controls
+    // (like checkbox or radio button control)
+    int _reservedCharactersCount = 0;
     QString _text;
     QStringList _laidOutTextCache;
 };

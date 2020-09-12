@@ -100,9 +100,18 @@ void Tg::Label::layoutText()
     const QRect contents = contentsRectangle();
     const int width = contents.width();
     const int height = contents.height();
+    const int reserved = reservedCharactersCount();
 
-    if (text().size() <= width) {
-        QString txt = text();
+    if ((text().size() + reserved) <= width) {
+        QString txt;
+
+        if (reserved != 0) {
+            for (int i = 0; i < reserved; ++i) {
+                txt.append(reservedCharacter(i));
+            }
+        }
+
+        txt.append(text());
         while (txt.length() < width) {
             // Fill with spaces
             txt.append(' ');
@@ -113,6 +122,14 @@ void Tg::Label::layoutText()
         int currentX = 0;
         int currentY = 0;
         QString currentString;
+
+        if (currentX == 0 && currentY == 0 && reserved != 0) {
+            for (int i = 0; i < reserved; ++i) {
+                currentString.append(reservedCharacter(i));
+                currentX++;
+            }
+        }
+
         for (const QChar &character : text()) {
             if (currentY > height) {
                 overshoot = overshoot | Overshoot::Vertical;
@@ -139,4 +156,20 @@ void Tg::Label::layoutText()
         }
         _laidOutTextCache.append(currentString);
     }
+}
+
+int Tg::Label::reservedCharactersCount() const
+{
+    return _reservedCharactersCount;
+}
+
+void Tg::Label::setReservedCharactersCount(int reservedCharactersCount)
+{
+    _reservedCharactersCount = reservedCharactersCount;
+}
+
+QChar Tg::Label::reservedCharacter(const int index) const
+{
+    Q_UNUSED(index);
+    return ' ';
 }
