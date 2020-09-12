@@ -107,7 +107,7 @@ int main(int argc, char *argv[])
 
     Tg::Widget widgetFill2(&screen);
     widgetFill2.setObjectName("widgetFill");
-    widgetFill2.setLayoutType(Tg::Layout::Type::ChildFillsParent);
+    widgetFill2.setLayoutType(Tg::Layout::Type::None);
     widgetFill2.setPosition(QPoint(22, 21));
     widgetFill2.setSize(size * 2);
     widgetFill2.show();

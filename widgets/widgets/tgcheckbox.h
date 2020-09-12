@@ -27,11 +27,9 @@ public slots:
 protected:
     void init() override;
     void consumeKeyboardBuffer(const QString &keyboardBuffer) override;
-    QChar reservedCharacter(const int index) const override;
+    QString checkBoxText() const;
 
 private:
-    QChar singleChar(const std::string &string) const;
-
     Qt::CheckState _checkState = Qt::CheckState::Unchecked;
 };
 }

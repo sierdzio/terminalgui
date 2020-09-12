@@ -32,6 +32,8 @@ void Tg::CheckBox::setCheckState(const Qt::CheckState checkState)
 
     _checkState = checkState;
     emit checkStateChanged(_checkState);
+
+    setReservedText(checkBoxText());
 }
 
 void Tg::CheckBox::toggleState()
@@ -46,7 +48,7 @@ void Tg::CheckBox::toggleState()
 
 void Tg::CheckBox::init()
 {
-    setReservedCharactersCount(2);
+    setReservedText(checkBoxText());
     Button::init();
 
     CHECK(connect(this, &CheckBox::clicked,
@@ -65,25 +67,21 @@ void Tg::CheckBox::consumeKeyboardBuffer(const QString &keyboardBuffer)
     Button::consumeKeyboardBuffer(keyboardBuffer);
 }
 
-QChar Tg::CheckBox::reservedCharacter(const int index) const
+QString Tg::CheckBox::checkBoxText() const
 {
-    if (index == 0) {
-        switch (checkState()) {
-        case Qt::CheckState::Checked:
-            return singleChar(style()->checkBoxChecked);
-        case Qt::CheckState::PartiallyChecked:
-            return singleChar(style()->checkBoxPartiallyChecked);
-        case Qt::CheckState::Unchecked:
-            return singleChar(style()->checkBoxUnChecked);
-        }
-    } else if (index == 1) {
-        return ' ';
+    const QString space(" ");
+
+    switch (checkState()) {
+    case Qt::CheckState::Checked:
+        return QString::fromStdString(style()->checkBoxChecked) + space;
+        //return  "x" + space;
+    case Qt::CheckState::PartiallyChecked:
+        return QString::fromStdString(style()->checkBoxPartiallyChecked) + space;
+        //return "-" + space;
+    case Qt::CheckState::Unchecked:
+        return QString::fromStdString(style()->checkBoxUnChecked) + space;
+        //return "o" + space;
     }
 
-    return QChar();
-}
-
-QChar Tg::CheckBox::singleChar(const std::string &string) const
-{
-    return QString::fromStdString(string).at(0);
+    return {};
 }

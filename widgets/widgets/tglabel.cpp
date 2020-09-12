@@ -106,9 +106,7 @@ void Tg::Label::layoutText()
         QString txt;
 
         if (reserved != 0) {
-            for (int i = 0; i < reserved; ++i) {
-                txt.append(reservedCharacter(i));
-            }
+            txt.append(reservedText());
         }
 
         txt.append(text());
@@ -124,10 +122,8 @@ void Tg::Label::layoutText()
         QString currentString;
 
         if (currentX == 0 && currentY == 0 && reserved != 0) {
-            for (int i = 0; i < reserved; ++i) {
-                currentString.append(reservedCharacter(i));
-                currentX++;
-            }
+            currentString.append(reservedText());
+            currentX += reserved;
         }
 
         for (const QChar &character : text()) {
@@ -160,16 +156,18 @@ void Tg::Label::layoutText()
 
 int Tg::Label::reservedCharactersCount() const
 {
-    return _reservedCharactersCount;
+    return _reservedText.length();
 }
 
-void Tg::Label::setReservedCharactersCount(int reservedCharactersCount)
+QString Tg::Label::reservedText() const
 {
-    _reservedCharactersCount = reservedCharactersCount;
+    return _reservedText;
 }
 
-QChar Tg::Label::reservedCharacter(const int index) const
+void Tg::Label::setReservedText(const QString &reserved)
 {
-    Q_UNUSED(index);
-    return ' ';
+    if (_reservedText != reserved) {
+        _reservedText = reserved;
+        emit textChanged(text());
+    }
 }
