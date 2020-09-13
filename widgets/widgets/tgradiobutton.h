@@ -7,7 +7,7 @@ class RadioButton : public Button
 {
     Q_OBJECT
 
-    Q_PROPERTY(Qt::CheckState checkState READ checkState WRITE setCheckState NOTIFY checkStateChanged)
+    Q_PROPERTY(bool checked READ checked WRITE setChecked NOTIFY checkedChanged)
 
 public:
     RadioButton(Widget *parent);
@@ -15,21 +15,22 @@ public:
     RadioButton(const QString &text = QString(), Widget *parent = nullptr);
     RadioButton(const QString &text = QString(), Screen *screen = nullptr);
 
-    Qt::CheckState checkState() const;
+    void toggleState();
 
-signals:
-    void checkStateChanged(const Qt::CheckState checkState) const;
+    bool checked() const;
 
 public slots:
-    void setCheckState(const Qt::CheckState checkState);
-    void toggleState();
+    void setChecked(const bool checked);
+
+signals:
+    void checkedChanged(const bool checked) const;
 
 protected:
     void init() override;
     void consumeKeyboardBuffer(const QString &keyboardBuffer) override;
-    QString checkBoxText() const;
+    QString radioButtonText() const;
 
 private:
-    Qt::CheckState _checkState = Qt::CheckState::Unchecked;
+    bool _checked = true;
 };
 }
