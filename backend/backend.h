@@ -95,7 +95,7 @@ const QString restore = "\033[u";
 
 const QString colorEnd = "\033[0m";
 
-const QString positionBegin = "\033";
+const QString positionBegin = "\033[";
 const QString positionSeparator = ";";
 
 /*!
