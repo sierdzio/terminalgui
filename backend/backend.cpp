@@ -1,7 +1,7 @@
 #include "backend.h"
 
 QString Terminal::colorCode(const Terminal::Color4Bit foregroundColor,
-                                const Terminal::Color4Bit backgroundColor)
+                            const Terminal::Color4Bit backgroundColor)
 {
     const int padding = (backgroundColor == Terminal::Color4Bit::Empty)? 0 : 10;
 

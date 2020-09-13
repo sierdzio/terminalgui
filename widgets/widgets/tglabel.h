@@ -36,8 +36,8 @@ private slots:
     void layoutText();
 
 private:
-    QString _reservedText;
     QString _text;
+    QString _reservedText;
     QStringList _laidOutTextCache;
 };
 }

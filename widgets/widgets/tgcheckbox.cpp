@@ -69,18 +69,13 @@ void Tg::CheckBox::consumeKeyboardBuffer(const QString &keyboardBuffer)
 
 QString Tg::CheckBox::checkBoxText() const
 {
-    const QString space(" ");
-
     switch (checkState()) {
     case Qt::CheckState::Checked:
-        return style()->checkBoxChecked + space;
-        //return  "x" + space;
+        return style()->checkBoxChecked;
     case Qt::CheckState::PartiallyChecked:
-        return style()->checkBoxPartiallyChecked + space;
-        //return "-" + space;
+        return style()->checkBoxPartiallyChecked;
     case Qt::CheckState::Unchecked:
-        return style()->checkBoxUnChecked + space;
-        //return "o" + space;
+        return style()->checkBoxUnChecked;
     }
 
     return {};

@@ -34,13 +34,13 @@ public:
     Terminal::Color4Bit pressedBackgroundColor = Terminal::Color4Bit::LightWhite;
 
     // CheckBox
-    QString checkBoxChecked = u8"\u25A0"; //u8"\u2612";
-    QString checkBoxPartiallyChecked = u8"\u25A3";
-    QString checkBoxUnChecked = u8"\u25A2"; //u8"\u2610";
+    QString checkBoxChecked = u8"\u2612 ";
+    QString checkBoxPartiallyChecked = u8"\u25A3 ";
+    QString checkBoxUnChecked = u8"\u2610 ";
 
     // RadioButton
-    QString radioButtonChecked = u8"\u25C9";
-    QString radioButtonUnChecked = u8"\u25CE";
+    QString radioButtonChecked = u8"\u25C9 ";
+    QString radioButtonUnChecked = u8"\u25CE ";
 };
 
 using StylePointer = QSharedPointer<Tg::Style>;

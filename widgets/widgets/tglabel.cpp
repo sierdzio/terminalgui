@@ -113,7 +113,7 @@ void Tg::Label::layoutText()
             // Fill with spaces
             txt.append(' ');
         }
-        _laidOutTextCache.append(text());
+        _laidOutTextCache.append(txt);
         return;
     } else {
         int currentX = 0;
