@@ -71,8 +71,8 @@ public:
     Screen *screen() const;
     Widget *parentWidget() const;
 
-    virtual std::string drawBorderPixel(const QPoint &pixel) const;
-    virtual std::string drawPixel(const QPoint &pixel) const;
+    virtual QString drawBorderPixel(const QPoint &pixel) const;
+    virtual QString drawPixel(const QPoint &pixel) const;
     bool isBorder(const QPoint &pixel) const;
 
     bool verticalArrowsMoveFocus() const;

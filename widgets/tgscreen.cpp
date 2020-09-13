@@ -1,6 +1,5 @@
 #include "tgscreen.h"
 #include "widgets/tgwidget.h"
-#include "utils/tgtextstream.h"
 
 #include <backend/backend.h>
 
@@ -152,7 +151,7 @@ void Tg::Screen::moveFocusToNextWidget()
 
 void Tg::Screen::redrawImmediately() const
 {
-    Tg::TextStream stream(stdout);
+    QTextStream stream(stdout);
     // TODO: do not clear everything. Make only partial redraws!
     stream << Terminal::Command::clear;
 
@@ -192,7 +191,7 @@ void Tg::Screen::checkKeyboard()
             characters.append(Terminal::getChar());
         }
 
-        if (const QString command(Helpers::toString(Terminal::Key::tab));
+        if (const QString command(Terminal::Key::tab);
             characters.contains(command)) {
             // Move to next input
             moveFocusToNextWidget();
@@ -201,14 +200,14 @@ void Tg::Screen::checkKeyboard()
 
         if (_activeFocusWidget->verticalArrowsMoveFocus()) {
             // Up Arrow
-            if (const QString command(Helpers::toString(Terminal::Key::up));
+            if (const QString command(Terminal::Key::up);
                 characters.contains(command)) {
                 moveFocusToPreviousWidget();
                 characters.remove(command);
             }
 
             // Down Arrow
-            if (const QString command(Helpers::toString(Terminal::Key::down));
+            if (const QString command(Terminal::Key::down);
                 characters.contains(command)) {
                 moveFocusToNextWidget();
                 characters.remove(command);

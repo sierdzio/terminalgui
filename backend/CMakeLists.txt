@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.16)
 
 project(backend LANGUAGES CXX)
 
+find_package(Qt5 COMPONENTS REQUIRED Core)
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -20,3 +22,5 @@ add_library(backend
     )
 
 target_include_directories(backend PUBLIC ../)
+
+target_link_libraries(backend PUBLIC Qt5::Core)

@@ -118,7 +118,7 @@ void Tg::LineEdit::consumeKeyboardBuffer(const QString &keyboardBuffer)
     //}
 
     // Right Arrow
-    if (const QString command(Helpers::toString(Terminal::Key::right));
+    if (const QString command(Terminal::Key::right);
         keyboardBuffer.contains(command)) {
         if (cursorPosition() <= _realText.size()) {
             setCursorPosition(cursorPosition() + 1);
@@ -127,7 +127,7 @@ void Tg::LineEdit::consumeKeyboardBuffer(const QString &keyboardBuffer)
     }
 
     // Left Arrow
-    if (const QString command(Helpers::toString(Terminal::Key::left));
+    if (const QString command(Terminal::Key::left);
         keyboardBuffer.contains(command)) {
         if (cursorPosition() > 0) {
             setCursorPosition(cursorPosition() - 1);
@@ -148,7 +148,7 @@ void Tg::LineEdit::consumeKeyboardBuffer(const QString &keyboardBuffer)
     }
 
     // Delete!
-    if (const QString command(Helpers::toString(Terminal::Key::del));
+    if (const QString command(Terminal::Key::del);
         keyboardBuffer.contains(command)) {
         if (_realText.isEmpty() == false) {
             _realText.remove(cursorPosition(), 1);

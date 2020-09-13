@@ -1,7 +1,5 @@
 #pragma once
 
-#include <string>
-
 #include <QPointer>
 #include <QFlag>
 
@@ -35,7 +33,6 @@ CHECK(QMetaObject::invokeMethod(
 #endif
 
 namespace Helpers {
-QString toString(const std::string &string);
 }
 
 namespace Tg {

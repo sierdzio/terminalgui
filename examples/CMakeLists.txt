@@ -16,5 +16,8 @@ set(CMAKE_AUTORCC ON)
 add_executable(terminalgui-example terminalgui-example.cpp)
 target_link_libraries(terminalgui-example PUBLIC terminalgui Qt5::Core)
 
+add_executable(showcase-example showcase-example.cpp)
+target_link_libraries(showcase-example PUBLIC terminalgui Qt5::Core)
+
 add_executable(layouts-example layouts-example.cpp)
 target_link_libraries(layouts-example PUBLIC terminalgui Qt5::Core)

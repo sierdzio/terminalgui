@@ -1,6 +1,5 @@
 #include "tglabel.h"
 #include "tgscreen.h"
-#include "utils/tgtextstream.h"
 #include "utils/tghelpers.h"
 
 #include <backend/backend.h>
@@ -35,13 +34,13 @@ QString Tg::Label::text() const
     return _text;
 }
 
-std::string Tg::Label::drawPixel(const QPoint &pixel) const
+QString Tg::Label::drawPixel(const QPoint &pixel) const
 {
     if (isBorder(pixel)) {
         return drawBorderPixel(pixel);
     }
 
-    std::string result;
+    QString result;
     result.append(Terminal::colorCode(textColor(), backgroundColor()));
 
     const QRect contents = contentsRectangle();

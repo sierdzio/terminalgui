@@ -150,9 +150,9 @@ Tg::Widget *Tg::Widget::parentWidget() const
     return _parentWidget;
 }
 
-std::string Tg::Widget::drawBorderPixel(const QPoint &pixel) const
+QString Tg::Widget::drawBorderPixel(const QPoint &pixel) const
 {
-    std::string result;
+    QString result;
 
     const auto color = Terminal::colorCode(borderTextColor(), borderBackgroundColor());
     // TODO: add property to make overshoot color customizable
@@ -203,9 +203,9 @@ std::string Tg::Widget::drawBorderPixel(const QPoint &pixel) const
     return result;
 }
 
-std::string Tg::Widget::drawPixel(const QPoint &pixel) const
+QString Tg::Widget::drawPixel(const QPoint &pixel) const
 {
-    std::string result;
+    QString result;
     if (isBorder(pixel)) {
         return drawBorderPixel(pixel);
     } else {

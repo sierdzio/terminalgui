@@ -1,6 +1,6 @@
 #pragma once
 
-#include <string>
+#include <QString>
 
 namespace Terminal {
 struct Size {
@@ -46,9 +46,9 @@ enum class ColorType {
     Background
 };
 
-std::string colorCode(const Color4Bit foregroundColor,
-                      const Color4Bit backgroundColor = Color4Bit::Empty);
-std::string colorEnd();
+QString colorCode(const Color4Bit foregroundColor,
+                  const Color4Bit backgroundColor = Color4Bit::Empty);
+QString colorEnd();
 
 /*!
  * Returns number of characters available in keyboard buffer.
@@ -66,34 +66,37 @@ public:
 const int standardInputIndex = 0;
 
 namespace Key {
-const std::string up = "\033[A";
-const std::string down = "\033[B";
-const std::string right = "\033[C";
-const std::string left = "\033[D";
+const QString up = "\033[A";
+const QString down = "\033[B";
+const QString right = "\033[C";
+const QString left = "\033[D";
 
-const std::string tab = "\t";
-const std::string enter = "\n";
-const std::string ret = "\r";
+const QString tab = "\t";
+const QString enter = "\n";
+const QString ret = "\r";
 const int backspace = 0x007f;
-const std::string del = "\033[3~";
+const QString del = "\033[3~";
 }
 
 // http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x361.html
 // https://en.wikipedia.org/wiki/ANSI_escape_code
 namespace Command {
-const std::string up = "\033[1A";
-const std::string down = "\033[1B";
+const QString up = "\033[1A";
+const QString down = "\033[1B";
 
-const std::string forward = "\033[1C";
-const std::string backward = "\033[1D";
+const QString forward = "\033[1C";
+const QString backward = "\033[1D";
 
-const std::string clear = "\033[2J";
-const std::string erase = "\033[K";
+const QString clear = "\033[2J";
+const QString erase = "\033[K";
 
-const std::string save = "\033[s";
-const std::string restore = "\033[u";
+const QString save = "\033[s";
+const QString restore = "\033[u";
 
-const std::string colorEnd = "\033[0m";
+const QString colorEnd = "\033[0m";
+
+const QString positionBegin = "\033";
+const QString positionSeparator = ";";
 
 /*!
  * Returns terminal command which will move the cursor to position \a x, \a y.
@@ -101,6 +104,6 @@ const std::string colorEnd = "\033[0m";
  * \warning \a x and \a y start in top left corner of the screen and they both
  * start with `1` (one), not zero!
  */
-std::string moveToPosition(const int x, const int y);
+QString moveToPosition(const int x, const int y);
 }
 }

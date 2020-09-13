@@ -73,13 +73,13 @@ QString Tg::CheckBox::checkBoxText() const
 
     switch (checkState()) {
     case Qt::CheckState::Checked:
-        return QString::fromStdString(style()->checkBoxChecked) + space;
+        return style()->checkBoxChecked + space;
         //return  "x" + space;
     case Qt::CheckState::PartiallyChecked:
-        return QString::fromStdString(style()->checkBoxPartiallyChecked) + space;
+        return style()->checkBoxPartiallyChecked + space;
         //return "-" + space;
     case Qt::CheckState::Unchecked:
-        return QString::fromStdString(style()->checkBoxUnChecked) + space;
+        return style()->checkBoxUnChecked + space;
         //return "o" + space;
     }
 

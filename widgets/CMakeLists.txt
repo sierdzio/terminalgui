@@ -14,7 +14,6 @@ set(CMAKE_AUTORCC ON)
 
 add_library(terminalgui
     utils/tgreversibleanimation.cpp utils/tgreversibleanimation.h
-    utils/tgtextstream.cpp utils/tgtextstream.h
     utils/tghelpers.cpp utils/tghelpers.h
     styles/tgborderstyle.h
     styles/tgtableborderstyle.h

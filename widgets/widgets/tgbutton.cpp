@@ -170,8 +170,8 @@ void Tg::Button::init()
 
 void Tg::Button::consumeKeyboardBuffer(const QString &keyboardBuffer)
 {
-    if (keyboardBuffer.contains(Helpers::toString(Terminal::Key::enter))
-        || keyboardBuffer.contains(Helpers::toString(Terminal::Key::ret)))
+    if (keyboardBuffer.contains(Terminal::Key::enter)
+        || keyboardBuffer.contains(Terminal::Key::ret))
     {
         setTextColor(pressedTextColor());
         setBackgroundColor(pressedBackgroundColor());
