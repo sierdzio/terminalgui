@@ -19,7 +19,7 @@ animations, and other meta-object hight-level control
 * backed by the power of Qt: file access, networking, remote objects,
 serial port etc. support
 
-![Terminal GUI widgets](doc/img/terminal-gui-2.webm "Terminal GUI widgets")
+![Terminal GUI widgets](doc/img/terminal-gui-2.gif "Terminal GUI widgets")
 
 ## Builds
 
