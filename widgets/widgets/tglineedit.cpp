@@ -2,6 +2,8 @@
 
 #include "utils/tghelpers.h"
 
+#include <QRect>
+
 Tg::LineEdit::LineEdit(Tg::Widget *parent) : Tg::Label(parent)
 {
     init();
@@ -105,17 +107,21 @@ void Tg::LineEdit::init()
 
 void Tg::LineEdit::consumeKeyboardBuffer(const QString &keyboardBuffer)
 {
-    //// Up Arrow
-    //if (keyboardBuffer.contains("\033[A")) {
-    //    emit moveFocusToPreviousWidget();
-    //    return;
-    //}
-    //
-    //// Down Arrow
-    //if (keyboardBuffer.contains("\033[B")) {
-    //    emit moveFocusToNextWidget();
-    //    return;
-    //}
+    if (contentsRectangle().height() == 1) {
+        // Up Arrow
+        if (keyboardBuffer.contains(Terminal::Key::up)) {
+            emit moveFocusToPreviousWidget();
+            return;
+        }
+
+        // Down Arrow
+        if (keyboardBuffer.contains(Terminal::Key::down)) {
+            emit moveFocusToNextWidget();
+            return;
+        }
+    } else {
+        // TODO: set cursor position up/down
+    }
 
     // Right Arrow
     if (const QString command(Terminal::Key::right);
