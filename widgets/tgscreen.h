@@ -2,8 +2,9 @@
 
 #include <QObject>
 #include <QPointer>
-#include <QVector>
+#include <QList>
 #include <QSize>
+#include <QRect>
 #include <QTimer>
 
 #include "utils/tghelpers.h"
@@ -32,7 +33,7 @@ public:
     StylePointer style() const;
 
 public slots:
-    void onNeedsRedraw();
+    void onNeedsRedraw(const Tg::RedrawType type, const Widget *widget);
     void moveFocusToPreviousWidget();
     void moveFocusToNextWidget();
 
@@ -48,9 +49,10 @@ private:
 
     QTimer _keyboardTimer;
     QTimer _redrawTimer;
+    QList<QRect> _redrawRegions;
     QSize _size;
 
-    QVector<WidgetPointer> _widgets;
+    QList<WidgetPointer> _widgets;
     WidgetPointer _activeFocusWidget;
     StylePointer _style;
 };

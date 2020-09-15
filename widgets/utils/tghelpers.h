@@ -55,4 +55,14 @@ enum class Overshoot {
 Q_DECLARE_FLAGS(SizeOvershoot, Overshoot)
 Q_DECLARE_OPERATORS_FOR_FLAGS(SizeOvershoot)
 
+/*!
+ * Specifies how much of the Tg::Screen needs to be redrawn.
+ */
+enum class RedrawType {
+    //! Only redraw a part of the screen
+    Partial,
+    //! Redraw everything
+    Full
+};
+
 }

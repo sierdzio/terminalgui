@@ -86,7 +86,7 @@ void Tg::Label::init()
     CHECK(connect(this, &Label::needsRedraw,
                   this, &Label::layoutText));
     CHECK(connect(this, &Label::textChanged,
-                  this, &Label::scheduleRedraw));
+                  this, &Label::schedulePartialRedraw));
 
     Widget::init();
 }

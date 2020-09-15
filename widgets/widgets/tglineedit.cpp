@@ -98,7 +98,7 @@ void Tg::LineEdit::init()
     Label::init();
 
     CHECK(connect(this, &LineEdit::cursorPositionChanged,
-                  this, &LineEdit::scheduleRedraw));
+                  this, &LineEdit::schedulePartialRedraw));
 
     if (placeholderText().isEmpty() == false) {
         displayPlaceholderText();

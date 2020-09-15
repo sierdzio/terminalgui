@@ -482,27 +482,28 @@ bool Tg::Widget::isColorEmpty(const Terminal::Color4Bit color) const
 void Tg::Widget::init()
 {
     CHECK(connect(this, &Widget::positionChanged,
-                  this, &Widget::scheduleRedraw));
+                  this, &Widget::scheduleFullRedraw));
     CHECK(connect(this, &Widget::sizeChanged,
-                  this, &Widget::scheduleRedraw));
+                  this, &Widget::scheduleFullRedraw));
+
     CHECK(connect(this, &Widget::backgroundColorChanged,
-                  this, &Widget::scheduleRedraw));
+                  this, &Widget::schedulePartialRedraw));
     CHECK(connect(this, &Widget::textColorChanged,
-                  this, &Widget::scheduleRedraw));
+                  this, &Widget::schedulePartialRedraw));
     CHECK(connect(this, &Widget::borderTextColorChanged,
-                  this, &Widget::scheduleRedraw));
+                  this, &Widget::schedulePartialRedraw));
     CHECK(connect(this, &Widget::visibleChanged,
-                  this, &Widget::scheduleRedraw));
+                  this, &Widget::schedulePartialRedraw));
     CHECK(connect(this, &Widget::borderVisibleChanged,
-                  this, &Widget::scheduleRedraw));
+                  this, &Widget::schedulePartialRedraw));
     CHECK(connect(this, &Widget::hasFocusChanged,
-                  this, &Widget::scheduleRedraw));
+                  this, &Widget::schedulePartialRedraw));
     CHECK(connect(this, &Widget::styleChanged,
-                  this, &Widget::scheduleRedraw));
+                  this, &Widget::schedulePartialRedraw));
     CHECK(connect(this, &Widget::layoutOvershootChanged,
-                  this, &Widget::scheduleRedraw));
+                  this, &Widget::schedulePartialRedraw));
     CHECK(connect(this, &Widget::widgetOvershootChanged,
-                  this, &Widget::scheduleRedraw));
+                  this, &Widget::schedulePartialRedraw));
 
     if (_screen) {
         CHECK(connect(this, &Widget::needsRedraw,
@@ -562,9 +563,25 @@ void Tg::Widget::setWidgetOvershoot(const Tg::SizeOvershoot overshoot)
     }
 }
 
-void Tg::Widget::scheduleRedraw() const
+void Tg::Widget::scheduleFullRedraw() const
+{
+    if (canRedraw()) {
+        emit needsRedraw(Tg::RedrawType::Full, this);
+    }
+}
+
+void Tg::Widget::schedulePartialRedraw() const
+{
+    if (canRedraw()) {
+        emit needsRedraw(Tg::RedrawType::Partial, this);
+    }
+}
+
+bool Tg::Widget::canRedraw() const
 {
     if (visible() == true && clipped() == false) {
-        emit needsRedraw();
+        return true;
     }
+
+    return false;
 }

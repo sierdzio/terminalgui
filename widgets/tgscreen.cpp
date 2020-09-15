@@ -70,14 +70,14 @@ Tg::StylePointer Tg::Screen::style() const
     return _style;
 }
 
-void Tg::Screen::onNeedsRedraw()
+void Tg::Screen::onNeedsRedraw(const RedrawType type, const Widget *widget)
 {
     compressRedraws();
 }
 
 void Tg::Screen::moveFocusToPreviousWidget()
 {
-    QVectorIterator<WidgetPointer> iterator(_widgets);
+    QListIterator<WidgetPointer> iterator(_widgets);
     const bool result = iterator.findNext(_activeFocusWidget);
     if (result == false) {
         _activeFocusWidget->setHasFocus(false);
@@ -114,7 +114,7 @@ void Tg::Screen::moveFocusToPreviousWidget()
 
 void Tg::Screen::moveFocusToNextWidget()
 {
-    QVectorIterator<WidgetPointer> iterator(_widgets);
+    QListIterator<WidgetPointer> iterator(_widgets);
     const bool result = iterator.findNext(_activeFocusWidget);
     if (result == false) {
         _activeFocusWidget->setHasFocus(false);
@@ -161,7 +161,7 @@ void Tg::Screen::redrawImmediately() const
 
             bool drawn = false;
             // TODO: sort by Z value...
-            QVector<WidgetPointer> affectedWidgets;
+            QList<WidgetPointer> affectedWidgets;
             for (const WidgetPointer &widget : qAsConst(_widgets)) {
                 if (widget->visible() && widget->clipped() == false
                         && widget->globalBoundingRectangle().contains(pixel))

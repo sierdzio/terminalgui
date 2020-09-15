@@ -147,17 +147,17 @@ void Tg::Button::init()
                   this, &Button::onHasFocusChanged));
 
     CHECK(connect(this, &Button::activeTextColorChanged,
-                  this, &Button::scheduleRedraw));
+                  this, &Button::schedulePartialRedraw));
     CHECK(connect(this, &Button::activeBackgroundColorChanged,
-                  this, &Button::scheduleRedraw));
+                  this, &Button::schedulePartialRedraw));
     CHECK(connect(this, &Button::inactiveTextColorChanged,
-                  this, &Button::scheduleRedraw));
+                  this, &Button::schedulePartialRedraw));
     CHECK(connect(this, &Button::inactiveBackgroundColorChanged,
-                  this, &Button::scheduleRedraw));
+                  this, &Button::schedulePartialRedraw));
     CHECK(connect(this, &Button::pressedTextColorChanged,
-                  this, &Button::scheduleRedraw));
+                  this, &Button::schedulePartialRedraw));
     CHECK(connect(this, &Button::pressedBackgroundColorChanged,
-                  this, &Button::scheduleRedraw));
+                  this, &Button::schedulePartialRedraw));
 
     if (hasFocus()) {
         setBackgroundColor(activeBackgroundColor());

@@ -94,7 +94,7 @@ public:
     void setClipped(const bool clipped);
 
 signals:
-    void needsRedraw() const;
+    void needsRedraw(const Tg::RedrawType type, const Widget *widget) const;
     void positionChanged(const QPoint &position) const;
     void sizeChanged(const QSize &size) const;
     void backgroundColorChanged(const Terminal::Color4Bit backgroundColor) const;
@@ -140,9 +140,12 @@ protected:
     void setWidgetOvershoot(const SizeOvershoot overshoot);
 
 protected slots:
-    void scheduleRedraw() const;
+    void scheduleFullRedraw() const;
+    void schedulePartialRedraw() const;
 
 private:
+    bool canRedraw() const;
+
     const int _borderWidth = 1;
 
     QPointer<Screen> _screen;
