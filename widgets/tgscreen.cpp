@@ -161,17 +161,23 @@ void Tg::Screen::redrawImmediately() const
 
             bool drawn = false;
             // TODO: sort by Z value...
-            // TODO: "bundle" pixels from same widget to prevent
-            // multiple loop passes for the same widget
-            for (const Widget *widget : qAsConst(_widgets)) {
+            QVector<WidgetPointer> affectedWidgets;
+            for (const WidgetPointer &widget : qAsConst(_widgets)) {
                 if (widget->visible() && widget->clipped() == false
                         && widget->globalBoundingRectangle().contains(pixel))
                 {
+                    affectedWidgets.append(widget);
+                }
+            }
+
+            // TODO: properly handle Z value...
+            if (affectedWidgets.isEmpty() == false) {
+                WidgetPointer widget = affectedWidgets.last();
+                if (widget.isNull() == false) {
                     const QPoint localPixel(widget->mapFromGlobal(pixel));
                     stream << Terminal::Command::moveToPosition(x, y);
                     stream << widget->drawPixel(localPixel);
                     drawn = true;
-                    continue;
                 }
             }
 
