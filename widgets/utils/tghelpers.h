@@ -63,6 +63,7 @@ enum class RedrawType {
     Partial,
     //! Redraw everything
     Full
+    // TODO: consider adding: FullWidget
 };
 
 }

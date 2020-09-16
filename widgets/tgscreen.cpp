@@ -72,6 +72,7 @@ Tg::StylePointer Tg::Screen::style() const
 
 void Tg::Screen::onNeedsRedraw(const RedrawType type, const Widget *widget)
 {
+    updateRedrawRegions(type, widget);
     compressRedraws();
 }
 
@@ -149,43 +150,55 @@ void Tg::Screen::moveFocusToNextWidget()
     }
 }
 
-void Tg::Screen::redrawImmediately() const
+void Tg::Screen::redrawImmediately()
 {
     QTextStream stream(stdout);
-    // TODO: do not clear everything. Make only partial redraws!
-    stream << Terminal::Command::clear;
 
-    for (int y = 1; y < size().width(); ++y) {
-        for (int x = 1; x < size().width(); ++x) {
-            const QPoint pixel(x, y);
+    QVector<QPoint> points;
+    for (const QRect &region : qAsConst(_redrawRegions)) {
+        for (int y = region.y(); y < (region.y() + region.height()); ++y) {
+            for (int x = region.x(); x < (region.x() + region.width()); ++x) {
+                const QPoint pixel(x, y);
 
-            bool drawn = false;
-            // TODO: sort by Z value...
-            QList<WidgetPointer> affectedWidgets;
-            for (const WidgetPointer &widget : qAsConst(_widgets)) {
-                if (widget->visible() && widget->clipped() == false
-                        && widget->globalBoundingRectangle().contains(pixel))
-                {
-                    affectedWidgets.append(widget);
+                if (points.contains(pixel)) {
+                    continue;
                 }
-            }
 
-            // TODO: properly handle Z value...
-            if (affectedWidgets.isEmpty() == false) {
-                WidgetPointer widget = affectedWidgets.last();
-                if (widget.isNull() == false) {
-                    const QPoint localPixel(widget->mapFromGlobal(pixel));
-                    stream << Terminal::Command::moveToPosition(x, y);
-                    stream << widget->drawPixel(localPixel);
-                    drawn = true;
+                bool drawn = false;
+                // TODO: sort by Z value...
+                QList<WidgetPointer> affectedWidgets;
+                for (const WidgetPointer &widget : qAsConst(_widgets)) {
+                    if (widget->visible() && widget->clipped() == false
+                            && widget->globalBoundingRectangle().contains(pixel))
+                    {
+                        affectedWidgets.append(widget);
+                    }
                 }
-            }
 
-            if (drawn == false) {
-                stream << Terminal::colorEnd();
+                // TODO: properly handle Z value...
+                if (affectedWidgets.isEmpty() == false) {
+                    WidgetPointer widget = affectedWidgets.last();
+                    if (widget.isNull() == false) {
+                        const QPoint localPixel(widget->mapFromGlobal(pixel));
+                        // TODO: consider using Terminal::currentPosition() to
+                        // prevent move operation if it's not needed. This could
+                        // speed things up (or slow them down...)
+                        stream << Terminal::Command::moveToPosition(x, y);
+                        stream << widget->drawPixel(localPixel);
+                        drawn = true;
+                    }
+                }
+
+                if (drawn == false) {
+                    stream << Terminal::colorEnd();
+                } else {
+                    points.append(pixel);
+                }
             }
         }
     }
+
+    _redrawRegions.clear();
 }
 
 void Tg::Screen::checkKeyboard()
@@ -222,6 +235,37 @@ void Tg::Screen::checkKeyboard()
 
         _activeFocusWidget->consumeKeyboardBuffer(characters);
     }
+}
+
+void Tg::Screen::updateRedrawRegions(const Tg::RedrawType type,
+                                     const Tg::Widget *widget)
+{
+     if (type == RedrawType::Full) {
+         //const Terminal::Size size = Terminal::updateSize();
+         //_size.setWidth(size.width);
+         //_size.setHeight(size.height);
+         //emit sizeChanged(_size);
+         _redrawRegions.clear();
+         const QRect region(QPoint(0, 0), size());
+         _redrawRegions.append(region);
+     } else {
+         bool update = true;
+         const QRect region(widget->globalBoundingRectangle());
+         const auto originalRegions = _redrawRegions;
+         for (const QRect &current : originalRegions) {
+             if (current.contains(region, true)) {
+                 update = false;
+                 break;
+             }
+
+             // TODO: add more fine-grained control and optimisation of
+             // intersecting draw regions
+         }
+
+         if (update) {
+             _redrawRegions.append(region);
+         }
+     }
 }
 
 void Tg::Screen::compressRedraws()

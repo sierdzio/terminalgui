@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
     Tg::Widget widget(&screen);
     widget.setObjectName("widget");
     widget.setPosition(QPoint(1, 1));
-    widget.setSize(QSize(50, 35));
+    widget.setSize(QSize(45, 30));
     widget.setLayoutType(Tg::Layout::Type::Column);
     widget.show();
 

@@ -41,10 +41,11 @@ signals:
     void sizeChanged(const QSize &size) const;
 
 private slots:
-    void redrawImmediately() const;
+    void redrawImmediately();
     void checkKeyboard();
 
 private:
+    void updateRedrawRegions(const RedrawType type, const Widget *widget);
     void compressRedraws();
 
     QTimer _keyboardTimer;
