@@ -51,8 +51,10 @@ public:
 
     QPoint position() const;
     QSize size() const;
+    QSize previousSize() const;
     QRect boundingRectangle() const;
     QRect globalBoundingRectangle() const;
+    QRect globalPreviousBoundingRectangle() const;
     QRect contentsRectangle() const;
 
     Terminal::Color4Bit backgroundColor() const;
@@ -94,7 +96,7 @@ public:
     void setClipped(const bool clipped);
 
 signals:
-    void needsRedraw(const Tg::RedrawType type, const Widget *widget) const;
+    void needsRedraw(const RedrawType type, const Widget *widget) const;
     void positionChanged(const QPoint &position) const;
     void sizeChanged(const QSize &size) const;
     void backgroundColorChanged(const Terminal::Color4Bit backgroundColor) const;
@@ -142,6 +144,7 @@ protected:
 protected slots:
     void scheduleFullRedraw() const;
     void schedulePartialRedraw() const;
+    void schedulePreviousPositionRedraw() const;
 
 private:
     bool canRedraw() const;
@@ -158,6 +161,8 @@ private:
 
     QPoint _position = { 0, 0 };
     QSize _size = { 1, 1 };
+    QSize _previousSize = { 1, 1 };
+
     // TODO: use 256 bit colors by default. Introduce some "Terminal::Color"
     // class which will dynamically switch between color types based
     // on user settings or terminal capabilities

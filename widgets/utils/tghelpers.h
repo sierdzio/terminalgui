@@ -61,6 +61,9 @@ Q_DECLARE_OPERATORS_FOR_FLAGS(SizeOvershoot)
 enum class RedrawType {
     //! Only redraw a part of the screen
     Partial,
+    FulLWidget = Partial,
+    //! Area where widget *used to be* should be redrawn
+    PreviousPosition,
     //! Redraw everything
     Full
     // TODO: consider adding: FullWidget

@@ -55,10 +55,10 @@ QString Tg::Label::drawPixel(const QPoint &pixel) const
         if (line.size() > charX) {
             result.push_back(line.at(charX).unicode());
         } else {
-            result.push_back(' ');
+            result.push_back(Terminal::Key::space);
         }
     } else {
-        result.push_back(' ');
+        result.push_back(Terminal::Key::space);
     }
 
     return result;
@@ -111,7 +111,7 @@ void Tg::Label::layoutText()
         txt.append(text());
         while (txt.length() < width) {
             // Fill with spaces
-            txt.append(' ');
+            txt.append(Terminal::Key::space);
         }
         _laidOutTextCache.append(txt);
         return;
@@ -147,7 +147,7 @@ void Tg::Label::layoutText()
 
         while (currentString.length() < width) {
             // Fill with spaces
-            currentString.append(' ');
+            currentString.append(Terminal::Key::space);
         }
         _laidOutTextCache.append(currentString);
     }

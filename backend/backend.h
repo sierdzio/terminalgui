@@ -76,6 +76,7 @@ const QString enter = "\n";
 const QString ret = "\r";
 const int backspace = 0x007f;
 const QString del = "\033[3~";
+const QString space = " ";
 }
 
 // http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x361.html

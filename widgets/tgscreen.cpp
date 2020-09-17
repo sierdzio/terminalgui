@@ -175,24 +175,26 @@ void Tg::Screen::redrawImmediately()
                     }
                 }
 
+                // TODO: consider using Terminal::currentPosition() to
+                // prevent move operation if it's not needed. This could
+                // speed things up (or slow them down...)
+                stream << Terminal::Command::moveToPosition(x, y);
+
                 // TODO: properly handle Z value...
                 if (affectedWidgets.isEmpty() == false) {
                     WidgetPointer widget = affectedWidgets.last();
                     if (widget.isNull() == false) {
                         const QPoint localPixel(widget->mapFromGlobal(pixel));
-                        // TODO: consider using Terminal::currentPosition() to
-                        // prevent move operation if it's not needed. This could
-                        // speed things up (or slow them down...)
-                        stream << Terminal::Command::moveToPosition(x, y);
                         stream << widget->drawPixel(localPixel);
                         drawn = true;
                     }
                 }
 
-                if (drawn == false) {
-                    stream << Terminal::colorEnd();
-                } else {
+                if (drawn) {
                     points.append(pixel);
+                } else {
+                    stream << Terminal::colorEnd();
+                    stream << Terminal::Key::space;
                 }
             }
         }
@@ -211,7 +213,7 @@ void Tg::Screen::checkKeyboard()
         }
 
         if (const QString command(Terminal::Key::tab);
-            characters.contains(command)) {
+                characters.contains(command)) {
             // Move to next input
             moveFocusToNextWidget();
             characters.remove(command);
@@ -220,14 +222,14 @@ void Tg::Screen::checkKeyboard()
         if (_activeFocusWidget->verticalArrowsMoveFocus()) {
             // Up Arrow
             if (const QString command(Terminal::Key::up);
-                characters.contains(command)) {
+                    characters.contains(command)) {
                 moveFocusToPreviousWidget();
                 characters.remove(command);
             }
 
             // Down Arrow
             if (const QString command(Terminal::Key::down);
-                characters.contains(command)) {
+                    characters.contains(command)) {
                 moveFocusToNextWidget();
                 characters.remove(command);
             }
@@ -237,35 +239,38 @@ void Tg::Screen::checkKeyboard()
     }
 }
 
-void Tg::Screen::updateRedrawRegions(const Tg::RedrawType type,
-                                     const Tg::Widget *widget)
+void Tg::Screen::updateRedrawRegions(const RedrawType type,
+                                     const Widget *widget)
 {
-     if (type == RedrawType::Full) {
-         //const Terminal::Size size = Terminal::updateSize();
-         //_size.setWidth(size.width);
-         //_size.setHeight(size.height);
-         //emit sizeChanged(_size);
-         _redrawRegions.clear();
-         const QRect region(QPoint(0, 0), size());
-         _redrawRegions.append(region);
-     } else {
-         bool update = true;
-         const QRect region(widget->globalBoundingRectangle());
-         const auto originalRegions = _redrawRegions;
-         for (const QRect &current : originalRegions) {
-             if (current.contains(region, true)) {
-                 update = false;
-                 break;
-             }
+    if (type == RedrawType::Full) {
+        _redrawRegions.clear();
+        const QRect region(QPoint(0, 0), size());
+        _redrawRegions.append(region);
+    } else {
+        if (type == RedrawType::PreviousPosition) {
+            updateRedrawRegion(widget->globalPreviousBoundingRectangle());
+        }
+        updateRedrawRegion(widget->globalBoundingRectangle());
+    }
+}
 
-             // TODO: add more fine-grained control and optimisation of
-             // intersecting draw regions
-         }
+void Tg::Screen::updateRedrawRegion(const QRect &region)
+{
+    bool update = true;
+    const auto originalRegions = _redrawRegions;
+    for (const QRect &current : originalRegions) {
+        if (current.contains(region, true)) {
+            update = false;
+            break;
+        }
 
-         if (update) {
-             _redrawRegions.append(region);
-         }
-     }
+        // TODO: add more fine-grained control and optimisation of
+        // intersecting draw regions
+    }
+
+    if (update) {
+        _redrawRegions.append(region);
+    }
 }
 
 void Tg::Screen::compressRedraws()

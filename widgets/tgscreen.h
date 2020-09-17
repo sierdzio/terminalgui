@@ -33,7 +33,7 @@ public:
     StylePointer style() const;
 
 public slots:
-    void onNeedsRedraw(const Tg::RedrawType type, const Widget *widget);
+    void onNeedsRedraw(const RedrawType type, const Widget *widget);
     void moveFocusToPreviousWidget();
     void moveFocusToNextWidget();
 
@@ -46,6 +46,7 @@ private slots:
 
 private:
     void updateRedrawRegions(const RedrawType type, const Widget *widget);
+    void updateRedrawRegion(const QRect &region);
     void compressRedraws();
 
     QTimer _keyboardTimer;

@@ -57,7 +57,7 @@ void Tg::CheckBox::init()
 
 void Tg::CheckBox::consumeKeyboardBuffer(const QString &keyboardBuffer)
 {
-    if (keyboardBuffer.contains(' ')) {
+    if (keyboardBuffer.contains(Terminal::Key::space)) {
         setTextColor(pressedTextColor());
         setBackgroundColor(pressedBackgroundColor());
         emit clicked();

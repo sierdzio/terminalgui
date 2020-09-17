@@ -134,7 +134,7 @@ void Tg::RadioButton::init()
 
 void Tg::RadioButton::consumeKeyboardBuffer(const QString &keyboardBuffer)
 {
-    if (keyboardBuffer.contains(' ')) {
+    if (keyboardBuffer.contains(Terminal::Key::space)) {
         setTextColor(pressedTextColor());
         setBackgroundColor(pressedBackgroundColor());
         emit clicked();

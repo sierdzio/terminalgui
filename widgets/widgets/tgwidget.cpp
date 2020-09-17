@@ -41,6 +41,11 @@ QSize Tg::Widget::size() const
     return _size;
 }
 
+QSize Tg::Widget::previousSize() const
+{
+    return _previousSize;
+}
+
 QRect Tg::Widget::boundingRectangle() const
 {
     return QRect(position(), size());
@@ -53,6 +58,16 @@ QRect Tg::Widget::globalBoundingRectangle() const
         return QRect(mapToGlobal(QPoint(border, border)), size());
     } else {
         return QRect(mapToGlobal(QPoint(0, 0)), size());
+    }
+}
+
+QRect Tg::Widget::globalPreviousBoundingRectangle() const
+{
+    if (parentWidget()) {
+        const int border = parentWidget()->effectiveBorderWidth();
+        return QRect(mapToGlobal(QPoint(border, border)), previousSize());
+    } else {
+        return QRect(mapToGlobal(QPoint(0, 0)), previousSize());
     }
 }
 
@@ -212,7 +227,7 @@ QString Tg::Widget::drawPixel(const QPoint &pixel) const
         result.append(Terminal::colorCode(Terminal::Color4Bit::Empty,
                                           backgroundColor()));
     }
-    result.push_back(' ');
+    result.push_back(Terminal::Key::space);
     return result;
 }
 
@@ -385,6 +400,7 @@ void Tg::Widget::setSize(const QSize &size)
     if (_size == size)
         return;
 
+    _previousSize = _size;
     _size = size;
     emit sizeChanged(_size);
 
@@ -482,9 +498,9 @@ bool Tg::Widget::isColorEmpty(const Terminal::Color4Bit color) const
 void Tg::Widget::init()
 {
     CHECK(connect(this, &Widget::positionChanged,
-                  this, &Widget::scheduleFullRedraw));
+                  this, &Widget::schedulePartialRedraw));
     CHECK(connect(this, &Widget::sizeChanged,
-                  this, &Widget::scheduleFullRedraw));
+                  this, &Widget::schedulePreviousPositionRedraw));
 
     CHECK(connect(this, &Widget::backgroundColorChanged,
                   this, &Widget::schedulePartialRedraw));
@@ -543,7 +559,7 @@ void Tg::Widget::setPropagatesStyle(const bool propagatesStyle)
     }
 }
 
-void Tg::Widget::propagateStyleToChild(Tg::Widget *child) const
+void Tg::Widget::propagateStyleToChild(Widget *child) const
 {
     if (child) {
         child->setStyle(style(), true);
@@ -555,7 +571,7 @@ Tg::StylePointer Tg::Widget::style() const
     return _style;
 }
 
-void Tg::Widget::setWidgetOvershoot(const Tg::SizeOvershoot overshoot)
+void Tg::Widget::setWidgetOvershoot(const SizeOvershoot overshoot)
 {
     if (_widgetOvershoot != overshoot) {
         _widgetOvershoot = overshoot;
@@ -565,16 +581,17 @@ void Tg::Widget::setWidgetOvershoot(const Tg::SizeOvershoot overshoot)
 
 void Tg::Widget::scheduleFullRedraw() const
 {
-    if (canRedraw()) {
-        emit needsRedraw(Tg::RedrawType::Full, this);
-    }
+    emit needsRedraw(RedrawType::Full, this);
 }
 
 void Tg::Widget::schedulePartialRedraw() const
 {
-    if (canRedraw()) {
-        emit needsRedraw(Tg::RedrawType::Partial, this);
-    }
+    emit needsRedraw(RedrawType::Partial, this);
+}
+
+void Tg::Widget::schedulePreviousPositionRedraw() const
+{
+    emit needsRedraw(RedrawType::PreviousPosition, this);
 }
 
 bool Tg::Widget::canRedraw() const
