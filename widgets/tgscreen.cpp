@@ -164,7 +164,6 @@ void Tg::Screen::redrawImmediately()
                     continue;
                 }
 
-                bool drawn = false;
                 // TODO: sort by Z value...
                 QList<WidgetPointer> affectedWidgets;
                 for (const WidgetPointer &widget : qAsConst(_widgets)) {
@@ -180,6 +179,7 @@ void Tg::Screen::redrawImmediately()
                 // speed things up (or slow them down...)
                 stream << Terminal::Command::moveToPosition(x, y);
 
+                bool drawn = false;
                 // TODO: properly handle Z value...
                 if (affectedWidgets.isEmpty() == false) {
                     WidgetPointer widget = affectedWidgets.last();
@@ -190,12 +190,12 @@ void Tg::Screen::redrawImmediately()
                     }
                 }
 
-                if (drawn) {
-                    points.append(pixel);
-                } else {
+                if (drawn == false) {
                     stream << Terminal::colorEnd();
                     stream << Terminal::Key::space;
                 }
+
+                points.append(pixel);
             }
         }
     }

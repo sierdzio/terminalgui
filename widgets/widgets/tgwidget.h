@@ -50,6 +50,7 @@ public:
     ~Widget();
 
     QPoint position() const;
+    QPoint previousGlobalPosition() const;
     QSize size() const;
     QSize previousSize() const;
     QRect boundingRectangle() const;
@@ -148,6 +149,7 @@ protected slots:
 
 private:
     bool canRedraw() const;
+    void updatePreviousBoundingRect();
 
     const int _borderWidth = 1;
 
@@ -160,6 +162,7 @@ private:
     SizeOvershoot _widgetOvershoot = Overshoot::None;
 
     QPoint _position = { 0, 0 };
+    QPoint _previousGlobalPosition = { 0, 0 };
     QSize _size = { 1, 1 };
     QSize _previousSize = { 1, 1 };
 

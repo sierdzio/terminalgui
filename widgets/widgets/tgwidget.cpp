@@ -36,6 +36,11 @@ QPoint Tg::Widget::position() const
     return _position;
 }
 
+QPoint Tg::Widget::previousGlobalPosition() const
+{
+    return _previousGlobalPosition;
+}
+
 QSize Tg::Widget::size() const
 {
     return _size;
@@ -65,9 +70,10 @@ QRect Tg::Widget::globalPreviousBoundingRectangle() const
 {
     if (parentWidget()) {
         const int border = parentWidget()->effectiveBorderWidth();
-        return QRect(mapToGlobal(QPoint(border, border)), previousSize());
+        return QRect(previousGlobalPosition() + QPoint(border, border),
+                     previousSize());
     } else {
-        return QRect(mapToGlobal(QPoint(0, 0)), previousSize());
+        return QRect(previousGlobalPosition(), previousSize());
     }
 }
 
@@ -391,6 +397,7 @@ void Tg::Widget::setPosition(const QPoint &position)
         }
     }
 
+    updatePreviousBoundingRect();
     _position = position;
     emit positionChanged(_position);
 }
@@ -400,7 +407,7 @@ void Tg::Widget::setSize(const QSize &size)
     if (_size == size)
         return;
 
-    _previousSize = _size;
+    updatePreviousBoundingRect();
     _size = size;
     emit sizeChanged(_size);
 
@@ -498,7 +505,7 @@ bool Tg::Widget::isColorEmpty(const Terminal::Color4Bit color) const
 void Tg::Widget::init()
 {
     CHECK(connect(this, &Widget::positionChanged,
-                  this, &Widget::schedulePartialRedraw));
+                  this, &Widget::schedulePreviousPositionRedraw));
     CHECK(connect(this, &Widget::sizeChanged,
                   this, &Widget::schedulePreviousPositionRedraw));
 
@@ -601,4 +608,10 @@ bool Tg::Widget::canRedraw() const
     }
 
     return false;
+}
+
+void Tg::Widget::updatePreviousBoundingRect()
+{
+    _previousGlobalPosition = _position;
+    _previousSize = _size;
 }
