@@ -200,6 +200,8 @@ void Tg::Screen::redrawImmediately()
         }
     }
 
+    // Reset cursor to bottom-right corner
+    stream << Terminal::Command::moveToPosition(size().width(), size().height());
     _redrawRegions.clear();
 }
 
