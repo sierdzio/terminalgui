@@ -53,10 +53,10 @@ Terminal::RawTerminalLocker::RawTerminalLocker()
     //tcsetattr(standardInputIndex, TCSANOW, &term);
     //setbuf(stdin, NULL);
 
-    system("stty raw -echo");
+    //system("stty raw -echo");
 }
 
 Terminal::RawTerminalLocker::~RawTerminalLocker()
 {
-    system("stty cooked echo");
+    //system("stty cooked echo");
 }

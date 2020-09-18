@@ -12,6 +12,11 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
+if(WIN32)
+    ADD_DEFINITIONS(-DUNICODE)
+    ADD_DEFINITIONS(-D_UNICODE)
+endif()
+
 add_library(terminalgui
     utils/tgreversibleanimation.cpp utils/tgreversibleanimation.h
     utils/tghelpers.cpp utils/tghelpers.h

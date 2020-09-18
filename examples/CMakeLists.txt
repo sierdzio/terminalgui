@@ -13,6 +13,11 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
+if(WIN32)
+    ADD_DEFINITIONS(-DUNICODE)
+    ADD_DEFINITIONS(-D_UNICODE)
+endif()
+
 add_executable(terminalgui-example terminalgui-example.cpp)
 target_link_libraries(terminalgui-example PUBLIC terminalgui Qt5::Core)
 
