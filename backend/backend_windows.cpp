@@ -42,21 +42,13 @@ int Terminal::getChar()
     return _getch();
 }
 
-// TODO: use termios! Right?
-//#include <termios.h>
-
+#include <iostream>
 Terminal::RawTerminalLocker::RawTerminalLocker()
 {
-    //struct termios term;
-    //tcgetattr(standardInputIndex, &term);
-    //term.c_lflag &= ~ICANON;
-    //tcsetattr(standardInputIndex, TCSANOW, &term);
-    //setbuf(stdin, NULL);
-
-    //system("stty raw -echo");
+    // This is Windowese for "UTF-8, sorta where we feel like it"
+    system("chcp 65001");
 }
 
 Terminal::RawTerminalLocker::~RawTerminalLocker()
 {
-    //system("stty cooked echo");
 }
