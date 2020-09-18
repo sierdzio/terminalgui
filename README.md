@@ -1,6 +1,6 @@
 # Terminal GUI
 
-***This project is super duper early prototype work.***
+***This project is still pre-alpha***
 
 Set of Qt-based widgets for your terminal! Create textual GUIs in your console
 easily.
@@ -15,7 +15,7 @@ easily.
 animations, and other meta-object hight-level control
 * custom style support
 * convenient and intuitive API
-* support for Linux and Windows (WIP)
+* support for Linux and Windows
 * backed by the power of Qt: file access, networking, remote objects,
 serial port etc. support
 
@@ -36,6 +36,19 @@ By default, TG builds itself as a set of libraries (backend and widgets). It is
 easy to link to them (see examples/CMakeLists.txt). If you prefer, you can 
 include all the sources in your code, too. The license is *extremely* 
 permissive.
+
+## Linux
+
+It just works, and looks great (in terminal emulators) - no worries!
+
+## Windows
+
+Windows has poor UTF-8 support and poor fonts in default `cmd.exe`. Terminal GUI
+works but looks worse and is more glitchy than on Linux.
+
+**Recommendation:** use the new Windows Terminal: [link](https://aka.ms/terminal).
+
+Windows PowerShell also seems to work moderately well.
 
 ## License
 
