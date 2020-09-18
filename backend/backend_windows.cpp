@@ -47,8 +47,10 @@ Terminal::RawTerminalLocker::RawTerminalLocker()
 {
     // This is Windowese for "UTF-8, sorta where we feel like it"
     system("chcp 65001");
+    system("cls");
 }
 
 Terminal::RawTerminalLocker::~RawTerminalLocker()
 {
+    system("cls");
 }
