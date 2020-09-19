@@ -97,6 +97,10 @@ Tg::ExclusiveGroupPointer Tg::RadioButton::exclusiveGroup() const
 
 void Tg::RadioButton::setChecked(const bool checked)
 {
+    if (highlighted() != checked) {
+        setHighlighted(checked);
+    }
+
     if (_checked == checked)
         return;
 
@@ -125,6 +129,7 @@ void Tg::RadioButton::init()
 {
     setReservedText(radioButtonText());
     prepareAutoExclusiveGroup();
+    setHighlighted(checked());
 
     Button::init();
 

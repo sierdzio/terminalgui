@@ -53,15 +53,23 @@ QString Tg::Label::drawPixel(const QPoint &pixel) const
         const QString line(wrappedText.at(charY));
 
         if (line.size() > charX) {
-            result.push_back(line.at(charX).unicode());
+            if (highlighted()) {
+                result.append(Terminal::Command::bold);
+            }
+            result.append(line.at(charX).unicode());
         } else {
-            result.push_back(Terminal::Key::space);
+            result.append(Terminal::Key::space);
         }
     } else {
-        result.push_back(Terminal::Key::space);
+        result.append(Terminal::Key::space);
     }
 
     return result;
+}
+
+bool Tg::Label::highlighted() const
+{
+    return _highlighted;
 }
 
 void Tg::Label::setText(const QString &text, const bool expand)
@@ -81,11 +89,22 @@ void Tg::Label::setText(const QString &text, const bool expand)
     emit textChanged(_text);
 }
 
+void Tg::Label::setHighlighted(const bool highlighted)
+{
+    if (_highlighted == highlighted)
+        return;
+
+    _highlighted = highlighted;
+    emit highlightedChanged(_highlighted);
+}
+
 void Tg::Label::init()
 {
     CHECK(connect(this, &Label::needsRedraw,
                   this, &Label::layoutText));
     CHECK(connect(this, &Label::textChanged,
+                  this, &Label::schedulePartialRedraw));
+    CHECK(connect(this, &Label::highlightedChanged,
                   this, &Label::schedulePartialRedraw));
 
     Widget::init();

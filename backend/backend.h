@@ -99,6 +99,9 @@ const QString colorEnd = "\033[0m";
 const QString positionBegin = "\033[";
 const QString positionSeparator = ";";
 
+const QString bold = "\033[1m";
+const QString resetFontSettings = colorEnd;
+
 /*!
  * Returns terminal command which will move the cursor to position \a x, \a y.
  *

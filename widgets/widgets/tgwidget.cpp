@@ -218,7 +218,7 @@ QString Tg::Widget::drawBorderPixel(const QPoint &pixel) const
             result.append(style()->border->vertical);
         }
     } else {
-        result.push_back('x');
+        result.append('x');
     }
 
     return result;
@@ -233,7 +233,7 @@ QString Tg::Widget::drawPixel(const QPoint &pixel) const
         result.append(Terminal::colorCode(Terminal::Color4Bit::Empty,
                                           backgroundColor()));
     }
-    result.push_back(Terminal::Key::space);
+    result.append(Terminal::Key::space);
     return result;
 }
 

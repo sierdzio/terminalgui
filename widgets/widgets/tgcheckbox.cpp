@@ -34,6 +34,7 @@ void Tg::CheckBox::setCheckState(const Qt::CheckState checkState)
     emit checkStateChanged(_checkState);
 
     setReservedText(checkBoxText());
+    setHighlighted(_checkState != Qt::CheckState::Unchecked);
 }
 
 void Tg::CheckBox::toggleState()

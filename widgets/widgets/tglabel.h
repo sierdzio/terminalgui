@@ -8,6 +8,7 @@ class Label : public Widget
     Q_OBJECT
 
     Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
+    Q_PROPERTY(bool highlighted READ highlighted WRITE setHighlighted NOTIFY highlightedChanged)
 
 public:
     Label(Widget *parent);
@@ -19,11 +20,15 @@ public:
 
     QString drawPixel(const QPoint &pixel) const override;
 
+    bool highlighted() const;
+
 signals:
-    void textChanged(const QString &text) const;
+    void textChanged(const QString &text) const;    
+    void highlightedChanged(const bool highlighted) const;
 
 public slots:
-    void setText(const QString &text, const bool expand = true);
+    void setText(const QString &text, const bool expand = true);    
+    void setHighlighted(const bool highlighted);
 
 protected:
     void init() override;
@@ -36,6 +41,8 @@ private slots:
     void layoutText();
 
 private:
+    bool _highlighted = false;
+
     QString _text;
     QString _reservedText;
     QStringList _laidOutTextCache;
