@@ -1,7 +1,7 @@
 #include "tgscreen.h"
 #include "widgets/tgwidget.h"
 
-#include <backend/backend.h>
+#include <backend.h>
 
 #include <QPoint>
 #include <QRect>

@@ -2,7 +2,7 @@
 
 #include "tgborderstyle.h"
 
-#include <backend/backend.h>
+#include <backend.h>
 
 namespace Tg {
 class TableBorderStyle : public BorderStyle

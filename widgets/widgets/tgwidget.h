@@ -8,7 +8,7 @@
 
 #include <QMetaEnum>
 
-#include <backend/backend.h>
+#include <backend.h>
 
 #include "utils/tghelpers.h"
 #include "styles/tgstyle.h"

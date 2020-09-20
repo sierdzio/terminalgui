@@ -2,7 +2,7 @@
 #include "tgscreen.h"
 #include "utils/tghelpers.h"
 
-#include <backend/backend.h>
+#include <backend.h>
 
 #include <QRect>
 #include <QDebug>
