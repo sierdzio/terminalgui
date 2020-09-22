@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.16)
 project(terminalgui
   LANGUAGES CXX
   VERSION 0.1.0
-  )
+)
 
 if (NOT WIN32)
   add_compile_options(-Wall -Werror -Wextra)
@@ -13,12 +13,6 @@ add_subdirectory(backend)
 add_subdirectory(widgets)
 add_subdirectory(examples)
 
-install(TARGETS backend terminalgui
-  COMPONENT terminalgui
-  LIBRARY DESTINATION lib
-  INCLUDES DESTINATION include
-)
-
 include(CMakePackageConfigHelpers)
 write_basic_package_version_file(
   MyLibConfigVersion.cmake
@@ -26,7 +20,7 @@ write_basic_package_version_file(
   COMPATIBILITY AnyNewerVersion
 )
 
-SET(CPACK_GENERATOR "DEB;RPM;NSIS")
+SET(CPACK_GENERATOR "DEB;RPM") # ;NSIS
 set(CPACK_PACKAGE_VENDOR "sierdzio")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Qt-based widgets for terminal")
 set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})

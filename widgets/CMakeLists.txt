@@ -17,30 +17,41 @@ if(WIN32)
   ADD_DEFINITIONS(-D_UNICODE)
 endif()
 
-add_library(terminalgui
-  utils/tgreversibleanimation.cpp utils/tgreversibleanimation.h
-  utils/tghelpers.cpp utils/tghelpers.h
-  styles/tgborderstyle.h
-  styles/tgtableborderstyle.h
-  styles/tgstyle.cpp styles/tgstyle.h
-  layouts/tglayout.cpp layouts/tglayout.h
-  layouts/tgchildfillsparentlayout.cpp layouts/tgchildfillsparentlayout.h
-  layouts/tgcolumnlayout.cpp layouts/tgcolumnlayout.h
-  layouts/tgrowlayout.cpp layouts/tgrowlayout.h
-  layouts/tggridlayout.cpp layouts/tggridlayout.h
-  widgets/tgwidget.cpp widgets/tgwidget.h
-  widgets/tglabel.cpp widgets/tglabel.h
-  widgets/tgbutton.cpp widgets/tgbutton.h
-  widgets/tglineedit.cpp widgets/tglineedit.h
-  widgets/tgcheckbox.cpp widgets/tgcheckbox.h
-  widgets/tgradiobutton.cpp widgets/tgradiobutton.h
-  tgscreen.cpp tgscreen.h
-  )
+add_library(terminalgui SHARED
+  utils/tgreversibleanimation.cpp
+  utils/tghelpers.cpp
+  styles/tgstyle.cpp
+  layouts/tglayout.cpp
+  layouts/tgchildfillsparentlayout.cpp
+  layouts/tgcolumnlayout.cpp
+  layouts/tgrowlayout.cpp
+  layouts/tggridlayout.cpp
+  widgets/tgwidget.cpp
+  widgets/tglabel.cpp
+  widgets/tgbutton.cpp
+  widgets/tglineedit.cpp
+  widgets/tgcheckbox.cpp
+  widgets/tgradiobutton.cpp
+  tgscreen.cpp
+)
 
-target_include_directories(terminalgui
-  PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-  $<INSTALL_INTERFACE:include/terminalgui>)
+target_include_directories(terminalgui PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
-target_link_libraries(terminalgui PUBLIC backend Qt5::Core)
+target_link_libraries(terminalgui PUBLIC terminalgui-backend Qt5::Core)
 
+install(TARGETS terminalgui
+  #CONFIGURATIONS Release
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION lib
+)
+
+install(FILES tgscreen.h
+  #CONFIGURATIONS Release
+  DESTINATION include/terminalgui
+)
+
+install(DIRECTORY utils styles layouts widgets
+  #CONFIGURATIONS Release
+  DESTINATION include/terminalgui
+  PATTERN *.h
+)
