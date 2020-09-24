@@ -32,6 +32,7 @@ class Widget : public QObject
     Q_PROPERTY(QSize size READ size WRITE setSize NOTIFY sizeChanged)
 
     Q_PROPERTY(Terminal::Color4Bit backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
+    Q_PROPERTY(QChar backgroundCharacter READ backgroundCharacter WRITE setBackgroundCharacter NOTIFY backgroundCharacterChanged)
     Q_PROPERTY(Terminal::Color4Bit textColor READ textColor WRITE setTextColor NOTIFY textColorChanged)
     Q_PROPERTY(Terminal::Color4Bit borderTextColor READ borderTextColor WRITE setBorderTextColor NOTIFY borderTextColorChanged)
     Q_PROPERTY(Terminal::Color4Bit borderBackgroundColor READ borderBackgroundColor WRITE setBorderBackgroundColor NOTIFY borderBackgroundColorChanged)
@@ -59,6 +60,7 @@ public:
     QRect contentsRectangle() const;
 
     Terminal::Color4Bit backgroundColor() const;
+    QChar backgroundCharacter() const;
     Terminal::Color4Bit textColor() const;
     Terminal::Color4Bit borderTextColor() const;
     Terminal::Color4Bit borderBackgroundColor() const;
@@ -94,13 +96,14 @@ public:
     SizeOvershoot widgetOvershoot() const;
 
     bool clipped() const;
-    void setClipped(const bool clipped);
+    void setClipped(const bool clipped);    
 
 signals:
     void needsRedraw(const RedrawType type, const Widget *widget) const;
     void positionChanged(const QPoint &position) const;
     void sizeChanged(const QSize &size) const;
     void backgroundColorChanged(const Terminal::Color4Bit backgroundColor) const;
+    void backgroundCharacterChanged(const QChar &backgroundCharacter) const;
     void textColorChanged(const Terminal::Color4Bit textColor) const;
     void borderTextColorChanged(const Terminal::Color4Bit borderColor) const;
     void borderBackgroundColorChanged(const Terminal::Color4Bit borderBackgroundColor) const;
@@ -113,19 +116,20 @@ signals:
     void propagatesStyleChanged(const bool propagatesStyle) const;
     void styleChanged() const;
     void layoutOvershootChanged(const SizeOvershoot overshoot) const;
-    void widgetOvershootChanged(const SizeOvershoot overshoot) const;
+    void widgetOvershootChanged(const SizeOvershoot overshoot) const;    
 
 public slots:
     void setPosition(const QPoint &position);
     void setSize(const QSize &size);
     void setBackgroundColor(const Terminal::Color4Bit backgroundColor);
+    void setBackgroundCharacter(const QChar &backgroundCharacter);
     void setTextColor(const Terminal::Color4Bit textColor);
     void setBorderTextColor(Terminal::Color4Bit borderColor);
     void setBorderBackgroundColor(const Terminal::Color4Bit borderBackgroundColor);
     void setVisible(const bool visible);
     void show();
     void hide();
-    void setBorderVisible(const bool borderVisible);
+    void setBorderVisible(const bool borderVisible);    
 
 protected:
     int effectiveBorderWidth() const;
@@ -181,5 +185,6 @@ private:
     bool _verticalArrowsMoveFocus = false;
     bool _propagatesStyle = true;
     bool _clipped = false;
+    QChar _backgroundCharacter;
 };
 }

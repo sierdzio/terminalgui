@@ -193,8 +193,8 @@ void Tg::Screen::redrawImmediately()
                 }
 
                 if (drawn == false) {
+                    stream << style()->screenBackground;
                     stream << Terminal::colorEnd();
-                    stream << Terminal::Key::space;
                 }
 
                 points.append(pixel);

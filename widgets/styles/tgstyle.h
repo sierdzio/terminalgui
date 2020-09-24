@@ -6,6 +6,7 @@
 
 #include <QSharedPointer>
 
+#include <QChar>
 #include <QString>
 
 namespace Tg {
@@ -15,9 +16,13 @@ public:
     BorderStyle *border = new BorderStyle;
     void setBorderStyleValues(const BorderStyle &borderStyle);
 
+    // Screen
+    QChar screenBackground = Terminal::Key::space;
+
     // Base widget
     Terminal::Color4Bit textColor = Terminal::Color4Bit::White;
     Terminal::Color4Bit backgroundColor = Terminal::Color4Bit::Black;
+    QChar backgroundCharacter = Terminal::Key::space;
 
     // LineEdit
     Terminal::Color4Bit placeholderTextColor = Terminal::Color4Bit::Gray;

@@ -98,6 +98,16 @@ Terminal::Color4Bit Tg::Widget::backgroundColor() const
     }
 }
 
+QChar Tg::Widget::backgroundCharacter() const
+{
+    if (_backgroundCharacter.isNull()) {
+        return style()->backgroundCharacter;
+    } else {
+        return _backgroundCharacter;
+    }
+    return _backgroundCharacter;
+}
+
 Terminal::Color4Bit Tg::Widget::textColor() const
 {
     if (isColorEmpty(_textColor)) {
@@ -218,7 +228,7 @@ QString Tg::Widget::drawBorderPixel(const QPoint &pixel) const
             result.append(style()->border->vertical);
         }
     } else {
-        result.append('x');
+        result.append(Terminal::Key::space);
     }
 
     return result;
@@ -233,7 +243,7 @@ QString Tg::Widget::drawPixel(const QPoint &pixel) const
         result.append(Terminal::colorCode(Terminal::Color4Bit::Empty,
                                           backgroundColor()));
     }
-    result.append(Terminal::Key::space);
+    result.append(backgroundCharacter());
     return result;
 }
 
@@ -423,6 +433,15 @@ void Tg::Widget::setBackgroundColor(const Terminal::Color4Bit backgroundColor)
     emit backgroundColorChanged(_backgroundColor);
 }
 
+void Tg::Widget::setBackgroundCharacter(const QChar &backgroundCharacter)
+{
+    if (_backgroundCharacter == backgroundCharacter)
+        return;
+
+    _backgroundCharacter = backgroundCharacter;
+    emit backgroundCharacterChanged(_backgroundCharacter);
+}
+
 void Tg::Widget::setTextColor(const Terminal::Color4Bit textColor)
 {
     if (_textColor == textColor)
@@ -510,6 +529,8 @@ void Tg::Widget::init()
                   this, &Widget::schedulePreviousPositionRedraw));
 
     CHECK(connect(this, &Widget::backgroundColorChanged,
+                  this, &Widget::schedulePartialRedraw));
+    CHECK(connect(this, &Widget::backgroundCharacterChanged,
                   this, &Widget::schedulePartialRedraw));
     CHECK(connect(this, &Widget::textColorChanged,
                   this, &Widget::schedulePartialRedraw));

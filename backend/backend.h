@@ -71,12 +71,12 @@ const QString down = "\033[B";
 const QString right = "\033[C";
 const QString left = "\033[D";
 
-const QString tab = "\t";
-const QString enter = "\n";
-const QString ret = "\r";
+const QChar tab = '\t';
+const QChar enter = '\n';
+const QChar ret = '\r';
 const int backspace = 0x007f;
 const QString del = "\033[3~";
-const QString space = " ";
+const QChar space = ' ';
 }
 
 // http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x361.html
@@ -97,7 +97,7 @@ const QString restore = "\033[u";
 const QString colorEnd = "\033[0m";
 
 const QString positionBegin = "\033[";
-const QString positionSeparator = ";";
+const QChar positionSeparator = ';';
 
 const QString bold = "\033[1m";
 const QString resetFontSettings = colorEnd;
