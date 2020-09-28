@@ -1,8 +1,12 @@
 #pragma once
 
+#include <QtGlobal>
 #include <QString>
+#include <QObject>
 
 namespace Terminal {
+Q_NAMESPACE
+
 struct Size {
     int width = 80;
     int height = 24;
@@ -19,36 +23,49 @@ Position currentPosition();
 const Size defaultSize;
 static Size size = updateSize();
 
-// TODO: dedicated color class, supporting various color standards
-enum class Color4Bit {
-    Empty = 0,
-    Black = 30,
-    Red = 31,
-    Green = 32,
-    Yellow = 33,
-    Blue = 34,
-    Magenta = 35,
-    Cyan = 36,
-    White = 37,
-    Gray = 90,
-    Pink = 91,
-    LightRed = Pink,
-    LightGreen = 92,
-    LightYellow = 93,
-    LightBlue = 94,
-    LightMagenta = 95,
-    LightCyan = 96,
-    LightWhite = 97
-};
+class Color {
+public:
+    enum class Predefined {
+        Invalid = -1,
+        Empty = 0,
+        Black = 30,
+        Red = 31,
+        Green = 32,
+        Yellow = 33,
+        Blue = 34,
+        Magenta = 35,
+        Cyan = 36,
+        White = 37,
+        Gray = 90,
+        Pink = 91,
+        LightRed = Pink,
+        LightGreen = 92,
+        LightYellow = 93,
+        LightBlue = 94,
+        LightMagenta = 95,
+        LightCyan = 96,
+        LightWhite = 97
+    };
+    Q_ENUM_NS(Predefined);
 
-enum class ColorType {
-    Foreground,
-    Background
-};
+    static QString code(const Color &foregroundColor,
+                        const Color &backgroundColor = Color::Predefined::Empty);
+    static QString end();
 
-QString colorCode(const Color4Bit foregroundColor,
-                  const Color4Bit backgroundColor = Color4Bit::Empty);
-QString colorEnd();
+    Color(const Predefined predefined);
+    Color(const quint8 red, const quint8 green, const quint8 blue);
+
+    QString rgb() const;
+
+private:
+    int predefinedValue() const;
+
+    quint8 _red = 0;
+    quint8 _green = 0;
+    quint8 _blue = 0;
+
+    Predefined _predefined = Predefined::Invalid;
+};
 
 /*!
  * Returns number of characters available in keyboard buffer.

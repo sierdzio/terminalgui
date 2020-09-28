@@ -20,29 +20,29 @@ int main(int argc, char *argv[])
     Tg::Label labelBelow(QObject::tr("Below with some extra text!"), &screen);
     labelBelow.setPosition(QPoint(20, 1));
     labelBelow.setSize(QSize(6, 5));
-    labelBelow.setTextColor(Terminal::Color4Bit::Red);
-    labelBelow.setBackgroundColor(Terminal::Color4Bit::Black);
+    labelBelow.setTextColor(Terminal::Color::Predefined::Red);
+    labelBelow.setBackgroundColor(Terminal::Color::Predefined::Black);
     labelBelow.setBorderVisible(false);
     labelBelow.show();
 
     Tg::Label label(QObject::tr("Hello world!"), &screen);
     label.setPosition(QPoint(1, 1));
-    label.setTextColor(Terminal::Color4Bit::Green);
-    label.setBackgroundColor(Terminal::Color4Bit::Black);
+    label.setTextColor(Terminal::Color::Predefined::Green);
+    label.setBackgroundColor(Terminal::Color::Predefined::Black);
     label.setBorderVisible(false);
     label.show();
 
     Tg::Label labelAbove(QObject::tr("Above"), &screen);
     labelAbove.setPosition(QPoint(40, 5));
-    labelAbove.setTextColor(Terminal::Color4Bit::Cyan);
-    labelAbove.setBackgroundColor(Terminal::Color4Bit::Black);
+    labelAbove.setTextColor(Terminal::Color::Predefined::Cyan);
+    labelAbove.setBackgroundColor(Terminal::Color::Predefined::Black);
     labelAbove.setBorderVisible(false);
     labelAbove.show();
 
     Tg::Label labelNotOnFirstRow(QObject::tr("Detached with some extra text!"), &screen);
     labelNotOnFirstRow.setPosition(QPoint(1, 6));
     labelNotOnFirstRow.setSize(QSize(8, 7));
-    labelNotOnFirstRow.setTextColor(Terminal::Color4Bit::Blue);
+    labelNotOnFirstRow.setTextColor(Terminal::Color::Predefined::Blue);
     labelNotOnFirstRow.show();
 
     Tg::Widget widget(&screen);

@@ -41,7 +41,7 @@ QString Tg::Label::drawPixel(const QPoint &pixel) const
     }
 
     QString result;
-    result.append(Terminal::colorCode(textColor(), backgroundColor()));
+    result.append(Terminal::Color::code(textColor(), backgroundColor()));
 
     const QRect contents = contentsRectangle();
     const int charX = pixel.x() - contents.x();

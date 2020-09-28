@@ -21,7 +21,7 @@ Tg::Button::Button(const QString &text, Tg::Screen *screen) : Tg::Label(text, sc
     init();
 }
 
-Terminal::Color4Bit Tg::Button::activeTextColor() const
+Terminal::Color Tg::Button::activeTextColor() const
 {
     if (isColorEmpty(_activeTextColor)) {
         return style()->activeTextColor;
@@ -30,7 +30,7 @@ Terminal::Color4Bit Tg::Button::activeTextColor() const
     }
 }
 
-Terminal::Color4Bit Tg::Button::activeBackgroundColor() const
+Terminal::Color Tg::Button::activeBackgroundColor() const
 {
     if (isColorEmpty(_activeBackgroundColor)) {
         return style()->activeBackgroundColor;
@@ -39,7 +39,7 @@ Terminal::Color4Bit Tg::Button::activeBackgroundColor() const
     }
 }
 
-Terminal::Color4Bit Tg::Button::inactiveTextColor() const
+Terminal::Color Tg::Button::inactiveTextColor() const
 {
     if (isColorEmpty(_inactiveTextColor)) {
         return style()->inactiveTextColor;
@@ -48,7 +48,7 @@ Terminal::Color4Bit Tg::Button::inactiveTextColor() const
     }
 }
 
-Terminal::Color4Bit Tg::Button::inactiveBackgroundColor() const
+Terminal::Color Tg::Button::inactiveBackgroundColor() const
 {
     if (isColorEmpty(_inactiveBackgroundColor)) {
         return style()->inactiveBackgroundColor;
@@ -57,7 +57,7 @@ Terminal::Color4Bit Tg::Button::inactiveBackgroundColor() const
     }
 }
 
-Terminal::Color4Bit Tg::Button::pressedTextColor() const
+Terminal::Color Tg::Button::pressedTextColor() const
 {
     if (isColorEmpty(_pressedTextColor)) {
         return style()->pressedTextColor;
@@ -66,7 +66,7 @@ Terminal::Color4Bit Tg::Button::pressedTextColor() const
     }
 }
 
-Terminal::Color4Bit Tg::Button::pressedBackgroundColor() const
+Terminal::Color Tg::Button::pressedBackgroundColor() const
 {
     if (isColorEmpty(_pressedBackgroundColor)) {
         return style()->pressedBackgroundColor;
@@ -75,7 +75,7 @@ Terminal::Color4Bit Tg::Button::pressedBackgroundColor() const
     }
 }
 
-void Tg::Button::setActiveTextColor(const Terminal::Color4Bit activeTextColor)
+void Tg::Button::setActiveTextColor(const Terminal::Color activeTextColor)
 {
     if (_activeTextColor == activeTextColor)
         return;
@@ -84,7 +84,7 @@ void Tg::Button::setActiveTextColor(const Terminal::Color4Bit activeTextColor)
     emit activeTextColorChanged(_activeTextColor);
 }
 
-void Tg::Button::setActiveBackgroundColor(const Terminal::Color4Bit activeBackgroundColor)
+void Tg::Button::setActiveBackgroundColor(const Terminal::Color activeBackgroundColor)
 {
     if (_activeBackgroundColor == activeBackgroundColor)
         return;
@@ -93,7 +93,7 @@ void Tg::Button::setActiveBackgroundColor(const Terminal::Color4Bit activeBackgr
     emit activeBackgroundColorChanged(_activeBackgroundColor);
 }
 
-void Tg::Button::setInactiveTextColor(const Terminal::Color4Bit inactiveTextColor)
+void Tg::Button::setInactiveTextColor(const Terminal::Color inactiveTextColor)
 {
     if (_inactiveTextColor == inactiveTextColor)
         return;
@@ -102,7 +102,7 @@ void Tg::Button::setInactiveTextColor(const Terminal::Color4Bit inactiveTextColo
     emit inactiveTextColorChanged(_inactiveTextColor);
 }
 
-void Tg::Button::setInactiveBackgroundColor(const Terminal::Color4Bit inactiveBackgroundColor)
+void Tg::Button::setInactiveBackgroundColor(const Terminal::Color inactiveBackgroundColor)
 {
     if (_inactiveBackgroundColor == inactiveBackgroundColor)
         return;
@@ -111,7 +111,7 @@ void Tg::Button::setInactiveBackgroundColor(const Terminal::Color4Bit inactiveBa
     emit inactiveBackgroundColorChanged(_inactiveBackgroundColor);
 }
 
-void Tg::Button::setPressedTextColor(const Terminal::Color4Bit pressedTextColor)
+void Tg::Button::setPressedTextColor(const Terminal::Color pressedTextColor)
 {
     if (_pressedTextColor == pressedTextColor)
         return;
@@ -120,7 +120,7 @@ void Tg::Button::setPressedTextColor(const Terminal::Color4Bit pressedTextColor)
     emit pressedTextColorChanged(_pressedTextColor);
 }
 
-void Tg::Button::setPressedBackgroundColor(const Terminal::Color4Bit pressedBackgroundColor)
+void Tg::Button::setPressedBackgroundColor(const Terminal::Color pressedBackgroundColor)
 {
     if (_pressedBackgroundColor == pressedBackgroundColor)
         return;

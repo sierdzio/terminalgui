@@ -38,7 +38,7 @@ int Tg::LineEdit::cursorPosition() const
     return _cursorPosition;
 }
 
-Terminal::Color4Bit Tg::LineEdit::placeholderTextColor() const
+Terminal::Color Tg::LineEdit::placeholderTextColor() const
 {
     if (isColorEmpty(_placeholderTextColor)) {
         return style()->placeholderTextColor;
@@ -47,7 +47,7 @@ Terminal::Color4Bit Tg::LineEdit::placeholderTextColor() const
     }
 }
 
-Terminal::Color4Bit Tg::LineEdit::placeholderBackgroundColor() const
+Terminal::Color Tg::LineEdit::placeholderBackgroundColor() const
 {
     if (isColorEmpty(_placeholderBackgroundColor)) {
         return style()->placeholderBackgroundColor;
@@ -74,7 +74,7 @@ void Tg::LineEdit::setCursorPosition(const int cursorPosition)
     emit cursorPositionChanged(_cursorPosition);
 }
 
-void Tg::LineEdit::setPlaceholderTextColor(const Terminal::Color4Bit placeholderTextColor)
+void Tg::LineEdit::setPlaceholderTextColor(const Terminal::Color placeholderTextColor)
 {
     if (_placeholderTextColor == placeholderTextColor)
         return;
@@ -83,7 +83,7 @@ void Tg::LineEdit::setPlaceholderTextColor(const Terminal::Color4Bit placeholder
     emit placeholderTextColorChanged(_placeholderTextColor);
 }
 
-void Tg::LineEdit::setPlaceholderBackgroundColor(const Terminal::Color4Bit placeholderBackgroundColor)
+void Tg::LineEdit::setPlaceholderBackgroundColor(const Terminal::Color placeholderBackgroundColor)
 {
     if (_placeholderBackgroundColor == placeholderBackgroundColor)
         return;

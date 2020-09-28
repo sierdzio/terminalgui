@@ -19,8 +19,8 @@ public:
         horizontal = u8"\u2550";
         vertical = u8"\u2551";
 
-        textColor = Terminal::Color4Bit::White;
-        backgroundColor = Terminal::Color4Bit::Black;
+        textColor = Terminal::Color::Predefined::White;
+        backgroundColor = Terminal::Color::Predefined::Black;
     }
 };
 }

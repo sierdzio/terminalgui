@@ -10,8 +10,8 @@ class LineEdit : public Label
     Q_PROPERTY(QString placeholderText READ placeholderText WRITE setPlaceholderText NOTIFY placeholderTextChanged)
     Q_PROPERTY(int cursorPosition READ cursorPosition WRITE setCursorPosition NOTIFY cursorPositionChanged)
 
-    Q_PROPERTY(Terminal::Color4Bit placeholderTextColor READ placeholderTextColor WRITE setPlaceholderTextColor NOTIFY placeholderTextColorChanged)
-    Q_PROPERTY(Terminal::Color4Bit placeholderBackgroundColor READ placeholderBackgroundColor WRITE setPlaceholderBackgroundColor NOTIFY placeholderBackgroundColorChanged)
+    Q_PROPERTY(Terminal::Color placeholderTextColor READ placeholderTextColor WRITE setPlaceholderTextColor NOTIFY placeholderTextColorChanged)
+    Q_PROPERTY(Terminal::Color placeholderBackgroundColor READ placeholderBackgroundColor WRITE setPlaceholderBackgroundColor NOTIFY placeholderBackgroundColorChanged)
 
 public:
     LineEdit(Widget *parent);
@@ -22,21 +22,21 @@ public:
     QString placeholderText() const;
     int cursorPosition() const;
 
-    Terminal::Color4Bit placeholderTextColor() const;
-    Terminal::Color4Bit placeholderBackgroundColor() const;
+    Terminal::Color placeholderTextColor() const;
+    Terminal::Color placeholderBackgroundColor() const;
 
 public slots:
     void setPlaceholderText(const QString &placeholderText);
     void setCursorPosition(const int cursorPosition);
 
-    void setPlaceholderTextColor(const Terminal::Color4Bit placeholderTextColor);
-    void setPlaceholderBackgroundColor(const Terminal::Color4Bit placeholderBackgroundColor);
+    void setPlaceholderTextColor(const Terminal::Color placeholderTextColor);
+    void setPlaceholderBackgroundColor(const Terminal::Color placeholderBackgroundColor);
 
 signals:
     void placeholderTextChanged(const QString &placeholderText) const;
     void cursorPositionChanged(const int cursorPosition) const;
-    void placeholderTextColorChanged(const Terminal::Color4Bit placeholderTextColor) const;
-    void placeholderBackgroundColorChanged(const Terminal::Color4Bit placeholderBackgroundColor) const;
+    void placeholderTextColorChanged(const Terminal::Color placeholderTextColor) const;
+    void placeholderBackgroundColorChanged(const Terminal::Color placeholderBackgroundColor) const;
 
 protected:
     void init() override;
@@ -48,7 +48,7 @@ private:
     QString _placeholderText;
     QString _realText;
     int _cursorPosition = 0;
-    Terminal::Color4Bit _placeholderTextColor = Terminal::Color4Bit::Empty;
-    Terminal::Color4Bit _placeholderBackgroundColor = Terminal::Color4Bit::Empty;
+    Terminal::Color _placeholderTextColor = Terminal::Color::Predefined::Empty;
+    Terminal::Color _placeholderBackgroundColor = Terminal::Color::Predefined::Empty;
 };
 }

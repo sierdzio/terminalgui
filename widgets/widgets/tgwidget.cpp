@@ -89,7 +89,7 @@ QRect Tg::Widget::contentsRectangle() const
     return QRect(pos, siz);
 }
 
-Terminal::Color4Bit Tg::Widget::backgroundColor() const
+Terminal::Color Tg::Widget::backgroundColor() const
 {
     if (isColorEmpty(_backgroundColor)) {
         return style()->backgroundColor;
@@ -108,7 +108,7 @@ QChar Tg::Widget::backgroundCharacter() const
     return _backgroundCharacter;
 }
 
-Terminal::Color4Bit Tg::Widget::textColor() const
+Terminal::Color Tg::Widget::textColor() const
 {
     if (isColorEmpty(_textColor)) {
         return style()->textColor;
@@ -117,7 +117,7 @@ Terminal::Color4Bit Tg::Widget::textColor() const
     }
 }
 
-Terminal::Color4Bit Tg::Widget::borderTextColor() const
+Terminal::Color Tg::Widget::borderTextColor() const
 {
     if (isColorEmpty(_borderTextColor)) {
         return style()->border->textColor;
@@ -126,7 +126,7 @@ Terminal::Color4Bit Tg::Widget::borderTextColor() const
     }
 }
 
-Terminal::Color4Bit Tg::Widget::borderBackgroundColor() const
+Terminal::Color Tg::Widget::borderBackgroundColor() const
 {
     if (isColorEmpty(_borderBackgroundColor)) {
         return style()->border->backgroundColor;
@@ -185,9 +185,9 @@ QString Tg::Widget::drawBorderPixel(const QPoint &pixel) const
 {
     QString result;
 
-    const auto color = Terminal::colorCode(borderTextColor(), borderBackgroundColor());
+    const auto color = Terminal::Color::code(borderTextColor(), borderBackgroundColor());
     // TODO: add property to make overshoot color customizable
-    const auto overshootColor = Terminal::colorCode(style()->border->overshootTextColor,
+    const auto overshootColor = Terminal::Color::code(style()->border->overshootTextColor,
                                                     style()->border->overshootBackgroundColor);
 
     const QRect rect(QPoint(0, 0), size());
@@ -240,7 +240,7 @@ QString Tg::Widget::drawPixel(const QPoint &pixel) const
     if (isBorder(pixel)) {
         return drawBorderPixel(pixel);
     } else {
-        result.append(Terminal::colorCode(Terminal::Color4Bit::Empty,
+        result.append(Terminal::Color::code(Terminal::Color::Predefined::Empty,
                                           backgroundColor()));
     }
     result.append(backgroundCharacter());
@@ -424,7 +424,7 @@ void Tg::Widget::setSize(const QSize &size)
     doLayout();
 }
 
-void Tg::Widget::setBackgroundColor(const Terminal::Color4Bit backgroundColor)
+void Tg::Widget::setBackgroundColor(const Terminal::Color backgroundColor)
 {
     if (_backgroundColor == backgroundColor)
         return;
@@ -442,7 +442,7 @@ void Tg::Widget::setBackgroundCharacter(const QChar &backgroundCharacter)
     emit backgroundCharacterChanged(_backgroundCharacter);
 }
 
-void Tg::Widget::setTextColor(const Terminal::Color4Bit textColor)
+void Tg::Widget::setTextColor(const Terminal::Color textColor)
 {
     if (_textColor == textColor)
         return;
@@ -451,7 +451,7 @@ void Tg::Widget::setTextColor(const Terminal::Color4Bit textColor)
     emit textColorChanged(_textColor);
 }
 
-void Tg::Widget::setBorderTextColor(Terminal::Color4Bit borderColor)
+void Tg::Widget::setBorderTextColor(Terminal::Color borderColor)
 {
     if (_borderTextColor == borderColor)
         return;
@@ -461,7 +461,7 @@ void Tg::Widget::setBorderTextColor(Terminal::Color4Bit borderColor)
 }
 
 void Tg::Widget::setBorderBackgroundColor(
-        const Terminal::Color4Bit borderBackgroundColor)
+        const Terminal::Color borderBackgroundColor)
 {
     if (_borderBackgroundColor == borderBackgroundColor)
         return;
@@ -516,9 +516,9 @@ int Tg::Widget::effectiveBorderWidth() const
     return 0;
 }
 
-bool Tg::Widget::isColorEmpty(const Terminal::Color4Bit color) const
+bool Tg::Widget::isColorEmpty(const Terminal::Color color) const
 {
-    return color == Terminal::Color4Bit::Empty;
+    return color == Terminal::Color::Predefined::Empty;
 }
 
 void Tg::Widget::init()

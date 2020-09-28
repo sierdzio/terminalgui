@@ -16,11 +16,6 @@
 
 #include <string>
 
-namespace Terminal {
-    Q_NAMESPACE
-    Q_ENUM_NS(Terminal::Color4Bit);
-}
-
 namespace Tg {
 class Screen;
 
@@ -31,11 +26,11 @@ class Widget : public QObject
     Q_PROPERTY(QPoint position READ position WRITE setPosition NOTIFY positionChanged)
     Q_PROPERTY(QSize size READ size WRITE setSize NOTIFY sizeChanged)
 
-    Q_PROPERTY(Terminal::Color4Bit backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
+    Q_PROPERTY(Terminal::Color backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
     Q_PROPERTY(QChar backgroundCharacter READ backgroundCharacter WRITE setBackgroundCharacter NOTIFY backgroundCharacterChanged)
-    Q_PROPERTY(Terminal::Color4Bit textColor READ textColor WRITE setTextColor NOTIFY textColorChanged)
-    Q_PROPERTY(Terminal::Color4Bit borderTextColor READ borderTextColor WRITE setBorderTextColor NOTIFY borderTextColorChanged)
-    Q_PROPERTY(Terminal::Color4Bit borderBackgroundColor READ borderBackgroundColor WRITE setBorderBackgroundColor NOTIFY borderBackgroundColorChanged)
+    Q_PROPERTY(Terminal::Color textColor READ textColor WRITE setTextColor NOTIFY textColorChanged)
+    Q_PROPERTY(Terminal::Color borderTextColor READ borderTextColor WRITE setBorderTextColor NOTIFY borderTextColorChanged)
+    Q_PROPERTY(Terminal::Color borderBackgroundColor READ borderBackgroundColor WRITE setBorderBackgroundColor NOTIFY borderBackgroundColorChanged)
 
     Q_PROPERTY(bool visible READ visible WRITE setVisible NOTIFY visibleChanged)
     Q_PROPERTY(bool borderVisible READ borderVisible WRITE setBorderVisible NOTIFY borderVisibleChanged)
@@ -59,11 +54,11 @@ public:
     QRect globalPreviousBoundingRectangle() const;
     QRect contentsRectangle() const;
 
-    Terminal::Color4Bit backgroundColor() const;
+    Terminal::Color backgroundColor() const;
     QChar backgroundCharacter() const;
-    Terminal::Color4Bit textColor() const;
-    Terminal::Color4Bit borderTextColor() const;
-    Terminal::Color4Bit borderBackgroundColor() const;
+    Terminal::Color textColor() const;
+    Terminal::Color borderTextColor() const;
+    Terminal::Color borderBackgroundColor() const;
 
     bool visible() const;
     bool borderVisible() const;
@@ -102,11 +97,11 @@ signals:
     void needsRedraw(const RedrawType type, const Widget *widget) const;
     void positionChanged(const QPoint &position) const;
     void sizeChanged(const QSize &size) const;
-    void backgroundColorChanged(const Terminal::Color4Bit backgroundColor) const;
+    void backgroundColorChanged(const Terminal::Color backgroundColor) const;
     void backgroundCharacterChanged(const QChar &backgroundCharacter) const;
-    void textColorChanged(const Terminal::Color4Bit textColor) const;
-    void borderTextColorChanged(const Terminal::Color4Bit borderColor) const;
-    void borderBackgroundColorChanged(const Terminal::Color4Bit borderBackgroundColor) const;
+    void textColorChanged(const Terminal::Color textColor) const;
+    void borderTextColorChanged(const Terminal::Color borderColor) const;
+    void borderBackgroundColorChanged(const Terminal::Color borderBackgroundColor) const;
     void visibleChanged(const bool visible) const;
     void borderVisibleChanged(const bool borderVisible) const;
     void acceptsFocusChanged(const bool acceptsFocus) const;
@@ -121,11 +116,11 @@ signals:
 public slots:
     void setPosition(const QPoint &position);
     void setSize(const QSize &size);
-    void setBackgroundColor(const Terminal::Color4Bit backgroundColor);
+    void setBackgroundColor(const Terminal::Color backgroundColor);
     void setBackgroundCharacter(const QChar &backgroundCharacter);
-    void setTextColor(const Terminal::Color4Bit textColor);
-    void setBorderTextColor(Terminal::Color4Bit borderColor);
-    void setBorderBackgroundColor(const Terminal::Color4Bit borderBackgroundColor);
+    void setTextColor(const Terminal::Color textColor);
+    void setBorderTextColor(Terminal::Color borderColor);
+    void setBorderBackgroundColor(const Terminal::Color borderBackgroundColor);
     void setVisible(const bool visible);
     void show();
     void hide();
@@ -133,7 +128,7 @@ public slots:
 
 protected:
     int effectiveBorderWidth() const;
-    bool isColorEmpty(const Terminal::Color4Bit color) const;
+    bool isColorEmpty(const Terminal::Color color) const;
 
     virtual void init();
     virtual void consumeKeyboardBuffer(const QString &keyboardBuffer);
@@ -173,10 +168,10 @@ private:
     // TODO: use 256 bit colors by default. Introduce some "Terminal::Color"
     // class which will dynamically switch between color types based
     // on user settings or terminal capabilities
-    Terminal::Color4Bit _backgroundColor = Terminal::Color4Bit::Empty;
-    Terminal::Color4Bit _textColor = Terminal::Color4Bit::Empty;
-    Terminal::Color4Bit _borderTextColor = Terminal::Color4Bit::Empty;
-    Terminal::Color4Bit _borderBackgroundColor = Terminal::Color4Bit::Empty;
+    Terminal::Color _backgroundColor = Terminal::Color::Predefined::Empty;
+    Terminal::Color _textColor = Terminal::Color::Predefined::Empty;
+    Terminal::Color _borderTextColor = Terminal::Color::Predefined::Empty;
+    Terminal::Color _borderBackgroundColor = Terminal::Color::Predefined::Empty;
 
     bool _visible = false;
     bool _borderVisible = true;

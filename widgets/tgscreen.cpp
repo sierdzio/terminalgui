@@ -194,7 +194,7 @@ void Tg::Screen::redrawImmediately()
 
                 if (drawn == false) {
                     stream << style()->screenBackground;
-                    stream << Terminal::colorEnd();
+                    stream << Terminal::Color::end();
                 }
 
                 points.append(pixel);
@@ -203,7 +203,7 @@ void Tg::Screen::redrawImmediately()
     }
 
     // Reset cursor to bottom-right corner
-    stream << Terminal::colorEnd();
+    stream << Terminal::Color::end();
     stream << Terminal::Command::moveToPosition(size().width(), size().height());
     _redrawRegions.clear();
 }

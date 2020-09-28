@@ -20,23 +20,23 @@ public:
     QChar screenBackground = Terminal::Key::space;
 
     // Base widget
-    Terminal::Color4Bit textColor = Terminal::Color4Bit::White;
-    Terminal::Color4Bit backgroundColor = Terminal::Color4Bit::Black;
+    Terminal::Color textColor = Terminal::Color::Predefined::White;
+    Terminal::Color backgroundColor = Terminal::Color::Predefined::Black;
     QChar backgroundCharacter = Terminal::Key::space;
 
     // LineEdit
-    Terminal::Color4Bit placeholderTextColor = Terminal::Color4Bit::Gray;
-    Terminal::Color4Bit placeholderBackgroundColor = Terminal::Color4Bit::Black;
+    Terminal::Color placeholderTextColor = Terminal::Color::Predefined::Gray;
+    Terminal::Color placeholderBackgroundColor = Terminal::Color::Predefined::Black;
 
     // Button
-    Terminal::Color4Bit activeTextColor = Terminal::Color4Bit::Black;
-    Terminal::Color4Bit activeBackgroundColor = Terminal::Color4Bit::White;
+    Terminal::Color activeTextColor = Terminal::Color::Predefined::Black;
+    Terminal::Color activeBackgroundColor = Terminal::Color::Predefined::White;
 
-    Terminal::Color4Bit inactiveTextColor = Terminal::Color4Bit::White;
-    Terminal::Color4Bit inactiveBackgroundColor = Terminal::Color4Bit::Gray;
+    Terminal::Color inactiveTextColor = Terminal::Color::Predefined::White;
+    Terminal::Color inactiveBackgroundColor = Terminal::Color::Predefined::Gray;
 
-    Terminal::Color4Bit pressedTextColor = Terminal::Color4Bit::Green;
-    Terminal::Color4Bit pressedBackgroundColor = Terminal::Color4Bit::LightWhite;
+    Terminal::Color pressedTextColor = Terminal::Color::Predefined::Green;
+    Terminal::Color pressedBackgroundColor = Terminal::Color::Predefined::LightWhite;
 
     // CheckBox
     QString checkBoxChecked = u8"\u2612 ";

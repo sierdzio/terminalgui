@@ -20,11 +20,11 @@ public:
     QString horizontalOvershoot = u8"\u25BC";
     QString verticalOvershoot = u8"\u25B6";
 
-    Terminal::Color4Bit textColor = Terminal::Color4Bit::White;
-    Terminal::Color4Bit backgroundColor = Terminal::Color4Bit::Black;
+    Terminal::Color textColor = Terminal::Color::Predefined::White;
+    Terminal::Color backgroundColor = Terminal::Color::Predefined::Black;
 
-    Terminal::Color4Bit overshootTextColor = Terminal::Color4Bit::Red;
-    Terminal::Color4Bit overshootBackgroundColor = Terminal::Color4Bit::Black;
+    Terminal::Color overshootTextColor = Terminal::Color::Predefined::Red;
+    Terminal::Color overshootBackgroundColor = Terminal::Color::Predefined::Black;
 };
 
 using BorderStylePointer = QSharedPointer<Tg::BorderStyle>;
