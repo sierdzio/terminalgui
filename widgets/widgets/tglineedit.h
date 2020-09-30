@@ -29,14 +29,14 @@ public slots:
     void setPlaceholderText(const QString &placeholderText);
     void setCursorPosition(const int cursorPosition);
 
-    void setPlaceholderTextColor(const Terminal::Color placeholderTextColor);
-    void setPlaceholderBackgroundColor(const Terminal::Color placeholderBackgroundColor);
+    void setPlaceholderTextColor(const Terminal::Color &placeholderTextColor);
+    void setPlaceholderBackgroundColor(const Terminal::Color &placeholderBackgroundColor);
 
 signals:
     void placeholderTextChanged(const QString &placeholderText) const;
     void cursorPositionChanged(const int cursorPosition) const;
-    void placeholderTextColorChanged(const Terminal::Color placeholderTextColor) const;
-    void placeholderBackgroundColorChanged(const Terminal::Color placeholderBackgroundColor) const;
+    void placeholderTextColorChanged(const Terminal::Color &placeholderTextColor) const;
+    void placeholderBackgroundColorChanged(const Terminal::Color &placeholderBackgroundColor) const;
 
 protected:
     void init() override;

@@ -32,22 +32,22 @@ public:
     Terminal::Color pressedBackgroundColor() const;
 
 public slots:
-    void setActiveTextColor(const Terminal::Color activeTextColor);
-    void setActiveBackgroundColor(const Terminal::Color activeBackgroundColor);
-    void setInactiveTextColor(const Terminal::Color inactiveTextColor);
-    void setInactiveBackgroundColor(const Terminal::Color inactiveBackgroundColor);
-    void setPressedTextColor(const Terminal::Color pressedTextColor);
-    void setPressedBackgroundColor(const Terminal::Color pressedBackgroundColor);
+    void setActiveTextColor(const Terminal::Color &activeTextColor);
+    void setActiveBackgroundColor(const Terminal::Color &activeBackgroundColor);
+    void setInactiveTextColor(const Terminal::Color &inactiveTextColor);
+    void setInactiveBackgroundColor(const Terminal::Color &inactiveBackgroundColor);
+    void setPressedTextColor(const Terminal::Color &pressedTextColor);
+    void setPressedBackgroundColor(const Terminal::Color &pressedBackgroundColor);
 
 signals:
     void clicked() const;
 
-    void activeTextColorChanged(const Terminal::Color activeTextColor) const;
-    void activeBackgroundColorChanged(const Terminal::Color activeBackgroundColor) const;
-    void inactiveTextColorChanged(const Terminal::Color inactiveTextColor) const;
-    void inactiveBackgroundColorChanged(const Terminal::Color inactiveBackgroundColor) const;
-    void pressedTextColorChanged(const Terminal::Color pressedTextColor) const;
-    void pressedBackgroundColorChanged(const Terminal::Color pressedBackgroundColor) const;
+    void activeTextColorChanged(const Terminal::Color &activeTextColor) const;
+    void activeBackgroundColorChanged(const Terminal::Color &activeBackgroundColor) const;
+    void inactiveTextColorChanged(const Terminal::Color &inactiveTextColor) const;
+    void inactiveBackgroundColorChanged(const Terminal::Color &inactiveBackgroundColor) const;
+    void pressedTextColorChanged(const Terminal::Color &pressedTextColor) const;
+    void pressedBackgroundColorChanged(const Terminal::Color &pressedBackgroundColor) const;
 
 protected:
     void init() override;

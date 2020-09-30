@@ -2,10 +2,8 @@
 
 #include <QtGlobal>
 #include <QString>
-#include <QObject>
 
 namespace Terminal {
-Q_NAMESPACE
 
 struct Size {
     int width = 80;
@@ -46,7 +44,6 @@ public:
         LightCyan = 96,
         LightWhite = 97
     };
-    Q_ENUM_NS(Predefined);
 
     static QString code(const Color &foregroundColor,
                         const Color &backgroundColor = Color::Predefined::Empty);
@@ -56,6 +53,16 @@ public:
     Color(const quint8 red, const quint8 green, const quint8 blue);
 
     QString rgb() const;
+    quint8 red() const;
+    quint8 green() const;
+    quint8 blue() const;
+    Predefined predefined() const;
+
+    bool isEmpty() const;
+    bool isPredefined() const;
+    bool isTrueColor() const;
+
+    bool operator==(const Color &other) const;
 
 private:
     int predefinedValue() const;

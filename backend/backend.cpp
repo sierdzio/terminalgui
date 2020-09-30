@@ -44,6 +44,52 @@ QString Terminal::Color::rgb() const
             + QString::number(_blue) + Command::positionSeparator;
 }
 
+quint8 Terminal::Color::red() const
+{
+    return _red;
+}
+
+quint8 Terminal::Color::green() const
+{
+    return _green;
+}
+
+quint8 Terminal::Color::blue() const
+{
+    return _blue;
+}
+
+Terminal::Color::Predefined Terminal::Color::predefined() const
+{
+    return _predefined;
+}
+
+bool Terminal::Color::isEmpty() const
+{
+    return _predefined == Terminal::Color::Predefined::Empty;
+}
+
+bool Terminal::Color::isPredefined() const
+{
+    return _predefined != Terminal::Color::Predefined::Invalid;
+}
+
+bool Terminal::Color::isTrueColor() const
+{
+    return !isPredefined();
+}
+
+bool Terminal::Color::operator==(const Terminal::Color &other) const
+{
+    if (isPredefined() && other.isPredefined()) {
+        return predefined() == other.predefined();
+    } else {
+        return (red() == other.red()
+                && green() == other.green()
+                && blue() == other.blue());
+    }
+}
+
 int Terminal::Color::predefinedValue() const
 {
     return int(_predefined);

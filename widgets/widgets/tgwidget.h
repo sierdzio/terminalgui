@@ -97,11 +97,11 @@ signals:
     void needsRedraw(const RedrawType type, const Widget *widget) const;
     void positionChanged(const QPoint &position) const;
     void sizeChanged(const QSize &size) const;
-    void backgroundColorChanged(const Terminal::Color backgroundColor) const;
+    void backgroundColorChanged(const Terminal::Color &backgroundColor) const;
     void backgroundCharacterChanged(const QChar &backgroundCharacter) const;
-    void textColorChanged(const Terminal::Color textColor) const;
-    void borderTextColorChanged(const Terminal::Color borderColor) const;
-    void borderBackgroundColorChanged(const Terminal::Color borderBackgroundColor) const;
+    void textColorChanged(const Terminal::Color &textColor) const;
+    void borderTextColorChanged(const Terminal::Color &borderColor) const;
+    void borderBackgroundColorChanged(const Terminal::Color &borderBackgroundColor) const;
     void visibleChanged(const bool visible) const;
     void borderVisibleChanged(const bool borderVisible) const;
     void acceptsFocusChanged(const bool acceptsFocus) const;
@@ -116,11 +116,11 @@ signals:
 public slots:
     void setPosition(const QPoint &position);
     void setSize(const QSize &size);
-    void setBackgroundColor(const Terminal::Color backgroundColor);
+    void setBackgroundColor(const Terminal::Color &backgroundColor);
     void setBackgroundCharacter(const QChar &backgroundCharacter);
-    void setTextColor(const Terminal::Color textColor);
-    void setBorderTextColor(Terminal::Color borderColor);
-    void setBorderBackgroundColor(const Terminal::Color borderBackgroundColor);
+    void setTextColor(const Terminal::Color &textColor);
+    void setBorderTextColor(const Terminal::Color &borderColor);
+    void setBorderBackgroundColor(const Terminal::Color &borderBackgroundColor);
     void setVisible(const bool visible);
     void show();
     void hide();
@@ -128,7 +128,6 @@ public slots:
 
 protected:
     int effectiveBorderWidth() const;
-    bool isColorEmpty(const Terminal::Color color) const;
 
     virtual void init();
     virtual void consumeKeyboardBuffer(const QString &keyboardBuffer);
@@ -165,9 +164,6 @@ private:
     QSize _size = { 1, 1 };
     QSize _previousSize = { 1, 1 };
 
-    // TODO: use 256 bit colors by default. Introduce some "Terminal::Color"
-    // class which will dynamically switch between color types based
-    // on user settings or terminal capabilities
     Terminal::Color _backgroundColor = Terminal::Color::Predefined::Empty;
     Terminal::Color _textColor = Terminal::Color::Predefined::Empty;
     Terminal::Color _borderTextColor = Terminal::Color::Predefined::Empty;

@@ -91,7 +91,7 @@ QRect Tg::Widget::contentsRectangle() const
 
 Terminal::Color Tg::Widget::backgroundColor() const
 {
-    if (isColorEmpty(_backgroundColor)) {
+    if (_backgroundColor.isEmpty()) {
         return style()->backgroundColor;
     } else {
         return _backgroundColor;
@@ -110,7 +110,7 @@ QChar Tg::Widget::backgroundCharacter() const
 
 Terminal::Color Tg::Widget::textColor() const
 {
-    if (isColorEmpty(_textColor)) {
+    if (_textColor.isEmpty()) {
         return style()->textColor;
     } else {
         return _textColor;
@@ -119,7 +119,7 @@ Terminal::Color Tg::Widget::textColor() const
 
 Terminal::Color Tg::Widget::borderTextColor() const
 {
-    if (isColorEmpty(_borderTextColor)) {
+    if (_borderTextColor.isEmpty()) {
         return style()->border->textColor;
     } else {
         return _borderTextColor;
@@ -128,7 +128,7 @@ Terminal::Color Tg::Widget::borderTextColor() const
 
 Terminal::Color Tg::Widget::borderBackgroundColor() const
 {
-    if (isColorEmpty(_borderBackgroundColor)) {
+    if (_borderBackgroundColor.isEmpty()) {
         return style()->border->backgroundColor;
     } else {
         return _borderBackgroundColor;
@@ -424,7 +424,7 @@ void Tg::Widget::setSize(const QSize &size)
     doLayout();
 }
 
-void Tg::Widget::setBackgroundColor(const Terminal::Color backgroundColor)
+void Tg::Widget::setBackgroundColor(const Terminal::Color &backgroundColor)
 {
     if (_backgroundColor == backgroundColor)
         return;
@@ -442,7 +442,7 @@ void Tg::Widget::setBackgroundCharacter(const QChar &backgroundCharacter)
     emit backgroundCharacterChanged(_backgroundCharacter);
 }
 
-void Tg::Widget::setTextColor(const Terminal::Color textColor)
+void Tg::Widget::setTextColor(const Terminal::Color &textColor)
 {
     if (_textColor == textColor)
         return;
@@ -451,7 +451,7 @@ void Tg::Widget::setTextColor(const Terminal::Color textColor)
     emit textColorChanged(_textColor);
 }
 
-void Tg::Widget::setBorderTextColor(Terminal::Color borderColor)
+void Tg::Widget::setBorderTextColor(const Terminal::Color &borderColor)
 {
     if (_borderTextColor == borderColor)
         return;
@@ -460,8 +460,7 @@ void Tg::Widget::setBorderTextColor(Terminal::Color borderColor)
     emit borderTextColorChanged(_borderTextColor);
 }
 
-void Tg::Widget::setBorderBackgroundColor(
-        const Terminal::Color borderBackgroundColor)
+void Tg::Widget::setBorderBackgroundColor(const Terminal::Color &borderBackgroundColor)
 {
     if (_borderBackgroundColor == borderBackgroundColor)
         return;
@@ -514,11 +513,6 @@ int Tg::Widget::effectiveBorderWidth() const
     }
 
     return 0;
-}
-
-bool Tg::Widget::isColorEmpty(const Terminal::Color color) const
-{
-    return color == Terminal::Color::Predefined::Empty;
 }
 
 void Tg::Widget::init()

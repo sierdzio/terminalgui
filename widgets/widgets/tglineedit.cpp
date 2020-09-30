@@ -40,7 +40,7 @@ int Tg::LineEdit::cursorPosition() const
 
 Terminal::Color Tg::LineEdit::placeholderTextColor() const
 {
-    if (isColorEmpty(_placeholderTextColor)) {
+    if (_placeholderTextColor.isEmpty()) {
         return style()->placeholderTextColor;
     } else {
         return _placeholderTextColor;
@@ -49,7 +49,7 @@ Terminal::Color Tg::LineEdit::placeholderTextColor() const
 
 Terminal::Color Tg::LineEdit::placeholderBackgroundColor() const
 {
-    if (isColorEmpty(_placeholderBackgroundColor)) {
+    if (_placeholderBackgroundColor.isEmpty()) {
         return style()->placeholderBackgroundColor;
     } else {
         return _placeholderBackgroundColor;
@@ -74,7 +74,7 @@ void Tg::LineEdit::setCursorPosition(const int cursorPosition)
     emit cursorPositionChanged(_cursorPosition);
 }
 
-void Tg::LineEdit::setPlaceholderTextColor(const Terminal::Color placeholderTextColor)
+void Tg::LineEdit::setPlaceholderTextColor(const Terminal::Color &placeholderTextColor)
 {
     if (_placeholderTextColor == placeholderTextColor)
         return;
@@ -83,7 +83,7 @@ void Tg::LineEdit::setPlaceholderTextColor(const Terminal::Color placeholderText
     emit placeholderTextColorChanged(_placeholderTextColor);
 }
 
-void Tg::LineEdit::setPlaceholderBackgroundColor(const Terminal::Color placeholderBackgroundColor)
+void Tg::LineEdit::setPlaceholderBackgroundColor(const Terminal::Color &placeholderBackgroundColor)
 {
     if (_placeholderBackgroundColor == placeholderBackgroundColor)
         return;
