@@ -20,7 +20,7 @@ public:
     QChar screenBackground = Terminal::Key::space;
 
     // Base widget
-    Terminal::Color textColor = Terminal::Color::Predefined::White;
+    Terminal::Color textColor =Terminal::Color::Predefined::White;
     Terminal::Color backgroundColor = Terminal::Color::Predefined::Black;
     QChar backgroundCharacter = Terminal::Key::space;
 

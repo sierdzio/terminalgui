@@ -120,6 +120,7 @@ const QString restore = "\033[u";
 
 const QString colorEnd = "\033[0m";
 
+// TODO: rename to AnsiEscape, remove duplications from other commands!
 const QString positionBegin = "\033[";
 const QChar positionSeparator = ';';
 

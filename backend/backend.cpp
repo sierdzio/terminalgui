@@ -3,7 +3,14 @@
 QString Terminal::Color::code(const Terminal::Color &foregroundColor,
                               const Terminal::Color &backgroundColor)
 {
-    if (foregroundColor._predefined != Predefined::Invalid) {
+    if (foregroundColor._predefined == Predefined::Invalid) {
+        // ESC[ 38;2;⟨r⟩;⟨g⟩;⟨b⟩ m Select RGB foreground color
+        // ESC[ 48;2;⟨r⟩;⟨g⟩;⟨b⟩ m Select RGB background color
+        return Command::positionBegin
+                + "38;2;" + foregroundColor.rgb()
+                + Command::positionSeparator
+                + "48;2;" + backgroundColor.rgb() + "m";
+    } else {
         const int padding = (backgroundColor._predefined == Predefined::Empty)?
                     0 : 10;
 
@@ -12,13 +19,6 @@ QString Terminal::Color::code(const Terminal::Color &foregroundColor,
                 + Command::positionSeparator
                 + QString::number(backgroundColor.predefinedValue() + padding)
                 + "m";
-    } else {
-        // ESC[ 38;2;⟨r⟩;⟨g⟩;⟨b⟩ m Select RGB foreground color
-        // ESC[ 48;2;⟨r⟩;⟨g⟩;⟨b⟩ m Select RGB background color
-        return Command::positionBegin
-                + "38;2;" + foregroundColor.rgb()
-                + Command::positionSeparator
-                + "48;2;" + backgroundColor.rgb();
     }
 }
 
@@ -41,7 +41,7 @@ QString Terminal::Color::rgb() const
 {
     return QString::number(_red) + Command::positionSeparator
             + QString::number(_green) + Command::positionSeparator
-            + QString::number(_blue) + Command::positionSeparator;
+            + QString::number(_blue);
 }
 
 quint8 Terminal::Color::red() const
