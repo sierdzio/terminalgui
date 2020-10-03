@@ -3,22 +3,32 @@
 QString Terminal::Color::code(const Terminal::Color &foregroundColor,
                               const Terminal::Color &backgroundColor)
 {
-    if (foregroundColor._predefined == Predefined::Invalid) {
+    const bool forceTrueColor = (foregroundColor.isPredefined() == false)
+            || (backgroundColor.isPredefined() == false);
+
+    return Command::positionBegin
+            + code(foregroundColor, false, forceTrueColor)
+            + Command::positionSeparator
+            + code(backgroundColor, true, forceTrueColor)
+            + "m";
+}
+
+QString Terminal::Color::code(const Terminal::Color &color,
+                              const bool isBackground,
+                              const bool forceTrueColor)
+{
+    // https://stackoverflow.com/questions/4842424/list-of-ansi-color-escape-sequences
+    // and
+    // https://gist.github.com/XVilka/8346728
+    if (forceTrueColor || color.predefined() == Predefined::Invalid) {
         // ESC[ 38;2;⟨r⟩;⟨g⟩;⟨b⟩ m Select RGB foreground color
         // ESC[ 48;2;⟨r⟩;⟨g⟩;⟨b⟩ m Select RGB background color
-        return Command::positionBegin
-                + "38;2;" + foregroundColor.rgb()
-                + Command::positionSeparator
-                + "48;2;" + backgroundColor.rgb() + "m";
+        const int padding = isBackground? 10 : 0;
+        return QString::number(38 + padding) + ";2;" + color.rgb();
     } else {
-        const int padding = (backgroundColor._predefined == Predefined::Empty)?
-                    0 : 10;
-
-        return Command::positionBegin
-                + QString::number(foregroundColor.predefinedValue())
-                + Command::positionSeparator
-                + QString::number(backgroundColor.predefinedValue() + padding)
-                + "m";
+        const int padding = (isBackground && color._predefined != Predefined::Empty)?
+                    10 : 0;
+        return QString::number(color.predefinedValue() + padding);
     }
 }
 
@@ -66,7 +76,12 @@ Terminal::Color::Predefined Terminal::Color::predefined() const
 
 bool Terminal::Color::isEmpty() const
 {
-    return _predefined == Terminal::Color::Predefined::Empty;
+    if (isPredefined()) {
+        return _predefined == Terminal::Color::Predefined::Empty;
+    } else {
+        //return _red == 0 && _green == 0 && _blue == 0;
+        return false;
+    }
 }
 
 bool Terminal::Color::isPredefined() const

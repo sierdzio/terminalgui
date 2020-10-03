@@ -241,7 +241,7 @@ QString Tg::Widget::drawPixel(const QPoint &pixel) const
         return drawBorderPixel(pixel);
     } else {
         result.append(Terminal::Color::code(Terminal::Color::Predefined::Empty,
-                                          backgroundColor()));
+                                            backgroundColor()));
     }
     result.append(backgroundCharacter());
     return result;

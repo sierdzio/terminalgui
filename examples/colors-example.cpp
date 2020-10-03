@@ -39,6 +39,8 @@ int main(int argc, char *argv[])
     w3->show();
 
     auto w4 = new Tg::Label("efgh", &widget);
+    w4->setTextColor(Terminal::Color(22, 22, 204));
+    w4->setBackgroundColor(Terminal::Color(204, 153, 0));
     w4->show();
 
     auto w5 = new Tg::Label("ghij", &widget);

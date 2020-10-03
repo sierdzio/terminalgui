@@ -47,6 +47,10 @@ public:
 
     static QString code(const Color &foregroundColor,
                         const Color &backgroundColor = Color::Predefined::Empty);
+
+    static QString code(const Color &color, const bool isBackground,
+                        const bool forceTrueColor);
+
     static QString end();
 
     Color(const Predefined predefined);
