@@ -27,3 +27,6 @@ target_link_libraries(layouts-example PUBLIC terminalgui)
 
 add_executable(colors-example colors-example.cpp)
 target_link_libraries(colors-example PUBLIC terminalgui)
+
+add_executable(item-views-example item-views-example.cpp)
+target_link_libraries(item-views-example PUBLIC terminalgui)
