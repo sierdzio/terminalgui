@@ -79,6 +79,7 @@ bool Terminal::Color::isEmpty() const
     if (isPredefined()) {
         return _predefined == Terminal::Color::Predefined::Empty;
     } else {
+        // TODO: support empty true color
         //return _red == 0 && _green == 0 && _blue == 0;
         return false;
     }
