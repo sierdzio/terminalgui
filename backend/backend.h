@@ -93,42 +93,30 @@ public:
 
 const int standardInputIndex = 0;
 
-namespace Key {
-const QString up = "\033[A";
-const QString down = "\033[B";
-const QString right = "\033[C";
-const QString left = "\033[D";
-
-const QChar tab = '\t';
-const QChar enter = '\n';
-const QChar ret = '\r';
-const int backspace = 0x007f;
-const QString del = "\033[3~";
-const QChar space = ' ';
-}
-
 // http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x361.html
 // https://en.wikipedia.org/wiki/ANSI_escape_code
 namespace Command {
-const QString up = "\033[1A";
-const QString down = "\033[1B";
+const QString ansiEscape = "\033[";
+const QChar ansiEscapeEnd = 'm';
+const QChar ansiPositionEnd = 'H';
 
-const QString forward = "\033[1C";
-const QString backward = "\033[1D";
+const QString up = ansiEscape + "1A";
+const QString down = ansiEscape + "1B";
 
-const QString clear = "\033[2J";
-const QString erase = "\033[K";
+const QString forward = ansiEscape + "1C";
+const QString backward = ansiEscape + "1D";
 
-const QString save = "\033[s";
-const QString restore = "\033[u";
+const QString clear = ansiEscape + "2J";
+const QString erase = ansiEscape + 'K';
 
-const QString colorEnd = "\033[0m";
+const QString save = ansiEscape + 's';
+const QString restore = ansiEscape + 'u';
 
-// TODO: rename to AnsiEscape, remove duplications from other commands!
-const QString positionBegin = "\033[";
+const QString colorEnd = ansiEscape + '0' + ansiEscapeEnd;
+
 const QChar positionSeparator = ';';
 
-const QString bold = "\033[1m";
+const QString bold = ansiEscape + '1' + ansiEscapeEnd;
 const QString resetFontSettings = colorEnd;
 
 /*!
@@ -138,5 +126,19 @@ const QString resetFontSettings = colorEnd;
  * start with `1` (one), not zero!
  */
 QString moveToPosition(const int x, const int y);
+}
+
+namespace Key {
+const QString up = Command::ansiEscape + 'A';
+const QString down = Command::ansiEscape + 'B';
+const QString right = Command::ansiEscape + 'C';
+const QString left = Command::ansiEscape + 'D';
+
+const QChar tab = '\t';
+const QChar enter = '\n';
+const QChar ret = '\r';
+const int backspace = 0x007f;
+const QString del = Command::ansiEscape + "3~";
+const QChar space = ' ';
 }
 }

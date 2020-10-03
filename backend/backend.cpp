@@ -6,11 +6,11 @@ QString Terminal::Color::code(const Terminal::Color &foregroundColor,
     const bool forceTrueColor = (foregroundColor.isPredefined() == false)
             || (backgroundColor.isPredefined() == false);
 
-    return Command::positionBegin
+    return Command::ansiEscape
             + code(foregroundColor, false, forceTrueColor)
             + Command::positionSeparator
             + code(backgroundColor, true, forceTrueColor)
-            + "m";
+            + Command::ansiEscapeEnd;
 }
 
 QString Terminal::Color::code(const Terminal::Color &color,
@@ -24,7 +24,7 @@ QString Terminal::Color::code(const Terminal::Color &color,
         // ESC[ 38;2;⟨r⟩;⟨g⟩;⟨b⟩ m Select RGB foreground color
         // ESC[ 48;2;⟨r⟩;⟨g⟩;⟨b⟩ m Select RGB background color
         const int padding = isBackground? 10 : 0;
-        return QString::number(38 + padding) + ";2;" + color.rgb();
+        return QString::number(38 + padding) + QStringLiteral(";2;") + color.rgb();
     } else {
         const int padding = (isBackground && color._predefined != Predefined::Empty)?
                     10 : 0;
@@ -112,6 +112,7 @@ int Terminal::Color::predefinedValue() const
 
 QString Terminal::Command::moveToPosition(const int x, const int y)
 {
-    return Command::positionBegin + QString::number(y)
-            + Command::positionSeparator + QString::number(x) + "H";
+    return Command::ansiEscape + QString::number(y)
+            + Command::positionSeparator + QString::number(x)
+            + Command::ansiPositionEnd;
 }
