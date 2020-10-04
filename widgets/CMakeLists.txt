@@ -32,6 +32,7 @@ add_library(terminalgui SHARED
   widgets/tglineedit.cpp
   widgets/tgcheckbox.cpp
   widgets/tgradiobutton.cpp
+  widgets/tgscrollbar.cpp
   tgscreen.cpp
 )
 

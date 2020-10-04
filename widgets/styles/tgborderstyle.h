@@ -17,8 +17,8 @@ public:
     QString horizontal = u8"\u2500";
     QString vertical = u8"\u2502";
 
-    QString horizontalOvershoot = u8"\u25BC";
-    QString verticalOvershoot = u8"\u25B6";
+    QChar horizontalOvershoot = 0x025BC;
+    QChar verticalOvershoot = 0x025B6;
 
     Terminal::Color textColor = Terminal::Color::Predefined::White;
     Terminal::Color backgroundColor = Terminal::Color::Predefined::Black;

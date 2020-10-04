@@ -105,7 +105,6 @@ QChar Tg::Widget::backgroundCharacter() const
     } else {
         return _backgroundCharacter;
     }
-    return _backgroundCharacter;
 }
 
 Terminal::Color Tg::Widget::textColor() const
@@ -188,7 +187,7 @@ QString Tg::Widget::drawBorderPixel(const QPoint &pixel) const
     const auto color = Terminal::Color::code(borderTextColor(), borderBackgroundColor());
     // TODO: add property to make overshoot color customizable
     const auto overshootColor = Terminal::Color::code(style()->border->overshootTextColor,
-                                                    style()->border->overshootBackgroundColor);
+                                                      style()->border->overshootBackgroundColor);
 
     const QRect rect(QPoint(0, 0), size());
     if (pixel == rect.topLeft()) {
