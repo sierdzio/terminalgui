@@ -5,6 +5,7 @@
 #include <widgets/tgwidget.h>
 #include <widgets/tglabel.h>
 #include <widgets/tgbutton.h>
+#include <widgets/tgscrollbar.h>
 
 int main(int argc, char *argv[])
 {
@@ -25,6 +26,10 @@ int main(int argc, char *argv[])
     Tg::Button quitButton(QObject::tr("Quit"), &widget);
     quitButton.setObjectName("quitButton");
     quitButton.show();
+
+    Tg::ScrollBar scrollBar(&widget);
+    scrollBar.setOrientation(Qt::Orientation::Horizontal);
+    scrollBar.show();
 
     // TODO: add example scroll bar, scroll area, list view etc.
 

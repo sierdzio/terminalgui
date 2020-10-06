@@ -12,13 +12,37 @@ Tg::ScrollBar::ScrollBar(Tg::Screen *screen) : Tg::Widget(screen)
 
 QString Tg::ScrollBar::drawPixel(const QPoint &pixel) const
 {
-    Q_UNUSED(pixel)
-    return {};
+    if (isBorder(pixel)) {
+        return drawBorderPixel(pixel);
+    }
+
+    int pixelIndex = 0;
+    int length = 0;
+
+    if (orientation() == Qt::Orientation::Horizontal) {
+        pixelIndex = pixel.x();
+        length = size().width();
+    } else {
+        pixelIndex = pixel.y();
+        length = size().height();
+    }
+
+    return linearPixel(pixelIndex, length);
 }
 
 Qt::Orientation Tg::ScrollBar::orientation() const
 {
     return _orientation;
+}
+
+int Tg::ScrollBar::minimum() const
+{
+    return _minimum;
+}
+
+int Tg::ScrollBar::maximum() const
+{
+    return _maximum;
 }
 
 int Tg::ScrollBar::sliderPosition() const
@@ -213,6 +237,24 @@ void Tg::ScrollBar::setOrientation(const Qt::Orientation orientation)
 
     _orientation = orientation;
     emit orientationChanged(_orientation);
+}
+
+void Tg::ScrollBar::setMinimum(const int minimum)
+{
+    if (_minimum == minimum)
+        return;
+
+    _minimum = minimum;
+    emit minimumChanged(_minimum);
+}
+
+void Tg::ScrollBar::setMaximum(const int maximum)
+{
+    if (_maximum == maximum)
+        return;
+
+    _maximum = maximum;
+    emit maximumChanged(_maximum);
 }
 
 void Tg::ScrollBar::setSliderPosition(const int sliderPosition)
@@ -417,4 +459,53 @@ void Tg::ScrollBar::init()
 void Tg::ScrollBar::consumeKeyboardBuffer(const QString &keyboardBuffer)
 {
     Q_UNUSED(keyboardBuffer)
+}
+
+QString Tg::ScrollBar::linearPixel(const int pixel, const int length) const
+{
+    QString result;
+    if (pixel == 0) {
+        // Draw first arrow
+        // TODO: handle all the color madness ;-) Active, normal, inactive colors
+        result.append(Terminal::Color::code(
+                          backwardArrowColor(), backwardArrowBackgroundColor()
+                          ));
+        if (orientation() == Qt::Orientation::Horizontal) {
+            result.append(backwardArrowLeftCharacter());
+        } else {
+            result.append(backwardArrowUpCharacter());
+        }
+
+        return result;
+    } else if (pixel == (sliderPosition() * length / maximum())) {
+        // Draw slider
+        result.append(Terminal::Color::code(
+                          sliderColor(), sliderBackgroundColor()
+                          ));
+
+        result.append(sliderCharacter());
+
+        return result;
+    } else if (pixel == length - 1) {
+        // Draw second arrow
+        // TODO: handle all the color madness ;-) Active, normal, inactive colors
+        result.append(Terminal::Color::code(
+                          forwardArrowColor(), forwardArrowBackgroundColor()
+                          ));
+        if (orientation() == Qt::Orientation::Horizontal) {
+            result.append(forwardArrowRightCharacter());
+        } else {
+            result.append(forwardArrowDownCharacter());
+        }
+
+        return result;
+    }
+
+    result.append(Terminal::Color::code(
+                      textColor(), backgroundColor()
+                      ));
+
+    result.append(backgroundCharacter());
+
+    return result;
 }

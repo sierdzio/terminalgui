@@ -13,7 +13,8 @@ class ScrollBar : public Widget
     Q_PROPERTY(Qt::Orientation orientation READ orientation WRITE setOrientation NOTIFY orientationChanged)
 
     // Slider
-    Q_PROPERTY(int sliderPosition READ sliderPosition WRITE setSliderPosition NOTIFY sliderPositionChanged)
+    Q_PROPERTY(int minimum READ minimum WRITE setMinimum NOTIFY minimumChanged)
+    Q_PROPERTY(int maximum READ maximum WRITE setMaximum NOTIFY maximumChanged)
     Q_PROPERTY(QChar sliderCharacter READ sliderCharacter WRITE setSliderCharacter NOTIFY sliderCharacterChanged)
     Q_PROPERTY(Terminal::Color sliderColor READ sliderColor WRITE setSliderColor NOTIFY sliderColorChanged)
     Q_PROPERTY(Terminal::Color sliderBackgroundColor READ sliderBackgroundColor WRITE setSliderBackgroundColor NOTIFY sliderBackgroundColorChanged)
@@ -52,6 +53,8 @@ public:
 
     Qt::Orientation orientation() const;
 
+    int minimum() const;
+    int maximum() const;
     int sliderPosition() const;
     QChar sliderCharacter() const;
     Terminal::Color sliderColor() const;
@@ -79,6 +82,8 @@ public:
 public slots:
     void setOrientation(const Qt::Orientation orientation);
 
+    void setMinimum(const int minimum);
+    void setMaximum(const int maximum);
     void setSliderPosition(const int sliderPosition);
     void setSliderCharacter(const QChar &sliderCharacter);
     void setSliderColor(const Terminal::Color &sliderColor);
@@ -106,6 +111,8 @@ public slots:
 signals:
     void orientationChanged(const Qt::Orientation orientation) const;
 
+    void minimumChanged(const int minimum) const;
+    void maximumChanged(const int maximum) const;
     void sliderPositionChanged(const int sliderPosition) const;
     void sliderCharacterChanged(const QChar &sliderCharacter) const;
     void sliderColorChanged(const Terminal::Color  &sliderColor) const;
@@ -136,10 +143,13 @@ protected slots:
 protected:
     void init() override;
     void consumeKeyboardBuffer(const QString &keyboardBuffer) override;
+    QString linearPixel(const int pixel, const int length) const;
 
 private:
     Qt::Orientation _orientation = Qt::Orientation::Vertical;
 
+    int _minimum = 0;
+    int _maximum = 0;
     int _sliderPosition = 0;
     QChar _sliderCharacter;
     Terminal::Color _sliderColor = Terminal::Color::Predefined::Empty;
