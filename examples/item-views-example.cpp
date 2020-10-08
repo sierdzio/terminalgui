@@ -27,14 +27,25 @@ int main(int argc, char *argv[])
     quitButton.setObjectName("quitButton");
     quitButton.show();
 
+    CHECK(QObject::connect(&quitButton, &Tg::Button::clicked,
+                           &app, &QCoreApplication::quit));
+
     Tg::ScrollBar scrollBar(&widget);
     scrollBar.setOrientation(Qt::Orientation::Horizontal);
     scrollBar.show();
 
     // TODO: add example scroll bar, scroll area, list view etc.
 
-    CHECK(QObject::connect(&quitButton, &Tg::Button::clicked,
-                           &app, &QCoreApplication::quit));
+    Tg::Widget widgetV(&screen);
+    widgetV.setObjectName("widgetV");
+    widgetV.setPosition(QPoint(size.width() + 1, 1));
+    widgetV.setSize(size);
+    widgetV.setLayoutType(Tg::Layout::Type::Row);
+    widgetV.show();
+
+    Tg::ScrollBar scrollBarV(&widgetV);
+    scrollBarV.setOrientation(Qt::Orientation::Vertical);
+    scrollBarV.show();
 
     return app.exec();
 }
