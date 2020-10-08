@@ -149,8 +149,8 @@ private:
     Qt::Orientation _orientation = Qt::Orientation::Vertical;
 
     int _minimum = 0;
-    int _maximum = 0;
-    int _sliderPosition = 0;
+    int _maximum = 100;
+    int _sliderPosition = 3;
     QChar _sliderCharacter;
     Terminal::Color _sliderColor = Terminal::Color::Predefined::Empty;
     Terminal::Color _sliderBackgroundColor = Terminal::Color::Predefined::Empty;

@@ -477,7 +477,8 @@ QString Tg::ScrollBar::linearPixel(const int pixel, const int length) const
         }
 
         return result;
-    } else if (pixel == (sliderPosition() * length / maximum())) {
+    //} else if (pixel == ((sliderPosition() + 1) * length / maximum())) {
+    } else if (pixel == (sliderPosition() + 1)) {
         // Draw slider
         result.append(Terminal::Color::code(
                           sliderColor(), sliderBackgroundColor()

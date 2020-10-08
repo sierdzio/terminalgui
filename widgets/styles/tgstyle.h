@@ -50,8 +50,8 @@ public:
     // ScrollBar
     // https://decodeunicode.org/en/u+025C8
     QChar sliderCharacter = 0x025C8;
-    Terminal::Color sliderColor = Terminal::Color::Predefined::White;
-    Terminal::Color sliderBackgroundColor = Terminal::Color::Predefined::Gray;
+    Terminal::Color sliderColor = Terminal::Color::Predefined::Yellow;
+    Terminal::Color sliderBackgroundColor = Terminal::Color::Predefined::Black;
     Terminal::Color sliderActiveColor = Terminal::Color::Predefined::Green;
 
     QChar backwardArrowUpCharacter = 0x025B2;
