@@ -4,6 +4,7 @@
 
 #include <QChar>
 #include <QString>
+#include <QTimer>
 
 namespace Tg {
 class ScrollBar : public Widget
@@ -109,6 +110,9 @@ public slots:
     void setForwardArrowInactiveBackgroundColor(const Terminal::Color &forwardArrowInactiveBackgroundColor);
 
 signals:
+    void backwardArrowClicked() const;
+    void forwardArrowClicked() const;
+
     void orientationChanged(const Qt::Orientation orientation) const;
 
     void minimumChanged(const int minimum) const;
@@ -140,6 +144,10 @@ signals:
 protected slots:
     void enforceProperSize();
 
+    void onSliderPositionTimeout();
+    void onBackwardArrowTimeout();
+    void onForwardArrowTimeout();
+
 protected:
     void init() override;
     void consumeKeyboardBuffer(const QString &keyboardBuffer) override;
@@ -155,6 +163,7 @@ private:
     Terminal::Color _sliderColor = Terminal::Color::Predefined::Empty;
     Terminal::Color _sliderBackgroundColor = Terminal::Color::Predefined::Empty;
     Terminal::Color _sliderActiveColor = Terminal::Color::Predefined::Empty;
+    QTimer _sliderPressTimer;
 
     QChar _backwardArrowUpCharacter;
     QChar _backwardArrowLeftCharacter;
@@ -164,6 +173,7 @@ private:
     Terminal::Color _backwardArrowBackgroundColor = Terminal::Color::Predefined::Empty;
     Terminal::Color _backwardArrowActiveBackgroundColor = Terminal::Color::Predefined::Empty;
     Terminal::Color _backwardArrowInactiveBackgroundColor = Terminal::Color::Predefined::Empty;
+    QTimer _backwardArrowPressTimer;
 
     QChar _forwardArrowDownCharacter;
     QChar _forwardArrowRightCharacter;
@@ -173,5 +183,6 @@ private:
     Terminal::Color _forwardArrowBackgroundColor = Terminal::Color::Predefined::Empty;
     Terminal::Color _forwardArrowActiveBackgroundColor = Terminal::Color::Predefined::Empty;
     Terminal::Color _forwardArrowInactiveBackgroundColor = Terminal::Color::Predefined::Empty;
+    QTimer _forwardArrowPressTimer;
 };
 }

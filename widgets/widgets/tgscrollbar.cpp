@@ -451,9 +451,96 @@ void Tg::ScrollBar::enforceProperSize()
     // nothing, for now
 }
 
+void Tg::ScrollBar::onSliderPositionTimeout()
+{
+}
+
+void Tg::ScrollBar::onBackwardArrowTimeout()
+{
+
+}
+
+void Tg::ScrollBar::onForwardArrowTimeout()
+{
+
+}
+
 void Tg::ScrollBar::init()
 {
+    setAcceptsFocus(true);
+
     Widget::init();
+
+    // TODO: move these connects into setupPressTimer() somehow!
+    CHECK(connect(this, &ScrollBar::sliderPositionChanged,
+                  &_sliderPressTimer, qOverload<>(&QTimer::start)));
+    CHECK(connect(&_sliderPressTimer, &QTimer::timeout,
+                  this, &ScrollBar::onSliderPositionTimeout));
+    setupPressTimer(&_sliderPressTimer);
+
+    // TODO: move these connects into setupPressTimer() somehow!
+    CHECK(connect(this, &ScrollBar::backwardArrowClicked,
+                  &_backwardArrowPressTimer, qOverload<>(&QTimer::start)));
+    CHECK(connect(&_backwardArrowPressTimer, &QTimer::timeout,
+                  this, &ScrollBar::onBackwardArrowTimeout));
+    setupPressTimer(&_backwardArrowPressTimer);
+
+    // TODO: move these connects into setupPressTimer() somehow!
+    CHECK(connect(this, &ScrollBar::forwardArrowClicked,
+                  &_forwardArrowPressTimer, qOverload<>(&QTimer::start)));
+    CHECK(connect(&_forwardArrowPressTimer, &QTimer::timeout,
+                  this, &ScrollBar::onForwardArrowTimeout));
+    setupPressTimer(&_forwardArrowPressTimer);
+
+
+    CHECK(connect(this, &ScrollBar::orientationChanged,
+                  this, &ScrollBar::schedulePartialRedraw));
+    CHECK(connect(this, &ScrollBar::minimumChanged,
+                  this, &ScrollBar::schedulePartialRedraw));
+    CHECK(connect(this, &ScrollBar::maximumChanged,
+                  this, &ScrollBar::schedulePartialRedraw));
+    CHECK(connect(this, &ScrollBar::sliderPositionChanged,
+                  this, &ScrollBar::schedulePartialRedraw));
+    CHECK(connect(this, &ScrollBar::sliderCharacterChanged,
+                  this, &ScrollBar::schedulePartialRedraw));
+    CHECK(connect(this, &ScrollBar::sliderColorChanged,
+                  this, &ScrollBar::schedulePartialRedraw));
+    CHECK(connect(this, &ScrollBar::sliderBackgroundColorChanged,
+                  this, &ScrollBar::schedulePartialRedraw));
+    CHECK(connect(this, &ScrollBar::sliderActiveColorChanged,
+                  this, &ScrollBar::schedulePartialRedraw));
+    CHECK(connect(this, &ScrollBar::backwardArrowUpCharacterChanged,
+                  this, &ScrollBar::schedulePartialRedraw));
+    CHECK(connect(this, &ScrollBar::backwardArrowLeftCharacterChanged,
+                  this, &ScrollBar::schedulePartialRedraw));
+    CHECK(connect(this, &ScrollBar::backwardArrowColorChanged,
+                  this, &ScrollBar::schedulePartialRedraw));
+    CHECK(connect(this, &ScrollBar::backwardArrowActiveColorChanged,
+                  this, &ScrollBar::schedulePartialRedraw));
+    CHECK(connect(this, &ScrollBar::backwardArrowInactiveColorChanged,
+                  this, &ScrollBar::schedulePartialRedraw));
+    CHECK(connect(this, &ScrollBar::backwardArrowColorBackgroundChanged,
+                  this, &ScrollBar::schedulePartialRedraw));
+    CHECK(connect(this, &ScrollBar::backwardArrowActiveColorBackgroundChanged,
+                  this, &ScrollBar::schedulePartialRedraw));
+    CHECK(connect(this, &ScrollBar::backwardArrowInactiveColorBackgroundChanged,
+                  this, &ScrollBar::schedulePartialRedraw));
+    CHECK(connect(this, &ScrollBar::forwardArrowDownCharacterChanged,
+                  this, &ScrollBar::schedulePartialRedraw));
+    CHECK(connect(this, &ScrollBar::forwardArrowRightCharacterChanged,
+                  this, &ScrollBar::schedulePartialRedraw));
+    CHECK(connect(this, &ScrollBar::forwardArrowColorChanged,
+                  this, &ScrollBar::schedulePartialRedraw));
+    CHECK(connect(this, &ScrollBar::forwardArrowActiveColorChanged,
+                  this, &ScrollBar::schedulePartialRedraw));
+    CHECK(connect(this, &ScrollBar::forwardArrowInactiveColorChanged,
+                  this, &ScrollBar::schedulePartialRedraw));
+    CHECK(connect(this, &ScrollBar::forwardArrowColorBackgroundChanged,
+                  this, &ScrollBar::schedulePartialRedraw));
+    CHECK(connect(this, &ScrollBar::forwardArrowActiveColorBackgroundChanged,
+                  this, &ScrollBar::schedulePartialRedraw));
+    CHECK(connect(this, &ScrollBar::forwardArrowInactiveColorBackgroundChanged,
+                  this, &ScrollBar::schedulePartialRedraw));
 }
 
 void Tg::ScrollBar::consumeKeyboardBuffer(const QString &keyboardBuffer)

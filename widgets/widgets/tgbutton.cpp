@@ -11,12 +11,14 @@ Tg::Button::Button(Tg::Screen *screen) : Tg::Label(screen)
     init();
 }
 
-Tg::Button::Button(const QString &text, Tg::Widget *parent) : Tg::Label(text, parent)
+Tg::Button::Button(const QString &text, Tg::Widget *parent)
+    : Tg::Label(text, parent)
 {
     init();
 }
 
-Tg::Button::Button(const QString &text, Tg::Screen *screen) : Tg::Label(text, screen)
+Tg::Button::Button(const QString &text, Tg::Screen *screen)
+    : Tg::Label(text, screen)
 {
     init();
 }
@@ -136,13 +138,14 @@ void Tg::Button::init()
 
     Label::init();
 
-    _buttonPressTimer.setInterval(500);
-    _buttonPressTimer.setSingleShot(true);
-
+    // TODO: move these connects into setupPressTimer() somehow!
     CHECK(connect(this, &Button::clicked,
                   &_buttonPressTimer, qOverload<>(&QTimer::start)));
     CHECK(connect(&_buttonPressTimer, &QTimer::timeout,
                   this, &Button::onButtonPressTimeout));
+    setupPressTimer(&_buttonPressTimer);
+
+
     CHECK(connect(this, &Button::hasFocusChanged,
                   this, &Button::onHasFocusChanged));
 

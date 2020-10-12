@@ -16,6 +16,8 @@
 
 #include <string>
 
+class QTimer;
+
 namespace Tg {
 class Screen;
 
@@ -91,7 +93,7 @@ public:
     SizeOvershoot widgetOvershoot() const;
 
     bool clipped() const;
-    void setClipped(const bool clipped);    
+    void setClipped(const bool clipped);
 
 signals:
     void needsRedraw(const RedrawType type, const Widget *widget) const;
@@ -111,7 +113,7 @@ signals:
     void propagatesStyleChanged(const bool propagatesStyle) const;
     void styleChanged() const;
     void layoutOvershootChanged(const SizeOvershoot overshoot) const;
-    void widgetOvershootChanged(const SizeOvershoot overshoot) const;    
+    void widgetOvershootChanged(const SizeOvershoot overshoot) const;
 
 public slots:
     void setPosition(const QPoint &position);
@@ -124,7 +126,7 @@ public slots:
     void setVisible(const bool visible);
     void show();
     void hide();
-    void setBorderVisible(const bool borderVisible);    
+    void setBorderVisible(const bool borderVisible);
 
 protected:
     int effectiveBorderWidth() const;
@@ -139,6 +141,8 @@ protected:
 
     StylePointer style() const;
     void setWidgetOvershoot(const SizeOvershoot overshoot);
+
+    void setupPressTimer(QTimer *timer) const;
 
 protected slots:
     void scheduleFullRedraw() const;

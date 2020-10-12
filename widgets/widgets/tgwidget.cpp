@@ -600,6 +600,12 @@ void Tg::Widget::setWidgetOvershoot(const SizeOvershoot overshoot)
     }
 }
 
+void Tg::Widget::setupPressTimer(QTimer *timer) const
+{
+    timer->setInterval(500);
+    timer->setSingleShot(true);
+}
+
 void Tg::Widget::scheduleFullRedraw() const
 {
     emit needsRedraw(RedrawType::Full, this);
