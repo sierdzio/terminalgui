@@ -586,13 +586,23 @@ void Tg::ScrollBar::consumeKeyboardBuffer(const QString &keyboardBuffer)
 {
      if (keyboardBuffer.contains(Terminal::Key::up)
              || keyboardBuffer.contains(Terminal::Key::left)) {
-         setSliderPosition(sliderPosition() - 1);
+         const int position = sliderPosition();
+         if (position > 0) {
+             setSliderPosition(sliderPosition() - 1);
+         } else {
+             emit sliderPositionChanged(position);
+         }
          emit backwardArrowClicked();
      }
 
      if (keyboardBuffer.contains(Terminal::Key::down)
              || keyboardBuffer.contains(Terminal::Key::right)) {
-         setSliderPosition(sliderPosition() + 1);
+         const int position = sliderPosition();
+         if (position < (size().width() - 3)) {
+             setSliderPosition(sliderPosition() + 1);
+         } else {
+             emit sliderPositionChanged(position);
+         }
          emit forwardArrowClicked();
      }
 }
