@@ -1,4 +1,5 @@
 #include "tgcheckbox.h"
+#include "styles/tgstyle.h"
 
 Tg::CheckBox::CheckBox(Tg::Widget *parent) : Tg::Button(parent)
 {

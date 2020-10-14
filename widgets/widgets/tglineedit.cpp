@@ -1,6 +1,7 @@
 #include "tglineedit.h"
 
 #include "utils/tghelpers.h"
+#include "styles/tgstyle.h"
 
 #include <QRect>
 

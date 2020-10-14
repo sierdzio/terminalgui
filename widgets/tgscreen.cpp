@@ -1,5 +1,6 @@
 #include "tgscreen.h"
 #include "widgets/tgwidget.h"
+#include "styles/tgstyle.h"
 
 #include <backend.h>
 

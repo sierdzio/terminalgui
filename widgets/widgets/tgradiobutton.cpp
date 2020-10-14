@@ -1,4 +1,5 @@
 #include "tgradiobutton.h"
+#include "styles/tgstyle.h"
 
 Tg::ExclusiveGroup::ExclusiveGroup() : QObject(nullptr)
 {

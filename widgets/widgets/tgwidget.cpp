@@ -4,6 +4,7 @@
 #include "layouts/tgcolumnlayout.h"
 #include "layouts/tgrowlayout.h"
 #include "layouts/tggridlayout.h"
+#include "styles/tgstyle.h"
 
 #include <QRect>
 #include <QDebug>

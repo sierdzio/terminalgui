@@ -4,8 +4,6 @@
 
 #include "tgborderstyle.h"
 
-#include <QSharedPointer>
-
 #include <QChar>
 #include <QString>
 
@@ -75,6 +73,4 @@ public:
     Terminal::Color forwardArrowActiveBackgroundColor = backwardArrowActiveBackgroundColor;
     Terminal::Color forwardArrowInactiveBackgroundColor = backwardArrowInactiveBackgroundColor;
 };
-
-using StylePointer = QSharedPointer<Tg::Style>;
 }

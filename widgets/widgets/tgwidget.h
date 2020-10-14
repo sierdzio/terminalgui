@@ -4,22 +4,19 @@
 #include <QPoint>
 #include <QSize>
 #include <QPointer>
-#include <QSharedPointer>
 
 #include <QMetaEnum>
 
 #include <backend.h>
 
 #include "utils/tghelpers.h"
-#include "styles/tgstyle.h"
 #include "layouts/tglayout.h"
-
-#include <string>
 
 class QTimer;
 
 namespace Tg {
 class Screen;
+class Layout;
 
 class Widget : public QObject
 {

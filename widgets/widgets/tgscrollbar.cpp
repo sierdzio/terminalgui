@@ -1,4 +1,5 @@
 #include "tgscrollbar.h"
+#include "styles/tgstyle.h"
 
 Tg::ScrollBar::ScrollBar(Tg::Widget *parent) : Tg::Widget(parent)
 {
@@ -580,6 +581,8 @@ void Tg::ScrollBar::init()
                   this, &ScrollBar::schedulePartialRedraw));
     CHECK(connect(this, &ScrollBar::forwardArrowInactiveColorBackgroundChanged,
                   this, &ScrollBar::schedulePartialRedraw));
+
+    //setBackgroundColor(Terminal::Color::Predefined::Gray);
 }
 
 void Tg::ScrollBar::consumeKeyboardBuffer(const QString &keyboardBuffer)

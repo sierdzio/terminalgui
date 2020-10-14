@@ -1,5 +1,6 @@
 #include "tgbutton.h"
 #include "utils/tghelpers.h"
+#include "styles/tgstyle.h"
 
 Tg::Button::Button(Tg::Widget *parent) : Tg::Label(parent)
 {

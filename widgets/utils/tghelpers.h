@@ -37,7 +37,9 @@ namespace Helpers {
 
 namespace Tg {
 class Widget;
+class Style;
 using WidgetPointer = QPointer<Widget>;
+using StylePointer = QSharedPointer<Style>;
 
 /*!
  * Describes situation when items in layout cannot fit into parent widget
