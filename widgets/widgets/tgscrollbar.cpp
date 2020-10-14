@@ -451,20 +451,6 @@ void Tg::ScrollBar::enforceProperSize()
     // nothing, for now
 }
 
-void Tg::ScrollBar::onSliderPositionTimeout()
-{
-}
-
-void Tg::ScrollBar::onBackwardArrowTimeout()
-{
-
-}
-
-void Tg::ScrollBar::onForwardArrowTimeout()
-{
-
-}
-
 void Tg::ScrollBar::init()
 {
     setAcceptsFocus(true);
@@ -475,23 +461,22 @@ void Tg::ScrollBar::init()
     CHECK(connect(this, &ScrollBar::sliderPositionChanged,
                   &_sliderPressTimer, qOverload<>(&QTimer::start)));
     CHECK(connect(&_sliderPressTimer, &QTimer::timeout,
-                  this, &ScrollBar::onSliderPositionTimeout));
+                  this, &ScrollBar::schedulePartialRedraw));
     setupPressTimer(&_sliderPressTimer);
 
     // TODO: move these connects into setupPressTimer() somehow!
     CHECK(connect(this, &ScrollBar::backwardArrowClicked,
                   &_backwardArrowPressTimer, qOverload<>(&QTimer::start)));
     CHECK(connect(&_backwardArrowPressTimer, &QTimer::timeout,
-                  this, &ScrollBar::onBackwardArrowTimeout));
+                  this, &ScrollBar::schedulePartialRedraw));
     setupPressTimer(&_backwardArrowPressTimer);
 
     // TODO: move these connects into setupPressTimer() somehow!
     CHECK(connect(this, &ScrollBar::forwardArrowClicked,
                   &_forwardArrowPressTimer, qOverload<>(&QTimer::start)));
     CHECK(connect(&_forwardArrowPressTimer, &QTimer::timeout,
-                  this, &ScrollBar::onForwardArrowTimeout));
+                  this, &ScrollBar::schedulePartialRedraw));
     setupPressTimer(&_forwardArrowPressTimer);
-
 
     CHECK(connect(this, &ScrollBar::orientationChanged,
                   this, &ScrollBar::schedulePartialRedraw));
@@ -545,7 +530,17 @@ void Tg::ScrollBar::init()
 
 void Tg::ScrollBar::consumeKeyboardBuffer(const QString &keyboardBuffer)
 {
-    Q_UNUSED(keyboardBuffer)
+     if (keyboardBuffer.contains(Terminal::Key::up)
+             || keyboardBuffer.contains(Terminal::Key::left)) {
+         setSliderPosition(sliderPosition() - 1);
+         emit backwardArrowClicked();
+     }
+
+     if (keyboardBuffer.contains(Terminal::Key::down)
+             || keyboardBuffer.contains(Terminal::Key::right)) {
+         setSliderPosition(sliderPosition() + 1);
+         emit forwardArrowClicked();
+     }
 }
 
 QString Tg::ScrollBar::linearPixel(const int pixel, const int length) const
@@ -554,9 +549,16 @@ QString Tg::ScrollBar::linearPixel(const int pixel, const int length) const
     if (pixel == 0) {
         // Draw first arrow
         // TODO: handle all the color madness ;-) Active, normal, inactive colors
-        result.append(Terminal::Color::code(
-                          backwardArrowColor(), backwardArrowBackgroundColor()
-                          ));
+        if (_backwardArrowPressTimer.isActive()) {
+            result.append(Terminal::Color::code(
+                              backwardArrowActiveColor(), backwardArrowActiveBackgroundColor()
+                              ));
+        } else {
+            result.append(Terminal::Color::code(
+                              backwardArrowColor(), backwardArrowBackgroundColor()
+                              ));
+        }
+
         if (orientation() == Qt::Orientation::Horizontal) {
             result.append(backwardArrowLeftCharacter());
         } else {
@@ -567,9 +569,15 @@ QString Tg::ScrollBar::linearPixel(const int pixel, const int length) const
     //} else if (pixel == ((sliderPosition() + 1) * length / maximum())) {
     } else if (pixel == (sliderPosition() + 1)) {
         // Draw slider
-        result.append(Terminal::Color::code(
-                          sliderColor(), sliderBackgroundColor()
-                          ));
+        if (_sliderPressTimer.isActive()) {
+            result.append(Terminal::Color::code(
+                              sliderActiveColor(), sliderBackgroundColor()
+                              ));
+        } else {
+            result.append(Terminal::Color::code(
+                              sliderColor(), sliderBackgroundColor()
+                              ));
+        }
 
         result.append(sliderCharacter());
 
@@ -577,9 +585,16 @@ QString Tg::ScrollBar::linearPixel(const int pixel, const int length) const
     } else if (pixel == length - 1) {
         // Draw second arrow
         // TODO: handle all the color madness ;-) Active, normal, inactive colors
-        result.append(Terminal::Color::code(
-                          forwardArrowColor(), forwardArrowBackgroundColor()
-                          ));
+        if (_forwardArrowPressTimer.isActive()) {
+            result.append(Terminal::Color::code(
+                              forwardArrowActiveColor(), forwardArrowActiveBackgroundColor()
+                              ));
+        } else {
+            result.append(Terminal::Color::code(
+                              forwardArrowColor(), forwardArrowBackgroundColor()
+                              ));
+        }
+
         if (orientation() == Qt::Orientation::Horizontal) {
             result.append(forwardArrowRightCharacter());
         } else {

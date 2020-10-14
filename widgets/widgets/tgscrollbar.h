@@ -144,10 +144,6 @@ signals:
 protected slots:
     void enforceProperSize();
 
-    void onSliderPositionTimeout();
-    void onBackwardArrowTimeout();
-    void onForwardArrowTimeout();
-
 protected:
     void init() override;
     void consumeKeyboardBuffer(const QString &keyboardBuffer) override;
