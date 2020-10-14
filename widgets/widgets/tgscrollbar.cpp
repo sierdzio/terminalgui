@@ -77,12 +77,39 @@ Terminal::Color Tg::ScrollBar::sliderBackgroundColor() const
     }
 }
 
+Terminal::Color Tg::ScrollBar::sliderActiveBackgroundColor() const
+{
+    if (_sliderActiveBackgroundColor.isEmpty()) {
+        return style()->sliderActiveBackgroundColor;
+    } else {
+        return _sliderActiveBackgroundColor;
+    }
+}
+
+Terminal::Color Tg::ScrollBar::sliderInactiveBackgroundColor() const
+{
+    if (_sliderInactiveBackgroundColor.isEmpty()) {
+        return style()->sliderInactiveBackgroundColor;
+    } else {
+        return _sliderInactiveBackgroundColor;
+    }
+}
+
 Terminal::Color Tg::ScrollBar::sliderActiveColor() const
 {
     if (_sliderActiveColor.isEmpty()) {
         return style()->sliderActiveColor;
     } else {
         return _sliderActiveColor;
+    }
+}
+
+Terminal::Color Tg::ScrollBar::sliderInactiveColor() const
+{
+    if (_sliderInactiveColor.isEmpty()) {
+        return style()->sliderInactiveColor;
+    } else {
+        return _sliderInactiveColor;
     }
 }
 
@@ -293,6 +320,24 @@ void Tg::ScrollBar::setSliderBackgroundColor(const Terminal::Color &sliderBackgr
     emit sliderBackgroundColorChanged(_sliderBackgroundColor);
 }
 
+void Tg::ScrollBar::setSliderActiveBackgroundColor(const Terminal::Color &sliderActiveBackgroundColor)
+{
+    if (_sliderActiveBackgroundColor == sliderActiveBackgroundColor)
+        return;
+
+    _sliderActiveBackgroundColor = sliderActiveBackgroundColor;
+    emit sliderActiveBackgroundColorChanged(_sliderActiveBackgroundColor);
+}
+
+void Tg::ScrollBar::setSliderInactiveBackgroundColor(const Terminal::Color &sliderInactiveBackgroundColor)
+{
+    if (_sliderInactiveBackgroundColor == sliderInactiveBackgroundColor)
+        return;
+
+    _sliderInactiveBackgroundColor = sliderInactiveBackgroundColor;
+    emit sliderInactiveBackgroundColorChanged(_sliderInactiveBackgroundColor);
+}
+
 void Tg::ScrollBar::setSliderActiveColor(const Terminal::Color &sliderActiveColor)
 {
     if (_sliderActiveColor == sliderActiveColor)
@@ -300,6 +345,15 @@ void Tg::ScrollBar::setSliderActiveColor(const Terminal::Color &sliderActiveColo
 
     _sliderActiveColor = sliderActiveColor;
     emit sliderActiveColorChanged(_sliderActiveColor);
+}
+
+void Tg::ScrollBar::setSliderInactiveColor(const Terminal::Color &sliderInactiveColor)
+{
+    if (_sliderInactiveColor == sliderInactiveColor)
+        return;
+
+    _sliderInactiveColor = sliderInactiveColor;
+    emit sliderInactiveColorChanged(_sliderInactiveColor);
 }
 
 void Tg::ScrollBar::setBackwardArrowUpCharacter(const QChar &backwardArrowUpCharacter)
@@ -571,7 +625,7 @@ QString Tg::ScrollBar::linearPixel(const int pixel, const int length) const
         // Draw slider
         if (_sliderPressTimer.isActive()) {
             result.append(Terminal::Color::code(
-                              sliderActiveColor(), sliderBackgroundColor()
+                              sliderActiveColor(), sliderActiveBackgroundColor()
                               ));
         } else {
             result.append(Terminal::Color::code(

@@ -18,8 +18,12 @@ class ScrollBar : public Widget
     Q_PROPERTY(int maximum READ maximum WRITE setMaximum NOTIFY maximumChanged)
     Q_PROPERTY(QChar sliderCharacter READ sliderCharacter WRITE setSliderCharacter NOTIFY sliderCharacterChanged)
     Q_PROPERTY(Terminal::Color sliderColor READ sliderColor WRITE setSliderColor NOTIFY sliderColorChanged)
-    Q_PROPERTY(Terminal::Color sliderBackgroundColor READ sliderBackgroundColor WRITE setSliderBackgroundColor NOTIFY sliderBackgroundColorChanged)
     Q_PROPERTY(Terminal::Color sliderActiveColor READ sliderActiveColor WRITE setSliderActiveColor NOTIFY sliderActiveColorChanged)
+    Q_PROPERTY(Terminal::Color sliderInactiveColor READ sliderInactiveColor WRITE setSliderInactiveColor NOTIFY sliderInactiveColorChanged)
+
+    Q_PROPERTY(Terminal::Color sliderBackgroundColor READ sliderBackgroundColor WRITE setSliderBackgroundColor NOTIFY sliderBackgroundColorChanged)
+    Q_PROPERTY(Terminal::Color sliderActiveBackgroundColor READ sliderActiveBackgroundColor WRITE setSliderActiveBackgroundColor NOTIFY sliderActiveBackgroundColorChanged)
+    Q_PROPERTY(Terminal::Color sliderInactiveBackgroundColor READ sliderInactiveBackgroundColor WRITE setSliderInactiveBackgroundColor NOTIFY sliderInactiveBackgroundColorChanged)
 
     // Backward arrow (up or left)
     Q_PROPERTY(QChar backwardArrowUpCharacter READ backwardArrowUpCharacter WRITE setBackwardArrowUpCharacter NOTIFY backwardArrowUpCharacterChanged)
@@ -59,8 +63,11 @@ public:
     int sliderPosition() const;
     QChar sliderCharacter() const;
     Terminal::Color sliderColor() const;
-    Terminal::Color sliderBackgroundColor() const;
     Terminal::Color sliderActiveColor() const;
+    Terminal::Color sliderInactiveColor() const;
+    Terminal::Color sliderBackgroundColor() const;
+    Terminal::Color sliderActiveBackgroundColor() const;
+    Terminal::Color sliderInactiveBackgroundColor() const;
 
     QChar backwardArrowUpCharacter() const;
     QChar backwardArrowLeftCharacter() const;
@@ -88,8 +95,11 @@ public slots:
     void setSliderPosition(const int sliderPosition);
     void setSliderCharacter(const QChar &sliderCharacter);
     void setSliderColor(const Terminal::Color &sliderColor);
-    void setSliderBackgroundColor(const Terminal::Color &sliderBackgroundColor);
     void setSliderActiveColor(const Terminal::Color &sliderActiveColor);
+    void setSliderInactiveColor(const Terminal::Color &sliderInactiveColor);
+    void setSliderBackgroundColor(const Terminal::Color &sliderBackgroundColor);
+    void setSliderActiveBackgroundColor(const Terminal::Color &sliderActiveBackgroundColor);
+    void setSliderInactiveBackgroundColor(const Terminal::Color &sliderInactiveBackgroundColor);
 
     void setBackwardArrowUpCharacter(const QChar &backwardArrowUpCharacter);
     void setBackwardArrowLeftCharacter(const QChar &backwardArrowLeftCharacter);
@@ -120,8 +130,11 @@ signals:
     void sliderPositionChanged(const int sliderPosition) const;
     void sliderCharacterChanged(const QChar &sliderCharacter) const;
     void sliderColorChanged(const Terminal::Color  &sliderColor) const;
-    void sliderBackgroundColorChanged(const Terminal::Color  &sliderBackgroundColor) const;
     void sliderActiveColorChanged(const Terminal::Color  &sliderActiveColor) const;
+    void sliderInactiveColorChanged(const Terminal::Color &sliderInactiveColor) const;
+    void sliderBackgroundColorChanged(const Terminal::Color  &sliderBackgroundColor) const;
+    void sliderActiveBackgroundColorChanged(const Terminal::Color &sliderActiveBackgroundColor) const;
+    void sliderInactiveBackgroundColorChanged(const Terminal::Color &sliderInactiveBackgroundColor) const;
 
     void backwardArrowUpCharacterChanged(const QChar &backwardArrowUpCharacter) const;
     void backwardArrowLeftCharacterChanged(const QChar &backwardArrowLeftCharacter) const;
@@ -157,8 +170,11 @@ private:
     int _sliderPosition = 3;
     QChar _sliderCharacter;
     Terminal::Color _sliderColor = Terminal::Color::Predefined::Empty;
-    Terminal::Color _sliderBackgroundColor = Terminal::Color::Predefined::Empty;
     Terminal::Color _sliderActiveColor = Terminal::Color::Predefined::Empty;
+    Terminal::Color _sliderInactiveColor = Terminal::Color::Predefined::Empty;
+    Terminal::Color _sliderBackgroundColor = Terminal::Color::Predefined::Empty;
+    Terminal::Color _sliderActiveBackgroundColor = Terminal::Color::Predefined::Empty;
+    Terminal::Color _sliderInactiveBackgroundColor = Terminal::Color::Predefined::Empty;
     QTimer _sliderPressTimer;
 
     QChar _backwardArrowUpCharacter;

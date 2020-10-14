@@ -51,8 +51,11 @@ public:
     // https://decodeunicode.org/en/u+025C8
     QChar sliderCharacter = 0x025C8;
     Terminal::Color sliderColor = Terminal::Color::Predefined::Yellow;
-    Terminal::Color sliderBackgroundColor = Terminal::Color::Predefined::Black;
     Terminal::Color sliderActiveColor = Terminal::Color::Predefined::Green;
+    Terminal::Color sliderInactiveColor = Terminal::Color::Predefined::Gray;
+    Terminal::Color sliderBackgroundColor = Terminal::Color::Predefined::Black;
+    Terminal::Color sliderActiveBackgroundColor = Terminal::Color::Predefined::Gray;
+    Terminal::Color sliderInactiveBackgroundColor = Terminal::Color::Predefined::Black;
 
     QChar backwardArrowUpCharacter = 0x025B2;
     QChar backwardArrowLeftCharacter = 0x025C0;
