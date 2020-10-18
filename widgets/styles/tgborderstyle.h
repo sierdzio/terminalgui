@@ -2,6 +2,7 @@
 
 #include <backend.h>
 
+#include <QString>
 #include <QSharedPointer>
 
 namespace Tg {

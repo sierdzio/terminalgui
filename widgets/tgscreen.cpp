@@ -170,7 +170,14 @@ void Tg::Screen::redrawImmediately()
                 // TODO: sort by Z value...
                 QList<WidgetPointer> affectedWidgets;
                 for (const WidgetPointer &widget : qAsConst(_widgets)) {
-                    if (widget->visible() && widget->clipped() == false
+                    // Only draw direct children
+                    if (widget->parentWidget() != nullptr) {
+                        // TODO: get top-level parent and append it to
+                        // affectedWidgets
+                        continue;
+                    }
+
+                    if (widget->visible() /*&& widget->clipped() == false*/
                             && widget->globalBoundingRectangle().contains(pixel))
                     {
                         affectedWidgets.append(widget);

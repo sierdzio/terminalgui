@@ -78,6 +78,7 @@ public:
 
     QPoint mapFromGlobal(const QPoint &position) const;
     QPoint mapToGlobal(const QPoint &position) const;
+    QPoint mapToChild(const WidgetPointer &child, const QPoint &position) const;
 
     bool propagatesStyle() const;
     void setStyle(const StylePointer &style, const bool propagate = true);

@@ -237,12 +237,44 @@ QString Tg::Widget::drawBorderPixel(const QPoint &pixel) const
 QString Tg::Widget::drawPixel(const QPoint &pixel) const
 {
     QString result;
+
     if (isBorder(pixel)) {
         return drawBorderPixel(pixel);
     } else {
-        result.append(Terminal::Color::code(Terminal::Color::Predefined::Empty,
-                                            backgroundColor()));
+        const auto children = findChildren<Widget *>();
+        if (children.isEmpty() == false) {
+            const QPoint contentsPixel(pixel - contentsRectangle().topLeft());
+
+            // TODO: sort by Z value...
+            QList<WidgetPointer> affectedWidgets;
+            for (const WidgetPointer &widget : qAsConst(children)) {
+                // Only draw direct children
+                if (widget->parentWidget() != this) {
+                    continue;
+                }
+
+                if (widget->visible() /*&& widget->clipped() == false*/
+                        && widget->boundingRectangle().contains(contentsPixel))
+                {
+                    affectedWidgets.append(widget);
+                }
+            }
+
+            // TODO: properly handle Z value...
+            if (affectedWidgets.isEmpty() == false) {
+                WidgetPointer widget = affectedWidgets.last();
+                if (widget.isNull() == false) {
+                    const QPoint childPixel(mapToChild(widget, pixel));
+                    result.append(widget->drawPixel(childPixel));
+                    return result;
+                }
+            }
+        }
     }
+
+    // Draw default widget background
+    result.append(Terminal::Color::code(Terminal::Color::Predefined::Empty,
+                                        backgroundColor()));
     result.append(backgroundCharacter());
     return result;
 }
@@ -291,6 +323,15 @@ QPoint Tg::Widget::mapToGlobal(const QPoint &position) const
         return parentWidget()->mapToGlobal(result);
     }
 
+    return result;
+}
+
+QPoint Tg::Widget::mapToChild(const Tg::WidgetPointer &child,
+                              const QPoint &position) const
+{
+    const QPoint childPos(child->position());
+    const QPoint topLeft(contentsRectangle().topLeft());
+    const QPoint result(position - childPos - topLeft);
     return result;
 }
 
