@@ -6,6 +6,7 @@
 #include <widgets/tglabel.h>
 #include <widgets/tgbutton.h>
 #include <widgets/tgscrollbar.h>
+#include <widgets/tgscrollarea.h>
 
 int main(int argc, char *argv[])
 {
@@ -46,6 +47,16 @@ int main(int argc, char *argv[])
     Tg::ScrollBar scrollBarV(&widgetV);
     scrollBarV.setOrientation(Qt::Orientation::Vertical);
     scrollBarV.show();
+
+    Tg::ScrollArea scrollArea(&screen);
+    scrollArea.setPosition(QPoint(5, 18));
+    scrollArea.setSize(QSize(18, 10));
+    scrollArea.show();
+
+    Tg::Label longLabel(&scrollArea);
+    longLabel.setText(QObject::tr("Very long text which will DEFINITELY not fit the widget's width!"));
+    longLabel.setPosition(QPoint(-3, 0));
+    longLabel.show();
 
     return app.exec();
 }
