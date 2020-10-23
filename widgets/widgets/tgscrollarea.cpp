@@ -21,28 +21,32 @@ QString Tg::ScrollArea::drawPixel(const QPoint &pixel) const
     } else {
         const auto children = findChildren<Widget *>();
         if (children.isEmpty() == false) {
-            const QPoint contentsPixel(pixel - contentsPosition());
+            const int borderWidth = effectiveBorderWidth();
+            const QPoint adjustedPixel(pixel - QPoint(borderWidth, borderWidth));
+            //const QPoint contentsPixel(adjustedPixel + contentsPosition());
 
             // TODO: sort by Z value...
             QList<WidgetPointer> affectedWidgets;
             for (const WidgetPointer &widget : qAsConst(children)) {
                 // Only draw direct children
-                if (widget->parentWidget() != this) {
-                    continue;
-                }
+//                if (widget->parentWidget() != this) {
+//                    continue;
+//                }
 
-                if (widget->visible() /*&& widget->clipped() == false*/
-                        && widget->boundingRectangle().contains(contentsPixel))
-                {
+//                if (widget->visible() /*&& widget->clipped() == false*/
+//                        && widget->boundingRectangle().contains(contentsPixel))
+//                {
                     affectedWidgets.append(widget);
-                }
+//                }
             }
 
             // TODO: properly handle Z value...
             if (affectedWidgets.isEmpty() == false) {
                 WidgetPointer widget = affectedWidgets.last();
                 if (widget.isNull() == false) {
-                    const QPoint childPixel(mapToChild(widget, pixel));
+                    const QPoint childPos(widget->position());
+                    const QPoint reversed(contentsPosition() * -1);
+                    const QPoint childPixel(reversed - childPos + adjustedPixel);
                     result.append(widget->drawPixel(childPixel));
                     return result;
                 }
@@ -59,7 +63,7 @@ QString Tg::ScrollArea::drawPixel(const QPoint &pixel) const
 
 QPoint Tg::ScrollArea::contentsPosition() const
 {
-    return contentsRectangle().topLeft();
+    return _contentsPosition;
 }
 
 void Tg::ScrollArea::setContentsPosition(const QPoint &contentsPosition)
@@ -85,39 +89,39 @@ void Tg::ScrollArea::consumeKeyboardBuffer(const QString &keyboardBuffer)
 {
     if (keyboardBuffer.contains(Terminal::Key::left)) {
         const int currentX = contentsPosition().x();
-        if (currentX > 0) {
+//        const int visibleContents = contentsRectangle().width() - currentX;
+//        if (visibleContents > size().width()) {
             QPoint pos = contentsPosition();
             pos.setX(currentX - 1);
             setContentsPosition(pos);
-        }
+//        }
     }
 
     if (keyboardBuffer.contains(Terminal::Key::right)) {
         const int currentX = contentsPosition().x();
-        const int visibleContents = contentsRectangle().width() - currentX;
-        if (visibleContents > size().width()) {
+//        if (currentX > 0) {
             QPoint pos = contentsPosition();
             pos.setX(currentX + 1);
             setContentsPosition(pos);
-        }
+//        }
     }
 
     if (keyboardBuffer.contains(Terminal::Key::up)) {
         const int currentY = contentsPosition().y();
-        if (currentY > 0) {
+//        const int visibleContents = contentsRectangle().height() - currentY;
+//        if (visibleContents > size().height()) {
             QPoint pos = contentsPosition();
             pos.setY(currentY - 1);
             setContentsPosition(pos);
-        }
+//        }
     }
 
     if (keyboardBuffer.contains(Terminal::Key::down)) {
         const int currentY = contentsPosition().y();
-        const int visibleContents = contentsRectangle().height() - currentY;
-        if (visibleContents > size().height()) {
+//        if (currentY > 0) {
             QPoint pos = contentsPosition();
             pos.setY(currentY + 1);
             setContentsPosition(pos);
         }
-    }
+//    }
 }

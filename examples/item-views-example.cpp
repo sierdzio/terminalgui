@@ -55,7 +55,6 @@ int main(int argc, char *argv[])
 
     Tg::Label longLabel(&scrollArea);
     longLabel.setText(QObject::tr("Very long text which will DEFINITELY not fit the widget's width!"));
-    longLabel.setPosition(QPoint(-3, 0));
     longLabel.show();
 
     return app.exec();
