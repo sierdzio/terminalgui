@@ -27,6 +27,9 @@ protected:
     void init() override;
     void consumeKeyboardBuffer(const QString &keyboardBuffer) override;
 
+    int childrenWidth() const;
+    int childrenHeight() const;
+
 private:
     QPoint _contentsPosition;
 };

@@ -89,12 +89,13 @@ void Tg::ScrollArea::consumeKeyboardBuffer(const QString &keyboardBuffer)
 {
     if (keyboardBuffer.contains(Terminal::Key::left)) {
         const int currentX = contentsPosition().x();
-//        const int visibleContents = contentsRectangle().width() - currentX;
-//        if (visibleContents > size().width()) {
+        const int width = childrenWidth();
+        const int visibleContents = width - currentX;
+        if (visibleContents > contentsRectangle().width()) {
             QPoint pos = contentsPosition();
             pos.setX(currentX - 1);
             setContentsPosition(pos);
-//        }
+        }
     }
 
     if (keyboardBuffer.contains(Terminal::Key::right)) {
@@ -108,12 +109,13 @@ void Tg::ScrollArea::consumeKeyboardBuffer(const QString &keyboardBuffer)
 
     if (keyboardBuffer.contains(Terminal::Key::up)) {
         const int currentY = contentsPosition().y();
-//        const int visibleContents = contentsRectangle().height() - currentY;
-//        if (visibleContents > size().height()) {
+        const int height = childrenHeight();
+        const int visibleContents = height - currentY;
+        if (visibleContents > contentsRectangle().height()) {
             QPoint pos = contentsPosition();
             pos.setY(currentY - 1);
             setContentsPosition(pos);
-//        }
+        }
     }
 
     if (keyboardBuffer.contains(Terminal::Key::down)) {
@@ -124,4 +126,34 @@ void Tg::ScrollArea::consumeKeyboardBuffer(const QString &keyboardBuffer)
             setContentsPosition(pos);
         }
     }
+}
+
+int Tg::ScrollArea::childrenWidth() const
+{
+    int result = 0;
+
+    // TODO: cache this
+    const auto widgets = findChildren<Widget *>();
+    for (const Widget *widget : widgets) {
+        if (widget) {
+            result = std::max(result, widget->boundingRectangle().right());
+        }
+    }
+
+    return result;
+}
+
+int Tg::ScrollArea::childrenHeight() const
+{
+    int result = 0;
+
+    // TODO: cache this
+    const auto widgets = findChildren<Widget *>();
+    for (const Widget *widget : widgets) {
+        if (widget) {
+            result = std::max(result, widget->boundingRectangle().bottom());
+        }
+    }
+
+    return result;
 }
