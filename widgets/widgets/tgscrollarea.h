@@ -28,6 +28,6 @@ protected:
     void consumeKeyboardBuffer(const QString &keyboardBuffer) override;
 
 private:
-    QPoint _contentsPosition = QPoint(-2, 0);
+    QPoint _contentsPosition;
 };
 }

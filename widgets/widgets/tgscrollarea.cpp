@@ -99,11 +99,11 @@ void Tg::ScrollArea::consumeKeyboardBuffer(const QString &keyboardBuffer)
 
     if (keyboardBuffer.contains(Terminal::Key::right)) {
         const int currentX = contentsPosition().x();
-//        if (currentX > 0) {
+        if (currentX < 0) {
             QPoint pos = contentsPosition();
             pos.setX(currentX + 1);
             setContentsPosition(pos);
-//        }
+        }
     }
 
     if (keyboardBuffer.contains(Terminal::Key::up)) {
@@ -118,10 +118,10 @@ void Tg::ScrollArea::consumeKeyboardBuffer(const QString &keyboardBuffer)
 
     if (keyboardBuffer.contains(Terminal::Key::down)) {
         const int currentY = contentsPosition().y();
-//        if (currentY > 0) {
+        if (currentY > 0) {
             QPoint pos = contentsPosition();
             pos.setY(currentY + 1);
             setContentsPosition(pos);
         }
-//    }
+    }
 }
