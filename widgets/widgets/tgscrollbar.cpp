@@ -601,7 +601,11 @@ void Tg::ScrollBar::consumeKeyboardBuffer(const QString &keyboardBuffer)
      if (keyboardBuffer.contains(Terminal::Key::down)
              || keyboardBuffer.contains(Terminal::Key::right)) {
          const int position = sliderPosition();
-         if (position < (size().width() - 3)) {
+
+         const int length = orientation() == Qt::Orientation::Horizontal?
+                     size().width() : size().height();
+
+         if (position < (length - 3)) {
              setSliderPosition(sliderPosition() + 1);
          } else {
              emit sliderPositionChanged(position);

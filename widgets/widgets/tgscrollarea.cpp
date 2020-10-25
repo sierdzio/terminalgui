@@ -21,33 +21,26 @@ QString Tg::ScrollArea::drawPixel(const QPoint &pixel) const
     } else {
         const auto children = findChildren<Widget *>();
         if (children.isEmpty() == false) {
-            const int borderWidth = effectiveBorderWidth();
-            const QPoint adjustedPixel(pixel - QPoint(borderWidth, borderWidth));
-            //const QPoint contentsPixel(adjustedPixel + contentsPosition());
-
             // TODO: sort by Z value...
             QList<WidgetPointer> affectedWidgets;
             for (const WidgetPointer &widget : qAsConst(children)) {
                 // Only draw direct children
-//                if (widget->parentWidget() != this) {
-//                    continue;
-//                }
+                if (widget->parentWidget() != this) {
+                    continue;
+                }
 
-//                if (widget->visible() /*&& widget->clipped() == false*/
-//                        && widget->boundingRectangle().contains(contentsPixel))
-//                {
+                if (widget->visible() && widget->boundingRectangle().contains(
+                            childPixel(widget, pixel)))
+                {
                     affectedWidgets.append(widget);
-//                }
+                }
             }
 
             // TODO: properly handle Z value...
             if (affectedWidgets.isEmpty() == false) {
                 WidgetPointer widget = affectedWidgets.last();
                 if (widget.isNull() == false) {
-                    const QPoint childPos(widget->position());
-                    const QPoint reversed(contentsPosition() * -1);
-                    const QPoint childPixel(reversed - childPos + adjustedPixel);
-                    result.append(widget->drawPixel(childPixel));
+                    result.append(widget->drawPixel(childPixel(widget, pixel)));
                     return result;
                 }
             }
@@ -157,5 +150,15 @@ int Tg::ScrollArea::childrenHeight() const
         }
     }
 
+    return result;
+}
+
+QPoint Tg::ScrollArea::childPixel(Tg::Widget *widget, const QPoint &pixel) const
+{
+    const int borderWidth = effectiveBorderWidth();
+    const QPoint adjustedPixel(pixel - QPoint(borderWidth, borderWidth));
+    const QPoint childPos(widget->position());
+    const QPoint reversed(contentsPosition() * -1);
+    const QPoint result(reversed - childPos + adjustedPixel);
     return result;
 }
