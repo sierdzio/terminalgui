@@ -89,9 +89,10 @@ void Tg::ScrollArea::consumeKeyboardBuffer(const QString &keyboardBuffer)
 {
     if (keyboardBuffer.contains(Terminal::Key::left)) {
         const int currentX = contentsPosition().x();
-        const int width = childrenWidth();
-        const int visibleContents = width - currentX;
-        if (visibleContents > contentsRectangle().width()) {
+        const int hiddenLength = std::abs(currentX);
+        const int contentsWidth = contentsRectangle().width();
+        const int childrenW = childrenWidth();
+        if ((hiddenLength + contentsWidth) < childrenW) {
             QPoint pos = contentsPosition();
             pos.setX(currentX - 1);
             setContentsPosition(pos);
@@ -109,9 +110,10 @@ void Tg::ScrollArea::consumeKeyboardBuffer(const QString &keyboardBuffer)
 
     if (keyboardBuffer.contains(Terminal::Key::up)) {
         const int currentY = contentsPosition().y();
-        const int height = childrenHeight();
-        const int visibleContents = height - currentY;
-        if (visibleContents > contentsRectangle().height()) {
+        const int hiddenLength = std::abs(currentY);
+        const int contentsHeight = contentsRectangle().height();
+        const int childrenH = childrenHeight();
+        if ((hiddenLength + contentsHeight) < childrenH) {
             QPoint pos = contentsPosition();
             pos.setY(currentY - 1);
             setContentsPosition(pos);
