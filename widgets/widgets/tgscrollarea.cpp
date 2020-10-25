@@ -115,7 +115,7 @@ void Tg::ScrollArea::consumeKeyboardBuffer(const QString &keyboardBuffer)
 
     if (keyboardBuffer.contains(Terminal::Key::down)) {
         const int currentY = contentsPosition().y();
-        if (currentY > 0) {
+        if (currentY < 0) {
             QPoint pos = contentsPosition();
             pos.setY(currentY + 1);
             setContentsPosition(pos);

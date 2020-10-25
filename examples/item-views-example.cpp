@@ -49,13 +49,19 @@ int main(int argc, char *argv[])
     scrollBarV.show();
 
     Tg::ScrollArea scrollArea(&screen);
-    scrollArea.setPosition(QPoint(5, 18));
+    scrollArea.setPosition(QPoint(3, 18));
     scrollArea.setSize(QSize(18, 10));
     scrollArea.show();
 
     Tg::Label longLabel(&scrollArea);
     longLabel.setText(QObject::tr("Very long text which will DEFINITELY not fit the widget's width!"));
     longLabel.show();
+
+    Tg::Label tallLabel(&scrollArea);
+    tallLabel.setText(QObject::tr("Very long text which will DEFINITELY not fit the widget's height!"));
+    tallLabel.setPosition(QPoint(0, 1));
+    tallLabel.setSize(QSize(10, 15));
+    tallLabel.show();
 
     return app.exec();
 }
