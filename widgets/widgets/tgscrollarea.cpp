@@ -155,6 +155,8 @@ int Tg::ScrollArea::childrenHeight() const
 
 QPoint Tg::ScrollArea::childPixel(Tg::Widget *widget, const QPoint &pixel) const
 {
+    // TODO: when childPos is different than (0, 0), ScrollArea draws widgets
+    // incorrectly. Fix it!
     const int borderWidth = effectiveBorderWidth();
     const QPoint adjustedPixel(pixel - QPoint(borderWidth, borderWidth));
     const QPoint childPos(widget->position());
