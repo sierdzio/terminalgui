@@ -29,8 +29,9 @@ QString Tg::ScrollArea::drawPixel(const QPoint &pixel) const
                     continue;
                 }
 
-                if (widget->visible() && widget->boundingRectangle().contains(
-                            childPixel(widget, pixel)))
+                const QPoint childPx(childPixel(pixel));
+                const QRect boundingRect(widget->boundingRectangle());
+                if (widget->visible() && boundingRect.contains(childPx))
                 {
                     affectedWidgets.append(widget);
                 }
@@ -40,7 +41,9 @@ QString Tg::ScrollArea::drawPixel(const QPoint &pixel) const
             if (affectedWidgets.isEmpty() == false) {
                 WidgetPointer widget = affectedWidgets.last();
                 if (widget.isNull() == false) {
-                    result.append(widget->drawPixel(childPixel(widget, pixel)));
+                    const QPoint childPx(childPixel( pixel));
+                    const QPoint childPos(widget->position());
+                    result.append(widget->drawPixel(childPx - childPos));
                     return result;
                 }
             }
@@ -153,14 +156,11 @@ int Tg::ScrollArea::childrenHeight() const
     return result;
 }
 
-QPoint Tg::ScrollArea::childPixel(Tg::Widget *widget, const QPoint &pixel) const
+QPoint Tg::ScrollArea::childPixel(const QPoint &pixel) const
 {
-    // TODO: when childPos is different than (0, 0), ScrollArea draws widgets
-    // incorrectly. Fix it!
     const int borderWidth = effectiveBorderWidth();
     const QPoint adjustedPixel(pixel - QPoint(borderWidth, borderWidth));
-    const QPoint childPos(widget->position());
     const QPoint reversed(contentsPosition() * -1);
-    const QPoint result(reversed - childPos + adjustedPixel);
+    const QPoint result(reversed + adjustedPixel);
     return result;
 }

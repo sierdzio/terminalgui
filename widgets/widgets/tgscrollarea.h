@@ -29,7 +29,7 @@ protected:
 
     int childrenWidth() const;
     int childrenHeight() const;
-    QPoint childPixel(Widget *widget, const QPoint &pixel) const;
+    QPoint childPixel(const QPoint &pixel) const;
 
 private:
     QPoint _contentsPosition;
