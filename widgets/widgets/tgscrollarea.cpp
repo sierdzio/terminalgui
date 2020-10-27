@@ -1,4 +1,5 @@
 #include "tgscrollarea.h"
+#include "tgscrollbar.h"
 
 #include <QRect>
 
@@ -73,6 +74,12 @@ void Tg::ScrollArea::setContentsPosition(const QPoint &contentsPosition)
 
 void Tg::ScrollArea::init()
 {
+    _verticalScrollBar = new ScrollBar(this);
+    _verticalScrollBar->setOrientation(Qt::Orientation::Vertical);
+
+    _horizontalScrollBar = new ScrollBar(this);
+    _horizontalScrollBar->setOrientation(Qt::Orientation::Horizontal);
+
     setAcceptsFocus(true);
 
     Widget::init();

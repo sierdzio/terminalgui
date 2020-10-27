@@ -2,7 +2,11 @@
 
 #include <widgets/tgwidget.h>
 
+#include <QPointer>
+
 namespace Tg {
+class ScrollBar;
+
 class ScrollArea : public Widget
 {
     Q_OBJECT
@@ -10,6 +14,13 @@ class ScrollArea : public Widget
     Q_PROPERTY(QPoint contentsPosition READ contentsPosition WRITE setContentsPosition NOTIFY contentsPositionChanged)
 
 public:
+    enum class ScrollBarPolicy {
+        AlwaysShow,
+        ShowWhenNeeded,
+        NeverShow
+    };
+    Q_ENUM(ScrollBarPolicy)
+
     ScrollArea(Widget *parent);
     ScrollArea(Screen *screen);
 
@@ -37,6 +48,11 @@ protected slots:
     void connectChild(Widget *child);
 
 private:
+    QPointer<ScrollBar> _verticalScrollBar;
+    ScrollBarPolicy _verticalScrollBarPolicy = ScrollBarPolicy::ShowWhenNeeded;
+    QPointer<ScrollBar> _horizontalScrollBar;
+    ScrollBarPolicy _horizontalScrollBarPolicy = ScrollBarPolicy::ShowWhenNeeded;
+
     QPoint _contentsPosition;
     int _childrenWidth = 0;
     int _childrenHeight = 0;
