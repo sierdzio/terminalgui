@@ -109,6 +109,8 @@ signals:
     void styleChanged() const;
     void layoutOvershootChanged(const SizeOvershoot overshoot) const;
     void widgetOvershootChanged(const SizeOvershoot overshoot) const;
+    void childAdded(Widget *child);
+    void childRemoved();
 
 public slots:
     void setPosition(const QPoint &position);

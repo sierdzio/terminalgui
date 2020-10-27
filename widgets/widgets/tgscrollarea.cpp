@@ -79,6 +79,13 @@ void Tg::ScrollArea::init()
 
     CHECK(connect(this, &ScrollArea::contentsPositionChanged,
                   this, &ScrollArea::schedulePartialRedraw));
+
+    CHECK(connect(this, &ScrollArea::childAdded,
+                  this, &ScrollArea::connectChild));
+    CHECK(connect(this, &ScrollArea::childAdded,
+                  this, &ScrollArea::updateChildrenDimensions));
+    CHECK(connect(this, &ScrollArea::childRemoved,
+                  this, &ScrollArea::updateChildrenDimensions));
 }
 
 void Tg::ScrollArea::consumeKeyboardBuffer(const QString &keyboardBuffer)
@@ -126,34 +133,28 @@ void Tg::ScrollArea::consumeKeyboardBuffer(const QString &keyboardBuffer)
     }
 }
 
-int Tg::ScrollArea::childrenWidth() const
+void Tg::ScrollArea::updateChildrenDimensions()
 {
-    int result = 0;
+    _childrenWidth = 0;
+    _childrenHeight = 0;
 
-    // TODO: cache this
     const auto widgets = findChildren<Widget *>();
     for (const Widget *widget : widgets) {
         if (widget) {
-            result = std::max(result, widget->boundingRectangle().right());
+            _childrenWidth = std::max(_childrenWidth,
+                                      widget->boundingRectangle().right());
+            _childrenHeight = std::max(_childrenHeight,
+                                       widget->boundingRectangle().bottom());
         }
     }
-
-    return result;
 }
 
-int Tg::ScrollArea::childrenHeight() const
+void Tg::ScrollArea::connectChild(Tg::Widget *child)
 {
-    int result = 0;
-
-    // TODO: cache this
-    const auto widgets = findChildren<Widget *>();
-    for (const Widget *widget : widgets) {
-        if (widget) {
-            result = std::max(result, widget->boundingRectangle().bottom());
-        }
-    }
-
-    return result;
+    CHECK(connect(child, &Widget::positionChanged,
+                  this, &ScrollArea::updateChildrenDimensions));
+    CHECK(connect(child, &Widget::sizeChanged,
+                  this, &ScrollArea::updateChildrenDimensions));
 }
 
 QPoint Tg::ScrollArea::childPixel(const QPoint &pixel) const
@@ -163,4 +164,14 @@ QPoint Tg::ScrollArea::childPixel(const QPoint &pixel) const
     const QPoint reversed(contentsPosition() * -1);
     const QPoint result(reversed + adjustedPixel);
     return result;
+}
+
+int Tg::ScrollArea::childrenWidth() const
+{
+    return _childrenWidth;
+}
+
+int Tg::ScrollArea::childrenHeight() const
+{
+    return _childrenHeight;
 }

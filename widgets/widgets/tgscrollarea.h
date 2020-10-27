@@ -27,11 +27,18 @@ protected:
     void init() override;
     void consumeKeyboardBuffer(const QString &keyboardBuffer) override;
 
+    QPoint childPixel(const QPoint &pixel) const;
+
     int childrenWidth() const;
     int childrenHeight() const;
-    QPoint childPixel(const QPoint &pixel) const;
+
+protected slots:
+    void updateChildrenDimensions();
+    void connectChild(Widget *child);
 
 private:
     QPoint _contentsPosition;
+    int _childrenWidth = 0;
+    int _childrenHeight = 0;
 };
 }

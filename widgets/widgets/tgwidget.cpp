@@ -589,6 +589,11 @@ void Tg::Widget::init()
         if (_parentWidget->propagatesStyle()) {
             _parentWidget->propagateStyleToChild(this);
         }
+
+        emit _parentWidget->childAdded(this);
+
+        CHECK(connect(this, &Widget::destroyed,
+                      _parentWidget, &Widget::childRemoved));
     }
 
     setLayoutType(Layout::Type::None);
