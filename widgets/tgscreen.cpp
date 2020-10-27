@@ -177,7 +177,7 @@ void Tg::Screen::redrawImmediately()
                         continue;
                     }
 
-                    if (widget->visible() /*&& widget->clipped() == false*/
+                    if (widget->visible()
                             && widget->globalBoundingRectangle().contains(pixel))
                     {
                         affectedWidgets.append(widget);

@@ -22,7 +22,6 @@ void Tg::RowLayout::doLayout()
                 const QSize currentSize = widget->size();
                 if ((currentX + currentSize.width()) > width) {
                     _overshoot = _overshoot | Overshoot::Horizontal;
-                    widget->setClipped(true);
                     continue;
                 }
 
@@ -30,7 +29,6 @@ void Tg::RowLayout::doLayout()
                 // TODO: if width can get smaller due to height getting larger,
                 // make it so!
                 widget->setSize(QSize(currentSize.width(), height));
-                widget->setClipped(false);
 
                 if (widget->widgetOvershoot().testFlag(Overshoot::None) == false) {
                     _overshoot = _overshoot | widget->widgetOvershoot();

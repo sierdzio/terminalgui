@@ -90,9 +90,6 @@ public:
     SizeOvershoot layoutOvershoot() const;
     SizeOvershoot widgetOvershoot() const;
 
-    bool clipped() const;
-    void setClipped(const bool clipped);
-
 signals:
     void needsRedraw(const RedrawType type, const Widget *widget) const;
     void positionChanged(const QPoint &position) const;
@@ -177,7 +174,6 @@ private:
     bool _hasFocus = false;
     bool _verticalArrowsMoveFocus = false;
     bool _propagatesStyle = true;
-    bool _clipped = false;
     QChar _backgroundCharacter;
 };
 }

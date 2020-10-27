@@ -34,12 +34,10 @@ void Tg::GridLayout::doLayout()
                 if (tooTall || tooWide) {
                     if (tooTall) {
                         _overshoot = _overshoot | Overshoot::Vertical;
-                        widget->setClipped(true);
                     }
 
                     if (tooWide) {
                         _overshoot = _overshoot | Overshoot::Horizontal;
-                        widget->setClipped(true);
                     }
 
                     continue;

@@ -253,7 +253,7 @@ QString Tg::Widget::drawPixel(const QPoint &pixel) const
                     continue;
                 }
 
-                if (widget->visible() /*&& widget->clipped() == false*/
+                if (widget->visible()
                         && widget->boundingRectangle().contains(contentsPixel))
                 {
                     affectedWidgets.append(widget);
@@ -421,16 +421,6 @@ Tg::SizeOvershoot Tg::Widget::layoutOvershoot() const
 Tg::SizeOvershoot Tg::Widget::widgetOvershoot() const
 {
     return _widgetOvershoot;
-}
-
-bool Tg::Widget::clipped() const
-{
-    return _clipped;
-}
-
-void Tg::Widget::setClipped(const bool clipped)
-{
-    _clipped = clipped;
 }
 
 void Tg::Widget::setPosition(const QPoint &position)
@@ -665,7 +655,7 @@ void Tg::Widget::schedulePreviousPositionRedraw() const
 
 bool Tg::Widget::canRedraw() const
 {
-    if (visible() == true && clipped() == false) {
+    if (visible() == true) {
         return true;
     }
 

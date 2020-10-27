@@ -24,7 +24,6 @@ void Tg::ColumnLayout::doLayout()
                 const QSize currentSize = widget->size();
                 if ((currentY + currentSize.height()) > height) {
                     _overshoot = _overshoot | Overshoot::Vertical;
-                    widget->setClipped(true);
                     continue;
                 }
 
@@ -32,7 +31,6 @@ void Tg::ColumnLayout::doLayout()
                 // TODO: if height can get smaller due to width getting larger,
                 // make it so!
                 widget->setSize(QSize(width, currentSize.height()));
-                widget->setClipped(false);
 
                 if (widget->widgetOvershoot().testFlag(Overshoot::None) == false) {
                     _overshoot = _overshoot | widget->widgetOvershoot();
