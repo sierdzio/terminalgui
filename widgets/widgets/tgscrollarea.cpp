@@ -93,6 +93,8 @@ void Tg::ScrollArea::init()
                   this, &ScrollArea::updateChildrenDimensions));
     CHECK(connect(this, &ScrollArea::childRemoved,
                   this, &ScrollArea::updateChildrenDimensions));
+
+    updateChildrenDimensions();
 }
 
 void Tg::ScrollArea::consumeKeyboardBuffer(const QString &keyboardBuffer)
@@ -142,6 +144,9 @@ void Tg::ScrollArea::consumeKeyboardBuffer(const QString &keyboardBuffer)
 
 void Tg::ScrollArea::updateChildrenDimensions()
 {
+    const int oldWidth = _childrenWidth;
+    const int oldHeight = _childrenHeight;
+
     _childrenWidth = 0;
     _childrenHeight = 0;
 
@@ -153,6 +158,11 @@ void Tg::ScrollArea::updateChildrenDimensions()
             _childrenHeight = std::max(_childrenHeight,
                                        widget->boundingRectangle().bottom());
         }
+    }
+
+    if (oldWidth != _childrenWidth || oldHeight != _childrenHeight) {
+        schedulePartialRedraw();
+        updateScrollBarStates();
     }
 }
 
@@ -181,4 +191,33 @@ int Tg::ScrollArea::childrenWidth() const
 int Tg::ScrollArea::childrenHeight() const
 {
     return _childrenHeight;
+}
+
+void Tg::ScrollArea::updateScrollBarStates()
+{
+    if (_verticalScrollBarPolicy == ScrollBarPolicy::NeverShow
+            && _horizontalScrollBarPolicy == ScrollBarPolicy::NeverShow) {
+        _verticalScrollBar->setVisible(false);
+        _horizontalScrollBar->setVisible(false);
+    }
+
+    const QRect contents = contentsRectangle();
+
+    _verticalScrollBar->setPosition(QPoint(contents.right(), 0));
+    _verticalScrollBar->setSize(QSize(1, contents.height()));
+
+    _horizontalScrollBar->setPosition(QPoint(0, contents.bottom()));
+    _horizontalScrollBar->setSize(QSize(contents.width(), 1));
+
+    if (_verticalScrollBarPolicy == ScrollBarPolicy::AlwaysShow) {
+        _verticalScrollBar->setVisible(true);
+    }
+
+    if (_horizontalScrollBarPolicy == ScrollBarPolicy::AlwaysShow) {
+        _horizontalScrollBar->setVisible(true);
+    }
+
+    if (_verticalScrollBar->visible() && _horizontalScrollBar->visible()) {
+        return;
+    }
 }

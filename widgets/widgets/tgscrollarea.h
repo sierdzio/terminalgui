@@ -43,6 +43,8 @@ protected:
     int childrenWidth() const;
     int childrenHeight() const;
 
+    void updateScrollBarStates();
+
 protected slots:
     void updateChildrenDimensions();
     void connectChild(Widget *child);
