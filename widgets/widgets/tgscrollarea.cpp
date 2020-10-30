@@ -46,12 +46,14 @@ QString Tg::ScrollArea::drawPixel(const QPoint &pixel) const
             const QRect contents = contentsRectangle();
             const bool isCorner = (pixel == contents.bottomRight());
             if (isCorner == false) {
+                const int borderWidth = effectiveBorderWidth();
+                const QPoint adjustedPixel(pixel - QPoint(borderWidth, borderWidth));
                 if (_verticalScrollBar->visible() && pixel.x() == contents.right()) {
-                    return _verticalScrollBar->drawPixel(pixel);
+                    return _verticalScrollBar->drawPixel(adjustedPixel);
                 }
 
                 if (_horizontalScrollBar->visible() && pixel.y() == contents.bottom()) {
-                    return _horizontalScrollBar->drawPixel(pixel);
+                    return _horizontalScrollBar->drawPixel(adjustedPixel);
                 }
             }
 
@@ -227,10 +229,10 @@ void Tg::ScrollArea::updateScrollBarStates()
 
     const QRect contents = contentsRectangle();
     _verticalScrollBar->setPosition(QPoint(contents.right() - 1, 0));
-    _verticalScrollBar->setSize(QSize(1, contents.height()));
+    _verticalScrollBar->setSize(QSize(1, contents.height() - 1));
 
     _horizontalScrollBar->setPosition(QPoint(0, contents.bottom() - 1));
-    _horizontalScrollBar->setSize(QSize(contents.width(), 1));
+    _horizontalScrollBar->setSize(QSize(contents.width() - 1, 1));
 
     if (_verticalScrollBarPolicy == ScrollBarPolicy::AlwaysShow) {
         _verticalScrollBar->setVisible(true);
