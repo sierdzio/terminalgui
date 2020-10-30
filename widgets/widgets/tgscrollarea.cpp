@@ -76,9 +76,11 @@ void Tg::ScrollArea::init()
 {
     _verticalScrollBar = new ScrollBar(this);
     _verticalScrollBar->setOrientation(Qt::Orientation::Vertical);
+    _verticalScrollBar->setAcceptsFocus(false);
 
     _horizontalScrollBar = new ScrollBar(this);
     _horizontalScrollBar->setOrientation(Qt::Orientation::Horizontal);
+    _horizontalScrollBar->setAcceptsFocus(false);
 
     setAcceptsFocus(true);
 
