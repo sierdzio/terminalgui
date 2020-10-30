@@ -31,25 +31,8 @@ int main(int argc, char *argv[])
     CHECK(QObject::connect(&quitButton, &Tg::Button::clicked,
                            &app, &QCoreApplication::quit));
 
-    Tg::ScrollBar scrollBar(&widget);
-    scrollBar.setOrientation(Qt::Orientation::Horizontal);
-    scrollBar.show();
-
-    // TODO: add example scroll bar, scroll area, list view etc.
-
-    Tg::Widget widgetV(&screen);
-    widgetV.setObjectName("widgetV");
-    widgetV.setPosition(QPoint(size.width() + 1, 1));
-    widgetV.setSize(size);
-    widgetV.setLayoutType(Tg::Layout::Type::Row);
-    widgetV.show();
-
-    Tg::ScrollBar scrollBarV(&widgetV);
-    scrollBarV.setOrientation(Qt::Orientation::Vertical);
-    scrollBarV.show();
-
     Tg::ScrollArea scrollArea(&screen);
-    scrollArea.setPosition(QPoint(3, 18));
+    scrollArea.setPosition(QPoint(23, 1));
     scrollArea.setSize(QSize(18, 10));
     scrollArea.show();
 

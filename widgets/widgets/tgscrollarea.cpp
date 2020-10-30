@@ -25,6 +25,11 @@ QString Tg::ScrollArea::drawPixel(const QPoint &pixel) const
             // TODO: sort by Z value...
             QList<WidgetPointer> affectedWidgets;
             for (const WidgetPointer &widget : qAsConst(children)) {
+                if (widget == _verticalScrollBar
+                        || widget == _horizontalScrollBar) {
+                    continue;
+                }
+
                 // Only draw direct children
                 if (widget->parentWidget() != this) {
                     continue;
@@ -38,11 +43,23 @@ QString Tg::ScrollArea::drawPixel(const QPoint &pixel) const
                 }
             }
 
+            const QRect contents = contentsRectangle();
+            const bool isCorner = (pixel == contents.bottomRight());
+            if (isCorner == false) {
+                if (_verticalScrollBar->visible() && pixel.x() == contents.right()) {
+                    return _verticalScrollBar->drawPixel(pixel);
+                }
+
+                if (_horizontalScrollBar->visible() && pixel.y() == contents.bottom()) {
+                    return _horizontalScrollBar->drawPixel(pixel);
+                }
+            }
+
             // TODO: properly handle Z value...
             if (affectedWidgets.isEmpty() == false) {
                 WidgetPointer widget = affectedWidgets.last();
                 if (widget.isNull() == false) {
-                    const QPoint childPx(childPixel( pixel));
+                    const QPoint childPx(childPixel(pixel));
                     const QPoint childPos(widget->position());
                     result.append(widget->drawPixel(childPx - childPos));
                     return result;
@@ -154,6 +171,10 @@ void Tg::ScrollArea::updateChildrenDimensions()
 
     const auto widgets = findChildren<Widget *>();
     for (const Widget *widget : widgets) {
+        if (widget == _verticalScrollBar || widget == _horizontalScrollBar) {
+            continue;
+        }
+
         if (widget) {
             _childrenWidth = std::max(_childrenWidth,
                                       widget->boundingRectangle().right());
@@ -163,8 +184,8 @@ void Tg::ScrollArea::updateChildrenDimensions()
     }
 
     if (oldWidth != _childrenWidth || oldHeight != _childrenHeight) {
-        schedulePartialRedraw();
         updateScrollBarStates();
+        schedulePartialRedraw();
     }
 }
 
@@ -201,14 +222,14 @@ void Tg::ScrollArea::updateScrollBarStates()
             && _horizontalScrollBarPolicy == ScrollBarPolicy::NeverShow) {
         _verticalScrollBar->setVisible(false);
         _horizontalScrollBar->setVisible(false);
+        return;
     }
 
     const QRect contents = contentsRectangle();
-
-    _verticalScrollBar->setPosition(QPoint(contents.right(), 0));
+    _verticalScrollBar->setPosition(QPoint(contents.right() - 1, 0));
     _verticalScrollBar->setSize(QSize(1, contents.height()));
 
-    _horizontalScrollBar->setPosition(QPoint(0, contents.bottom()));
+    _horizontalScrollBar->setPosition(QPoint(0, contents.bottom() - 1));
     _horizontalScrollBar->setSize(QSize(contents.width(), 1));
 
     if (_verticalScrollBarPolicy == ScrollBarPolicy::AlwaysShow) {
@@ -219,7 +240,28 @@ void Tg::ScrollArea::updateScrollBarStates()
         _horizontalScrollBar->setVisible(true);
     }
 
-    if (_verticalScrollBar->visible() && _horizontalScrollBar->visible()) {
+    if (_verticalScrollBarPolicy == ScrollBarPolicy::AlwaysShow
+            && _horizontalScrollBarPolicy == ScrollBarPolicy::AlwaysShow) {
         return;
+    }
+
+    if (childrenWidth() > (contents.width() - 1)
+            && _horizontalScrollBarPolicy != ScrollBarPolicy::NeverShow) {
+        _horizontalScrollBar->setVisible(true);
+        _horizontalScrollBar->setMinimum(0);
+        _horizontalScrollBar->setMaximum(childrenWidth());
+        //const qreal absolutePos = childrenWidth() / contentsPosition().x();
+        //_horizontalScrollBar->setSliderPosition(
+        //            absolutePos * _horizontalScrollBar->size().width());
+    }
+
+    if (childrenHeight() > (contents.height() - 1)
+            && _verticalScrollBarPolicy != ScrollBarPolicy::NeverShow) {
+        _verticalScrollBar->setVisible(true);
+        _verticalScrollBar->setMinimum(0);
+        _verticalScrollBar->setMaximum(childrenHeight());
+        //const qreal absolutePos = childrenHeight() / contentsPosition().y();
+        //_verticalScrollBar->setSliderPosition(
+        //            absolutePos * _verticalScrollBar->size().height());
     }
 }
