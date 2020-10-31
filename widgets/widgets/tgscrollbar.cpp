@@ -1,6 +1,8 @@
 #include "tgscrollbar.h"
 #include "styles/tgstyle.h"
 
+#include <math.h>
+
 Tg::ScrollBar::ScrollBar(Tg::Widget *parent) : Tg::Widget(parent)
 {
     init();
@@ -18,22 +20,40 @@ QString Tg::ScrollBar::drawPixel(const QPoint &pixel) const
     }
 
     int pixelIndex = 0;
-    int length = 0;
 
     if (orientation() == Qt::Orientation::Horizontal) {
         pixelIndex = pixel.x();
-        length = size().width();
     } else {
         pixelIndex = pixel.y();
-        length = size().height();
     }
 
-    return linearPixel(pixelIndex, length);
+    return linearPixel(pixelIndex, length());
 }
 
 Qt::Orientation Tg::ScrollBar::orientation() const
 {
     return _orientation;
+}
+
+int Tg::ScrollBar::length() const
+{
+    if (orientation() == Qt::Orientation::Horizontal) {
+        return size().width();
+    } else {
+        return size().height();
+    }
+}
+
+/*!
+ * How much to add or remove from value (sliderPosition()) to move the slider
+ * by a single pixel (character).
+ *
+ * \note This method calculates the step each time it is called. If used often,
+ * it is better to cache it.
+ */
+int Tg::ScrollBar::step() const
+{
+    return int(maximum() / length());
 }
 
 int Tg::ScrollBar::minimum() const
@@ -283,6 +303,11 @@ void Tg::ScrollBar::setMaximum(const int maximum)
 
     _maximum = maximum;
     emit maximumChanged(_maximum);
+}
+
+void Tg::ScrollBar::setValue(const int value)
+{
+    setSliderPosition(value);
 }
 
 void Tg::ScrollBar::setSliderPosition(const int sliderPosition)
@@ -591,7 +616,7 @@ void Tg::ScrollBar::consumeKeyboardBuffer(const QString &keyboardBuffer)
              || keyboardBuffer.contains(Terminal::Key::left)) {
          const int position = sliderPosition();
          if (position > 0) {
-             setSliderPosition(sliderPosition() - 1);
+             setSliderPosition(sliderPosition() - step());
          } else {
              emit sliderPositionChanged(position);
          }
@@ -602,11 +627,8 @@ void Tg::ScrollBar::consumeKeyboardBuffer(const QString &keyboardBuffer)
              || keyboardBuffer.contains(Terminal::Key::right)) {
          const int position = sliderPosition();
 
-         const int length = orientation() == Qt::Orientation::Horizontal?
-                     size().width() : size().height();
-
-         if (position < (length - 3)) {
-             setSliderPosition(sliderPosition() + 1);
+         if (position < (length() - 3)) {
+             setSliderPosition(sliderPosition() + step());
          } else {
              emit sliderPositionChanged(position);
          }
@@ -637,22 +659,6 @@ QString Tg::ScrollBar::linearPixel(const int pixel, const int length) const
         }
 
         return result;
-    //} else if (pixel == ((sliderPosition() + 1) * length / maximum())) {
-    } else if (pixel == (sliderPosition() + 1)) {
-        // Draw slider
-        if (_sliderPressTimer.isActive()) {
-            result.append(Terminal::Color::code(
-                              sliderActiveColor(), sliderActiveBackgroundColor()
-                              ));
-        } else {
-            result.append(Terminal::Color::code(
-                              sliderColor(), sliderBackgroundColor()
-                              ));
-        }
-
-        result.append(sliderCharacter());
-
-        return result;
     } else if (pixel == length - 1) {
         // Draw second arrow
         // TODO: handle all the color madness ;-) Active, normal, inactive colors
@@ -675,11 +681,40 @@ QString Tg::ScrollBar::linearPixel(const int pixel, const int length) const
         return result;
     }
 
-    result.append(Terminal::Color::code(
-                      textColor(), backgroundColor()
-                      ));
+    const int adjustedLength = length - 2;
+    const qreal percentileOfValue = sliderPosition() / maximum();
+    const qreal percentileOfLength = percentileOfValue * adjustedLength;
+    int position = -1;
 
-    result.append(backgroundCharacter());
+    if (percentileOfValue < .1) {
+        position = 0;
+    } else if (percentileOfValue > .9) {
+        position = adjustedLength;
+    } else {
+        position = std::ceil(percentileOfLength);
+    }
+
+    const bool isSlider = ((pixel - 1) == position);
+    if (isSlider) {
+        // Draw slider
+        if (_sliderPressTimer.isActive()) {
+            result.append(Terminal::Color::code(
+                              sliderActiveColor(), sliderActiveBackgroundColor()
+                              ));
+        } else {
+            result.append(Terminal::Color::code(
+                              sliderColor(), sliderBackgroundColor()
+                              ));
+        }
+
+        result.append(sliderCharacter());
+    } else {
+        result.append(Terminal::Color::code(
+                          textColor(), backgroundColor()
+                          ));
+
+        result.append(backgroundCharacter());
+    }
 
     return result;
 }

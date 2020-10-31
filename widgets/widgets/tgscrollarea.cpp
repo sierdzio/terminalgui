@@ -88,6 +88,8 @@ void Tg::ScrollArea::setContentsPosition(const QPoint &contentsPosition)
         return;
 
     _contentsPosition = contentsPosition;
+    _horizontalScrollBar->setSliderPosition(std::abs(contentsPosition.x()));
+    _verticalScrollBar->setSliderPosition(std::abs(contentsPosition.y()));
     emit contentsPositionChanged(_contentsPosition);
 }
 
@@ -252,9 +254,7 @@ void Tg::ScrollArea::updateScrollBarStates()
         _horizontalScrollBar->setVisible(true);
         _horizontalScrollBar->setMinimum(0);
         _horizontalScrollBar->setMaximum(childrenWidth());
-        //const qreal absolutePos = childrenWidth() / contentsPosition().x();
-        //_horizontalScrollBar->setSliderPosition(
-        //            absolutePos * _horizontalScrollBar->size().width());
+        _horizontalScrollBar->setSliderPosition(std::abs(contentsPosition().x()));
     }
 
     if (childrenHeight() > (contents.height() - 1)
@@ -262,8 +262,6 @@ void Tg::ScrollArea::updateScrollBarStates()
         _verticalScrollBar->setVisible(true);
         _verticalScrollBar->setMinimum(0);
         _verticalScrollBar->setMaximum(childrenHeight());
-        //const qreal absolutePos = childrenHeight() / contentsPosition().y();
-        //_verticalScrollBar->setSliderPosition(
-        //            absolutePos * _verticalScrollBar->size().height());
+        _verticalScrollBar->setSliderPosition(std::abs(contentsPosition().y()));
     }
 }

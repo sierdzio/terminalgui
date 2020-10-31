@@ -58,6 +58,9 @@ public:
 
     Qt::Orientation orientation() const;
 
+    int length() const;
+    int step() const;
+
     int minimum() const;
     int maximum() const;
     int sliderPosition() const;
@@ -92,6 +95,7 @@ public slots:
 
     void setMinimum(const int minimum);
     void setMaximum(const int maximum);
+    void setValue(const int value);
     void setSliderPosition(const int sliderPosition);
     void setSliderCharacter(const QChar &sliderCharacter);
     void setSliderColor(const Terminal::Color &sliderColor);
