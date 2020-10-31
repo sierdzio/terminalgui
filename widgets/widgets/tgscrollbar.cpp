@@ -682,7 +682,7 @@ QString Tg::ScrollBar::linearPixel(const int pixel, const int length) const
     }
 
     const int adjustedLength = length - 2;
-    const qreal percentileOfValue = sliderPosition() / maximum();
+    const qreal percentileOfValue = qreal(sliderPosition()) / qreal(maximum());
     const qreal percentileOfLength = percentileOfValue * adjustedLength;
     int position = -1;
 
