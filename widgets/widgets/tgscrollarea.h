@@ -42,8 +42,10 @@ protected:
 
     int childrenWidth() const;
     int childrenHeight() const;
+    QRect scrollableArea() const;
 
     void updateScrollBarStates();
+    void updateScrollBarPositions();
 
 protected slots:
     void updateChildrenDimensions();

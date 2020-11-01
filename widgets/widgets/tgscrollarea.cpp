@@ -88,8 +88,7 @@ void Tg::ScrollArea::setContentsPosition(const QPoint &contentsPosition)
         return;
 
     _contentsPosition = contentsPosition;
-    _horizontalScrollBar->setSliderPosition(std::abs(contentsPosition.x()));
-    _verticalScrollBar->setSliderPosition(std::abs(contentsPosition.y()));
+    updateScrollBarPositions();
     emit contentsPositionChanged(_contentsPosition);
 }
 
@@ -125,9 +124,9 @@ void Tg::ScrollArea::consumeKeyboardBuffer(const QString &keyboardBuffer)
     if (keyboardBuffer.contains(Terminal::Key::right)) {
         const int currentX = contentsPosition().x();
         const int hiddenLength = std::abs(currentX);
-        const int contentsWidth = contentsRectangle().width();
+        const int contentsWidth = scrollableArea().width();
         const int childrenW = childrenWidth();
-        if ((hiddenLength + contentsWidth) < childrenW) {
+        if ((hiddenLength + contentsWidth) <= childrenW) {
             QPoint pos = contentsPosition();
             pos.setX(currentX - 1);
             setContentsPosition(pos);
@@ -146,9 +145,9 @@ void Tg::ScrollArea::consumeKeyboardBuffer(const QString &keyboardBuffer)
     if (keyboardBuffer.contains(Terminal::Key::down)) {
         const int currentY = contentsPosition().y();
         const int hiddenLength = std::abs(currentY);
-        const int contentsHeight = contentsRectangle().height();
+        const int contentsHeight = scrollableArea().height();
         const int childrenH = childrenHeight();
-        if ((hiddenLength + contentsHeight) < childrenH) {
+        if ((hiddenLength + contentsHeight) <= childrenH) {
             QPoint pos = contentsPosition();
             pos.setY(currentY - 1);
             setContentsPosition(pos);
@@ -220,6 +219,20 @@ int Tg::ScrollArea::childrenHeight() const
     return _childrenHeight;
 }
 
+QRect Tg::ScrollArea::scrollableArea() const
+{
+    QRect result = contentsRectangle();
+    if (_horizontalScrollBar->visible()) {
+        result.setHeight(result.height() - _horizontalScrollBar->size().height());
+    }
+
+    if (_verticalScrollBar->visible()) {
+        result.setWidth(result.width() - _verticalScrollBar->size().width());
+    }
+
+    return result;
+}
+
 void Tg::ScrollArea::updateScrollBarStates()
 {
     if (_verticalScrollBarPolicy == ScrollBarPolicy::NeverShow
@@ -253,15 +266,22 @@ void Tg::ScrollArea::updateScrollBarStates()
             && _horizontalScrollBarPolicy != ScrollBarPolicy::NeverShow) {
         _horizontalScrollBar->setVisible(true);
         _horizontalScrollBar->setMinimum(0);
-        _horizontalScrollBar->setMaximum(childrenWidth());
-        _horizontalScrollBar->setSliderPosition(std::abs(contentsPosition().x()));
+        _horizontalScrollBar->setMaximum(childrenWidth() - contents.width());
     }
 
     if (childrenHeight() > (contents.height() - 1)
             && _verticalScrollBarPolicy != ScrollBarPolicy::NeverShow) {
         _verticalScrollBar->setVisible(true);
         _verticalScrollBar->setMinimum(0);
-        _verticalScrollBar->setMaximum(childrenHeight());
-        _verticalScrollBar->setSliderPosition(std::abs(contentsPosition().y()));
+        _verticalScrollBar->setMaximum(childrenHeight() - contents.height());
     }
+
+    updateScrollBarPositions();
+}
+
+void Tg::ScrollArea::updateScrollBarPositions()
+{
+    _horizontalScrollBar->setSliderPosition(std::abs(contentsPosition().x()));
+    _verticalScrollBar->setSliderPosition(std::abs(contentsPosition().y()));
+
 }
