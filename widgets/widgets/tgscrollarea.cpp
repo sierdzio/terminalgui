@@ -257,25 +257,21 @@ void Tg::ScrollArea::updateScrollBarStates()
         _horizontalScrollBar->setVisible(true);
     }
 
-    if (_verticalScrollBarPolicy == ScrollBarPolicy::AlwaysShow
-            && _horizontalScrollBarPolicy == ScrollBarPolicy::AlwaysShow) {
-        return;
-    }
-
     if (childrenWidth() > (contents.width() - 1)
             && _horizontalScrollBarPolicy != ScrollBarPolicy::NeverShow) {
         _horizontalScrollBar->setVisible(true);
-        _horizontalScrollBar->setMinimum(0);
-        _horizontalScrollBar->setMaximum(childrenWidth() - contents.width());
     }
 
     if (childrenHeight() > (contents.height() - 1)
             && _verticalScrollBarPolicy != ScrollBarPolicy::NeverShow) {
         _verticalScrollBar->setVisible(true);
-        _verticalScrollBar->setMinimum(0);
-        _verticalScrollBar->setMaximum(childrenHeight() - contents.height());
     }
 
+    const QRect scrollable = scrollableArea();
+    _horizontalScrollBar->setMinimum(0);
+    _horizontalScrollBar->setMaximum(childrenWidth() - scrollable.width());
+    _verticalScrollBar->setMinimum(0);
+    _verticalScrollBar->setMaximum(childrenHeight() - scrollable.height());
     updateScrollBarPositions();
 }
 
