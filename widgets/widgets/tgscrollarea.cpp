@@ -126,7 +126,7 @@ void Tg::ScrollArea::consumeKeyboardBuffer(const QString &keyboardBuffer)
         const int hiddenLength = std::abs(currentX);
         const int contentsWidth = scrollableArea().width();
         const int childrenW = childrenWidth();
-        if ((hiddenLength + contentsWidth) <= childrenW) {
+        if ((hiddenLength + contentsWidth) < childrenW) {
             QPoint pos = contentsPosition();
             pos.setX(currentX - 1);
             setContentsPosition(pos);
@@ -147,7 +147,7 @@ void Tg::ScrollArea::consumeKeyboardBuffer(const QString &keyboardBuffer)
         const int hiddenLength = std::abs(currentY);
         const int contentsHeight = scrollableArea().height();
         const int childrenH = childrenHeight();
-        if ((hiddenLength + contentsHeight) <= childrenH) {
+        if ((hiddenLength + contentsHeight) < childrenH) {
             QPoint pos = contentsPosition();
             pos.setY(currentY - 1);
             setContentsPosition(pos);
