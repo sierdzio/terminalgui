@@ -179,10 +179,9 @@ void Tg::ScrollArea::updateChildrenDimensions()
         }
 
         if (widget) {
-            _childrenWidth = std::max(_childrenWidth,
-                                      widget->boundingRectangle().right());
-            _childrenHeight = std::max(_childrenHeight,
-                                       widget->boundingRectangle().bottom());
+            const QRect rect = widget->boundingRectangle();
+            _childrenWidth = std::max(_childrenWidth, rect.x() + rect.width());
+            _childrenHeight = std::max(_childrenHeight, rect.y() + rect.height());
         }
     }
 
