@@ -268,7 +268,7 @@ void Tg::ScrollArea::updateScrollBarStates()
 
     const QRect scrollable = scrollableArea();
     _horizontalScrollBar->setMinimum(0);
-    _horizontalScrollBar->setMaximum(childrenWidth() - scrollable.width() + 7);
+    _horizontalScrollBar->setMaximum(childrenWidth() - scrollable.width());
     _verticalScrollBar->setMinimum(0);
     _verticalScrollBar->setMaximum(childrenHeight() - scrollable.height());
     updateScrollBarPositions();
