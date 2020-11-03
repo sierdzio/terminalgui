@@ -7,6 +7,7 @@
 #include <widgets/tgbutton.h>
 #include <widgets/tgscrollbar.h>
 #include <widgets/tgscrollarea.h>
+#include <widgets/tglistview.h>
 
 int main(int argc, char *argv[])
 {
@@ -14,13 +15,11 @@ int main(int argc, char *argv[])
 
     Terminal::RawTerminalLocker locker;
 
-    const QSize size(20, 15);
-
     Tg::Screen screen;
     Tg::Widget widget(&screen);
     widget.setObjectName("widget");
     widget.setPosition(QPoint(1, 1));
-    widget.setSize(size);
+    widget.setSize(QSize(20, 10));
     widget.setLayoutType(Tg::Layout::Type::Column);
     widget.show();
 
@@ -31,9 +30,10 @@ int main(int argc, char *argv[])
     CHECK(QObject::connect(&quitButton, &Tg::Button::clicked,
                            &app, &QCoreApplication::quit));
 
-    Tg::ScrollArea scrollArea(&screen);
-    scrollArea.setPosition(QPoint(23, 1));
-    scrollArea.setSize(QSize(18, 10));
+    Tg::ScrollArea scrollArea(&widget);
+    // TODO: fix layouts here - leaving size to default completely destroys
+    // the UI!
+    scrollArea.setSize(QSize(18, 7));
     scrollArea.show();
 
     Tg::Label longLabel(&scrollArea);
@@ -48,6 +48,11 @@ int main(int argc, char *argv[])
     tallLabel.setSize(QSize(10, 7));
     tallLabel.setTextColor(Terminal::Color::Predefined::Yellow);
     tallLabel.show();
+
+    Tg::ListView listView(&screen);
+    listView.setPosition(QPoint(22, 1));
+    listView.setSize(QSize(20, 10));
+    listView.show();
 
     return app.exec();
 }
