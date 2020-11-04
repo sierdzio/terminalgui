@@ -68,6 +68,13 @@ QString Tg::ScrollArea::drawPixel(const QPoint &pixel) const
                 }
             }
         }
+
+        if (result.isEmpty()) {
+            result = drawAreaContents(pixel);
+            if (result.isEmpty() == false) {
+                return result;
+            }
+        }
     }
 
     // Draw default widget background
@@ -75,6 +82,12 @@ QString Tg::ScrollArea::drawPixel(const QPoint &pixel) const
                                         backgroundColor()));
     result.append(backgroundCharacter());
     return result;
+}
+
+QString Tg::ScrollArea::drawAreaContents(const QPoint &pixel) const
+{
+    Q_UNUSED(pixel);
+    return {};
 }
 
 QPoint Tg::ScrollArea::contentsPosition() const

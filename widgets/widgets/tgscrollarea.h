@@ -13,6 +13,8 @@ class ScrollArea : public Widget
 
     Q_PROPERTY(QPoint contentsPosition READ contentsPosition WRITE setContentsPosition NOTIFY contentsPositionChanged)
 
+    friend class ListView;
+
 public:
     enum class ScrollBarPolicy {
         AlwaysShow,
@@ -25,6 +27,7 @@ public:
     ScrollArea(Screen *screen);
 
     QString drawPixel(const QPoint &pixel) const override;
+    virtual QString drawAreaContents(const QPoint &pixel) const;
 
     QPoint contentsPosition() const;
 

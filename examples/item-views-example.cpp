@@ -1,4 +1,5 @@
 #include <QCoreApplication>
+#include <QStringListModel>
 #include <QDebug>
 
 #include <tgscreen.h>
@@ -52,6 +53,17 @@ int main(int argc, char *argv[])
     Tg::ListView listView(&screen);
     listView.setPosition(QPoint(22, 1));
     listView.setSize(QSize(20, 10));
+
+    auto model = new QStringListModel(
+                {
+                    "Some",
+                    "strings",
+                    "in this long",
+                    "model"
+                },
+                &listView);
+    listView.setModel(model);
+
     listView.show();
 
     return app.exec();
