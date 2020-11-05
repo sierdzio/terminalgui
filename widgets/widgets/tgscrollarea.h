@@ -50,8 +50,11 @@ protected:
     void updateScrollBarStates();
     void updateScrollBarPositions();
 
+    int _childrenWidth = 0;
+    int _childrenHeight = 0;
+
 protected slots:
-    void updateChildrenDimensions();
+    virtual void updateChildrenDimensions();
     void connectChild(Widget *child);
 
 private:
@@ -61,7 +64,5 @@ private:
     ScrollBarPolicy _horizontalScrollBarPolicy = ScrollBarPolicy::ShowWhenNeeded;
 
     QPoint _contentsPosition;
-    int _childrenWidth = 0;
-    int _childrenHeight = 0;
 };
 }

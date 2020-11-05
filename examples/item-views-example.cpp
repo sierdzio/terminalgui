@@ -58,12 +58,18 @@ int main(int argc, char *argv[])
                 {
                     "Some",
                     "strings",
-                    "in this long",
-                    "model"
+                    "in this long, very, very, very, long",
+                    "model",
+                    "are",
+                    "simply",
+                    "fabulous!",
+                    "Be sure",
+                    "to read them",
+                    "all"
                 },
                 &listView);
-    listView.setModel(model);
 
+    listView.setModel(model);
     listView.show();
 
     return app.exec();

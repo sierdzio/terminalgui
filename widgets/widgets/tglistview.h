@@ -12,6 +12,7 @@ class ListView : public ScrollArea
     Q_OBJECT
 
     Q_PROPERTY(bool wrapRows READ wrapRows WRITE setWrapRows NOTIFY wrapRowsChanged)
+    Q_PROPERTY(QAbstractItemModel* model READ model WRITE setModel NOTIFY modelChanged)
 
 public:
     ListView(Widget *parent);
@@ -29,10 +30,16 @@ public slots:
 
 signals:
     void wrapRowsChanged(const bool wrapRows) const;
+    void modelChanged(QAbstractItemModel* model) const;
 
 protected:
     void init() override;
     void consumeKeyboardBuffer(const QString &keyboardBuffer) override;
+
+    QString getLine(const int y) const;
+
+protected slots:
+    void updateChildrenDimensions() override;
 
 private:
     QPointer<QAbstractItemModel> _model;

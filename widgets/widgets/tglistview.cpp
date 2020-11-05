@@ -1,5 +1,6 @@
 #include "tglistview.h"
 
+#include <QRect>
 #include <QAbstractItemModel>
 
 Tg::ListView::ListView(Tg::Widget *parent) : Tg::ScrollArea(parent)
@@ -25,9 +26,7 @@ QString Tg::ListView::drawAreaContents(const QPoint &pixel) const
         return {};
     }
 
-    const QModelIndex index = model()->index(childPx.y(), 0);
-    const QString line = model()->data(index, Qt::ItemDataRole::DisplayRole).toString();
-
+    const QString line(getLine(childPx.y()));
     if (childPx.x() >= line.length()) {
         return {};
     }
@@ -42,7 +41,16 @@ QAbstractItemModel *Tg::ListView::model() const
 
 void Tg::ListView::setModel(QAbstractItemModel *model)
 {
+    if (_model == model) {
+        return;
+    }
+
+    // TODO: handle null model
+
     _model = model;
+    updateChildrenDimensions();
+
+    emit modelChanged(model);
 }
 
 bool Tg::ListView::wrapRows() const
@@ -62,9 +70,50 @@ void Tg::ListView::setWrapRows(const bool wrapRows)
 void Tg::ListView::init()
 {
     ScrollArea::init();
+
+    CHECK(connect(this, &ListView::wrapRowsChanged,
+                  this, &ListView::schedulePartialRedraw));
+    CHECK(connect(this, &ListView::modelChanged,
+                  this, &ListView::schedulePartialRedraw));
 }
 
 void Tg::ListView::consumeKeyboardBuffer(const QString &keyboardBuffer)
 {
     ScrollArea::consumeKeyboardBuffer(keyboardBuffer);
+}
+
+QString Tg::ListView::getLine(const int y) const
+{
+    const QModelIndex index = model()->index(y, 0);
+    return model()->data(index, Qt::ItemDataRole::DisplayRole).toString();
+}
+
+void Tg::ListView::updateChildrenDimensions()
+{
+    const int oldWidth = _childrenWidth;
+    const int oldHeight = _childrenHeight;
+    int longestRowInView = 0;
+
+    _childrenWidth = 0;
+    _childrenHeight = 0;
+    setContentsPosition(QPoint(0, 0));
+
+    if (_model.isNull()) {
+        return;
+    }
+
+    const QRect widgetSize = scrollableArea();
+
+    for (int i = 0; i < widgetSize.height(); ++i) {
+        const QString line(getLine(i));
+        longestRowInView = std::max(longestRowInView, line.length());
+        // TODO: wrap support
+    }
+
+    _childrenWidth = longestRowInView;
+    _childrenHeight = model()->rowCount();
+
+    if (oldWidth != _childrenWidth || oldHeight != _childrenHeight) {
+        updateScrollBarStates();
+    }
 }
