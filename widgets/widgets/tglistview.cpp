@@ -45,8 +45,6 @@ void Tg::ListView::setModel(QAbstractItemModel *model)
         return;
     }
 
-    // TODO: handle null model
-
     _model = model;
     updateChildrenDimensions();
 
