@@ -20,6 +20,7 @@ public:
     // Base widget
     Terminal::Color textColor =Terminal::Color::Predefined::White;
     Terminal::Color backgroundColor = Terminal::Color::Predefined::Black;
+    Terminal::Color alternativeBackgroundColor = Terminal::Color::Predefined::Gray;
     QChar backgroundCharacter = Terminal::Key::space;
 
     // LineEdit

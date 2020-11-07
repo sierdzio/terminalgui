@@ -15,8 +15,6 @@ Tg::ScrollArea::ScrollArea(Tg::Screen *screen) : Tg::Widget(screen)
 
 QString Tg::ScrollArea::drawPixel(const QPoint &pixel) const
 {
-    QString result;
-
     if (isBorder(pixel)) {
         return drawBorderPixel(pixel);
     } else {
@@ -63,21 +61,19 @@ QString Tg::ScrollArea::drawPixel(const QPoint &pixel) const
                 if (widget.isNull() == false) {
                     const QPoint childPx(childPixel(pixel));
                     const QPoint childPos(widget->position());
-                    result.append(widget->drawPixel(childPx - childPos));
-                    return result;
+                    return widget->drawPixel(childPx - childPos);
                 }
             }
         }
 
-        if (result.isEmpty()) {
-            result = drawAreaContents(pixel);
-            if (result.isEmpty() == false) {
-                return result;
-            }
+        const QString result = drawAreaContents(pixel);
+        if (result.isEmpty() == false) {
+            return result;
         }
     }
 
     // Draw default widget background
+    QString result;
     result.append(Terminal::Color::code(Terminal::Color::Predefined::Empty,
                                         backgroundColor()));
     result.append(backgroundCharacter());

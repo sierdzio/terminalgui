@@ -53,6 +53,8 @@ int main(int argc, char *argv[])
     Tg::ListView listView(&screen);
     listView.setPosition(QPoint(22, 1));
     listView.setSize(QSize(20, 10));
+    listView.setWrapRows(true);
+    listView.setAlternatingRowColors(true);
 
     auto model = new QStringListModel(
                 {

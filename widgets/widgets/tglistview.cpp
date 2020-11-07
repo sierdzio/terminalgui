@@ -1,4 +1,5 @@
 #include "tglistview.h"
+#include "styles/tgstyle.h"
 
 #include <QRect>
 #include <QAbstractItemModel>
@@ -26,12 +27,18 @@ QString Tg::ListView::drawAreaContents(const QPoint &pixel) const
         return {};
     }
 
+    const Terminal::Color background = (alternatingRowColors() && (childPx.y() % 2))?
+                alternativeBackgroundColor() : backgroundColor();
+    QString result = Terminal::Color::code(textColor(), background);
+
     const QString line(getLine(childPx.y()));
     if (childPx.x() >= line.length()) {
-        return {};
+        result.append(backgroundCharacter());
+        return result;
     }
 
-    return line.at(childPx.x());
+    result.append(line.at(childPx.x()));
+    return result;
 }
 
 QAbstractItemModel *Tg::ListView::model() const
@@ -56,6 +63,20 @@ bool Tg::ListView::wrapRows() const
     return _wrapRows;
 }
 
+bool Tg::ListView::alternatingRowColors() const
+{
+    return _alternatingRowColors;
+}
+
+Terminal::Color Tg::ListView::alternativeBackgroundColor() const
+{
+    if (_alternativeBackgroundColor.isEmpty()) {
+        return style()->alternativeBackgroundColor;
+    } else {
+        return _alternativeBackgroundColor;
+    }
+}
+
 void Tg::ListView::setWrapRows(const bool wrapRows)
 {
     if (_wrapRows == wrapRows)
@@ -63,6 +84,24 @@ void Tg::ListView::setWrapRows(const bool wrapRows)
 
     _wrapRows = wrapRows;
     emit wrapRowsChanged(_wrapRows);
+}
+
+void Tg::ListView::setAlternatingRowColors(const bool alternatingRowColors)
+{
+    if (_alternatingRowColors == alternatingRowColors)
+        return;
+
+    _alternatingRowColors = alternatingRowColors;
+    emit alternatingRowColorsChanged(_alternatingRowColors);
+}
+
+void Tg::ListView::setAlternativeBackgroundColor(const Terminal::Color &alternativeBackgroundColor)
+{
+    if (_alternativeBackgroundColor == alternativeBackgroundColor)
+        return;
+
+    _alternativeBackgroundColor = alternativeBackgroundColor;
+    emit alternativeBackgroundColorChanged(_alternativeBackgroundColor);
 }
 
 void Tg::ListView::init()
