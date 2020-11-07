@@ -17,6 +17,9 @@ public:
 
     Qt::CheckState checkState() const;
 
+    static QString checkBoxText(const Qt::CheckState state,
+                                const StylePointer &style);
+
 signals:
     void checkStateChanged(const Qt::CheckState checkState) const;
 

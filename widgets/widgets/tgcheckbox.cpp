@@ -26,6 +26,21 @@ Qt::CheckState Tg::CheckBox::checkState() const
     return _checkState;
 }
 
+QString Tg::CheckBox::checkBoxText(const Qt::CheckState state,
+                                   const StylePointer &style)
+{
+    switch (state) {
+    case Qt::CheckState::Checked:
+        return style->checkBoxChecked;
+    case Qt::CheckState::PartiallyChecked:
+        return style->checkBoxPartiallyChecked;
+    case Qt::CheckState::Unchecked:
+        return style->checkBoxUnChecked;
+    }
+
+    return {};
+}
+
 void Tg::CheckBox::setCheckState(const Qt::CheckState checkState)
 {
     if (_checkState == checkState)
@@ -71,14 +86,5 @@ void Tg::CheckBox::consumeKeyboardBuffer(const QString &keyboardBuffer)
 
 QString Tg::CheckBox::checkBoxText() const
 {
-    switch (checkState()) {
-    case Qt::CheckState::Checked:
-        return style()->checkBoxChecked;
-    case Qt::CheckState::PartiallyChecked:
-        return style()->checkBoxPartiallyChecked;
-    case Qt::CheckState::Unchecked:
-        return style()->checkBoxUnChecked;
-    }
-
-    return {};
+    return checkBoxText(checkState(), style());
 }

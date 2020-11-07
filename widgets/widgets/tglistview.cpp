@@ -1,4 +1,5 @@
 #include "tglistview.h"
+#include "tgcheckbox.h"
 #include "styles/tgstyle.h"
 
 #include <QRect>
@@ -121,7 +122,23 @@ void Tg::ListView::consumeKeyboardBuffer(const QString &keyboardBuffer)
 QString Tg::ListView::getLine(const int y) const
 {
     const QModelIndex index = model()->index(y, 0);
-    return model()->data(index, Qt::ItemDataRole::DisplayRole).toString();
+    const Qt::ItemFlags flags = model()->flags(index);
+
+    QString result;
+
+    if (flags.testFlag(Qt::ItemFlag::ItemIsUserCheckable)) {
+        const auto state = Qt::CheckState(
+                    model()->data(index, Qt::ItemDataRole::CheckStateRole).toInt());
+        result.append(CheckBox::checkBoxText(state, style()));
+    }
+
+    /*
+     * TODO: also handle:
+     * - ItemIsSelectable
+     */
+
+    result.append(model()->data(index, Qt::ItemDataRole::DisplayRole).toString());
+    return result;
 }
 
 void Tg::ListView::updateChildrenDimensions()
