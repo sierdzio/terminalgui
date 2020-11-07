@@ -154,7 +154,11 @@ void Tg::Screen::moveFocusToNextWidget()
 void Tg::Screen::redrawImmediately()
 {
     QTextStream stream(stdout);
+#if QT_VERSION_MAJOR < 6
     stream.setCodec("UTF-8");
+#else
+    stream.setEncoding(QStringConverter::Utf8);
+#endif
     stream.setAutoDetectUnicode(true);
 
     QVector<QPoint> points;

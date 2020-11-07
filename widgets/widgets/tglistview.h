@@ -3,8 +3,7 @@
 #include <widgets/tgscrollarea.h>
 
 #include <QPointer>
-
-class QAbstractItemModel;
+#include <QAbstractItemModel>
 
 namespace Tg {
 class ListView : public ScrollArea

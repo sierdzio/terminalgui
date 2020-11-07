@@ -2,7 +2,6 @@
 #include "styles/tgstyle.h"
 
 #include <QRect>
-#include <QAbstractItemModel>
 
 Tg::ListView::ListView(Tg::Widget *parent) : Tg::ScrollArea(parent)
 {
@@ -129,7 +128,7 @@ void Tg::ListView::updateChildrenDimensions()
 {
     const int oldWidth = _childrenWidth;
     const int oldHeight = _childrenHeight;
-    int longestRowInView = 0;
+    qsizetype longestRowInView = 0;
 
     _childrenWidth = 0;
     _childrenHeight = 0;
@@ -143,7 +142,7 @@ void Tg::ListView::updateChildrenDimensions()
 
     for (int i = 0; i < widgetSize.height(); ++i) {
         const QString line(getLine(i));
-        longestRowInView = std::max(longestRowInView, line.length());
+        longestRowInView = std::max(longestRowInView, qsizetype(line.length()));
         // TODO: wrap support
     }
 
