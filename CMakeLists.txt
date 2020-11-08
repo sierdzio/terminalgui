@@ -9,7 +9,7 @@ if (NOT WIN32)
   add_compile_options(-Wall -Werror -Wextra)
 endif (NOT WIN32)
 
-add_subdirectory(backend)
+add_subdirectory(core)
 add_subdirectory(widgets)
 add_subdirectory(examples)
 

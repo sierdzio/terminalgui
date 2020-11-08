@@ -40,7 +40,7 @@ add_library(terminalgui SHARED
 
 target_include_directories(terminalgui PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
-target_link_libraries(terminalgui PUBLIC terminalgui-backend)
+target_link_libraries(terminalgui PUBLIC terminalgui-core)
 
 install(TARGETS terminalgui
   #CONFIGURATIONS Release

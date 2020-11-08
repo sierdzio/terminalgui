@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(terminalgui-backend LANGUAGES CXX)
+project(terminalgui-core LANGUAGES CXX)
 
 # This has to be below project() because it calls find_* function
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Core REQUIRED)
@@ -20,7 +20,7 @@ else()
   SET(BACKEND_SRC tgterminal_linux.cpp)
 endif()
 
-add_library(terminalgui-backend SHARED
+add_library(terminalgui-core SHARED
   tgkey.h
   tgcommand.cpp tgcommand.h
   tgcolor.cpp tgcolor.h
@@ -28,13 +28,14 @@ add_library(terminalgui-backend SHARED
   ${BACKEND_SRC}
 )
 
-target_include_directories(terminalgui-backend PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(terminalgui-core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
-target_link_libraries(terminalgui-backend PUBLIC Qt${QT_VERSION_MAJOR}::Core)
+target_link_libraries(terminalgui-core PUBLIC Qt${QT_VERSION_MAJOR}::Core)
 
-set_target_properties(terminalgui-backend PROPERTIES PUBLIC_HEADER backend.h)
+set_target_properties(terminalgui-core
+  PROPERTIES PUBLIC_HEADER "tgterminal.h tgcolor.h tgcommand.h tgkey.h")
 
-install(TARGETS terminalgui-backend
+install(TARGETS terminalgui-core
   #CONFIGURATIONS Release
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION lib
