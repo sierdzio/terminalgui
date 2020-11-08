@@ -43,6 +43,7 @@ signals:
 private slots:
     void redrawImmediately();
     void checkKeyboard();
+    void setSize(const QSize &size);
 
 private:
     void updateRedrawRegions(const RedrawType type, const Widget *widget);

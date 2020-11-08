@@ -13,8 +13,10 @@ Tg::Screen::Screen(QObject *parent) : QObject(parent)
     _style = StylePointer::create();
 
     _terminal = new Terminal(this);
-    _size = _terminal->size();
-    emit sizeChanged(_size);
+    setSize(_terminal->size());
+
+    CHECK(connect(_terminal, &Terminal::sizeChanged,
+                  this, &Screen::setSize));
 
     //qDebug() << "TgScreen info:" << _size.width() << _size.height();
 
@@ -252,6 +254,14 @@ void Tg::Screen::checkKeyboard()
         }
 
         _activeFocusWidget->consumeKeyboardBuffer(characters);
+    }
+}
+
+void Tg::Screen::setSize(const QSize &size)
+{
+    if (_size != size) {
+        _size = size;
+        emit sizeChanged(size);
     }
 }
 

@@ -5,6 +5,20 @@
 #include <sys/ioctl.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <signal.h>
+
+static void linuxSignalHandler(const int signal)
+{
+    const auto terminal = Tg::Terminal::globalTerminal();
+    if (terminal == nullptr) {
+        return;
+    }
+
+    if (signal == SIGWINCH) {
+        const auto newSize = terminal->updateSize();
+        terminal->setSize(newSize);
+    }
+}
 
 QSize Tg::Terminal::updateSize()
 {
@@ -30,6 +44,14 @@ int Tg::Terminal::keyboardBufferSize()
 int Tg::Terminal::getChar()
 {
     return getchar();
+}
+
+void Tg::Terminal::registerSignalHandler()
+{
+    if (signal(SIGWINCH, linuxSignalHandler) == SIG_ERR) {
+        fputs("An error occurred while setting a signal handler.\n", stderr);
+        return;
+    }
 }
 
 // TODO: use termios! Right?
