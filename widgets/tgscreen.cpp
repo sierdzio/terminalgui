@@ -239,13 +239,11 @@ void Tg::Screen::checkKeyboard()
                 if (widget->acceptsFocus()
                         && widget->globalBoundingRectangle().contains(click))
                 {
+                    setActiveFocusWidget(widget);
                     auto button = qobject_cast<Button*>(widget);
                     if (button) {
                         button->click();
                     }
-
-                    setActiveFocusWidget(widget);
-
                     return;
                 }
             }
