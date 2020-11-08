@@ -9,14 +9,14 @@ class Button : public Label
 {
     Q_OBJECT
 
-    Q_PROPERTY(Terminal::Color activeTextColor READ activeTextColor WRITE setActiveTextColor NOTIFY activeTextColorChanged)
-    Q_PROPERTY(Terminal::Color activeBackgroundColor READ activeBackgroundColor WRITE setActiveBackgroundColor NOTIFY activeBackgroundColorChanged)
+    Q_PROPERTY(Tg::Color activeTextColor READ activeTextColor WRITE setActiveTextColor NOTIFY activeTextColorChanged)
+    Q_PROPERTY(Tg::Color activeBackgroundColor READ activeBackgroundColor WRITE setActiveBackgroundColor NOTIFY activeBackgroundColorChanged)
 
-    Q_PROPERTY(Terminal::Color inactiveTextColor READ inactiveTextColor WRITE setInactiveTextColor NOTIFY inactiveTextColorChanged)
-    Q_PROPERTY(Terminal::Color inactiveBackgroundColor READ inactiveBackgroundColor WRITE setInactiveBackgroundColor NOTIFY inactiveBackgroundColorChanged)
+    Q_PROPERTY(Tg::Color inactiveTextColor READ inactiveTextColor WRITE setInactiveTextColor NOTIFY inactiveTextColorChanged)
+    Q_PROPERTY(Tg::Color inactiveBackgroundColor READ inactiveBackgroundColor WRITE setInactiveBackgroundColor NOTIFY inactiveBackgroundColorChanged)
 
-    Q_PROPERTY(Terminal::Color pressedTextColor READ pressedTextColor WRITE setPressedTextColor NOTIFY pressedTextColorChanged)
-    Q_PROPERTY(Terminal::Color pressedBackgroundColor READ pressedBackgroundColor WRITE setPressedBackgroundColor NOTIFY pressedBackgroundColorChanged)
+    Q_PROPERTY(Tg::Color pressedTextColor READ pressedTextColor WRITE setPressedTextColor NOTIFY pressedTextColorChanged)
+    Q_PROPERTY(Tg::Color pressedBackgroundColor READ pressedBackgroundColor WRITE setPressedBackgroundColor NOTIFY pressedBackgroundColorChanged)
 
 public:
     Button(Widget *parent);
@@ -24,30 +24,30 @@ public:
     Button(const QString &text = QString(), Widget *parent = nullptr);
     Button(const QString &text = QString(), Screen *screen = nullptr);
 
-    Terminal::Color activeTextColor() const;
-    Terminal::Color activeBackgroundColor() const;
-    Terminal::Color inactiveTextColor() const;
-    Terminal::Color inactiveBackgroundColor() const;
-    Terminal::Color pressedTextColor() const;
-    Terminal::Color pressedBackgroundColor() const;
+    Tg::Color activeTextColor() const;
+    Tg::Color activeBackgroundColor() const;
+    Tg::Color inactiveTextColor() const;
+    Tg::Color inactiveBackgroundColor() const;
+    Tg::Color pressedTextColor() const;
+    Tg::Color pressedBackgroundColor() const;
 
 public slots:
-    void setActiveTextColor(const Terminal::Color &activeTextColor);
-    void setActiveBackgroundColor(const Terminal::Color &activeBackgroundColor);
-    void setInactiveTextColor(const Terminal::Color &inactiveTextColor);
-    void setInactiveBackgroundColor(const Terminal::Color &inactiveBackgroundColor);
-    void setPressedTextColor(const Terminal::Color &pressedTextColor);
-    void setPressedBackgroundColor(const Terminal::Color &pressedBackgroundColor);
+    void setActiveTextColor(const Tg::Color &activeTextColor);
+    void setActiveBackgroundColor(const Tg::Color &activeBackgroundColor);
+    void setInactiveTextColor(const Tg::Color &inactiveTextColor);
+    void setInactiveBackgroundColor(const Tg::Color &inactiveBackgroundColor);
+    void setPressedTextColor(const Tg::Color &pressedTextColor);
+    void setPressedBackgroundColor(const Tg::Color &pressedBackgroundColor);
 
 signals:
     void clicked() const;
 
-    void activeTextColorChanged(const Terminal::Color &activeTextColor) const;
-    void activeBackgroundColorChanged(const Terminal::Color &activeBackgroundColor) const;
-    void inactiveTextColorChanged(const Terminal::Color &inactiveTextColor) const;
-    void inactiveBackgroundColorChanged(const Terminal::Color &inactiveBackgroundColor) const;
-    void pressedTextColorChanged(const Terminal::Color &pressedTextColor) const;
-    void pressedBackgroundColorChanged(const Terminal::Color &pressedBackgroundColor) const;
+    void activeTextColorChanged(const Tg::Color &activeTextColor) const;
+    void activeBackgroundColorChanged(const Tg::Color &activeBackgroundColor) const;
+    void inactiveTextColorChanged(const Tg::Color &inactiveTextColor) const;
+    void inactiveBackgroundColorChanged(const Tg::Color &inactiveBackgroundColor) const;
+    void pressedTextColorChanged(const Tg::Color &pressedTextColor) const;
+    void pressedBackgroundColorChanged(const Tg::Color &pressedBackgroundColor) const;
 
 protected:
     void init() override;
@@ -59,11 +59,11 @@ protected slots:
 
 private:
     QTimer _buttonPressTimer;
-    Terminal::Color _activeTextColor = Terminal::Color::Predefined::Empty;
-    Terminal::Color _activeBackgroundColor = Terminal::Color::Predefined::Empty;
-    Terminal::Color _inactiveTextColor = Terminal::Color::Predefined::Empty;
-    Terminal::Color _inactiveBackgroundColor = Terminal::Color::Predefined::Empty;
-    Terminal::Color _pressedTextColor = Terminal::Color::Predefined::Empty;
-    Terminal::Color _pressedBackgroundColor = Terminal::Color::Predefined::Empty;
+    Tg::Color _activeTextColor = Tg::Color::Predefined::Empty;
+    Tg::Color _activeBackgroundColor = Tg::Color::Predefined::Empty;
+    Tg::Color _inactiveTextColor = Tg::Color::Predefined::Empty;
+    Tg::Color _inactiveBackgroundColor = Tg::Color::Predefined::Empty;
+    Tg::Color _pressedTextColor = Tg::Color::Predefined::Empty;
+    Tg::Color _pressedBackgroundColor = Tg::Color::Predefined::Empty;
 };
 }

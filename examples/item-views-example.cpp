@@ -2,6 +2,7 @@
 #include <QStringListModel>
 #include <QDebug>
 
+#include <tgterminal.h>
 #include <tgscreen.h>
 #include <widgets/tgwidget.h>
 #include <widgets/tglabel.h>
@@ -14,7 +15,7 @@ int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
 
-    Terminal::RawTerminalLocker locker;
+    Tg::RawTerminalLocker locker;
 
     Tg::Screen screen;
     Tg::Widget widget(&screen);
@@ -47,7 +48,7 @@ int main(int argc, char *argv[])
     tallLabel.setText(QObject::tr("Very long text which will DEFINITELY not fit the widget's height!"));
     tallLabel.setPosition(QPoint(0, 1));
     tallLabel.setSize(QSize(10, 7));
-    tallLabel.setTextColor(Terminal::Color::Predefined::Yellow);
+    tallLabel.setTextColor(Tg::Color::Predefined::Yellow);
     tallLabel.show();
 
     Tg::ListView listView(&screen);

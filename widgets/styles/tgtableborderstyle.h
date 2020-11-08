@@ -2,7 +2,7 @@
 
 #include "tgborderstyle.h"
 
-#include <backend.h>
+#include <tgcolor.h>
 
 namespace Tg {
 class TableBorderStyle : public BorderStyle
@@ -19,8 +19,8 @@ public:
         horizontal = u8"\u2550";
         vertical = u8"\u2551";
 
-        textColor = Terminal::Color::Predefined::White;
-        backgroundColor = Terminal::Color::Predefined::Black;
+        textColor = Tg::Color::Predefined::White;
+        backgroundColor = Tg::Color::Predefined::Black;
     }
 };
 }

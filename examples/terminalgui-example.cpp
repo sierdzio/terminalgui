@@ -2,9 +2,10 @@
 #include <QPropertyAnimation>
 #include <QDebug>
 
+#include <tgterminal.h>
+#include <tgscreen.h>
 #include <utils/tgreversibleanimation.h>
 #include <utils/tghelpers.h>
-#include <tgscreen.h>
 #include <widgets/tgwidget.h>
 #include <widgets/tglabel.h>
 #include <widgets/tgbutton.h>
@@ -14,35 +15,35 @@ int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
 
-    Terminal::RawTerminalLocker locker;
+    Tg::RawTerminalLocker locker;
 
     Tg::Screen screen;
     Tg::Label labelBelow(QObject::tr("Below with some extra text!"), &screen);
     labelBelow.setPosition(QPoint(20, 1));
     labelBelow.setSize(QSize(6, 5));
-    labelBelow.setTextColor(Terminal::Color::Predefined::Red);
-    labelBelow.setBackgroundColor(Terminal::Color::Predefined::Black);
+    labelBelow.setTextColor(Tg::Color::Predefined::Red);
+    labelBelow.setBackgroundColor(Tg::Color::Predefined::Black);
     labelBelow.setBorderVisible(false);
     labelBelow.show();
 
     Tg::Label label(QObject::tr("Hello world!"), &screen);
     label.setPosition(QPoint(1, 1));
-    label.setTextColor(Terminal::Color::Predefined::Green);
-    label.setBackgroundColor(Terminal::Color::Predefined::Black);
+    label.setTextColor(Tg::Color::Predefined::Green);
+    label.setBackgroundColor(Tg::Color::Predefined::Black);
     label.setBorderVisible(false);
     label.show();
 
     Tg::Label labelAbove(QObject::tr("Above"), &screen);
     labelAbove.setPosition(QPoint(40, 5));
-    labelAbove.setTextColor(Terminal::Color::Predefined::Cyan);
-    labelAbove.setBackgroundColor(Terminal::Color::Predefined::Black);
+    labelAbove.setTextColor(Tg::Color::Predefined::Cyan);
+    labelAbove.setBackgroundColor(Tg::Color::Predefined::Black);
     labelAbove.setBorderVisible(false);
     labelAbove.show();
 
     Tg::Label labelNotOnFirstRow(QObject::tr("Detached with some extra text!"), &screen);
     labelNotOnFirstRow.setPosition(QPoint(1, 6));
     labelNotOnFirstRow.setSize(QSize(8, 7));
-    labelNotOnFirstRow.setTextColor(Terminal::Color::Predefined::Blue);
+    labelNotOnFirstRow.setTextColor(Tg::Color::Predefined::Blue);
     labelNotOnFirstRow.show();
 
     Tg::Widget widget(&screen);

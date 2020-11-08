@@ -1,6 +1,8 @@
 #include "tgscrollarea.h"
 #include "tgscrollbar.h"
 
+#include <tgkey.h>
+
 #include <QRect>
 
 Tg::ScrollArea::ScrollArea(Tg::Widget *parent) : Tg::Widget(parent)
@@ -74,7 +76,7 @@ QString Tg::ScrollArea::drawPixel(const QPoint &pixel) const
 
     // Draw default widget background
     QString result;
-    result.append(Terminal::Color::code(Terminal::Color::Predefined::Empty,
+    result.append(Tg::Color::code(Tg::Color::Predefined::Empty,
                                         backgroundColor()));
     result.append(backgroundCharacter());
     return result;
@@ -130,7 +132,7 @@ void Tg::ScrollArea::init()
 
 void Tg::ScrollArea::consumeKeyboardBuffer(const QString &keyboardBuffer)
 {
-    if (keyboardBuffer.contains(Terminal::Key::right)) {
+    if (keyboardBuffer.contains(Tg::Key::right)) {
         const int currentX = contentsPosition().x();
         const int hiddenLength = std::abs(currentX);
         const int contentsWidth = scrollableArea().width();
@@ -142,7 +144,7 @@ void Tg::ScrollArea::consumeKeyboardBuffer(const QString &keyboardBuffer)
         }
     }
 
-    if (keyboardBuffer.contains(Terminal::Key::left)) {
+    if (keyboardBuffer.contains(Tg::Key::left)) {
         const int currentX = contentsPosition().x();
         if (currentX < 0) {
             QPoint pos = contentsPosition();
@@ -151,7 +153,7 @@ void Tg::ScrollArea::consumeKeyboardBuffer(const QString &keyboardBuffer)
         }
     }
 
-    if (keyboardBuffer.contains(Terminal::Key::down)) {
+    if (keyboardBuffer.contains(Tg::Key::down)) {
         const int currentY = contentsPosition().y();
         const int hiddenLength = std::abs(currentY);
         const int contentsHeight = scrollableArea().height();
@@ -163,7 +165,7 @@ void Tg::ScrollArea::consumeKeyboardBuffer(const QString &keyboardBuffer)
         }
     }
 
-    if (keyboardBuffer.contains(Terminal::Key::up)) {
+    if (keyboardBuffer.contains(Tg::Key::up)) {
         const int currentY = contentsPosition().y();
         if (currentY < 0) {
             QPoint pos = contentsPosition();

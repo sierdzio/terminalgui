@@ -1,6 +1,6 @@
 #pragma once
 
-#include <backend.h>
+#include <tgcolor.h>
 
 #include <QString>
 #include <QSharedPointer>
@@ -21,11 +21,11 @@ public:
     QChar horizontalOvershoot = 0x025BC;
     QChar verticalOvershoot = 0x025B6;
 
-    Terminal::Color textColor = Terminal::Color::Predefined::White;
-    Terminal::Color backgroundColor = Terminal::Color::Predefined::Black;
+    Tg::Color textColor = Tg::Color::Predefined::White;
+    Tg::Color backgroundColor = Tg::Color::Predefined::Black;
 
-    Terminal::Color overshootTextColor = Terminal::Color::Predefined::Red;
-    Terminal::Color overshootBackgroundColor = Terminal::Color::Predefined::Black;
+    Tg::Color overshootTextColor = Tg::Color::Predefined::Red;
+    Tg::Color overshootBackgroundColor = Tg::Color::Predefined::Black;
 };
 
 using BorderStylePointer = QSharedPointer<Tg::BorderStyle>;

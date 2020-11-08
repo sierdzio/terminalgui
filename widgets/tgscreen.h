@@ -10,6 +10,7 @@
 #include "utils/tghelpers.h"
 
 namespace Tg {
+class Terminal;
 class Screen : public QObject
 {
     Q_OBJECT
@@ -56,5 +57,6 @@ private:
     QList<WidgetPointer> _widgets;
     WidgetPointer _activeFocusWidget;
     StylePointer _style;
+    QPointer<Terminal> _terminal;
 };
 }

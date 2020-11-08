@@ -12,7 +12,7 @@ class ListView : public ScrollArea
 
     Q_PROPERTY(bool wrapRows READ wrapRows WRITE setWrapRows NOTIFY wrapRowsChanged)
     Q_PROPERTY(bool alternatingRowColors READ alternatingRowColors WRITE setAlternatingRowColors NOTIFY alternatingRowColorsChanged)
-    Q_PROPERTY(Terminal::Color alternativeBackgroundColor READ alternativeBackgroundColor WRITE setAlternativeBackgroundColor NOTIFY alternativeBackgroundColorChanged)
+    Q_PROPERTY(Tg::Color alternativeBackgroundColor READ alternativeBackgroundColor WRITE setAlternativeBackgroundColor NOTIFY alternativeBackgroundColorChanged)
     Q_PROPERTY(QAbstractItemModel* model READ model WRITE setModel NOTIFY modelChanged)
 
 public:
@@ -26,18 +26,18 @@ public:
 
     bool wrapRows() const;
     bool alternatingRowColors() const;
-    Terminal::Color alternativeBackgroundColor() const;
+    Tg::Color alternativeBackgroundColor() const;
 
 public slots:
     void setWrapRows(const bool wrapRows);
     void setAlternatingRowColors(const bool alternatingRowColors);
-    void setAlternativeBackgroundColor(const Terminal::Color &alternativeBackgroundColor);
+    void setAlternativeBackgroundColor(const Tg::Color &alternativeBackgroundColor);
 
 signals:
     void wrapRowsChanged(const bool wrapRows) const;
     void alternatingRowColorsChanged(const bool alternatingRowColors) const;
     void modelChanged(QAbstractItemModel* model) const;
-    void alternativeBackgroundColorChanged(const Terminal::Color &alternativeBackgroundColor) const;
+    void alternativeBackgroundColorChanged(const Tg::Color &alternativeBackgroundColor) const;
 
 protected:
     void init() override;
@@ -52,6 +52,6 @@ private:
     QPointer<QAbstractItemModel> _model;
     bool _wrapRows = false;
     bool _alternatingRowColors = false;
-    Terminal::Color _alternativeBackgroundColor = Terminal::Color::Predefined::Empty;
+    Tg::Color _alternativeBackgroundColor = Tg::Color::Predefined::Empty;
 };
 }

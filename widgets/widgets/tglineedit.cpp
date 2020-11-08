@@ -39,7 +39,7 @@ int Tg::LineEdit::cursorPosition() const
     return _cursorPosition;
 }
 
-Terminal::Color Tg::LineEdit::placeholderTextColor() const
+Tg::Color Tg::LineEdit::placeholderTextColor() const
 {
     if (_placeholderTextColor.isEmpty()) {
         return style()->placeholderTextColor;
@@ -48,7 +48,7 @@ Terminal::Color Tg::LineEdit::placeholderTextColor() const
     }
 }
 
-Terminal::Color Tg::LineEdit::placeholderBackgroundColor() const
+Tg::Color Tg::LineEdit::placeholderBackgroundColor() const
 {
     if (_placeholderBackgroundColor.isEmpty()) {
         return style()->placeholderBackgroundColor;
@@ -75,7 +75,7 @@ void Tg::LineEdit::setCursorPosition(const int cursorPosition)
     emit cursorPositionChanged(_cursorPosition);
 }
 
-void Tg::LineEdit::setPlaceholderTextColor(const Terminal::Color &placeholderTextColor)
+void Tg::LineEdit::setPlaceholderTextColor(const Tg::Color &placeholderTextColor)
 {
     if (_placeholderTextColor == placeholderTextColor)
         return;
@@ -84,7 +84,7 @@ void Tg::LineEdit::setPlaceholderTextColor(const Terminal::Color &placeholderTex
     emit placeholderTextColorChanged(_placeholderTextColor);
 }
 
-void Tg::LineEdit::setPlaceholderBackgroundColor(const Terminal::Color &placeholderBackgroundColor)
+void Tg::LineEdit::setPlaceholderBackgroundColor(const Tg::Color &placeholderBackgroundColor)
 {
     if (_placeholderBackgroundColor == placeholderBackgroundColor)
         return;
@@ -110,13 +110,13 @@ void Tg::LineEdit::consumeKeyboardBuffer(const QString &keyboardBuffer)
 {
     if (contentsRectangle().height() == 1) {
         // Up Arrow
-        if (keyboardBuffer.contains(Terminal::Key::up)) {
+        if (keyboardBuffer.contains(Tg::Key::up)) {
             emit moveFocusToPreviousWidget();
             return;
         }
 
         // Down Arrow
-        if (keyboardBuffer.contains(Terminal::Key::down)) {
+        if (keyboardBuffer.contains(Tg::Key::down)) {
             emit moveFocusToNextWidget();
             return;
         }
@@ -125,7 +125,7 @@ void Tg::LineEdit::consumeKeyboardBuffer(const QString &keyboardBuffer)
     }
 
     // Right Arrow
-    if (const QString command(Terminal::Key::right);
+    if (const QString command(Tg::Key::right);
         keyboardBuffer.contains(command)) {
         if (cursorPosition() <= _realText.size()) {
             setCursorPosition(cursorPosition() + 1);
@@ -134,7 +134,7 @@ void Tg::LineEdit::consumeKeyboardBuffer(const QString &keyboardBuffer)
     }
 
     // Left Arrow
-    if (const QString command(Terminal::Key::left);
+    if (const QString command(Tg::Key::left);
         keyboardBuffer.contains(command)) {
         if (cursorPosition() > 0) {
             setCursorPosition(cursorPosition() - 1);
@@ -143,7 +143,7 @@ void Tg::LineEdit::consumeKeyboardBuffer(const QString &keyboardBuffer)
     }
 
     // Backspace!
-    if (const int command(Terminal::Key::backspace);
+    if (const int command(Tg::Key::backspace);
         keyboardBuffer.contains(command)) {
         if (_cursorPosition > 0) {
             setCursorPosition(cursorPosition() - 1);
@@ -155,7 +155,7 @@ void Tg::LineEdit::consumeKeyboardBuffer(const QString &keyboardBuffer)
     }
 
     // Delete!
-    if (const QString command(Terminal::Key::del);
+    if (const QString command(Tg::Key::del);
         keyboardBuffer.contains(command)) {
         if (_realText.isEmpty() == false) {
             _realText.remove(cursorPosition(), 1);

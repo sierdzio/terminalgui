@@ -1,7 +1,9 @@
-#include "backend.h"
+#include "tgcolor.h"
+#include "tgterminal.h"
+#include "tgcommand.h"
 
-QString Terminal::Color::code(const Terminal::Color &foregroundColor,
-                              const Terminal::Color &backgroundColor)
+QString Tg::Color::code(const Tg::Color &foregroundColor,
+                              const Tg::Color &backgroundColor)
 {
     const bool forceTrueColor = (foregroundColor.isPredefined() == false)
             || (backgroundColor.isPredefined() == false);
@@ -13,7 +15,7 @@ QString Terminal::Color::code(const Terminal::Color &foregroundColor,
             + Command::ansiEscapeEnd;
 }
 
-QString Terminal::Color::code(const Terminal::Color &color,
+QString Tg::Color::code(const Tg::Color &color,
                               const bool isBackground,
                               const bool forceTrueColor)
 {
@@ -32,52 +34,52 @@ QString Terminal::Color::code(const Terminal::Color &color,
     }
 }
 
-QString Terminal::Color::end()
+QString Tg::Color::end()
 {
-    return Terminal::Command::colorEnd;
+    return Command::colorEnd;
 }
 
-Terminal::Color::Color(const Terminal::Color::Predefined predefined)
+Tg::Color::Color(const Tg::Color::Predefined predefined)
     : _predefined(predefined)
 {
 }
 
-Terminal::Color::Color(const quint8 red, const quint8 green, const quint8 blue)
+Tg::Color::Color(const quint8 red, const quint8 green, const quint8 blue)
     : _red(red), _green(green), _blue(blue)
 {
 }
 
-QString Terminal::Color::rgb() const
+QString Tg::Color::rgb() const
 {
     return QString::number(_red) + Command::positionSeparator
             + QString::number(_green) + Command::positionSeparator
             + QString::number(_blue);
 }
 
-quint8 Terminal::Color::red() const
+quint8 Tg::Color::red() const
 {
     return _red;
 }
 
-quint8 Terminal::Color::green() const
+quint8 Tg::Color::green() const
 {
     return _green;
 }
 
-quint8 Terminal::Color::blue() const
+quint8 Tg::Color::blue() const
 {
     return _blue;
 }
 
-Terminal::Color::Predefined Terminal::Color::predefined() const
+Tg::Color::Predefined Tg::Color::predefined() const
 {
     return _predefined;
 }
 
-bool Terminal::Color::isEmpty() const
+bool Tg::Color::isEmpty() const
 {
     if (isPredefined()) {
-        return _predefined == Terminal::Color::Predefined::Empty;
+        return _predefined == Tg::Color::Predefined::Empty;
     } else {
         // TODO: support empty true color
         //return _red == 0 && _green == 0 && _blue == 0;
@@ -85,17 +87,17 @@ bool Terminal::Color::isEmpty() const
     }
 }
 
-bool Terminal::Color::isPredefined() const
+bool Tg::Color::isPredefined() const
 {
-    return _predefined != Terminal::Color::Predefined::Invalid;
+    return _predefined != Color::Predefined::Invalid;
 }
 
-bool Terminal::Color::isTrueColor() const
+bool Tg::Color::isTrueColor() const
 {
     return !isPredefined();
 }
 
-bool Terminal::Color::operator==(const Terminal::Color &other) const
+bool Tg::Color::operator==(const Tg::Color &other) const
 {
     if (isPredefined() && other.isPredefined()) {
         return predefined() == other.predefined();
@@ -106,14 +108,7 @@ bool Terminal::Color::operator==(const Terminal::Color &other) const
     }
 }
 
-int Terminal::Color::predefinedValue() const
+int Tg::Color::predefinedValue() const
 {
     return int(_predefined);
-}
-
-QString Terminal::Command::moveToPosition(const int x, const int y)
-{
-    return Command::ansiEscape + QString::number(y)
-            + Command::positionSeparator + QString::number(x)
-            + Command::ansiPositionEnd;
 }

@@ -2,7 +2,7 @@
 #include "widgets/tgwidget.h"
 #include "styles/tgstyle.h"
 
-#include <backend.h>
+#include <tgterminal.h>
 
 #include <QPoint>
 #include <QRect>
@@ -12,9 +12,8 @@ Tg::Screen::Screen(QObject *parent) : QObject(parent)
 {
     _style = StylePointer::create();
 
-    const Terminal::Size size = Terminal::updateSize();
-    _size.setWidth(size.width);
-    _size.setHeight(size.height);
+    _terminal = new Terminal(this);
+    _size = _terminal->size();
     emit sizeChanged(_size);
 
     //qDebug() << "TgScreen info:" << _size.width() << _size.height();
@@ -191,7 +190,7 @@ void Tg::Screen::redrawImmediately()
                 // TODO: consider using Terminal::currentPosition() to
                 // prevent move operation if it's not needed. This could
                 // speed things up (or slow them down...)
-                stream << Terminal::Command::moveToPosition(x, y);
+                stream << Tg::Command::moveToPosition(x, y);
 
                 bool drawn = false;
                 // TODO: properly handle Z value...
@@ -206,7 +205,7 @@ void Tg::Screen::redrawImmediately()
 
                 if (drawn == false) {
                     stream << style()->screenBackground;
-                    stream << Terminal::Color::end();
+                    stream << Tg::Color::end();
                 }
 
                 points.append(pixel);
@@ -215,8 +214,8 @@ void Tg::Screen::redrawImmediately()
     }
 
     // Reset cursor to bottom-right corner
-    stream << Terminal::Color::end();
-    stream << Terminal::Command::moveToPosition(size().width(), size().height());
+    stream << Tg::Color::end();
+    stream << Tg::Command::moveToPosition(size().width(), size().height());
     _redrawRegions.clear();
 }
 
@@ -229,7 +228,7 @@ void Tg::Screen::checkKeyboard()
             characters.append(Terminal::getChar());
         }
 
-        if (const QString command(Terminal::Key::tab);
+        if (const QString command(Tg::Key::tab);
                 characters.contains(command)) {
             // Move to next input
             moveFocusToNextWidget();
@@ -238,14 +237,14 @@ void Tg::Screen::checkKeyboard()
 
         if (_activeFocusWidget->verticalArrowsMoveFocus()) {
             // Up Arrow
-            if (const QString command(Terminal::Key::up);
+            if (const QString command(Tg::Key::up);
                     characters.contains(command)) {
                 moveFocusToPreviousWidget();
                 characters.remove(command);
             }
 
             // Down Arrow
-            if (const QString command(Terminal::Key::down);
+            if (const QString command(Tg::Key::down);
                     characters.contains(command)) {
                 moveFocusToNextWidget();
                 characters.remove(command);

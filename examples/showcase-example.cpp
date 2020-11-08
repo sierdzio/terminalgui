@@ -1,6 +1,7 @@
 #include <QCoreApplication>
 #include <QDebug>
 
+#include <tgterminal.h>
 #include <tgscreen.h>
 #include <widgets/tgwidget.h>
 #include <widgets/tglabel.h>
@@ -31,7 +32,7 @@ int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
 
-    Terminal::RawTerminalLocker locker;
+    Tg::RawTerminalLocker locker;
 
     Tg::Screen screen;
     Tg::Widget widget(&screen);

@@ -2,7 +2,8 @@
 #include "tgscreen.h"
 #include "utils/tghelpers.h"
 
-#include <backend.h>
+#include <tgkey.h>
+#include <tgcommand.h>
 
 #include <QRect>
 #include <QDebug>
@@ -41,7 +42,7 @@ QString Tg::Label::drawPixel(const QPoint &pixel) const
     }
 
     QString result;
-    result.append(Terminal::Color::code(textColor(), backgroundColor()));
+    result.append(Tg::Color::code(textColor(), backgroundColor()));
 
     const QRect contents = contentsRectangle();
     const int charX = pixel.x() - contents.x();
@@ -54,14 +55,14 @@ QString Tg::Label::drawPixel(const QPoint &pixel) const
 
         if (line.size() > charX) {
             if (highlighted()) {
-                result.append(Terminal::Command::bold);
+                result.append(Tg::Command::bold);
             }
             result.append(line.at(charX).unicode());
         } else {
-            result.append(Terminal::Key::space);
+            result.append(Tg::Key::space);
         }
     } else {
-        result.append(Terminal::Key::space);
+        result.append(Tg::Key::space);
     }
 
     return result;
@@ -130,7 +131,7 @@ void Tg::Label::layoutText()
         txt.append(text());
         while (txt.length() < width) {
             // Fill with spaces
-            txt.append(Terminal::Key::space);
+            txt.append(Tg::Key::space);
         }
         _laidOutTextCache.append(txt);
         return;
@@ -166,7 +167,7 @@ void Tg::Label::layoutText()
 
         while (currentString.length() < width) {
             // Fill with spaces
-            currentString.append(Terminal::Key::space);
+            currentString.append(Tg::Key::space);
         }
         _laidOutTextCache.append(currentString);
     }

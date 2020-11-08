@@ -1,4 +1,4 @@
-#include "backend.h"
+#include "tgterminal.h"
 
 // For reading terminal size
 // https://stackoverflow.com/questions/1022957/getting-terminal-width-in-c
@@ -6,34 +6,28 @@
 #include <stdio.h>
 #include <unistd.h>
 
-Terminal::Size Terminal::updateSize()
+QSize Tg::Terminal::updateSize()
 {
     winsize w;
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-    Terminal::Size result;
-    result.width = w.ws_col;
-    result.height = w.ws_row;
-    return result;
+    return QSize(w.ws_col, w.ws_row);
 }
 
-Terminal::Position Terminal::currentPosition()
+QPoint Tg::Terminal::currentPosition()
 {
     winsize w;
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-    Terminal::Position result;
-    result.x = w.ws_xpixel;
-    result.y = w.ws_ypixel;
-    return result;
+    return QPoint(w.ws_xpixel, w.ws_ypixel);
 }
 
-int Terminal::keyboardBufferSize()
+int Tg::Terminal::keyboardBufferSize()
 {
     int i;
     ioctl(standardInputIndex, FIONREAD, &i);
     return i;
 }
 
-int Terminal::getChar()
+int Tg::Terminal::getChar()
 {
     return getchar();
 }
@@ -41,7 +35,7 @@ int Terminal::getChar()
 // TODO: use termios! Right?
 //#include <termios.h>
 
-Terminal::RawTerminalLocker::RawTerminalLocker()
+Tg::RawTerminalLocker::RawTerminalLocker()
 {
     //struct termios term;
     //tcgetattr(standardInputIndex, &term);
@@ -52,7 +46,7 @@ Terminal::RawTerminalLocker::RawTerminalLocker()
     system("stty raw -echo");
 }
 
-Terminal::RawTerminalLocker::~RawTerminalLocker()
+Tg::RawTerminalLocker::~RawTerminalLocker()
 {
     system("stty cooked echo");
 }

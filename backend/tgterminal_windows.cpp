@@ -5,7 +5,7 @@
 #include <windows.h>
 #include <conio.h>
 
-Terminal::Size Terminal::updateSize()
+QSize Tg::Terminal::updateSize()
 {
     CONSOLE_SCREEN_BUFFER_INFO csbi;
     int columns, rows;
@@ -14,43 +14,35 @@ Terminal::Size Terminal::updateSize()
     columns = csbi.srWindow.Right - csbi.srWindow.Left + 1;
     rows = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
 
-    Terminal::Size result;
-    result.width = columns;
-    result.height = rows;
-    return result;
+    return QSize(columns, rows);
 }
 
-Terminal::Position Terminal::currentPosition()
+QPoint Tg::Terminal::currentPosition()
 {
-//    winsize w;
-//    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-    Terminal::Position result;
-//    result.x = w.ws_xpixel;
-//    result.y = w.ws_ypixel;
-    return result;
+    return QPoint();
 }
 
-int Terminal::keyboardBufferSize()
+int Tg::Terminal::keyboardBufferSize()
 {
     //https://docs.microsoft.com/en-us/cpp/c-runtime-library/console-and-port-i-o?redirectedfrom=MSDN&view=vs-2019
     return _kbhit();
 }
 
-int Terminal::getChar()
+int Tg::Terminal::getChar()
 {
     // https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/getch-getwch?view=vs-2019
     return _getch();
 }
 
 #include <iostream>
-Terminal::RawTerminalLocker::RawTerminalLocker()
+Tg::RawTerminalLocker::RawTerminalLocker()
 {
     // This is Windowese for "UTF-8, sorta where we feel like it"
     system("chcp 65001");
     system("cls");
 }
 
-Terminal::RawTerminalLocker::~RawTerminalLocker()
+Tg::RawTerminalLocker::~RawTerminalLocker()
 {
     system("cls");
 }

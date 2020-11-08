@@ -27,9 +27,9 @@ QString Tg::ListView::drawAreaContents(const QPoint &pixel) const
         return {};
     }
 
-    const Terminal::Color background = (alternatingRowColors() && (childPx.y() % 2))?
+    const Tg::Color background = (alternatingRowColors() && (childPx.y() % 2))?
                 alternativeBackgroundColor() : backgroundColor();
-    QString result = Terminal::Color::code(textColor(), background);
+    QString result = Tg::Color::code(textColor(), background);
 
     const QString line(getLine(childPx.y()));
     if (childPx.x() >= line.length()) {
@@ -68,7 +68,7 @@ bool Tg::ListView::alternatingRowColors() const
     return _alternatingRowColors;
 }
 
-Terminal::Color Tg::ListView::alternativeBackgroundColor() const
+Tg::Color Tg::ListView::alternativeBackgroundColor() const
 {
     if (_alternativeBackgroundColor.isEmpty()) {
         return style()->alternativeBackgroundColor;
@@ -95,7 +95,7 @@ void Tg::ListView::setAlternatingRowColors(const bool alternatingRowColors)
     emit alternatingRowColorsChanged(_alternatingRowColors);
 }
 
-void Tg::ListView::setAlternativeBackgroundColor(const Terminal::Color &alternativeBackgroundColor)
+void Tg::ListView::setAlternativeBackgroundColor(const Tg::Color &alternativeBackgroundColor)
 {
     if (_alternativeBackgroundColor == alternativeBackgroundColor)
         return;

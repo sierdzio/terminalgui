@@ -1,6 +1,7 @@
 #pragma once
 
-#include <backend.h>
+#include <tgcolor.h>
+#include <tgkey.h>
 
 #include "tgborderstyle.h"
 
@@ -15,27 +16,27 @@ public:
     void setBorderStyleValues(const BorderStyle &borderStyle);
 
     // Screen
-    QChar screenBackground = Terminal::Key::space;
+    QChar screenBackground = Tg::Key::space;
 
     // Base widget
-    Terminal::Color textColor =Terminal::Color::Predefined::White;
-    Terminal::Color backgroundColor = Terminal::Color::Predefined::Black;
-    Terminal::Color alternativeBackgroundColor = Terminal::Color::Predefined::Gray;
-    QChar backgroundCharacter = Terminal::Key::space;
+    Tg::Color textColor =Tg::Color::Predefined::White;
+    Tg::Color backgroundColor = Tg::Color::Predefined::Black;
+    Tg::Color alternativeBackgroundColor = Tg::Color::Predefined::Gray;
+    QChar backgroundCharacter = Tg::Key::space;
 
     // LineEdit
-    Terminal::Color placeholderTextColor = Terminal::Color::Predefined::Gray;
-    Terminal::Color placeholderBackgroundColor = Terminal::Color::Predefined::Black;
+    Tg::Color placeholderTextColor = Tg::Color::Predefined::Gray;
+    Tg::Color placeholderBackgroundColor = Tg::Color::Predefined::Black;
 
     // Button
-    Terminal::Color activeTextColor = Terminal::Color::Predefined::Black;
-    Terminal::Color activeBackgroundColor = Terminal::Color::Predefined::White;
+    Tg::Color activeTextColor = Tg::Color::Predefined::Black;
+    Tg::Color activeBackgroundColor = Tg::Color::Predefined::White;
 
-    Terminal::Color inactiveTextColor = Terminal::Color::Predefined::White;
-    Terminal::Color inactiveBackgroundColor = Terminal::Color::Predefined::Gray;
+    Tg::Color inactiveTextColor = Tg::Color::Predefined::White;
+    Tg::Color inactiveBackgroundColor = Tg::Color::Predefined::Gray;
 
-    Terminal::Color pressedTextColor = Terminal::Color::Predefined::Green;
-    Terminal::Color pressedBackgroundColor = Terminal::Color::Predefined::LightWhite;
+    Tg::Color pressedTextColor = Tg::Color::Predefined::Green;
+    Tg::Color pressedBackgroundColor = Tg::Color::Predefined::LightWhite;
 
     // CheckBox
     QString checkBoxChecked = u8"\u2612 ";
@@ -49,29 +50,29 @@ public:
     // ScrollBar
     // https://decodeunicode.org/en/u+025C8
     QChar sliderCharacter = 0x025C8;
-    Terminal::Color sliderColor = Terminal::Color::Predefined::Yellow;
-    Terminal::Color sliderActiveColor = Terminal::Color::Predefined::Green;
-    Terminal::Color sliderInactiveColor = Terminal::Color::Predefined::Gray;
-    Terminal::Color sliderBackgroundColor = Terminal::Color::Predefined::Black;
-    Terminal::Color sliderActiveBackgroundColor = Terminal::Color::Predefined::Gray;
-    Terminal::Color sliderInactiveBackgroundColor = Terminal::Color::Predefined::Black;
+    Tg::Color sliderColor = Tg::Color::Predefined::Yellow;
+    Tg::Color sliderActiveColor = Tg::Color::Predefined::Green;
+    Tg::Color sliderInactiveColor = Tg::Color::Predefined::Gray;
+    Tg::Color sliderBackgroundColor = Tg::Color::Predefined::Black;
+    Tg::Color sliderActiveBackgroundColor = Tg::Color::Predefined::Gray;
+    Tg::Color sliderInactiveBackgroundColor = Tg::Color::Predefined::Black;
 
     QChar backwardArrowUpCharacter = 0x025B2;
     QChar backwardArrowLeftCharacter = 0x025C0;
-    Terminal::Color backwardArrowColor = Terminal::Color::Predefined::Green;
-    Terminal::Color backwardArrowActiveColor = Terminal::Color::Predefined::Black;
-    Terminal::Color backwardArrowInactiveColor = Terminal::Color::Predefined::White;
-    Terminal::Color backwardArrowBackgroundColor = Terminal::Color::Predefined::Black;
-    Terminal::Color backwardArrowActiveBackgroundColor = Terminal::Color::Predefined::Green;
-    Terminal::Color backwardArrowInactiveBackgroundColor = Terminal::Color::Predefined::Gray;
+    Tg::Color backwardArrowColor = Tg::Color::Predefined::Green;
+    Tg::Color backwardArrowActiveColor = Tg::Color::Predefined::Black;
+    Tg::Color backwardArrowInactiveColor = Tg::Color::Predefined::White;
+    Tg::Color backwardArrowBackgroundColor = Tg::Color::Predefined::Black;
+    Tg::Color backwardArrowActiveBackgroundColor = Tg::Color::Predefined::Green;
+    Tg::Color backwardArrowInactiveBackgroundColor = Tg::Color::Predefined::Gray;
 
     QChar forwardArrowDownCharacter = 0x025BC;
     QChar forwardArrowRightCharacter = 0x025B6;
-    Terminal::Color forwardArrowColor = backwardArrowColor;
-    Terminal::Color forwardArrowActiveColor = backwardArrowActiveColor;
-    Terminal::Color forwardArrowInactiveColor = backwardArrowInactiveColor;
-    Terminal::Color forwardArrowBackgroundColor = backwardArrowBackgroundColor;
-    Terminal::Color forwardArrowActiveBackgroundColor = backwardArrowActiveBackgroundColor;
-    Terminal::Color forwardArrowInactiveBackgroundColor = backwardArrowInactiveBackgroundColor;
+    Tg::Color forwardArrowColor = backwardArrowColor;
+    Tg::Color forwardArrowActiveColor = backwardArrowActiveColor;
+    Tg::Color forwardArrowInactiveColor = backwardArrowInactiveColor;
+    Tg::Color forwardArrowBackgroundColor = backwardArrowBackgroundColor;
+    Tg::Color forwardArrowActiveBackgroundColor = backwardArrowActiveBackgroundColor;
+    Tg::Color forwardArrowInactiveBackgroundColor = backwardArrowInactiveBackgroundColor;
 };
 }

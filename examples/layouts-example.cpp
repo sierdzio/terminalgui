@@ -1,6 +1,7 @@
 #include <QCoreApplication>
 #include <QDebug>
 
+#include <tgterminal.h>
 #include <tgscreen.h>
 #include <widgets/tgwidget.h>
 #include <widgets/tglabel.h>
@@ -35,7 +36,7 @@ int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
 
-    Terminal::RawTerminalLocker locker;
+    Tg::RawTerminalLocker locker;
 
     const QSize size(10, 5);
 
@@ -49,7 +50,7 @@ int main(int argc, char *argv[])
 
     Tg::Button quitButton(QObject::tr("Quit"), &widget);
     quitButton.setObjectName("quitButton");
-    quitButton.show();    
+    quitButton.show();
 
     Tg::Widget widgetFill(&screen);
     widgetFill.setObjectName("widgetFill");
@@ -65,9 +66,9 @@ int main(int argc, char *argv[])
     Tg::Widget widgetColumn(&screen);
     auto style = Tg::StylePointer::create();
     style->setBorderStyleValues(Tg::TableBorderStyle());
-    style->border->backgroundColor = Terminal::Color::Predefined::Green;
-    style->backgroundColor = Terminal::Color::Predefined::Red;
-    style->inactiveBackgroundColor = Terminal::Color::Predefined::LightMagenta;
+    style->border->backgroundColor = Tg::Color::Predefined::Green;
+    style->backgroundColor = Tg::Color::Predefined::Red;
+    style->inactiveBackgroundColor = Tg::Color::Predefined::LightMagenta;
     widgetColumn.setStyle(style, true);
 
     widgetColumn.setObjectName("widgetColumn");

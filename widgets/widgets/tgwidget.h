@@ -7,7 +7,7 @@
 
 #include <QMetaEnum>
 
-#include <backend.h>
+#include <tgcolor.h>
 
 #include "utils/tghelpers.h"
 #include "layouts/tglayout.h"
@@ -25,11 +25,11 @@ class Widget : public QObject
     Q_PROPERTY(QPoint position READ position WRITE setPosition NOTIFY positionChanged)
     Q_PROPERTY(QSize size READ size WRITE setSize NOTIFY sizeChanged)
 
-    Q_PROPERTY(Terminal::Color backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
+    Q_PROPERTY(Tg::Color backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
     Q_PROPERTY(QChar backgroundCharacter READ backgroundCharacter WRITE setBackgroundCharacter NOTIFY backgroundCharacterChanged)
-    Q_PROPERTY(Terminal::Color textColor READ textColor WRITE setTextColor NOTIFY textColorChanged)
-    Q_PROPERTY(Terminal::Color borderTextColor READ borderTextColor WRITE setBorderTextColor NOTIFY borderTextColorChanged)
-    Q_PROPERTY(Terminal::Color borderBackgroundColor READ borderBackgroundColor WRITE setBorderBackgroundColor NOTIFY borderBackgroundColorChanged)
+    Q_PROPERTY(Tg::Color textColor READ textColor WRITE setTextColor NOTIFY textColorChanged)
+    Q_PROPERTY(Tg::Color borderTextColor READ borderTextColor WRITE setBorderTextColor NOTIFY borderTextColorChanged)
+    Q_PROPERTY(Tg::Color borderBackgroundColor READ borderBackgroundColor WRITE setBorderBackgroundColor NOTIFY borderBackgroundColorChanged)
 
     Q_PROPERTY(bool visible READ visible WRITE setVisible NOTIFY visibleChanged)
     Q_PROPERTY(bool borderVisible READ borderVisible WRITE setBorderVisible NOTIFY borderVisibleChanged)
@@ -53,11 +53,11 @@ public:
     QRect globalPreviousBoundingRectangle() const;
     QRect contentsRectangle() const;
 
-    Terminal::Color backgroundColor() const;
+    Tg::Color backgroundColor() const;
     QChar backgroundCharacter() const;
-    Terminal::Color textColor() const;
-    Terminal::Color borderTextColor() const;
-    Terminal::Color borderBackgroundColor() const;
+    Tg::Color textColor() const;
+    Tg::Color borderTextColor() const;
+    Tg::Color borderBackgroundColor() const;
 
     bool visible() const;
     bool borderVisible() const;
@@ -94,11 +94,11 @@ signals:
     void needsRedraw(const RedrawType type, const Widget *widget) const;
     void positionChanged(const QPoint &position) const;
     void sizeChanged(const QSize &size) const;
-    void backgroundColorChanged(const Terminal::Color &backgroundColor) const;
+    void backgroundColorChanged(const Tg::Color &backgroundColor) const;
     void backgroundCharacterChanged(const QChar &backgroundCharacter) const;
-    void textColorChanged(const Terminal::Color &textColor) const;
-    void borderTextColorChanged(const Terminal::Color &borderColor) const;
-    void borderBackgroundColorChanged(const Terminal::Color &borderBackgroundColor) const;
+    void textColorChanged(const Tg::Color &textColor) const;
+    void borderTextColorChanged(const Tg::Color &borderColor) const;
+    void borderBackgroundColorChanged(const Tg::Color &borderBackgroundColor) const;
     void visibleChanged(const bool visible) const;
     void borderVisibleChanged(const bool borderVisible) const;
     void acceptsFocusChanged(const bool acceptsFocus) const;
@@ -115,11 +115,11 @@ signals:
 public slots:
     void setPosition(const QPoint &position);
     void setSize(const QSize &size);
-    void setBackgroundColor(const Terminal::Color &backgroundColor);
+    void setBackgroundColor(const Tg::Color &backgroundColor);
     void setBackgroundCharacter(const QChar &backgroundCharacter);
-    void setTextColor(const Terminal::Color &textColor);
-    void setBorderTextColor(const Terminal::Color &borderColor);
-    void setBorderBackgroundColor(const Terminal::Color &borderBackgroundColor);
+    void setTextColor(const Tg::Color &textColor);
+    void setBorderTextColor(const Tg::Color &borderColor);
+    void setBorderBackgroundColor(const Tg::Color &borderBackgroundColor);
     void setVisible(const bool visible);
     void show();
     void hide();
@@ -165,10 +165,10 @@ private:
     QSize _size = { 1, 1 };
     QSize _previousSize = { 1, 1 };
 
-    Terminal::Color _backgroundColor = Terminal::Color::Predefined::Empty;
-    Terminal::Color _textColor = Terminal::Color::Predefined::Empty;
-    Terminal::Color _borderTextColor = Terminal::Color::Predefined::Empty;
-    Terminal::Color _borderBackgroundColor = Terminal::Color::Predefined::Empty;
+    Tg::Color _backgroundColor = Tg::Color::Predefined::Empty;
+    Tg::Color _textColor = Tg::Color::Predefined::Empty;
+    Tg::Color _borderTextColor = Tg::Color::Predefined::Empty;
+    Tg::Color _borderBackgroundColor = Tg::Color::Predefined::Empty;
 
     bool _visible = false;
     bool _borderVisible = true;

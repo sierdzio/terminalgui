@@ -80,7 +80,7 @@ QChar Tg::ScrollBar::sliderCharacter() const
     }
 }
 
-Terminal::Color Tg::ScrollBar::sliderColor() const
+Tg::Color Tg::ScrollBar::sliderColor() const
 {
     if (_sliderColor.isEmpty()) {
         return style()->sliderColor;
@@ -89,7 +89,7 @@ Terminal::Color Tg::ScrollBar::sliderColor() const
     }
 }
 
-Terminal::Color Tg::ScrollBar::sliderBackgroundColor() const
+Tg::Color Tg::ScrollBar::sliderBackgroundColor() const
 {
     if (_sliderBackgroundColor.isEmpty()) {
         return style()->sliderBackgroundColor;
@@ -98,7 +98,7 @@ Terminal::Color Tg::ScrollBar::sliderBackgroundColor() const
     }
 }
 
-Terminal::Color Tg::ScrollBar::sliderActiveBackgroundColor() const
+Tg::Color Tg::ScrollBar::sliderActiveBackgroundColor() const
 {
     if (_sliderActiveBackgroundColor.isEmpty()) {
         return style()->sliderActiveBackgroundColor;
@@ -107,7 +107,7 @@ Terminal::Color Tg::ScrollBar::sliderActiveBackgroundColor() const
     }
 }
 
-Terminal::Color Tg::ScrollBar::sliderInactiveBackgroundColor() const
+Tg::Color Tg::ScrollBar::sliderInactiveBackgroundColor() const
 {
     if (_sliderInactiveBackgroundColor.isEmpty()) {
         return style()->sliderInactiveBackgroundColor;
@@ -116,7 +116,7 @@ Terminal::Color Tg::ScrollBar::sliderInactiveBackgroundColor() const
     }
 }
 
-Terminal::Color Tg::ScrollBar::sliderActiveColor() const
+Tg::Color Tg::ScrollBar::sliderActiveColor() const
 {
     if (_sliderActiveColor.isEmpty()) {
         return style()->sliderActiveColor;
@@ -125,7 +125,7 @@ Terminal::Color Tg::ScrollBar::sliderActiveColor() const
     }
 }
 
-Terminal::Color Tg::ScrollBar::sliderInactiveColor() const
+Tg::Color Tg::ScrollBar::sliderInactiveColor() const
 {
     if (_sliderInactiveColor.isEmpty()) {
         return style()->sliderInactiveColor;
@@ -152,7 +152,7 @@ QChar Tg::ScrollBar::backwardArrowLeftCharacter() const
     }
 }
 
-Terminal::Color Tg::ScrollBar::backwardArrowColor() const
+Tg::Color Tg::ScrollBar::backwardArrowColor() const
 {
     if (_backwardArrowColor.isEmpty()) {
         return style()->backwardArrowColor;
@@ -161,7 +161,7 @@ Terminal::Color Tg::ScrollBar::backwardArrowColor() const
     }
 }
 
-Terminal::Color Tg::ScrollBar::backwardArrowActiveColor() const
+Tg::Color Tg::ScrollBar::backwardArrowActiveColor() const
 {
     if (_backwardArrowActiveColor.isEmpty()) {
         return style()->backwardArrowActiveColor;
@@ -170,7 +170,7 @@ Terminal::Color Tg::ScrollBar::backwardArrowActiveColor() const
     }
 }
 
-Terminal::Color Tg::ScrollBar::backwardArrowInactiveColor() const
+Tg::Color Tg::ScrollBar::backwardArrowInactiveColor() const
 {
     if (_backwardArrowInactiveColor.isEmpty()) {
         return style()->backwardArrowInactiveColor;
@@ -179,7 +179,7 @@ Terminal::Color Tg::ScrollBar::backwardArrowInactiveColor() const
     }
 }
 
-Terminal::Color Tg::ScrollBar::backwardArrowBackgroundColor() const
+Tg::Color Tg::ScrollBar::backwardArrowBackgroundColor() const
 {
     if (_backwardArrowBackgroundColor.isEmpty()) {
         return style()->backwardArrowBackgroundColor;
@@ -188,7 +188,7 @@ Terminal::Color Tg::ScrollBar::backwardArrowBackgroundColor() const
     }
 }
 
-Terminal::Color Tg::ScrollBar::backwardArrowActiveBackgroundColor() const
+Tg::Color Tg::ScrollBar::backwardArrowActiveBackgroundColor() const
 {
     if (_backwardArrowActiveBackgroundColor.isEmpty()) {
         return style()->backwardArrowActiveBackgroundColor;
@@ -197,7 +197,7 @@ Terminal::Color Tg::ScrollBar::backwardArrowActiveBackgroundColor() const
     }
 }
 
-Terminal::Color Tg::ScrollBar::backwardArrowInactiveBackgroundColor() const
+Tg::Color Tg::ScrollBar::backwardArrowInactiveBackgroundColor() const
 {
     if (_backwardArrowInactiveBackgroundColor.isEmpty()) {
         return style()->backwardArrowInactiveBackgroundColor;
@@ -224,7 +224,7 @@ QChar Tg::ScrollBar::forwardArrowRightCharacter() const
     }
 }
 
-Terminal::Color Tg::ScrollBar::forwardArrowColor() const
+Tg::Color Tg::ScrollBar::forwardArrowColor() const
 {
     if (_forwardArrowColor.isEmpty()) {
         return style()->forwardArrowColor;
@@ -233,7 +233,7 @@ Terminal::Color Tg::ScrollBar::forwardArrowColor() const
     }
 }
 
-Terminal::Color Tg::ScrollBar::forwardArrowActiveColor() const
+Tg::Color Tg::ScrollBar::forwardArrowActiveColor() const
 {
     if (_forwardArrowActiveColor.isEmpty()) {
         return style()->forwardArrowActiveColor;
@@ -242,7 +242,7 @@ Terminal::Color Tg::ScrollBar::forwardArrowActiveColor() const
     }
 }
 
-Terminal::Color Tg::ScrollBar::forwardArrowInactiveColor() const
+Tg::Color Tg::ScrollBar::forwardArrowInactiveColor() const
 {
     if (_forwardArrowInactiveColor.isEmpty()) {
         return style()->forwardArrowInactiveColor;
@@ -251,7 +251,7 @@ Terminal::Color Tg::ScrollBar::forwardArrowInactiveColor() const
     }
 }
 
-Terminal::Color Tg::ScrollBar::forwardArrowBackgroundColor() const
+Tg::Color Tg::ScrollBar::forwardArrowBackgroundColor() const
 {
     if (_forwardArrowBackgroundColor.isEmpty()) {
         return style()->forwardArrowBackgroundColor;
@@ -260,7 +260,7 @@ Terminal::Color Tg::ScrollBar::forwardArrowBackgroundColor() const
     }
 }
 
-Terminal::Color Tg::ScrollBar::forwardArrowActiveBackgroundColor() const
+Tg::Color Tg::ScrollBar::forwardArrowActiveBackgroundColor() const
 {
     if (_forwardArrowActiveBackgroundColor.isEmpty()) {
         return style()->forwardArrowActiveBackgroundColor;
@@ -269,7 +269,7 @@ Terminal::Color Tg::ScrollBar::forwardArrowActiveBackgroundColor() const
     }
 }
 
-Terminal::Color Tg::ScrollBar::forwardArrowInactiveBackgroundColor() const
+Tg::Color Tg::ScrollBar::forwardArrowInactiveBackgroundColor() const
 {
     if (_forwardArrowInactiveBackgroundColor.isEmpty()) {
         return style()->forwardArrowInactiveBackgroundColor;
@@ -328,7 +328,7 @@ void Tg::ScrollBar::setSliderCharacter(const QChar &sliderCharacter)
     emit sliderCharacterChanged(_sliderCharacter);
 }
 
-void Tg::ScrollBar::setSliderColor(const Terminal::Color &sliderColor)
+void Tg::ScrollBar::setSliderColor(const Tg::Color &sliderColor)
 {
     if (_sliderColor == sliderColor)
         return;
@@ -337,7 +337,7 @@ void Tg::ScrollBar::setSliderColor(const Terminal::Color &sliderColor)
     emit sliderColorChanged(_sliderColor);
 }
 
-void Tg::ScrollBar::setSliderBackgroundColor(const Terminal::Color &sliderBackgroundColor)
+void Tg::ScrollBar::setSliderBackgroundColor(const Tg::Color &sliderBackgroundColor)
 {
     if (_sliderBackgroundColor == sliderBackgroundColor)
         return;
@@ -346,7 +346,7 @@ void Tg::ScrollBar::setSliderBackgroundColor(const Terminal::Color &sliderBackgr
     emit sliderBackgroundColorChanged(_sliderBackgroundColor);
 }
 
-void Tg::ScrollBar::setSliderActiveBackgroundColor(const Terminal::Color &sliderActiveBackgroundColor)
+void Tg::ScrollBar::setSliderActiveBackgroundColor(const Tg::Color &sliderActiveBackgroundColor)
 {
     if (_sliderActiveBackgroundColor == sliderActiveBackgroundColor)
         return;
@@ -355,7 +355,7 @@ void Tg::ScrollBar::setSliderActiveBackgroundColor(const Terminal::Color &slider
     emit sliderActiveBackgroundColorChanged(_sliderActiveBackgroundColor);
 }
 
-void Tg::ScrollBar::setSliderInactiveBackgroundColor(const Terminal::Color &sliderInactiveBackgroundColor)
+void Tg::ScrollBar::setSliderInactiveBackgroundColor(const Tg::Color &sliderInactiveBackgroundColor)
 {
     if (_sliderInactiveBackgroundColor == sliderInactiveBackgroundColor)
         return;
@@ -364,7 +364,7 @@ void Tg::ScrollBar::setSliderInactiveBackgroundColor(const Terminal::Color &slid
     emit sliderInactiveBackgroundColorChanged(_sliderInactiveBackgroundColor);
 }
 
-void Tg::ScrollBar::setSliderActiveColor(const Terminal::Color &sliderActiveColor)
+void Tg::ScrollBar::setSliderActiveColor(const Tg::Color &sliderActiveColor)
 {
     if (_sliderActiveColor == sliderActiveColor)
         return;
@@ -373,7 +373,7 @@ void Tg::ScrollBar::setSliderActiveColor(const Terminal::Color &sliderActiveColo
     emit sliderActiveColorChanged(_sliderActiveColor);
 }
 
-void Tg::ScrollBar::setSliderInactiveColor(const Terminal::Color &sliderInactiveColor)
+void Tg::ScrollBar::setSliderInactiveColor(const Tg::Color &sliderInactiveColor)
 {
     if (_sliderInactiveColor == sliderInactiveColor)
         return;
@@ -400,7 +400,7 @@ void Tg::ScrollBar::setBackwardArrowLeftCharacter(const QChar &backwardArrowLeft
     emit backwardArrowLeftCharacterChanged(_backwardArrowLeftCharacter);
 }
 
-void Tg::ScrollBar::setBackwardArrowColor(const Terminal::Color &backwardArrowColor)
+void Tg::ScrollBar::setBackwardArrowColor(const Tg::Color &backwardArrowColor)
 {
     if (_backwardArrowColor == backwardArrowColor)
         return;
@@ -409,7 +409,7 @@ void Tg::ScrollBar::setBackwardArrowColor(const Terminal::Color &backwardArrowCo
     emit backwardArrowColorChanged(_backwardArrowColor);
 }
 
-void Tg::ScrollBar::setBackwardArrowActiveColor(const Terminal::Color &backwardArrowActiveColor)
+void Tg::ScrollBar::setBackwardArrowActiveColor(const Tg::Color &backwardArrowActiveColor)
 {
     if (_backwardArrowActiveColor == backwardArrowActiveColor)
         return;
@@ -418,7 +418,7 @@ void Tg::ScrollBar::setBackwardArrowActiveColor(const Terminal::Color &backwardA
     emit backwardArrowActiveColorChanged(_backwardArrowActiveColor);
 }
 
-void Tg::ScrollBar::setBackwardArrowInactiveColor(const Terminal::Color &backwardArrowInactiveColor)
+void Tg::ScrollBar::setBackwardArrowInactiveColor(const Tg::Color &backwardArrowInactiveColor)
 {
     if (_backwardArrowInactiveColor == backwardArrowInactiveColor)
         return;
@@ -427,7 +427,7 @@ void Tg::ScrollBar::setBackwardArrowInactiveColor(const Terminal::Color &backwar
     emit backwardArrowInactiveColorChanged(_backwardArrowInactiveColor);
 }
 
-void Tg::ScrollBar::setBackwardArrowBackgroundColor(const Terminal::Color &backwardArrowBackgroundColor)
+void Tg::ScrollBar::setBackwardArrowBackgroundColor(const Tg::Color &backwardArrowBackgroundColor)
 {
     if (_backwardArrowBackgroundColor == backwardArrowBackgroundColor)
         return;
@@ -436,7 +436,7 @@ void Tg::ScrollBar::setBackwardArrowBackgroundColor(const Terminal::Color &backw
     emit backwardArrowColorBackgroundChanged(_backwardArrowBackgroundColor);
 }
 
-void Tg::ScrollBar::setBackwardArrowActiveBackgroundColor(const Terminal::Color &backwardArrowActiveBackgroundColor)
+void Tg::ScrollBar::setBackwardArrowActiveBackgroundColor(const Tg::Color &backwardArrowActiveBackgroundColor)
 {
     if (_backwardArrowActiveBackgroundColor == backwardArrowActiveBackgroundColor)
         return;
@@ -445,7 +445,7 @@ void Tg::ScrollBar::setBackwardArrowActiveBackgroundColor(const Terminal::Color 
     emit backwardArrowActiveColorBackgroundChanged(_backwardArrowActiveBackgroundColor);
 }
 
-void Tg::ScrollBar::setBackwardArrowInactiveBackgroundColor(const Terminal::Color &backwardArrowInactiveBackgroundColor)
+void Tg::ScrollBar::setBackwardArrowInactiveBackgroundColor(const Tg::Color &backwardArrowInactiveBackgroundColor)
 {
     if (_backwardArrowInactiveBackgroundColor == backwardArrowInactiveBackgroundColor)
         return;
@@ -472,7 +472,7 @@ void Tg::ScrollBar::setForwardArrowRightCharacter(const QChar &forwardArrowRight
     emit forwardArrowRightCharacterChanged(_forwardArrowRightCharacter);
 }
 
-void Tg::ScrollBar::setForwardArrowColor(const Terminal::Color &forwardArrowColor)
+void Tg::ScrollBar::setForwardArrowColor(const Tg::Color &forwardArrowColor)
 {
     if (_forwardArrowColor == forwardArrowColor)
         return;
@@ -481,7 +481,7 @@ void Tg::ScrollBar::setForwardArrowColor(const Terminal::Color &forwardArrowColo
     emit forwardArrowColorChanged(_forwardArrowColor);
 }
 
-void Tg::ScrollBar::setForwardArrowActiveColor(const Terminal::Color &forwardArrowActiveColor)
+void Tg::ScrollBar::setForwardArrowActiveColor(const Tg::Color &forwardArrowActiveColor)
 {
     if (_forwardArrowActiveColor == forwardArrowActiveColor)
         return;
@@ -490,7 +490,7 @@ void Tg::ScrollBar::setForwardArrowActiveColor(const Terminal::Color &forwardArr
     emit forwardArrowActiveColorChanged(_forwardArrowActiveColor);
 }
 
-void Tg::ScrollBar::setForwardArrowInactiveColor(const Terminal::Color &forwardArrowInactiveColor)
+void Tg::ScrollBar::setForwardArrowInactiveColor(const Tg::Color &forwardArrowInactiveColor)
 {
     if (_forwardArrowInactiveColor == forwardArrowInactiveColor)
         return;
@@ -499,7 +499,7 @@ void Tg::ScrollBar::setForwardArrowInactiveColor(const Terminal::Color &forwardA
     emit forwardArrowInactiveColorChanged(_forwardArrowInactiveColor);
 }
 
-void Tg::ScrollBar::setForwardArrowBackgroundColor(const Terminal::Color &forwardArrowBackgroundColor)
+void Tg::ScrollBar::setForwardArrowBackgroundColor(const Tg::Color &forwardArrowBackgroundColor)
 {
     if (_forwardArrowBackgroundColor == forwardArrowBackgroundColor)
         return;
@@ -508,7 +508,7 @@ void Tg::ScrollBar::setForwardArrowBackgroundColor(const Terminal::Color &forwar
     emit forwardArrowColorBackgroundChanged(_forwardArrowBackgroundColor);
 }
 
-void Tg::ScrollBar::setForwardArrowActiveBackgroundColor(const Terminal::Color &forwardArrowActiveBackgroundColor)
+void Tg::ScrollBar::setForwardArrowActiveBackgroundColor(const Tg::Color &forwardArrowActiveBackgroundColor)
 {
     if (_forwardArrowActiveBackgroundColor == forwardArrowActiveBackgroundColor)
         return;
@@ -517,7 +517,7 @@ void Tg::ScrollBar::setForwardArrowActiveBackgroundColor(const Terminal::Color &
     emit forwardArrowActiveColorBackgroundChanged(_forwardArrowActiveBackgroundColor);
 }
 
-void Tg::ScrollBar::setForwardArrowInactiveBackgroundColor(const Terminal::Color &forwardArrowInactiveBackgroundColor)
+void Tg::ScrollBar::setForwardArrowInactiveBackgroundColor(const Tg::Color &forwardArrowInactiveBackgroundColor)
 {
     if (_forwardArrowInactiveBackgroundColor == forwardArrowInactiveBackgroundColor)
         return;
@@ -607,13 +607,13 @@ void Tg::ScrollBar::init()
     CHECK(connect(this, &ScrollBar::forwardArrowInactiveColorBackgroundChanged,
                   this, &ScrollBar::schedulePartialRedraw));
 
-    //setBackgroundColor(Terminal::Color::Predefined::Gray);
+    //setBackgroundColor(Tg::Color::Predefined::Gray);
 }
 
 void Tg::ScrollBar::consumeKeyboardBuffer(const QString &keyboardBuffer)
 {
-     if (keyboardBuffer.contains(Terminal::Key::up)
-             || keyboardBuffer.contains(Terminal::Key::left)) {
+     if (keyboardBuffer.contains(Tg::Key::up)
+             || keyboardBuffer.contains(Tg::Key::left)) {
          const int position = sliderPosition();
          if (position > 0) {
              setSliderPosition(sliderPosition() - step());
@@ -623,8 +623,8 @@ void Tg::ScrollBar::consumeKeyboardBuffer(const QString &keyboardBuffer)
          emit backwardArrowClicked();
      }
 
-     if (keyboardBuffer.contains(Terminal::Key::down)
-             || keyboardBuffer.contains(Terminal::Key::right)) {
+     if (keyboardBuffer.contains(Tg::Key::down)
+             || keyboardBuffer.contains(Tg::Key::right)) {
          const int position = sliderPosition();
 
          if (position < (length() - 3)) {
@@ -643,11 +643,11 @@ QString Tg::ScrollBar::linearPixel(const int pixel, const int length) const
         // Draw first arrow
         // TODO: handle all the color madness ;-) Active, normal, inactive colors
         if (_backwardArrowPressTimer.isActive()) {
-            result.append(Terminal::Color::code(
+            result.append(Tg::Color::code(
                               backwardArrowActiveColor(), backwardArrowActiveBackgroundColor()
                               ));
         } else {
-            result.append(Terminal::Color::code(
+            result.append(Tg::Color::code(
                               backwardArrowColor(), backwardArrowBackgroundColor()
                               ));
         }
@@ -663,11 +663,11 @@ QString Tg::ScrollBar::linearPixel(const int pixel, const int length) const
         // Draw second arrow
         // TODO: handle all the color madness ;-) Active, normal, inactive colors
         if (_forwardArrowPressTimer.isActive()) {
-            result.append(Terminal::Color::code(
+            result.append(Tg::Color::code(
                               forwardArrowActiveColor(), forwardArrowActiveBackgroundColor()
                               ));
         } else {
-            result.append(Terminal::Color::code(
+            result.append(Tg::Color::code(
                               forwardArrowColor(), forwardArrowBackgroundColor()
                               ));
         }
@@ -698,18 +698,18 @@ QString Tg::ScrollBar::linearPixel(const int pixel, const int length) const
     if (isSlider) {
         // Draw slider
         if (_sliderPressTimer.isActive()) {
-            result.append(Terminal::Color::code(
+            result.append(Tg::Color::code(
                               sliderActiveColor(), sliderActiveBackgroundColor()
                               ));
         } else {
-            result.append(Terminal::Color::code(
+            result.append(Tg::Color::code(
                               sliderColor(), sliderBackgroundColor()
                               ));
         }
 
         result.append(sliderCharacter());
     } else {
-        result.append(Terminal::Color::code(
+        result.append(Tg::Color::code(
                           textColor(), backgroundColor()
                           ));
 
