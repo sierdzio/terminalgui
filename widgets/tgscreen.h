@@ -49,6 +49,8 @@ private:
     void updateRedrawRegions(const RedrawType type, const Widget *widget);
     void updateRedrawRegion(const QRect &region);
     void compressRedraws();
+    void setActiveFocusWidget(const WidgetPointer &widget);
+    void clearActiveFocusWidget();
 
     QTimer _keyboardTimer;
     QTimer _redrawTimer;

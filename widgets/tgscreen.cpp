@@ -1,5 +1,6 @@
 #include "tgscreen.h"
 #include "widgets/tgwidget.h"
+#include "widgets/tgbutton.h"
 #include "styles/tgstyle.h"
 
 #include <tgterminal.h>
@@ -81,8 +82,7 @@ void Tg::Screen::moveFocusToPreviousWidget()
     QListIterator<WidgetPointer> iterator(_widgets);
     const bool result = iterator.findNext(_activeFocusWidget);
     if (result == false) {
-        _activeFocusWidget->setHasFocus(false);
-        _activeFocusWidget = nullptr;
+        clearActiveFocusWidget();
         return;
     }
 
@@ -90,9 +90,7 @@ void Tg::Screen::moveFocusToPreviousWidget()
     while (iterator.hasPrevious()) {
         const WidgetPointer widget = iterator.previous();
         if (widget != _activeFocusWidget && widget->acceptsFocus()) {
-            _activeFocusWidget->setHasFocus(false);
-            _activeFocusWidget = widget;
-            _activeFocusWidget->setHasFocus(true);
+            setActiveFocusWidget(widget);
             return;
         }
     }
@@ -105,9 +103,7 @@ void Tg::Screen::moveFocusToPreviousWidget()
         if (widget == _activeFocusWidget) {
             return;
         } else if (widget->acceptsFocus()) {
-            _activeFocusWidget->setHasFocus(false);
-            _activeFocusWidget = widget;
-            _activeFocusWidget->setHasFocus(true);
+            setActiveFocusWidget(widget);
             return;
         }
     }
@@ -118,8 +114,7 @@ void Tg::Screen::moveFocusToNextWidget()
     QListIterator<WidgetPointer> iterator(_widgets);
     const bool result = iterator.findNext(_activeFocusWidget);
     if (result == false) {
-        _activeFocusWidget->setHasFocus(false);
-        _activeFocusWidget = nullptr;
+        clearActiveFocusWidget();
         return;
     }
 
@@ -127,9 +122,7 @@ void Tg::Screen::moveFocusToNextWidget()
     while (iterator.hasNext()) {
         const WidgetPointer widget = iterator.next();
         if (widget != _activeFocusWidget && widget->acceptsFocus()) {
-            _activeFocusWidget->setHasFocus(false);
-            _activeFocusWidget = widget;
-            _activeFocusWidget->setHasFocus(true);
+            setActiveFocusWidget(widget);
             return;
         }
     }
@@ -142,9 +135,7 @@ void Tg::Screen::moveFocusToNextWidget()
         if (widget == _activeFocusWidget) {
             return;
         } else if (widget->acceptsFocus()) {
-            _activeFocusWidget->setHasFocus(false);
-            _activeFocusWidget = widget;
-            _activeFocusWidget->setHasFocus(true);
+            setActiveFocusWidget(widget);
             return;
         }
     }
@@ -222,12 +213,46 @@ void Tg::Screen::redrawImmediately()
 void Tg::Screen::checkKeyboard()
 {
     const int bufferSize = Terminal::keyboardBufferSize();
-    if (bufferSize > 0 && _activeFocusWidget) {
-        QString characters;
-        for (int i = 0; i < bufferSize; ++i) {
-            characters.append(Terminal::getChar());
-        }
+    if (bufferSize <= 0) {
+        return;
+    }
 
+    QString characters;
+    for (int i = 0; i < bufferSize; ++i) {
+        characters.append(Terminal::getChar());
+    }
+
+    if (characters.contains(Command::mouseEventBegin)) {
+        const int clickIndex = characters.indexOf(Command::mouseClick);
+        const int clickEnd = characters.indexOf(Command::mouseReleaseSuffix, clickIndex);
+        if (clickIndex != -1 && clickEnd != -1) {
+            const int positionBeginning = clickIndex + Command::mouseClick.length();
+            const int positionLength = clickEnd - positionBeginning;
+            const QString positionString = characters.mid(
+                        positionBeginning, positionLength);
+            const QStringList strings = positionString.split(Command::separator);
+            const QPoint click(strings.at(0).toInt(), strings.at(1).toInt());
+
+            QListIterator<WidgetPointer> iterator(_widgets);
+            while (iterator.hasNext()) {
+                const WidgetPointer widget = iterator.next();
+                if (widget->acceptsFocus()
+                        && widget->globalBoundingRectangle().contains(click))
+                {
+                    auto button = qobject_cast<Button*>(widget);
+                    if (button) {
+                        button->click();
+                    }
+
+                    setActiveFocusWidget(widget);
+
+                    return;
+                }
+            }
+        }
+    }
+
+    if (_activeFocusWidget) {
         if (const QString command(Tg::Key::tab);
                 characters.contains(command)) {
             // Move to next input
@@ -250,6 +275,7 @@ void Tg::Screen::checkKeyboard()
                 characters.remove(command);
             }
         }
+
 
         _activeFocusWidget->consumeKeyboardBuffer(characters);
     }
@@ -302,4 +328,17 @@ void Tg::Screen::compressRedraws()
     if (_redrawTimer.isActive() == false) {
         _redrawTimer.start();
     }
+}
+
+void Tg::Screen::setActiveFocusWidget(const Tg::WidgetPointer &widget)
+{
+    _activeFocusWidget->setHasFocus(false);
+    _activeFocusWidget = widget;
+    _activeFocusWidget->setHasFocus(true);
+}
+
+void Tg::Screen::clearActiveFocusWidget()
+{
+    _activeFocusWidget->setHasFocus(false);
+    _activeFocusWidget = nullptr;
 }

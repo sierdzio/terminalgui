@@ -7,7 +7,7 @@ namespace Tg {
 // http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x361.html
 // https://en.wikipedia.org/wiki/ANSI_escape_code
 namespace Command {
-const QString ansiEscape = "\033[";
+const QString ansiEscape = "\e[";
 const QChar ansiEscapeEnd = 'm';
 const QChar ansiPositionEnd = 'H';
 
@@ -25,10 +25,28 @@ const QString restore = ansiEscape + 'u';
 
 const QString colorEnd = ansiEscape + '0' + ansiEscapeEnd;
 
-const QChar positionSeparator = ';';
+const QChar separator = ';';
 
 const QString bold = ansiEscape + '1' + ansiEscapeEnd;
 const QString resetFontSettings = colorEnd;
+
+// Mouse support
+// https://stackoverflow.com/questions/5966903/how-to-get-mousemove-and-mouseclick-in-bash
+
+const QChar on = 'h';
+const QChar off = 'l';
+const QString mouseClickReporting = ansiEscape + "?1000" + on;
+//ansiEscape + "1015" + on
+const QString mouseExtendedCoordinates = ansiEscape + "?1006" + on;
+const QString mouseEndReporting = ansiEscape + "?1000" + off;
+
+const QString mouseEventBegin = ansiEscape + '<';
+const QChar mousePressSuffix = 'M';
+const QChar mouseReleaseSuffix = 'm';
+
+const QString mouseClick = mouseEventBegin + "0" + separator;
+const QString mouseWheelUp = mouseEventBegin + "64" + separator;
+const QString mouseWheelDown = mouseEventBegin + "65" + separator;
 
 /*!
  * Returns terminal command which will move the cursor to position \a x, \a y.

@@ -31,6 +31,8 @@ public:
     Tg::Color pressedTextColor() const;
     Tg::Color pressedBackgroundColor() const;
 
+    void click();
+
 public slots:
     void setActiveTextColor(const Tg::Color &activeTextColor);
     void setActiveBackgroundColor(const Tg::Color &activeBackgroundColor);

@@ -1,6 +1,8 @@
 #include "tgterminal.h"
+#include "tgcommand.h"
 
 #include <QCoreApplication>
+#include <QTextStream>
 
 // For reading terminal size
 // https://stackoverflow.com/questions/1022957/getting-terminal-width-in-c
@@ -58,6 +60,20 @@ void Tg::Terminal::registerSignalHandler()
         fputs("An error occurred while setting a signal handler.\n", stderr);
         return;
     }
+}
+
+void Tg::Terminal::enableMouseTracking()
+{
+    QTextStream stream(stdout);
+    stream << Command::mouseClickReporting << Command::mouseExtendedCoordinates;
+    _isMouseReporting = true;
+}
+
+void Tg::Terminal::disableMouseTracking()
+{
+    QTextStream stream(stdout);
+    stream << Command::mouseEndReporting;
+    _isMouseReporting = false;
 }
 
 // TODO: use termios! Right?

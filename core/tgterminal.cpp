@@ -7,6 +7,14 @@ Tg::Terminal::Terminal(QObject *parent) : QObject(parent)
     _globalTerminal = this;
     _size = updateSize();
     registerSignalHandler();
+    enableMouseTracking();
+}
+
+Tg::Terminal::~Terminal()
+{
+    if (_isMouseReporting) {
+        disableMouseTracking();
+    }
 }
 
 Tg::Terminal *Tg::Terminal::globalTerminal()

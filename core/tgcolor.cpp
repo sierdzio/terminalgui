@@ -10,7 +10,7 @@ QString Tg::Color::code(const Tg::Color &foregroundColor,
 
     return Command::ansiEscape
             + code(foregroundColor, false, forceTrueColor)
-            + Command::positionSeparator
+            + Command::separator
             + code(backgroundColor, true, forceTrueColor)
             + Command::ansiEscapeEnd;
 }
@@ -51,8 +51,8 @@ Tg::Color::Color(const quint8 red, const quint8 green, const quint8 blue)
 
 QString Tg::Color::rgb() const
 {
-    return QString::number(_red) + Command::positionSeparator
-            + QString::number(_green) + Command::positionSeparator
+    return QString::number(_red) + Command::separator
+            + QString::number(_green) + Command::separator
             + QString::number(_blue);
 }
 

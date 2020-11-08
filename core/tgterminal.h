@@ -14,6 +14,7 @@ class Terminal : public QObject
 
 public:
     Terminal(QObject *parent = nullptr);
+    ~Terminal();
     static Terminal *globalTerminal();
 
     QSize updateSize();
@@ -32,9 +33,12 @@ signals:
 
 private:
     void registerSignalHandler();
+    void enableMouseTracking();
+    void disableMouseTracking();
 
     static Terminal *_globalTerminal;
     const QSize _defaultSize = QSize(80, 24);
+    bool _isMouseReporting = false;
     QSize _size;
 };
 

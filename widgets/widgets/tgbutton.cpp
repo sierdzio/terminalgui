@@ -78,6 +78,14 @@ Tg::Color Tg::Button::pressedBackgroundColor() const
     }
 }
 
+void Tg::Button::click()
+{
+    setTextColor(pressedTextColor());
+    setBackgroundColor(pressedBackgroundColor());
+
+    emit clicked();
+}
+
 void Tg::Button::setActiveTextColor(const Tg::Color &activeTextColor)
 {
     if (_activeTextColor == activeTextColor)
@@ -177,10 +185,7 @@ void Tg::Button::consumeKeyboardBuffer(const QString &keyboardBuffer)
     if (keyboardBuffer.contains(Tg::Key::enter)
         || keyboardBuffer.contains(Tg::Key::ret))
     {
-        setTextColor(pressedTextColor());
-        setBackgroundColor(pressedBackgroundColor());
-
-        emit clicked();
+        click();
     }
 }
 
