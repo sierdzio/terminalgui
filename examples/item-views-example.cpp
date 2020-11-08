@@ -32,6 +32,19 @@ int main(int argc, char *argv[])
     CHECK(QObject::connect(&quitButton, &Tg::Button::clicked,
                            &app, &QCoreApplication::quit));
 
+    const QString sizeText("%1 x %2");
+    Tg::Label sizeLabel(&widget);
+    sizeLabel.show();
+
+    auto setter = [&sizeLabel, &sizeText](const QSize &size) {
+        sizeLabel.setText(sizeText.arg(size.width()).arg(size.height()));
+    };
+
+    setter(screen.size());
+
+    CHECK(QObject::connect(&screen, &Tg::Screen::sizeChanged,
+                  &sizeLabel, setter));
+
     Tg::ScrollArea scrollArea(&widget);
     // TODO: fix layouts here - leaving size to default completely destroys
     // the UI!

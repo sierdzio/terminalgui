@@ -1,5 +1,7 @@
 #include "tgterminal.h"
 
+#include <QCoreApplication>
+
 // For reading terminal size
 // https://stackoverflow.com/questions/1022957/getting-terminal-width-in-c
 #include <sys/ioctl.h>
@@ -17,6 +19,10 @@ static void linuxSignalHandler(const int signal)
     if (signal == SIGWINCH) {
         const auto newSize = terminal->updateSize();
         terminal->setSize(newSize);
+    }
+    else
+    if (signal == SIGQUIT || signal == SIGTERM || signal == SIGKILL) {
+        QCoreApplication::instance()->quit();
     }
 }
 

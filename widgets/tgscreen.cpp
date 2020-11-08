@@ -18,8 +18,6 @@ Tg::Screen::Screen(QObject *parent) : QObject(parent)
     CHECK(connect(_terminal, &Terminal::sizeChanged,
                   this, &Screen::setSize));
 
-    //qDebug() << "TgScreen info:" << _size.width() << _size.height();
-
     _keyboardTimer.setInterval(100);
     _keyboardTimer.setSingleShot(false);
 
