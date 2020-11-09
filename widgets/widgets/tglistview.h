@@ -3,6 +3,7 @@
 #include <widgets/tgscrollarea.h>
 
 #include <QPointer>
+#include <QModelIndex>
 #include <QAbstractItemModel>
 
 namespace Tg {
@@ -50,6 +51,7 @@ protected slots:
 
 private:
     QPointer<QAbstractItemModel> _model;
+    QModelIndex _currentIndex;
     bool _wrapRows = false;
     bool _alternatingRowColors = false;
     Tg::Color _alternativeBackgroundColor = Tg::Color::Predefined::Empty;
