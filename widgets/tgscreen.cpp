@@ -284,6 +284,7 @@ void Tg::Screen::setSize(const QSize &size)
     if (_size != size) {
         _size = size;
         emit sizeChanged(size);
+        updateRedrawRegions(RedrawType::Full, nullptr);
     }
 }
 
