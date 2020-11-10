@@ -1,5 +1,4 @@
 #include <QCoreApplication>
-#include <QStringListModel>
 #include <QDebug>
 
 #include <tgterminal.h>
@@ -10,6 +9,7 @@
 #include <widgets/tgscrollbar.h>
 #include <widgets/tgscrollarea.h>
 #include <widgets/tglistview.h>
+#include <models/tgcheckablestringlistmodel.h>
 
 int main(int argc, char *argv[])
 {
@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
     listView.setWrapRows(true);
     listView.setAlternatingRowColors(true);
 
-    auto model = new QStringListModel(
+    auto model = new Tg::CheckableStringListModel(
                 {
                     "Some",
                     "strings",
