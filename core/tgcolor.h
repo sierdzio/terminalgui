@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QString>
+#include <QMetaType>
 
 namespace Tg {
 class Color {
@@ -60,3 +61,5 @@ private:
     Predefined _predefined = Predefined::Invalid;
 };
 }
+
+Q_DECLARE_METATYPE(Tg::Color)

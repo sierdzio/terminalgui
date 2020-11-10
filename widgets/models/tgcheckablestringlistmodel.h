@@ -1,11 +1,14 @@
 #pragma once
 
+#include <tgcolor.h>
+
 #include <QAbstractListModel>
 
 namespace Tg {
 struct CheckableString {
-    Qt::CheckState checkState;
+    Qt::CheckState checkState = Qt::CheckState::Unchecked;
     QString string;
+    Tg::Color color = Tg::Color::Predefined::Empty;
 };
 
 using CheckableStringList = QList<CheckableString>;

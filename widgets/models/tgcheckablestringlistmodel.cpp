@@ -47,6 +47,16 @@ QVariant Tg::CheckableStringListModel::data(const QModelIndex &index, int role) 
     switch (role) {
     case Qt::ItemDataRole::CheckStateRole:
         return bool(_data.at(row).checkState);
+    case Qt::ItemDataRole::DecorationRole:
+    {
+        const CheckableString &data = _data.at(row);
+        if (data.color.isEmpty()) {
+            return {};
+        } else {
+            return QVariant::fromValue<Tg::Color>(data.color);
+        }
+    }
+        break;
     case Qt::ItemDataRole::DisplayRole:
         return _data.at(row).string;
     }
@@ -72,6 +82,9 @@ bool Tg::CheckableStringListModel::setData(const QModelIndex &index,
         data.string = value.toString();
         _data.replace(row, data);
         emit dataChanged(index, index, { role });
+    } else if (role == Qt::ItemDataRole::DecorationRole) {
+        // TODO
+        return false;
     } else if (role == Qt::ItemDataRole::CheckStateRole) {
         CheckableString data = _data.at(row);
         bool ok = false;
