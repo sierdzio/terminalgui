@@ -2,6 +2,20 @@
 #include "tgterminal.h"
 #include "tgcommand.h"
 
+Tg::Color::Color() : _predefined(Color::Predefined::Empty)
+{
+}
+
+Tg::Color::Color(const Tg::Color::Predefined predefined)
+    : _predefined(predefined)
+{
+}
+
+Tg::Color::Color(const quint8 red, const quint8 green, const quint8 blue)
+    : _red(red), _green(green), _blue(blue)
+{
+}
+
 QString Tg::Color::code(const Tg::Color &foregroundColor,
                               const Tg::Color &backgroundColor)
 {
@@ -37,16 +51,6 @@ QString Tg::Color::code(const Tg::Color &color,
 QString Tg::Color::end()
 {
     return Command::colorEnd;
-}
-
-Tg::Color::Color(const Tg::Color::Predefined predefined)
-    : _predefined(predefined)
-{
-}
-
-Tg::Color::Color(const quint8 red, const quint8 green, const quint8 blue)
-    : _red(red), _green(green), _blue(blue)
-{
 }
 
 QString Tg::Color::rgb() const

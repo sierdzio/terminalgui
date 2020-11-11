@@ -36,6 +36,7 @@ public:
 
     static QString end();
 
+    Color();
     Color(const Predefined predefined);
     Color(const quint8 red, const quint8 green, const quint8 blue);
 
