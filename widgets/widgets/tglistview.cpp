@@ -59,6 +59,10 @@ void Tg::ListView::setModel(QAbstractItemModel *model)
     }
 
     _model = model;
+
+    CHECK(connect(_model, &QAbstractItemModel::dataChanged,
+                  this, &ListView::schedulePartialRedraw));
+
     setCurrentIndex(0);
     updateChildrenDimensions();
 
@@ -197,6 +201,19 @@ void Tg::ListView::consumeKeyboardBuffer(const QString &keyboardBuffer)
                 setContentsPosition(pos);
             }
         }
+    }
+
+    if (keyboardBuffer.contains(Tg::Key::space)) {
+        const QModelIndex index = model()->index(currentIndex(), 0);
+        const Qt::CheckState state = model()->data(index, Qt::ItemDataRole::CheckStateRole)
+                .value<Qt::CheckState>();
+        Qt::CheckState newState;
+        if (state == Qt::CheckState::Unchecked) {
+            newState = Qt::CheckState::Checked;
+        } else {
+            newState = Qt::CheckState::Unchecked;
+        }
+        model()->setData(index, newState, Qt::ItemDataRole::CheckStateRole);
     }
 }
 
