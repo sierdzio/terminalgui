@@ -61,11 +61,11 @@ protected slots:
 
 private:
     QTimer _buttonPressTimer;
-    Tg::Color _activeTextColor = Tg::Color::Predefined::Empty;
-    Tg::Color _activeBackgroundColor = Tg::Color::Predefined::Empty;
-    Tg::Color _inactiveTextColor = Tg::Color::Predefined::Empty;
-    Tg::Color _inactiveBackgroundColor = Tg::Color::Predefined::Empty;
-    Tg::Color _pressedTextColor = Tg::Color::Predefined::Empty;
-    Tg::Color _pressedBackgroundColor = Tg::Color::Predefined::Empty;
+    Tg::Color _activeTextColor;
+    Tg::Color _activeBackgroundColor;
+    Tg::Color _inactiveTextColor;
+    Tg::Color _inactiveBackgroundColor;
+    Tg::Color _pressedTextColor;
+    Tg::Color _pressedBackgroundColor;
 };
 }

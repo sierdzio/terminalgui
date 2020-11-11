@@ -8,7 +8,7 @@ namespace Tg {
 struct CheckableString {
     Qt::CheckState checkState = Qt::CheckState::Unchecked;
     QString string;
-    Tg::Color color = Tg::Color::Predefined::Empty;
+    Tg::Color color;
 };
 
 using CheckableStringList = QList<CheckableString>;

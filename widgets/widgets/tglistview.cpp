@@ -27,8 +27,14 @@ QString Tg::ListView::drawAreaContents(const QPoint &pixel) const
         return {};
     }
 
-    const Tg::Color background = (alternatingRowColors() && (childPx.y() % 2))?
-                alternativeBackgroundColor() : backgroundColor();
+    Tg::Color background = backgroundColor();
+
+    if (childPx.y() == _currentIndex) {
+        background = currentIndexColor();
+    } else if (alternatingRowColors() && (childPx.y() % 2)) {
+        background = alternativeBackgroundColor();
+    }
+
     QString result = Tg::Color::code(textColor(), background);
 
     const QString line(getLine(childPx.y()));
@@ -53,6 +59,7 @@ void Tg::ListView::setModel(QAbstractItemModel *model)
     }
 
     _model = model;
+    setCurrentIndex(0);
     updateChildrenDimensions();
 
     emit modelChanged(model);
@@ -74,6 +81,20 @@ Tg::Color Tg::ListView::alternativeBackgroundColor() const
         return style()->alternativeBackgroundColor;
     } else {
         return _alternativeBackgroundColor;
+    }
+}
+
+qsizetype Tg::ListView::currentIndex() const
+{
+    return _currentIndex;
+}
+
+Tg::Color Tg::ListView::currentIndexColor() const
+{
+    if (_currentIndexColor.isEmpty()) {
+        return style()->currentIndexColor;
+    } else {
+        return _currentIndexColor;
     }
 }
 
@@ -104,6 +125,24 @@ void Tg::ListView::setAlternativeBackgroundColor(const Tg::Color &alternativeBac
     emit alternativeBackgroundColorChanged(_alternativeBackgroundColor);
 }
 
+void Tg::ListView::setCurrentIndex(const qsizetype currentIndex)
+{
+    if (_currentIndex == currentIndex)
+        return;
+
+    _currentIndex = currentIndex;
+    emit currentIndexChanged(_currentIndex);
+}
+
+void Tg::ListView::setCurrentIndexColor(const Tg::Color &currentIndexColor)
+{
+    if (_currentIndexColor == currentIndexColor)
+        return;
+
+    _currentIndexColor = currentIndexColor;
+    emit currentIndexColorChanged(_currentIndexColor);
+}
+
 void Tg::ListView::init()
 {
     ScrollArea::init();
@@ -112,11 +151,53 @@ void Tg::ListView::init()
                   this, &ListView::schedulePartialRedraw));
     CHECK(connect(this, &ListView::modelChanged,
                   this, &ListView::schedulePartialRedraw));
+    CHECK(connect(this, &ListView::alternatingRowColorsChanged,
+                  this, &ListView::schedulePartialRedraw));
+    CHECK(connect(this, &ListView::alternativeBackgroundColorChanged,
+                  this, &ListView::schedulePartialRedraw));
+    CHECK(connect(this, &ListView::currentIndexChanged,
+                  this, &ListView::schedulePartialRedraw));
+    CHECK(connect(this, &ListView::currentIndexColorChanged,
+                  this, &ListView::schedulePartialRedraw));
 }
 
 void Tg::ListView::consumeKeyboardBuffer(const QString &keyboardBuffer)
 {
-    ScrollArea::consumeKeyboardBuffer(keyboardBuffer);
+    if (keyboardBuffer.contains(Tg::Key::right)
+            || keyboardBuffer.contains(Tg::Key::left)) {
+        ScrollArea::consumeKeyboardBuffer(keyboardBuffer);
+    }
+
+    if (keyboardBuffer.contains(Tg::Key::down)) {
+        if ((currentIndex() + 1) < model()->rowCount()) {
+            setCurrentIndex(currentIndex() + 1);
+        }
+
+        const int currentY = contentsPosition().y();
+        const int hiddenLength = std::abs(currentY);
+        const int contentsHeight = scrollableArea().height();
+        if (currentIndex() >= (hiddenLength + contentsHeight)) {
+            QPoint pos = contentsPosition();
+            pos.setY(currentY - 1);
+            setContentsPosition(pos);
+        }
+    }
+
+    if (keyboardBuffer.contains(Tg::Key::up)) {
+        if (currentIndex() > 0) {
+            setCurrentIndex(currentIndex() - 1);
+        }
+
+        const int currentY = contentsPosition().y();
+        if (currentY < 0) {
+            const int hiddenLength = std::abs(currentY);
+            if (currentIndex() < hiddenLength) {
+                QPoint pos = contentsPosition();
+                pos.setY(currentY + 1);
+                setContentsPosition(pos);
+            }
+        }
+    }
 }
 
 QString Tg::ListView::getLine(const int y) const

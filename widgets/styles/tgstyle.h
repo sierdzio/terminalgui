@@ -74,5 +74,8 @@ public:
     Tg::Color forwardArrowBackgroundColor = backwardArrowBackgroundColor;
     Tg::Color forwardArrowActiveBackgroundColor = backwardArrowActiveBackgroundColor;
     Tg::Color forwardArrowInactiveBackgroundColor = backwardArrowInactiveBackgroundColor;
+
+    // ListView
+    Tg::Color currentIndexColor = Tg::Color::Predefined::Cyan;
 };
 }

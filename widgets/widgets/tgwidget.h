@@ -165,10 +165,10 @@ private:
     QSize _size = { 1, 1 };
     QSize _previousSize = { 1, 1 };
 
-    Tg::Color _backgroundColor = Tg::Color::Predefined::Empty;
-    Tg::Color _textColor = Tg::Color::Predefined::Empty;
-    Tg::Color _borderTextColor = Tg::Color::Predefined::Empty;
-    Tg::Color _borderBackgroundColor = Tg::Color::Predefined::Empty;
+    Tg::Color _backgroundColor;
+    Tg::Color _textColor;
+    Tg::Color _borderTextColor;
+    Tg::Color _borderBackgroundColor;
 
     bool _visible = false;
     bool _borderVisible = true;

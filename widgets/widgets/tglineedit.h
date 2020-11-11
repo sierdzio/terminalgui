@@ -48,7 +48,7 @@ private:
     QString _placeholderText;
     QString _realText;
     int _cursorPosition = 0;
-    Tg::Color _placeholderTextColor = Tg::Color::Predefined::Empty;
-    Tg::Color _placeholderBackgroundColor = Tg::Color::Predefined::Empty;
+    Tg::Color _placeholderTextColor;
+    Tg::Color _placeholderBackgroundColor;
 };
 }

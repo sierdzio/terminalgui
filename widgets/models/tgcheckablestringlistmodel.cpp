@@ -5,7 +5,8 @@ Tg::CheckableStringListModel::CheckableStringListModel(
     : QAbstractListModel(parent)
 {
     for (const QString &string : data) {
-        _data.append({ Qt::CheckState::Unchecked, string });
+        _data.append({ Qt::CheckState::Unchecked, string,
+                       Tg::Color::Predefined::Empty });
     }
 }
 
