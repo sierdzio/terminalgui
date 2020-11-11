@@ -51,6 +51,7 @@ public:
     bool isTrueColor() const;
 
     bool operator==(const Color &other) const;
+    bool operator!=(const Color &other) const;
 
 private:
     int predefinedValue() const;

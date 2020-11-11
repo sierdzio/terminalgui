@@ -6,7 +6,7 @@ Tg::CheckableStringListModel::CheckableStringListModel(
 {
     for (const QString &string : data) {
         _data.append({ Qt::CheckState::Unchecked, string,
-                       Tg::Color::Predefined::Empty });
+                       Tg::Color::Predefined::Yellow });
     }
 }
 
@@ -78,15 +78,25 @@ bool Tg::CheckableStringListModel::setData(const QModelIndex &index,
         return false;
     }
 
-    if (role == Qt::ItemDataRole::EditRole) {
+    switch (role) {
+    case Qt::ItemDataRole::EditRole:
+    {
         CheckableString data = _data.at(row);
         data.string = value.toString();
         _data.replace(row, data);
         emit dataChanged(index, index, { role });
-    } else if (role == Qt::ItemDataRole::DecorationRole) {
-        // TODO
-        return false;
-    } else if (role == Qt::ItemDataRole::CheckStateRole) {
+    }
+        break;
+    case Qt::ItemDataRole::DecorationRole:
+    {
+        CheckableString data = _data.at(row);
+        data.color = value.value<Color>();
+        _data.replace(row, data);
+        emit dataChanged(index, index, { role });
+    }
+        break;
+    case Qt::ItemDataRole::CheckStateRole:
+    {
         CheckableString data = _data.at(row);
         bool ok = false;
         const Qt::CheckState valueState = Qt::CheckState(value.toInt(&ok));
@@ -99,6 +109,8 @@ bool Tg::CheckableStringListModel::setData(const QModelIndex &index,
                     Qt::CheckState::Checked : valueState;
         _data.replace(row, data);
         emit dataChanged(index, index, { role });
+    }
+        break;
     }
 
     return false;

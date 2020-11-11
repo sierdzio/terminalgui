@@ -27,6 +27,17 @@ QString Tg::ListView::drawAreaContents(const QPoint &pixel) const
         return {};
     }
 
+    if (childPx.x() == 0) {
+        const QModelIndex index = model()->index(childPx.y(), 0);
+        const Color decoration = model()->data(
+                    index, Qt::ItemDataRole::DecorationRole).value<Color>();
+        if (decoration != Color::Predefined::Empty) {
+            QString result = Tg::Color::code(textColor(), decoration);
+            result.append(Key::space);
+            return result;
+        }
+    }
+
     Tg::Color background = backgroundColor();
 
     if (childPx.y() == _currentIndex) {

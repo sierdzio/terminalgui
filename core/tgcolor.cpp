@@ -112,6 +112,11 @@ bool Tg::Color::operator==(const Tg::Color &other) const
     }
 }
 
+bool Tg::Color::operator!=(const Tg::Color &other) const
+{
+    return !operator==(other);
+}
+
 int Tg::Color::predefinedValue() const
 {
     return int(_predefined);
