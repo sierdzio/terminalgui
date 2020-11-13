@@ -11,6 +11,23 @@
 #include <widgets/tglistview.h>
 #include <models/tgcheckablestringlistmodel.h>
 
+Tg::CheckableStringList colorData(const QStringList &strings)
+{
+    Tg::CheckableStringList result;
+    Tg::Color::Predefined color = Tg::Color::Predefined::Red;
+    for (const QString &string : strings) {
+        result.append({ Qt::CheckState::Unchecked, string, color });
+        if (color == Tg::Color::Predefined::White) {
+            color = Tg::Color::Predefined::Gray;
+        } else if (color == Tg::Color::Predefined::LightWhite) {
+            color = Tg::Color::Predefined::Black;
+        } else {
+            color = Tg::Color::Predefined(int(color) + 1);
+        }
+    }
+    return result;
+}
+
 int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
@@ -70,20 +87,20 @@ int main(int argc, char *argv[])
     listView.setWrapRows(true);
     listView.setAlternatingRowColors(true);
 
-    auto model = new Tg::CheckableStringListModel(
-                {
-                    "Some",
-                    "strings",
-                    "in this long, very, very, very, long",
-                    "model",
-                    "are",
-                    "simply",
-                    "fabulous!",
-                    "Be sure",
-                    "to read them",
-                    "all"
-                },
-                &listView);
+    const QStringList list = {
+        "Some",
+        "strings",
+        "in this long, very, very, very, long",
+        "model",
+        "are",
+        "simply",
+        "fabulous!",
+        "Be sure",
+        "to read them",
+        "all"
+    };
+
+    auto model = new Tg::CheckableStringListModel(colorData(list), &listView);
 
     listView.setModel(model);
     listView.show();

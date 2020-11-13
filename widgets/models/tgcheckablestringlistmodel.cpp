@@ -6,7 +6,7 @@ Tg::CheckableStringListModel::CheckableStringListModel(
 {
     for (const QString &string : data) {
         _data.append({ Qt::CheckState::Unchecked, string,
-                       Tg::Color::Predefined::Yellow });
+                       Tg::Color::Predefined::Empty });
     }
 }
 
