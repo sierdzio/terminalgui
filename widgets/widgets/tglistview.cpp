@@ -27,15 +27,18 @@ QString Tg::ListView::drawAreaContents(const QPoint &pixel) const
         return {};
     }
 
-    if (childPx.x() == 0) {
-        const QModelIndex index = model()->index(childPx.y(), 0);
-        const Color decoration = model()->data(
-                    index, Qt::ItemDataRole::DecorationRole).value<Color>();
-        if (decoration != Color::Predefined::Empty) {
+    const QModelIndex index = model()->index(childPx.y(), 0);
+    const Color decoration = model()->data(
+                index, Qt::ItemDataRole::DecorationRole).value<Color>();
+    int offset = 0;
+    if (decoration != Color::Predefined::Empty) {
+        if (childPx.x() == 0) {
             QString result = Tg::Color::code(textColor(), decoration);
             result.append(Key::space);
             return result;
         }
+
+        offset = 1;
     }
 
     Tg::Color background = backgroundColor();
@@ -48,13 +51,13 @@ QString Tg::ListView::drawAreaContents(const QPoint &pixel) const
 
     QString result = Tg::Color::code(textColor(), background);
 
-    const QString line(getLine(childPx.y()));
-    if (childPx.x() >= line.length()) {
+    const QString line(getLine(index));
+    if (childPx.x() >= (line.length() + offset)) {
         result.append(backgroundCharacter());
         return result;
     }
 
-    result.append(line.at(childPx.x()));
+    result.append(line.at(childPx.x() - offset));
     return result;
 }
 
@@ -228,9 +231,13 @@ void Tg::ListView::consumeKeyboardBuffer(const QString &keyboardBuffer)
     }
 }
 
-QString Tg::ListView::getLine(const int y) const
+QString Tg::ListView::getLine(const int row) const
 {
-    const QModelIndex index = model()->index(y, 0);
+    return getLine(model()->index(row, 0));
+}
+
+QString Tg::ListView::getLine(const QModelIndex index) const
+{
     const Qt::ItemFlags flags = model()->flags(index);
 
     QString result;
@@ -267,8 +274,17 @@ void Tg::ListView::updateChildrenDimensions()
     const QRect widgetSize = scrollableArea();
 
     for (int i = 0; i < widgetSize.height(); ++i) {
-        const QString line(getLine(i));
-        longestRowInView = std::max(longestRowInView, qsizetype(line.length()));
+        const QModelIndex index(model()->index(i, 0));
+        const QString line(getLine(index));
+        const Color decoration = model()->data(
+                    index, Qt::ItemDataRole::DecorationRole).value<Color>();
+        int offset = 0;
+        if (decoration != Color::Predefined::Empty) {
+            offset = 1;
+        }
+
+        longestRowInView = std::max(longestRowInView,
+                                    qsizetype(line.length() + offset));
         // TODO: wrap support
     }
 

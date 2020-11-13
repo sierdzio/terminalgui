@@ -53,7 +53,8 @@ protected:
     void init() override;
     void consumeKeyboardBuffer(const QString &keyboardBuffer) override;
 
-    QString getLine(const int y) const;
+    QString getLine(const int row) const;
+    QString getLine(const QModelIndex index) const;
 
 protected slots:
     void updateChildrenDimensions() override;
