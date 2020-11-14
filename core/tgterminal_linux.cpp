@@ -35,7 +35,7 @@ QSize Tg::Terminal::updateSize()
     return QSize(w.ws_col, w.ws_row);
 }
 
-QPoint Tg::Terminal::currentPosition()
+QPoint Tg::Terminal::cursorPosition()
 {
     winsize w;
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
