@@ -1,4 +1,7 @@
-#include "backend.h"
+#include "tgterminal.h"
+#include "tgcommand.h"
+
+#include <QTextStream>
 
 // For reading terminal size
 // https://stackoverflow.com/questions/6812224/getting-terminal-size-in-c-for-windows
@@ -17,11 +20,6 @@ QSize Tg::Terminal::updateSize()
     return QSize(columns, rows);
 }
 
-QPoint Tg::Terminal::currentPosition()
-{
-    return QPoint();
-}
-
 int Tg::Terminal::keyboardBufferSize()
 {
     //https://docs.microsoft.com/en-us/cpp/c-runtime-library/console-and-port-i-o?redirectedfrom=MSDN&view=vs-2019
@@ -32,6 +30,24 @@ int Tg::Terminal::getChar()
 {
     // https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/getch-getwch?view=vs-2019
     return _getch();
+}
+
+void Tg::Terminal::registerSignalHandler()
+{
+}
+
+void Tg::Terminal::enableMouseTracking()
+{
+    QTextStream stream(stdout);
+    stream << Command::mouseClickReporting << Command::mouseExtendedCoordinates;
+    _isMouseReporting = true;
+}
+
+void Tg::Terminal::disableMouseTracking()
+{
+    QTextStream stream(stdout);
+    stream << Command::mouseEndReporting;
+    _isMouseReporting = false;
 }
 
 #include <iostream>

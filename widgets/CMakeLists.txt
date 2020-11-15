@@ -17,7 +17,7 @@ if(WIN32)
   ADD_DEFINITIONS(-D_UNICODE)
 endif()
 
-add_library(terminalgui SHARED
+add_library(terminalgui STATIC
   utils/tgreversibleanimation.cpp
   utils/tghelpers.cpp
   styles/tgstyle.cpp

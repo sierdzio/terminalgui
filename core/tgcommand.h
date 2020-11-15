@@ -7,7 +7,7 @@ namespace Tg {
 // http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x361.html
 // https://en.wikipedia.org/wiki/ANSI_escape_code
 namespace Command {
-const QString ansiEscape = "\e[";
+const QString ansiEscape = "\033[";
 const QChar ansiEscapeEnd = 'm';
 const QChar ansiPositionEnd = 'H';
 

@@ -20,7 +20,7 @@ else()
   SET(BACKEND_SRC tgterminal_linux.cpp)
 endif()
 
-add_library(terminalgui-core SHARED
+add_library(terminalgui-core STATIC
   tgkey.h
   tgcommand.cpp tgcommand.h
   tgcolor.cpp tgcolor.h
