@@ -3,6 +3,7 @@
 
 #include <QCoreApplication>
 #include <QTextStream>
+#include <QDebug>
 
 // For reading terminal size
 // https://stackoverflow.com/questions/1022957/getting-terminal-width-in-c
@@ -87,10 +88,16 @@ Tg::RawTerminalLocker::RawTerminalLocker()
     //tcsetattr(standardInputIndex, TCSANOW, &term);
     //setbuf(stdin, NULL);
 
-    system("stty raw -echo");
+    const int result = system("stty raw -echo");
+    if (result != 0) {
+        qWarning() << Q_FUNC_INFO << "could not lock the terminal" << result;
+    }
 }
 
 Tg::RawTerminalLocker::~RawTerminalLocker()
 {
-    system("stty cooked echo");
+    const int result = system("stty cooked echo");
+    if (result != 0) {
+        qWarning() << Q_FUNC_INFO << "could not unlock the terminal" << result;
+    }
 }

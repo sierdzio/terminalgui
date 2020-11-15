@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.16)
 project(terminalgui
   LANGUAGES CXX
   VERSION 0.1.0
+  DESCRIPTION "Widgets for your terminal, powered by Qt! Create textual GUI (TUI) in your console easily."
 )
 
 if (NOT WIN32)
@@ -20,7 +21,7 @@ write_basic_package_version_file(
   COMPATIBILITY AnyNewerVersion
 )
 
-SET(CPACK_GENERATOR "DEB;RPM") # ;NSIS
+set(CPACK_GENERATOR "DEB;RPM") # ;NSIS
 set(CPACK_PACKAGE_VENDOR "sierdzio")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Qt-based widgets for terminal")
 set(CPACK_PACKAGE_DESCRIPTION "Develop event-driven, customizable widget applications for terminals.")
@@ -44,3 +45,25 @@ SET(CPACK_RPM_COMPRESSION_TYPE "xz")
 SET(CPACK_RPM_FILE_NAME "RPM-DEFAULT")
 
 INCLUDE(CPack)
+
+set(DOCS_DEFAULT OFF)
+if (CMAKE_BUILD_TYPE MATCHES "^[Rr]elease")
+  set(DOCS_DEFAULT ON)
+endif()
+
+option(DOCS "Build documentation" ${DOCS_DEFAULT})
+if (DOCS)
+  find_package(Doxygen REQUIRED dot)
+  if (DOXYGEN_FOUND)
+    set(DOXYGEN_FILE_PATTERNS "*.cpp;*.h")
+    set(DOXYGEN_USE_MDFILE_AS_MAINPAGE "README.md")
+    set(DOXYGEN_INCLUDE_PATH "${CMAKE_CURRENT_SOURCE_DIR}")
+    doxygen_add_docs(doc
+      core widgets examples doc LICENSE.md README.md
+      ALL
+      COMMENT "Building documentation"
+    )
+  else()
+    message("Doxygen has not been found, cannot build the documentation")
+  endif()
+endif()
