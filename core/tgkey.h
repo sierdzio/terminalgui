@@ -6,6 +6,10 @@
 #include <QString>
 
 namespace Tg {
+/*!
+ * Characters and escape sequences which can be found in keyboard buffer
+ * (see Terminal::getChar()).
+ */
 namespace Key {
 const QString up = Command::ansiEscape + 'A';
 const QString down = Command::ansiEscape + 'B';

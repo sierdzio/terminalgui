@@ -4,8 +4,13 @@
 #include <QString>
 
 namespace Tg {
-// http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x361.html
-// https://en.wikipedia.org/wiki/ANSI_escape_code
+/*!
+ * Various ANSI code dommands.
+ *
+ * For more information, take a look at:
+ * \li http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x361.html
+ * \li https://en.wikipedia.org/wiki/ANSI_escape_code
+ */
 namespace Command {
 const QString ansiEscape = "\033[";
 const QChar ansiEscapeEnd = 'm';

@@ -20,7 +20,7 @@ static void linuxSignalHandler(const int signal)
     }
 
     if (signal == SIGWINCH) {
-        const auto newSize = terminal->updateSize();
+        const auto newSize = terminal->terminalWindowSize();
         terminal->setSize(newSize);
     }
     else
@@ -29,7 +29,7 @@ static void linuxSignalHandler(const int signal)
     }
 }
 
-QSize Tg::Terminal::updateSize()
+QSize Tg::Terminal::terminalWindowSize() const
 {
     winsize w;
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);

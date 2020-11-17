@@ -16,16 +16,15 @@ Tg::Color::Color(const quint8 red, const quint8 green, const quint8 blue)
 {
 }
 
-QString Tg::Color::code(const Tg::Color &foregroundColor,
-                              const Tg::Color &backgroundColor)
+QString Tg::Color::code(const Tg::Color &foreground, const Tg::Color &background)
 {
-    const bool forceTrueColor = (foregroundColor.isPredefined() == false)
-            || (backgroundColor.isPredefined() == false);
+    const bool forceTrueColor = (foreground.isPredefined() == false)
+            || (background.isPredefined() == false);
 
     return Command::ansiEscape
-            + code(foregroundColor, false, forceTrueColor)
+            + code(foreground, false, forceTrueColor)
             + Command::separator
-            + code(backgroundColor, true, forceTrueColor)
+            + code(background, true, forceTrueColor)
             + Command::ansiEscapeEnd;
 }
 

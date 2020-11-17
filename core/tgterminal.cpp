@@ -5,7 +5,7 @@ Tg::Terminal *Tg::Terminal::_globalTerminal = nullptr;
 Tg::Terminal::Terminal(QObject *parent) : QObject(parent)
 {
     _globalTerminal = this;
-    _size = updateSize();
+    _size = terminalWindowSize();
     registerSignalHandler();
     enableMouseTracking();
 }

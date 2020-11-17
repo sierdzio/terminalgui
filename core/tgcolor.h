@@ -4,8 +4,21 @@
 #include <QMetaType>
 
 namespace Tg {
+/*!
+ * \brief Represents colors in a terminal.
+ */
 class Color {
 public:
+    /*!
+     * Contains predefined colors supported by all terminals, including
+     * the oldest ones. A terminal emulator can override these colors based
+     * on user-chosen profile (TODO: verify this...).
+     *
+     * \note There is a difference between an Invalid color and an Empty one.
+     * With Empty, the terminal will supply a default color in it's place
+     * (usually black). With Invalid, code is specifically not defined and
+     * should not be replaced by a default one.
+     */
     enum class Predefined {
         Invalid = -1,
         Empty = 0,
@@ -28,12 +41,30 @@ public:
         LightWhite = 97
     };
 
-    static QString code(const Color &foregroundColor,
-                        const Color &backgroundColor = Color::Predefined::Empty);
+    /*!
+     * Returns ANSI-coded sequence, as understood by terminal, for given
+     * \a foreground color and \a background color.
+     *
+     * For best results, it is recommended for both colors to be of the same
+     * type (either Color::Predefined or 24-bit color).
+     */
+    static QString code(const Color &foreground,
+                        const Color &background = Color::Predefined::Empty);
 
+    /*!
+     * Returns ANSI-coded sequence, as understood by terminal, for given
+     * \a color. Depending on \a isBackground, color will be encoded as
+     * background or foreground color (this is important only for
+     * Color::Predefined colors).
+     *
+     * If \a forceTrueColor is `true`, returned sequence will use 24-bit color.
+     */
     static QString code(const Color &color, const bool isBackground,
                         const bool forceTrueColor);
 
+    /*!
+     * Returns ANSI sequence which ends color definition.
+     */
     static QString end();
 
     Color();

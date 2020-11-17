@@ -8,7 +8,7 @@
 #include <windows.h>
 #include <conio.h>
 
-QSize Tg::Terminal::updateSize()
+QSize Tg::Terminal::terminalWindowSize() const
 {
     CONSOLE_SCREEN_BUFFER_INFO csbi;
     int columns, rows;

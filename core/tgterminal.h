@@ -15,15 +15,46 @@ class Terminal : public QObject
 {
     Q_OBJECT
 
+    /*!
+     *
+     */
     Q_PROPERTY(QSize size READ size NOTIFY sizeChanged)
 
 public:
+    /*!
+     * Constructs a new Terminal object as a child of \a parent object.
+     * Typically it is parented under Screen.
+     */
     Terminal(QObject *parent = nullptr);
+
+    /*!
+     * Makes terminal go boom!
+     */
     ~Terminal();
+
+    /*!
+     * Returns Singleton Terminal instance.
+     *
+     * \note This is a WIP. Terminal will either become a full singleton,
+     * or multiple instances will be allowed.
+     */
     static Terminal *globalTerminal();
 
-    QSize updateSize();
+    /*!
+     * Reads the underlying terminal window size and returns it.
+     */
+    QSize terminalWindowSize() const;
+
+    /*!
+     * Returns current size of the Terminal.
+     */
     QSize size() const;
+
+    /*!
+     * Resizes Terminal instance to \a newSize.
+     *
+     * \note This is not fully implemented or tested.
+     */
     void setSize(const QSize &newSize);
 
     /*!
@@ -59,6 +90,7 @@ private:
     void disableMouseTracking();
 
     static Terminal *_globalTerminal;
+    static const int standardInputIndex = 0;
     const QSize _defaultSize = QSize(80, 24);
     bool _isMouseReporting = false;
     QSize _size;
@@ -83,7 +115,5 @@ public:
      */
     ~RawTerminalLocker();
 };
-
-const int standardInputIndex = 0;
 }
 
