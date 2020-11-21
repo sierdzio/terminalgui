@@ -68,20 +68,91 @@ public:
     static QString end();
 
     Color();
+
+    /*!
+     * Constructs a Color with one of the \a predefined colors.
+     *
+     * \note Automatic conversion between Predefined and 24 bit color is
+     * not supported (yet?).
+     */
     Color(const Predefined predefined);
+
+    /*!
+     * Constructs a 24 bit color using \a red, \b green and \a blue components.
+     *
+     * Each variable should be a number between 0 and 255.
+     *
+     * \note Automatic conversion between 24 bit and Predefined color is
+     * not supported (yet?).
+     */
     Color(const quint8 red, const quint8 green, const quint8 blue);
 
+    /*!
+     * Returns 24 bit color information in a format understood by the terminal.
+     * Resulting string looks like this:
+     \code
+     123;123;123
+     \endcode
+     *
+     * \warning Will return `0;0;0` when Color type is Predefined.
+     */
     QString rgb() const;
+
+    /*!
+     * Returns intensity of red color.
+     *
+     * \warning Returns 0 when Color type is Predefined.
+     */
     quint8 red() const;
+
+    /*!
+     * Returns intensity of green color.
+     *
+     * \warning Returns 0 when Color type is Predefined.
+     */
     quint8 green() const;
+
+    /*!
+     * Returns intensity of blue color.
+     *
+     * \warning Returns 0 when Color type is Predefined.
+     */
     quint8 blue() const;
+
+    /*!
+     * Returns a Predefined color value if Color is not 24 bit, or
+     * Predefined::Invalid otherwise.
+     */
     Predefined predefined() const;
 
+    /*!
+     * Returns true if a Predefined color is Predefined::Empty. In such case,
+     * the terminal will provide a default color.
+     */
     bool isEmpty() const;
+
+    /*!
+     * Returns true is Color type is Predefined (as opposed to 24 bit color).
+     *
+     * \sa isTrueColor
+     */
     bool isPredefined() const;
+
+    /*!
+     * Returns true if Color is 24 bit (as opposed to Predefined).
+     *
+     * \sa isPredefined
+     */
     bool isTrueColor() const;
 
+    /*!
+     * Returns true is \a other is the same.
+     */
     bool operator==(const Color &other) const;
+
+    /*!
+     * Returns true if \a other is different.
+     */
     bool operator!=(const Color &other) const;
 
 private:
