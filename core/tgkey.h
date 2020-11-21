@@ -45,8 +45,20 @@ const QChar enter = '\n';
  * Return key.
  */
 const QChar ret = '\r';
+
+/*!
+ * Backspace key.
+ */
 const int backspace = 0x007f;
+
+/*!
+ * Delete key.
+ */
 const QString del = Command::ansiEscape + "3~";
+
+/*!
+ * Space key.
+ */
 const QChar space = ' ';
 }
 }
