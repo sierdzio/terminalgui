@@ -6,6 +6,18 @@
 namespace Tg {
 /*!
  * \brief Represents colors in a terminal.
+ *
+ * In terminals, color is used mainly in 2 places:
+ * \list
+ * \li foreground (text color)
+ * \li background (background color - painted behind text)
+ * \endlist
+ *
+ * Each character ("pixel") inside the terminal can have these 2 colors set
+ * completely independently. Use Color::code() to get a ready-made
+ *
+ * Terminal GUI supports 2 color schemes: Predefined and 24 bit (true color).
+ * Currently Color class does not convert colors of one type to another.
  */
 class Color {
 public:
@@ -18,6 +30,8 @@ public:
      * With Empty, the terminal will supply a default color in it's place
      * (usually black). With Invalid, code is specifically not defined and
      * should not be replaced by a default one.
+     *
+     * \todo Add automatic conversion between Predefined and 24 bit colors.
      */
     enum class Predefined {
         Invalid = -1,
@@ -67,6 +81,9 @@ public:
      */
     static QString end();
 
+    /*!
+     * Constructs a color of type Predefined (it's set to Predefined::Invalid).
+     */
     Color();
 
     /*!

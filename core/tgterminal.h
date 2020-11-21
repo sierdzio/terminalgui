@@ -9,7 +9,12 @@ namespace Tg {
 /*!
  * \brief Cross-platform representation of terminal window.
  *
- * Contains some basic APIs used by Widget and its subclasses.
+ * Contains some basic APIs used by Widget and its subclasses. This class is
+ * internal, there should be no need to use it in user code.
+ *
+ * \todo Further refactor the API to be more Qt-like. We don't need getChar(),
+ * for example, the class could hold keyboard buffer locally and notify Screen
+ * when needed via a signal.
  */
 class Terminal : public QObject
 {
