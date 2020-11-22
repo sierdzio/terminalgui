@@ -18,6 +18,34 @@ namespace Tg {
 class Screen;
 class Layout;
 
+/*!
+ * Base class for all widgets in a Terminal Gui application.
+ *
+ * Plain Widget, when drawn on screen, will draw its border and an empty
+ * interior. If it is a child of another Widget, or when borderVisible() is
+ * `false`, it only draw empty contents.
+ *
+ * \section subclassing Subclassing
+ *
+ * Widget subclasses reimplement its drawPixel() method to draw actual contents.
+ *
+ * \section diff Differences from Qt Widgets
+ *
+ * Unlike QWidget which relies on a separate class to do layouting (QLayout),
+ * Widget can lay its children automatically. This can be controlled using
+ * setLayoutType().
+ *
+ * \section style Styling
+ *
+ * Widget (and all its subclasses) can be styled in several ways. By default,
+ * Widget inherits Style from its parent (or Screen class) unless
+ * propagatesStyle() returns `false`. A custom Style can be set (either for this
+ * Widget only, or also for all its children) using setStyle(). Alternatively,
+ * each individual style-related property can be overriden using various
+ * setters (for example: setBackgroundColor(), setTextColor() etc.). These
+ * setters always work only for this single Widget and have no effect on its
+ * children.
+ */
 class Widget : public QObject
 {
     Q_OBJECT

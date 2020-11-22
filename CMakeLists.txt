@@ -59,8 +59,9 @@ if (DOCS)
     set(DOXYGEN_USE_MDFILE_AS_MAINPAGE "README.md")
     set(DOXYGEN_INCLUDE_PATH "${CMAKE_CURRENT_SOURCE_DIR}")
     set(DOXYGEN_IMAGE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/doc/img")
+    set(DOXYGEN_QT_AUTOBRIEF "YES")
     doxygen_add_docs(doc
-      core widgets examples doc LICENSE.md README.md doc/developer_guide.md
+      core widgets doc LICENSE.md README.md doc/developer_guide.md
       ALL
       COMMENT "Building documentation"
     )

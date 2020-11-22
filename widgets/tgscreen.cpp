@@ -9,9 +9,12 @@
 #include <QRect>
 #include <QDebug>
 
-Tg::Screen::Screen(QObject *parent) : QObject(parent)
+Tg::Screen::Screen(QObject *parent, const StylePointer &style)
+    : QObject(parent), _style(style)
 {
-    _style = StylePointer::create();
+    if (_style.isNull()) {
+        _style = StylePointer::create();
+    }
 
     _terminal = new Terminal(this);
     setSize(_terminal->size());
@@ -29,11 +32,7 @@ Tg::Screen::Screen(QObject *parent) : QObject(parent)
     _redrawTimer.setSingleShot(true);
 
     CHECK(connect(&_redrawTimer, &QTimer::timeout,
-                  this, &Screen::redrawImmediately));
-}
-
-Tg::Screen::~Screen()
-{
+                  this, &Screen::draw));
 }
 
 QSize Tg::Screen::size() const
@@ -71,7 +70,7 @@ Tg::StylePointer Tg::Screen::style() const
     return _style;
 }
 
-void Tg::Screen::onNeedsRedraw(const RedrawType type, const Widget *widget)
+void Tg::Screen::scheduleRedraw(const RedrawType type, const Widget *widget)
 {
     updateRedrawRegions(type, widget);
     compressRedraws();
@@ -141,7 +140,7 @@ void Tg::Screen::moveFocusToNextWidget()
     }
 }
 
-void Tg::Screen::redrawImmediately()
+void Tg::Screen::draw()
 {
     QTextStream stream(stdout);
 #if QT_VERSION_MAJOR < 6
