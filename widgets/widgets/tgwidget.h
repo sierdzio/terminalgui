@@ -28,6 +28,20 @@ class Layout;
  * \section subclassing Subclassing
  *
  * Widget subclasses reimplement its drawPixel() method to draw actual contents.
+ * It is also very important to reimplement init() method and put initialization
+ * code there, plus all signal and slot connections necessary to update the
+ * Screen when Widget changes.
+ *
+ * Every Widget subclass should contain at least 2 constructors:
+ * \list
+ * \li one taking Screen pointer - used when subclass is a top-level widget
+ * \li one taking Widget pointer - used when subclass is not a top-level widget
+ * \endlink
+ *
+ * If a subclass needs keyboard interaction, it should call setAcceptsFocus() in
+ * its init() override, and implement consumeKeyboardBuffer() with logic
+ * responding to key presses. See Key namespace for helper constants which make
+ * detection of particular clicks easier.
  *
  * \section diff Differences from Qt Widgets
  *

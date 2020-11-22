@@ -9,6 +9,10 @@
 
 #include "utils/tghelpers.h"
 
+/*!
+ * All Terminal GUI classes (both core and widgets) are defined within the Tg
+ * namespace.
+ */
 namespace Tg {
 class Terminal;
 

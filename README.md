@@ -20,6 +20,7 @@ animations, and other meta-object hight-level control
 * support for Linux and Windows
 * backed by the power of Qt: file access, networking, remote objects,
 serial port etc. support
+* depends **only on QtCore** module - no need for QtGui, QtWidgets etc.
 
 ![Terminal GUI widgets](doc/img/terminal-gui-2.gif "Terminal GUI widgets")
 
