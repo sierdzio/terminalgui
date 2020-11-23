@@ -36,7 +36,7 @@ class Layout;
  * \list
  * \li one taking Screen pointer - used when subclass is a top-level widget
  * \li one taking Widget pointer - used when subclass is not a top-level widget
- * \endlink
+ * \endlist
  *
  * If a subclass needs keyboard interaction, it should call setAcceptsFocus() in
  * its init() override, and implement consumeKeyboardBuffer() with logic
@@ -64,7 +64,14 @@ class Widget : public QObject
 {
     Q_OBJECT
 
+    /*!
+     * Position of Widget - either on the Screen or within it's parent Widget.
+     */
     Q_PROPERTY(QPoint position READ position WRITE setPosition NOTIFY positionChanged)
+
+    /*!
+     * Size of the Widget.
+     */
     Q_PROPERTY(QSize size READ size WRITE setSize NOTIFY sizeChanged)
 
     Q_PROPERTY(Tg::Color backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
@@ -73,10 +80,44 @@ class Widget : public QObject
     Q_PROPERTY(Tg::Color borderTextColor READ borderTextColor WRITE setBorderTextColor NOTIFY borderTextColorChanged)
     Q_PROPERTY(Tg::Color borderBackgroundColor READ borderBackgroundColor WRITE setBorderBackgroundColor NOTIFY borderBackgroundColorChanged)
 
+    /*!
+     * A visible Widget is visible. Right?
+     */
     Q_PROPERTY(bool visible READ visible WRITE setVisible NOTIFY visibleChanged)
+
+    /*!
+     * Controls whether border is drawn.
+     *
+     * When border is visible, Widget contents
+     * are drawn inside of it (call contentsRectangle() to get the are inside of
+     * the borders).
+     *
+     * When border is not visible, contents fill the whole boundingRectangle()
+     * (thus contentsRectangle() and boundingRectangle() return the same data).
+     *
+     * \sa boundingRectangle, globalBoundingRectangle,
+     * globalPreviousBoundingRectangle, contentsRectangle, effectiveBorderWidth
+     */
     Q_PROPERTY(bool borderVisible READ borderVisible WRITE setBorderVisible NOTIFY borderVisibleChanged)
+
+    /*!
+     * When true, Widget will receive keyboard signals (Screen will call
+     * consumeKeyboardBuffer()) when its turn comes.
+     */
     Q_PROPERTY(bool acceptsFocus READ acceptsFocus NOTIFY acceptsFocusChanged)
+
+    /*!
+     * Returns `true` when Widget is receving keyboard signals.
+     *
+     * \sa acceptsFocus
+     */
     Q_PROPERTY(bool hasFocus READ hasFocus NOTIFY hasFocusChanged)
+
+    /*!
+     * If `true`, Widget will set its Style object on its children widgets.
+     * If `false`, WIdget will keep its Style to itself (child widgets will
+     * inherit Style from Screen instead).
+     */
     Q_PROPERTY(bool propagatesStyle READ propagatesStyle NOTIFY propagatesStyleChanged)
 
     friend class Screen;
