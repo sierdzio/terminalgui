@@ -71,13 +71,70 @@ class Widget : public QObject
 
     /*!
      * Size of the Widget.
+     *
+     * If the Widget is a child of another one, with layout set, the size will
+     * be modified automatically to fit the layout.
      */
     Q_PROPERTY(QSize size READ size WRITE setSize NOTIFY sizeChanged)
 
+    /*!
+     * Color of the background of Widget's interior (contentsRectangle()).
+     *
+     * \note If no color is set (or Color::Predefined::Invalid is set), a default
+     * color will be taken from Style object (see style()).
+     *
+     * \note When this property is modified, it only affects this object. Other
+     * Widgets, including children, will still get their colors from propagated
+     * Style object.
+     */
     Q_PROPERTY(Tg::Color backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
+
+    /*!
+     * This is the character which fills the *empty* background. By default it
+     * is *space*, so no character is shown at all (only backgroundColor()).
+     *
+     * \note When this property is modified, it only affects this object. Other
+     * Widgets, including children, will still get baground character from
+     * propagated Style object.
+     */
     Q_PROPERTY(QChar backgroundCharacter READ backgroundCharacter WRITE setBackgroundCharacter NOTIFY backgroundCharacterChanged)
+
+    /*!
+     * Color of the characters ("foreground color") printed inside of the
+     * Widget (see contentsRectangle()).
+     *
+     * \note If no color is set (or Color::Predefined::Invalid is set), a default
+     * color will be taken from Style object (see style()).
+     *
+     * \note When this property is modified, it only affects this object. Other
+     * Widgets, including children, will still get their colors from propagated
+     * Style object.
+     */
     Q_PROPERTY(Tg::Color textColor READ textColor WRITE setTextColor NOTIFY textColorChanged)
+
+    /*!
+     * Color of the characters ("foreground color") printed on the borders of
+     * the Widget (see boundingRectangle()).
+     *
+     * \note If no color is set (or Color::Predefined::Invalid is set), a default
+     * color will be taken from Style object (see style()).
+     *
+     * \note When this property is modified, it only affects this object. Other
+     * Widgets, including children, will still get their colors from propagated
+     * Style object.
+     */
     Q_PROPERTY(Tg::Color borderTextColor READ borderTextColor WRITE setBorderTextColor NOTIFY borderTextColorChanged)
+
+    /*!
+     * Color of the background of Widget's border (see boundingRectangle()).
+     *
+     * \note If no color is set (or Color::Predefined::Invalid is set), a default
+     * color will be taken from Style object (see style()).
+     *
+     * \note When this property is modified, it only affects this object. Other
+     * Widgets, including children, will still get their colors from propagated
+     * Style object.
+     */
     Q_PROPERTY(Tg::Color borderBackgroundColor READ borderBackgroundColor WRITE setBorderBackgroundColor NOTIFY borderBackgroundColorChanged)
 
     /*!
@@ -128,12 +185,33 @@ public:
     ~Widget();
 
     QPoint position() const;
-    QPoint previousGlobalPosition() const;
     QSize size() const;
-    QSize previousSize() const;
+
+    /*!
+     * Returns the rectangle constructed from position() and size().
+     *
+     * This rectangle includes Widget border and contents.
+     */
     QRect boundingRectangle() const;
+
+    /*!
+     * Returns the rectangle contructed from position() (mapped to global
+     * coordinates using mapToGlobal()) and size().
+     *
+     * This rectangle includes Widget border and contents.
+     */
     QRect globalBoundingRectangle() const;
+
+    /*!
+     * Returns globalBoundingRectangle() recorded last time when widget was
+     * moved or its size has been changed.
+     */
     QRect globalPreviousBoundingRectangle() const;
+
+    /*!
+     * Returns the rectangle which holds Widget interior. It is similar to
+     * boundingRectangle() but with Widget border removed.
+     */
     QRect contentsRectangle() const;
 
     Tg::Color backgroundColor() const;
@@ -209,6 +287,9 @@ public slots:
     void setBorderVisible(const bool borderVisible);
 
 protected:
+    QPoint previousGlobalPosition() const;
+    QSize previousSize() const;
+
     int effectiveBorderWidth() const;
 
     virtual void init();
