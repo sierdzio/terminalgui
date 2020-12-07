@@ -164,7 +164,8 @@ class Widget : public QObject
     Q_PROPERTY(bool acceptsFocus READ acceptsFocus NOTIFY acceptsFocusChanged)
 
     /*!
-     * Returns `true` when Widget is receving keyboard signals.
+     * Returns `true` when Widget is currently actively listening to keyboard
+     * signals.
      *
      * \sa acceptsFocus
      */
@@ -228,10 +229,32 @@ public:
     void setAcceptsFocus(const bool acceptsFocus);
     void setHasFocus(const bool hasFocus);
 
+    /*!
+     * Returns the Screen on which this Widget is being drawn.
+     */
     Screen *screen() const;
+
+    /*!
+     * Returns the parent Widget. If returned pointer is a `nullptr`, it means
+     * this Widget is a top level Widget, usually drawn with border (unless
+     * setBorderVisible() has overriden the default behavior).
+     *
+     * \sa setBorderVisible()
+     */
     Widget *parentWidget() const;
 
+    /*!
+     * "Draws" the border at position \a pixel. The \a pixel is expected to be
+     * in local coordinate system (where (0,0) denotes the top-left corner of
+     * the border).
+     *
+     * \sa drawPixel, effectiveBorderWidth
+     */
     virtual QString drawBorderPixel(const QPoint &pixel) const;
+
+    /*!
+     * "Draws" the internal contents of the Widget.
+     */
     virtual QString drawPixel(const QPoint &pixel) const;
     bool isBorder(const QPoint &pixel) const;
 
