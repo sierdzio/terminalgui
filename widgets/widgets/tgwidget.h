@@ -179,6 +179,7 @@ class Widget : public QObject
     Q_PROPERTY(bool propagatesStyle READ propagatesStyle NOTIFY propagatesStyleChanged)
 
     friend class Screen;
+    friend class ScrollArea;
 
 public:
     explicit Widget(Widget *parent);
@@ -244,18 +245,12 @@ public:
     Widget *parentWidget() const;
 
     /*!
-     * "Draws" the border at position \a pixel. The \a pixel is expected to be
-     * in local coordinate system (where (0,0) denotes the top-left corner of
-     * the border).
+     * Returns `true` when \a pixel lies within the border of the Widget.
      *
-     * \sa drawPixel, effectiveBorderWidth
+     * If border is not visible, it will always return `false`.
+     *
+     * \sa borderVisible
      */
-    virtual QString drawBorderPixel(const QPoint &pixel) const;
-
-    /*!
-     * "Draws" the internal contents of the Widget.
-     */
-    virtual QString drawPixel(const QPoint &pixel) const;
     bool isBorder(const QPoint &pixel) const;
 
     bool verticalArrowsMoveFocus() const;
@@ -317,6 +312,30 @@ protected:
 
     virtual void init();
     virtual void consumeKeyboardBuffer(const QString &keyboardBuffer);
+
+    /*!
+     * Returns ANSI-encoded string, used by Screen to draw the \a pixel.
+     *
+     * "Draws" the border at position \a pixel. The \a pixel is expected to be
+     * in local coordinate system (where (0,0) denotes the top-left corner of
+     * the border).
+     *
+     * \sa drawPixel, effectiveBorderWidth
+     */
+    virtual QString drawBorderPixel(const QPoint &pixel) const;
+
+    /*!
+     * Returns ANSI-encoded string, used by Screen to draw the \a pixel.
+     *
+     * "Draws" the internal contents of the Widget. Default implementation
+     * draws the border (see drawBorderPixel()), any child Widgets (if present),
+     * in accordance with layoutType(). If there is any empty space left, it is
+     * filled with backgroundCharacter().
+     *
+     * \sa drawBorderPixel, layoutType, setLayoutType, backgroundCharacter,
+     * children
+     */
+    virtual QString drawPixel(const QPoint &pixel) const;
 
     void setVerticalArrowsMoveFocus(const bool verticalArrowsMoveFocus);
     void setPropagatesStyle(const bool propagatesStyle);

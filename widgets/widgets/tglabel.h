@@ -18,20 +18,20 @@ public:
 
     QString text() const;
 
-    QString drawPixel(const QPoint &pixel) const override;
 
     bool highlighted() const;
 
 signals:
-    void textChanged(const QString &text) const;    
+    void textChanged(const QString &text) const;
     void highlightedChanged(const bool highlighted) const;
 
 public slots:
-    void setText(const QString &text, const bool expand = true);    
+    void setText(const QString &text, const bool expand = true);
     void setHighlighted(const bool highlighted);
 
 protected:
     void init() override;
+    QString drawPixel(const QPoint &pixel) const override;
 
     int reservedCharactersCount() const;
     QString reservedText() const;

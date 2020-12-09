@@ -22,8 +22,6 @@ public:
     ListView(Widget *parent);
     ListView(Screen *screen);
 
-    QString drawAreaContents(const QPoint &pixel) const override;
-
     QAbstractItemModel *model() const;
     void setModel(QAbstractItemModel *model);
 
@@ -52,6 +50,7 @@ signals:
 protected:
     void init() override;
     void consumeKeyboardBuffer(const QString &keyboardBuffer) override;
+    QString drawAreaContents(const QPoint &pixel) const override;
 
     QString getLine(const int row) const;
     QString getLine(const QModelIndex index) const;

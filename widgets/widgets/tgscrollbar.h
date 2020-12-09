@@ -49,12 +49,11 @@ class ScrollBar : public Widget
     Q_PROPERTY(Tg::Color forwardArrowActiveBackgroundColor READ forwardArrowActiveBackgroundColor WRITE setForwardArrowActiveBackgroundColor NOTIFY forwardArrowActiveColorBackgroundChanged)
     Q_PROPERTY(Tg::Color forwardArrowInactiveBackgroundColor READ forwardArrowInactiveBackgroundColor WRITE setForwardArrowInactiveBackgroundColor NOTIFY forwardArrowInactiveColorBackgroundChanged)
 
+    friend class ScrollArea;
 
 public:
     ScrollBar(Widget *parent);
     ScrollBar(Screen *screen);
-
-    QString drawPixel(const QPoint &pixel) const override;
 
     Qt::Orientation orientation() const;
 
@@ -164,6 +163,8 @@ protected slots:
 protected:
     void init() override;
     void consumeKeyboardBuffer(const QString &keyboardBuffer) override;
+    QString drawPixel(const QPoint &pixel) const override;
+
     QString linearPixel(const int pixel, const int length) const;
 
 private:

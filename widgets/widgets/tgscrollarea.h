@@ -26,9 +26,6 @@ public:
     ScrollArea(Widget *parent);
     ScrollArea(Screen *screen);
 
-    QString drawPixel(const QPoint &pixel) const override;
-    virtual QString drawAreaContents(const QPoint &pixel) const;
-
     QPoint contentsPosition() const;
 
 public slots:
@@ -40,6 +37,8 @@ signals:
 protected:
     void init() override;
     void consumeKeyboardBuffer(const QString &keyboardBuffer) override;
+    QString drawPixel(const QPoint &pixel) const override;
+    virtual QString drawAreaContents(const QPoint &pixel) const;
 
     QPoint childPixel(const QPoint &pixel) const;
 
