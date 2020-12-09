@@ -299,7 +299,7 @@ bool Tg::Widget::isBorder(const QPoint &pixel) const
 
 bool Tg::Widget::verticalArrowsMoveFocus() const
 {
-    return _verticalArrowsMoveFocus;
+    return _acceptsFocus == false || (_acceptsFocus && _verticalArrowsMoveFocus);
 }
 
 QPoint Tg::Widget::mapFromGlobal(const QPoint &position) const

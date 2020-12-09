@@ -253,20 +253,75 @@ public:
      */
     bool isBorder(const QPoint &pixel) const;
 
+    /*!
+     * Returns `true` if this Widget ignores up and down arrows on keyboard.
+     * Also returns `true` if Widget does not accept focus at all.
+     */
     bool verticalArrowsMoveFocus() const;
 
+    /*!
+     * Returns \a position mapped from global coordinates into local one
+     * (coordinates within the Widget, where (0,0) is top-left corner).
+     */
     QPoint mapFromGlobal(const QPoint &position) const;
+
+    /*!
+     * Returns \a position mapped from local coordinates into global ones
+     * (coordinates within parent Screen).
+     */
     QPoint mapToGlobal(const QPoint &position) const;
+
+    /*!
+     * Returns \a position mapped into \a child coordinate system.
+     */
     QPoint mapToChild(const WidgetPointer &child, const QPoint &position) const;
 
+    /*!
+     * Returns `true` if this Widget automatically applies its Style to all
+     * children Widgets. This is `true` by default.
+     */
     bool propagatesStyle() const;
+
+    /*!
+     * Sets a new Style on this Widget. If \a propagate is `true`, this new
+     * Style pointer will also be set on all children (recursively).
+     */
     void setStyle(const StylePointer &style, const bool propagate = true);
 
+    /*!
+     * Returns Layout type. It specifies how Widget places, paints and treats
+     * children Widgets.
+     */
     Layout::Type layoutType() const;
-    void setLayoutType(const Layout::Type type);
-    void doLayout();
 
+    /*!
+     * Sets the way this Widget places, paints and treats children widgets to
+     * \a type.
+     */
+    void setLayoutType(const Layout::Type type);
+
+    /*!
+     * Returns current overshoot of layout inside this Widget.
+     *
+     * If Widgets within the Layout do not fit the Widget, SizeOvershoot will
+     * indicate whether Widget is too small horizontally or vertically.
+     *
+     * Visually, it is represented by drawing red arrows on Widget border (by
+     * default - see BorderStyle::horizontalOvershoot,
+     * BorderStyle::verticalOvershoot, BorderStyle::overshootTextColor and
+     * BorderStyle::overshootBackgroundColor).
+     */
     SizeOvershoot layoutOvershoot() const;
+
+    /*!
+     * Returns current overshoot of contents of this Widget.
+     *
+     * It is very similar to layoutOvershoot() but overshoot is reported when
+     * Widget contents (not children Widgets arranged by a layout) fo not fit.
+     * For example, when a Label has text which is too long to fit.
+     *
+     * \sa layoutOvershoot
+     */
     SizeOvershoot widgetOvershoot() const;
 
 signals:
@@ -305,12 +360,21 @@ public slots:
     void setBorderVisible(const bool borderVisible);
 
 protected:
-    QPoint previousGlobalPosition() const;
-    QSize previousSize() const;
-
-    int effectiveBorderWidth() const;
-
+    /*!
+     * Initializes Widget and it's connections. All subclasses should call
+     * init() of its parent class. If a subclass has any properties or signals
+     * which affect the visual look of the Widget, it should reimplement init()
+     * and connect such signal to schedulePartialRedraw() slot.
+     *
+     * \sa schedulePartialRedraw
+     */
     virtual void init();
+
+    /*!
+     * Called when Widget accepts focus and \a keyboardBuffer is not empty.
+     *
+     * \sa acceptsFocus
+     */
     virtual void consumeKeyboardBuffer(const QString &keyboardBuffer);
 
     /*!
@@ -337,15 +401,22 @@ protected:
      */
     virtual QString drawPixel(const QPoint &pixel) const;
 
+    QPoint previousGlobalPosition() const;
+    QSize previousSize() const;
+
+    int effectiveBorderWidth() const;
+
     void setVerticalArrowsMoveFocus(const bool verticalArrowsMoveFocus);
+
     void setPropagatesStyle(const bool propagatesStyle);
-
     void propagateStyleToChild(Widget *child) const;
-
     StylePointer style() const;
+
     void setWidgetOvershoot(const SizeOvershoot overshoot);
 
     void setupPressTimer(QTimer *timer) const;
+
+    void doLayout();
 
 protected slots:
     void scheduleFullRedraw() const;
