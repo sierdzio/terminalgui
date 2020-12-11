@@ -438,19 +438,78 @@ protected:
      */
     void setVerticalArrowsMoveFocus(const bool enable);
 
+    /*!
+     * When \a propagate is `true`, this Widget will set its style() object on
+     * its children whenever it changes. This means that Widget and all its
+     * children will use the same Style object and draw their UI in the same
+     * way.
+     *
+     * \note Each visual property can be locally (only for this Widget)
+     * overriden by setting it to a value other than default. For example,
+     * calling `setTextColor(Color::Predefined::Red);` will set the text color
+     * of this Widget (but not its children!) to red.
+     */
     void setPropagatesStyle(const bool propagate);
+
+    /*!
+     * Propagates style() to \a child. Both Widgets will use the same Style
+     * object.
+     */
     void propagateStyleToChild(Widget *child) const;
+
+    /*!
+     * Returns the pointer to Style object used to draw this Widget. By default,
+     * same Style object is shared by all Widgets within a Screen.
+     *
+     * \sa setPropagatesStyle, propagateStyleToChild
+     */
     StylePointer style() const;
 
+    /*!
+     * Sets current \a overshoot of the contents of this Widget.
+     */
     void setWidgetOvershoot(const SizeOvershoot overshoot);
 
+    /*!
+     * Sets \a timer object which controls how long pressed elements (buttons,
+     * scroll bar arrows, etc.) look different (pressed).
+     *
+     * \warning This method does not take ownership of the \a timer
+     *
+     * \sa Button, ScrollBar
+     */
     void setupPressTimer(QTimer *timer) const;
 
+    /*!
+     * Forces Widget to lay out its children according to layoutType().
+     *
+     * \sa layoutType
+     */
     void doLayout();
 
 protected slots:
+    /*!
+     * Instructs Screen that full redraw of entire Screen area should be
+     * performed.
+     *
+     * \warning Calling this method often can cause flicker!
+     */
     void scheduleFullRedraw() const;
+
+    /*!
+     * Instructs Screen to redraw this Widget only, at its current position.
+     *
+     * \sa position, size
+     */
     void schedulePartialRedraw() const;
+
+    /*!
+     * Instructs Screen to redraw the area previously occupied by this Widget.
+     * This is necessary to "clean up" the are of Screen where Widget used to be
+     * before it has been moved.
+     *
+     * \sa previousGlobalPosition, previousSize
+     */
     void schedulePreviousPositionRedraw() const;
 
 private:
