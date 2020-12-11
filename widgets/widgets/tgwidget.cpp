@@ -604,16 +604,16 @@ void Tg::Widget::consumeKeyboardBuffer(const QString &keyboardBuffer)
     Q_UNUSED(keyboardBuffer)
 }
 
-void Tg::Widget::setVerticalArrowsMoveFocus(const bool verticalArrowsMoveFocus)
+void Tg::Widget::setVerticalArrowsMoveFocus(const bool enable)
 {
-    _verticalArrowsMoveFocus = verticalArrowsMoveFocus;
+    _verticalArrowsMoveFocus = enable;
 }
 
-void Tg::Widget::setPropagatesStyle(const bool propagatesStyle)
+void Tg::Widget::setPropagatesStyle(const bool propagate)
 {
-    if (propagatesStyle != _propagatesStyle) {
-        _propagatesStyle = propagatesStyle;
-        emit propagatesStyleChanged(propagatesStyle);
+    if (_propagatesStyle != propagate) {
+        _propagatesStyle = propagate;
+        emit propagatesStyleChanged(propagate);
     }
 }
 

@@ -401,14 +401,44 @@ protected:
      */
     virtual QString drawPixel(const QPoint &pixel) const;
 
+    /*!
+     * Returns Widget's last position (before it was moved), in global
+     * coordinates. If Widget has not been moved, it will return same location
+     * as position() mapped to global coordinate system.
+     *
+     * \sa previousSize
+     */
     QPoint previousGlobalPosition() const;
+
+    /*!
+     * Returns Widget's previous size (before it was resized). If Widget has not
+     * been resized, it will return same result as size().
+     *
+     * \sa previousGlobalPosition
+     */
     QSize previousSize() const;
 
+    /*!
+     * If borders are visible, it returns border width. Otherwise, it returns 0.
+     *
+     * \note Currently, setting custom border width is not supported, so this
+     * method only return `0` (zero) or `1`.
+     *
+     * \sa borderVisible
+     */
     int effectiveBorderWidth() const;
 
-    void setVerticalArrowsMoveFocus(const bool verticalArrowsMoveFocus);
+    /*!
+     * If \a enable is `true`, clicking up arrow or down arrow on keyboard will
+     * be intercepted by parent Screen and used to switch focus to previous or
+     * next Widget. This Widget will not receive a call to
+     * consumeKeyboardBuffer().
+     *
+     * \sa consumeKeyboardBuffer, hasFocus, acceptsFocus
+     */
+    void setVerticalArrowsMoveFocus(const bool enable);
 
-    void setPropagatesStyle(const bool propagatesStyle);
+    void setPropagatesStyle(const bool propagate);
     void propagateStyleToChild(Widget *child) const;
     StylePointer style() const;
 
