@@ -3,15 +3,6 @@
 
 #include <QRect>
 
-Tg::Layout::Layout() : type(Type::None)
-{
-}
-
-Tg::Layout::~Layout()
-{
-    // Nothing
-}
-
 void Tg::Layout::doLayout()
 {
     if (type == Layout::Type::None) {
