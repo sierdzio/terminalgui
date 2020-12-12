@@ -3,40 +3,38 @@
 
 #include <QRect>
 
-Tg::ColumnLayout::ColumnLayout() : Layout(Type::Column)
+Tg::ColumnLayout::ColumnLayout() : Layout(Type::Row)
 {
 }
 
 void Tg::ColumnLayout::doLayout()
 {
-    // TODO: LayoutSettings class!
-
-    if (type == Layout::Type::Column && parent) {
+    if (type == Layout::Type::Row && parent) {
         _overshoot = Overshoot::None;
         const QSize contentsSize = parent->contentsRectangle().size();
         const int width = contentsSize.width();
         const int height = contentsSize.height();
-        int currentY = 0;
+        int currentX = 0;
 
         for (const auto child : parent->children()) {
             auto widget = qobject_cast<Widget*>(child);
             if (widget) {
                 const QSize currentSize = widget->size();
-                if ((currentY + currentSize.height()) > height) {
-                    _overshoot = _overshoot | Overshoot::Vertical;
+                if ((currentX + currentSize.width()) > width) {
+                    _overshoot = _overshoot | Overshoot::Horizontal;
                     continue;
                 }
 
-                widget->setPosition(QPoint(0, currentY));
-                // TODO: if height can get smaller due to width getting larger,
+                widget->setPosition(QPoint(currentX, 0));
+                // TODO: if width can get smaller due to height getting larger,
                 // make it so!
-                widget->setSize(QSize(width, currentSize.height()));
+                widget->setSize(QSize(currentSize.width(), height));
 
                 if (widget->widgetOvershoot().testFlag(Overshoot::None) == false) {
                     _overshoot = _overshoot | widget->widgetOvershoot();
                 }
 
-                currentY += currentSize.height();
+                currentX += currentSize.width();
             }
         }
     }
