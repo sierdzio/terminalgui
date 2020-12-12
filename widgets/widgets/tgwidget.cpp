@@ -17,9 +17,9 @@ Tg::Widget::Widget(Widget *parent)
     init();
 }
 
-Tg::Widget::Widget(Tg::Screen *parentScreen)
-    : QObject(parentScreen),
-      _screen(parentScreen),
+Tg::Widget::Widget(Tg::Screen *screen)
+    : QObject(screen),
+      _screen(screen),
       _parentWidget(nullptr)
 {
     init();
@@ -155,19 +155,19 @@ bool Tg::Widget::hasFocus() const
     return _hasFocus;
 }
 
-void Tg::Widget::setAcceptsFocus(const bool acceptsFocus)
+void Tg::Widget::setAcceptsFocus(const bool accept)
 {
-    if (_acceptsFocus != acceptsFocus) {
-        _acceptsFocus = acceptsFocus;
-        emit acceptsFocusChanged(acceptsFocus);
+    if (_acceptsFocus != accept) {
+        _acceptsFocus = accept;
+        emit acceptsFocusChanged(accept);
     }
 }
 
-void Tg::Widget::setHasFocus(const bool hasFocus)
+void Tg::Widget::setHasFocus(const bool active)
 {
-    if (_hasFocus != hasFocus) {
-        _hasFocus = hasFocus;
-        emit hasFocusChanged(hasFocus);
+    if (_hasFocus != active) {
+        _hasFocus = active;
+        emit hasFocusChanged(active);
     }
 }
 
@@ -455,48 +455,48 @@ void Tg::Widget::setSize(const QSize &size)
     doLayout();
 }
 
-void Tg::Widget::setBackgroundColor(const Tg::Color &backgroundColor)
+void Tg::Widget::setBackgroundColor(const Tg::Color &color)
 {
-    if (_backgroundColor == backgroundColor)
+    if (_backgroundColor == color)
         return;
 
-    _backgroundColor = backgroundColor;
+    _backgroundColor = color;
     emit backgroundColorChanged(_backgroundColor);
 }
 
-void Tg::Widget::setBackgroundCharacter(const QChar &backgroundCharacter)
+void Tg::Widget::setBackgroundCharacter(const QChar &character)
 {
-    if (_backgroundCharacter == backgroundCharacter)
+    if (_backgroundCharacter == character)
         return;
 
-    _backgroundCharacter = backgroundCharacter;
+    _backgroundCharacter = character;
     emit backgroundCharacterChanged(_backgroundCharacter);
 }
 
-void Tg::Widget::setTextColor(const Tg::Color &textColor)
+void Tg::Widget::setTextColor(const Tg::Color &color)
 {
-    if (_textColor == textColor)
+    if (_textColor == color)
         return;
 
-    _textColor = textColor;
+    _textColor = color;
     emit textColorChanged(_textColor);
 }
 
-void Tg::Widget::setBorderTextColor(const Tg::Color &borderColor)
+void Tg::Widget::setBorderTextColor(const Tg::Color &color)
 {
-    if (_borderTextColor == borderColor)
+    if (_borderTextColor == color)
         return;
 
-    _borderTextColor = borderColor;
+    _borderTextColor = color;
     emit borderTextColorChanged(_borderTextColor);
 }
 
-void Tg::Widget::setBorderBackgroundColor(const Tg::Color &borderBackgroundColor)
+void Tg::Widget::setBorderBackgroundColor(const Tg::Color &color)
 {
-    if (_borderBackgroundColor == borderBackgroundColor)
+    if (_borderBackgroundColor == color)
         return;
 
-    _borderBackgroundColor = borderBackgroundColor;
+    _borderBackgroundColor = color;
     emit borderBackgroundColorChanged(_borderBackgroundColor);
 }
 
@@ -528,12 +528,12 @@ void Tg::Widget::hide()
     setVisible(false);
 }
 
-void Tg::Widget::setBorderVisible(const bool borderVisible)
+void Tg::Widget::setBorderVisible(const bool visible)
 {
-    if (_borderVisible == borderVisible)
+    if (_borderVisible == visible)
         return;
 
-    _borderVisible = borderVisible;
+    _borderVisible = visible;
     emit borderVisibleChanged(_borderVisible);
 }
 

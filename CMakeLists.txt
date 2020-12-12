@@ -60,6 +60,7 @@ if (DOCS)
     set(DOXYGEN_INCLUDE_PATH "${CMAKE_CURRENT_SOURCE_DIR}")
     set(DOXYGEN_IMAGE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/doc/img")
     set(DOXYGEN_QT_AUTOBRIEF "YES")
+    #set(DOXYGEN_WARN_NO_PARAMDOC "YES")
     doxygen_add_docs(doc
       core widgets doc LICENSE.md README.md doc/developer_guide.md
       ALL

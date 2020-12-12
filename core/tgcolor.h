@@ -8,10 +8,8 @@ namespace Tg {
  * \brief Represents colors in a terminal.
  *
  * In terminals, color is used mainly in 2 places:
- * \list
  * \li foreground (text color)
  * \li background (background color - painted behind text)
- * \endlist
  *
  * Each character ("pixel") inside the terminal can have these 2 colors set
  * completely independently. Use Color::code() to get a ready-made
@@ -34,24 +32,44 @@ public:
      * \todo Add automatic conversion between Predefined and 24 bit colors.
      */
     enum class Predefined {
+        //! Color is not defined and cannot be drawn. Used to indicate unset colors
         Invalid = -1,
+        //! Color is defined as empty - default terminal color will be used
         Empty = 0,
+        //! Default black color, depends on terminal settings
         Black = 30,
+        //! Default red color, depends on terminal settings
         Red = 31,
+        //! Default green color, depends on terminal settings
         Green = 32,
+        //! Default yellow color, depends on terminal settings
         Yellow = 33,
+        //! Default blue color, depends on terminal settings
         Blue = 34,
+        //! Default magenta color, depends on terminal settings
         Magenta = 35,
+        //! Default cyan color, depends on terminal settings
         Cyan = 36,
+        //! Default white color, depends on terminal settings
         White = 37,
+        //! Default gray color, depends on terminal settings
         Gray = 90,
+        //! Default pink color, depends on terminal settings
         Pink = 91,
         LightRed = Pink,
+        //! Default lighter green color, depends on terminal settings
         LightGreen = 92,
+        //! Default lighter yellow color, depends on terminal settings
         LightYellow = 93,
+        //! Default lighter blue color, depends on terminal settings
         LightBlue = 94,
+        //! Default lighter magenta color, depends on terminal settings
         LightMagenta = 95,
+        //! Default lighter cyan color, depends on terminal settings
         LightCyan = 96,
+        //! Default lighter white color, depends on terminal settings. How can
+        //! white be any lighter? It's usually ligter than Predefined::Gray,
+        //! but not as white as Predefined::White. It's weird
         LightWhite = 97
     };
 

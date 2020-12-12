@@ -33,10 +33,8 @@ class Layout;
  * Screen when Widget changes.
  *
  * Every Widget subclass should contain at least 2 constructors:
- * \list
  * \li one taking Screen pointer - used when subclass is a top-level widget
  * \li one taking Widget pointer - used when subclass is not a top-level widget
- * \endlist
  *
  * If a subclass needs keyboard interaction, it should call setAcceptsFocus() in
  * its init() override, and implement consumeKeyboardBuffer() with logic
@@ -59,13 +57,17 @@ class Layout;
  * setters (for example: setBackgroundColor(), setTextColor() etc.). These
  * setters always work only for this single Widget and have no effect on its
  * children.
+ *
+ * \since 0.1.0
  */
 class Widget : public QObject
 {
     Q_OBJECT
 
     /*!
-     * Position of Widget - either on the Screen or within it's parent Widget.
+     * Position of Widget.
+     *
+     * Position is relative either to the Screen or to its parent Widget.
      */
     Q_PROPERTY(QPoint position READ position WRITE setPosition NOTIFY positionChanged)
 
@@ -182,11 +184,42 @@ class Widget : public QObject
     friend class ScrollArea;
 
 public:
+    /*!
+     * Constructs Widget as a child of \a parent. By default, a child Widget
+     * does not have a border.
+     *
+     * \sa setBorderVisible
+     */
     explicit Widget(Widget *parent);
-    explicit Widget(Screen *parentScreen);
+
+    /*!
+     * Constructs a top-level Widget on a given \a screen. A top-level does have
+     * a border by default.
+     *
+     * There can be many top-level Widgets registered under the same Screen.
+     *
+     * \sa setBorderVisible
+     */
+    explicit Widget(Screen *screen);
+
+    /*!
+     * Deregisters the Widget from parent Screen, then destroys the Widget
+     * object.
+     */
     ~Widget();
 
+    /*!
+     * Returns current position of the Widget (relative).
+     *
+     * \sa mapToGlobal, boundingRectangle, globalBoundingRectangle
+     */
     QPoint position() const;
+
+    /*!
+     * Returns current size of the Widget.
+     *
+     * \sa boundingRectangle
+     */
     QSize size() const;
 
     /*!
@@ -205,30 +238,89 @@ public:
     QRect globalBoundingRectangle() const;
 
     /*!
-     * Returns globalBoundingRectangle() recorded last time when widget was
-     * moved or its size has been changed.
-     */
-    QRect globalPreviousBoundingRectangle() const;
-
-    /*!
      * Returns the rectangle which holds Widget interior. It is similar to
      * boundingRectangle() but with Widget border removed.
      */
     QRect contentsRectangle() const;
 
+    /*!
+     * Returns current background color - either taken from Style or value set
+     * using setBackgroundColor().
+     *
+     * \sa style, setBackgroundColor
+     */
     Tg::Color backgroundColor() const;
+
+    /*!
+     * Returns character drawn on empty space in this Widget.
+     */
     QChar backgroundCharacter() const;
+
+    /*!
+     * Returns current text color - either taken from Style or value set using
+     * setTextColor().
+     *
+     * \sa style, setTextColor
+     */
     Tg::Color textColor() const;
+
+    /*!
+     * Returns current border text color - either taken from Style or value set
+     * using setBorderTextColor().
+     *
+     * The "text" on Widget border are the lines (characters) used to draw the
+     * border. They are defined in BorderStyle.
+     *
+     * \sa style, setBorderTextColor
+     */
     Tg::Color borderTextColor() const;
+
+    /*!
+     * Returns current border background color - either taken from Style or
+     * value set using setBorderBackgroundColor().
+     *
+     * \sa style, setBorderBackgroundColor
+     */
     Tg::Color borderBackgroundColor() const;
 
+    /*!
+     * Returns `true` when Widget is visible.
+     */
     bool visible() const;
+
+    /*!
+     * Returns `true` when Widget's border is visible. A top-level Widget has
+     * border visible by default. It can be overriden using setBorderVisible().
+     *
+     * \sa setBorderVisible
+     */
     bool borderVisible() const;
+
+    /*!
+     * Returns `true` when Widget is set to accept focus (keyboard or mouse).
+     *
+     * \sa setAcceptsFocus, hasFocus
+     */
     bool acceptsFocus() const;
+
+    /*!
+     * Returns `true` when Widget actively holds focus (is receiving keyboard
+     * events).
+     *
+     * \sa setHasFocus, acceptsFocus
+     */
     bool hasFocus() const;
 
-    void setAcceptsFocus(const bool acceptsFocus);
-    void setHasFocus(const bool hasFocus);
+    /*!
+     * When \a accept is `true`, this Widget will receive keyboard events from
+     * Screen instance - but only when it actively holds focus (see hasFocus()).
+     *
+     * In order to be able to "do something" with keyboard events, reimplement
+     * consumeKeyboardBuffer().
+     *
+     * \sa hasFocus, acceptsFocus
+     */
+    void setAcceptsFocus(const bool accept);
 
     /*!
      * Returns the Screen on which this Widget is being drawn.
@@ -325,39 +417,172 @@ public:
     SizeOvershoot widgetOvershoot() const;
 
 signals:
+    /*!
+     * Indicates that \a widget (usually `this`) needs to be redrawn using
+     * redraw \a type.
+     */
     void needsRedraw(const RedrawType type, const Widget *widget) const;
+
+    /*!
+     * Emitted when Widget's \a position changes.
+     */
     void positionChanged(const QPoint &position) const;
+
+    /*!
+     * Emitted when Widget's \a size is changed.
+     */
     void sizeChanged(const QSize &size) const;
-    void backgroundColorChanged(const Tg::Color &backgroundColor) const;
-    void backgroundCharacterChanged(const QChar &backgroundCharacter) const;
-    void textColorChanged(const Tg::Color &textColor) const;
-    void borderTextColorChanged(const Tg::Color &borderColor) const;
-    void borderBackgroundColorChanged(const Tg::Color &borderBackgroundColor) const;
+
+    /*!
+     * Indicates that Widget's background \a color has changed.
+     */
+    void backgroundColorChanged(const Tg::Color &color) const;
+
+    /*!
+     * Indicates that Widget's background \a character has changed.
+     */
+    void backgroundCharacterChanged(const QChar &character) const;
+
+    /*!
+     * Indicates that Widget's text \a color has changed.
+     */
+    void textColorChanged(const Tg::Color &color) const;
+
+    /*!
+     * Indicates that Widget's border text \a color has changed.
+     */
+    void borderTextColorChanged(const Tg::Color &color) const;
+
+    /*!
+     * Indicates that Widget's border background \a color has changed.
+     */
+    void borderBackgroundColorChanged(const Tg::Color &color) const;
+
+    /*!
+     * Indicates that Widget is shown or hidden (depening on \a visible).
+     */
     void visibleChanged(const bool visible) const;
-    void borderVisibleChanged(const bool borderVisible) const;
-    void acceptsFocusChanged(const bool acceptsFocus) const;
+
+    /*!
+     * Indicates that Widget's border is now \a visible (or not).
+     */
+    void borderVisibleChanged(const bool visible) const;
+
+    /*!
+     * Indicates that Widget now \a accepts focus (or not).
+     */
+    void acceptsFocusChanged(const bool accepts) const;
+
+    /*!
+     * Indicates that Widget now \a hasFocus (or not).
+     */
     void hasFocusChanged(const bool hasFocus) const;
+
+    /*!
+     * Indicates that active focus should be moved to the previous Widget ready
+     * to receive it.
+     */
     void moveFocusToPreviousWidget() const;
+
+    /*!
+     * Indicates that active focus should be moved to the next Widget ready to
+     * receive it.
+     */
     void moveFocusToNextWidget() const;
-    void propagatesStyleChanged(const bool propagatesStyle) const;
+
+    /*!
+     * Indicates that Widget either stopped or resumed (\a propagates)
+     * propagating its Style object to its children.
+     */
+    void propagatesStyleChanged(const bool propagates) const;
+
+    /*!
+     * Emitted when Widget's Style object is changed.
+     */
     void styleChanged() const;
+
+    /*!
+     * Emitted when layout \a overshoot has changed.
+     */
     void layoutOvershootChanged(const SizeOvershoot overshoot) const;
+
+    /*!
+     * Emitted when Widget \a overshoot has changed.
+     */
     void widgetOvershootChanged(const SizeOvershoot overshoot) const;
+
+    /*!
+     * Emitted when a \a child Widget has been added.
+     */
     void childAdded(Widget *child);
+
+    /*!
+     * Emitted when a child Widget has been removed.
+     */
     void childRemoved();
 
 public slots:
+    /*!
+     * Moves Widget to a new \a position. The position is relative to parent
+     * Widget, or to Screen if this Widget is top-level.
+     */
     void setPosition(const QPoint &position);
+
+    /*!
+     * Resizes Widget to a new \a size.
+     */
     void setSize(const QSize &size);
-    void setBackgroundColor(const Tg::Color &backgroundColor);
-    void setBackgroundCharacter(const QChar &backgroundCharacter);
-    void setTextColor(const Tg::Color &textColor);
-    void setBorderTextColor(const Tg::Color &borderColor);
-    void setBorderBackgroundColor(const Tg::Color &borderBackgroundColor);
+
+    /*!
+     * Changes background \a color.
+     */
+    void setBackgroundColor(const Tg::Color &color);
+
+    /*!
+     * Changes \a character drawn in the empty space of this Widget.
+     */
+    void setBackgroundCharacter(const QChar &character);
+
+    /*!
+     * Changes text \a color.
+     */
+    void setTextColor(const Tg::Color &color);
+
+    /*!
+     * Changes border text \a color.
+     */
+    void setBorderTextColor(const Tg::Color &color);
+
+    /*!
+     * Changes border background \a color.
+     */
+    void setBorderBackgroundColor(const Tg::Color &color);
+
+    /*!
+     * Makes Widget \a visible (or not).
+     *
+     * \sa show, hide
+     */
     void setVisible(const bool visible);
+
+    /*!
+     * Makes Widget visible.
+     *
+     * \sa setVisible, hide
+     */
     void show();
+
+    /*!
+     * Makes Widget hidden.
+     *
+     * \sa setVisible, show
+     */
     void hide();
-    void setBorderVisible(const bool borderVisible);
+
+    /*!
+     * Makes Widget's border \a visible (or not).
+     */
+    void setBorderVisible(const bool visible);
 
 protected:
     /*!
@@ -369,6 +594,13 @@ protected:
      * \sa schedulePartialRedraw
      */
     virtual void init();
+
+    /*!
+     * Sets this Widget to hold \a active focus (or not). This method is
+     * typically only called by Screen. Setting it manually may lead to side
+     * effects.
+     */
+    void setHasFocus(const bool active);
 
     /*!
      * Called when Widget accepts focus and \a keyboardBuffer is not empty.
@@ -417,6 +649,12 @@ protected:
      * \sa previousGlobalPosition
      */
     QSize previousSize() const;
+
+    /*!
+     * Returns globalBoundingRectangle() recorded last time when widget was
+     * moved or its size has been changed.
+     */
+    QRect globalPreviousBoundingRectangle() const;
 
     /*!
      * If borders are visible, it returns border width. Otherwise, it returns 0.

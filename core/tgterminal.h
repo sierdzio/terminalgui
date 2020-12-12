@@ -21,7 +21,7 @@ class Terminal : public QObject
     Q_OBJECT
 
     /*!
-     *
+     * Size of the terminal window.
      */
     Q_PROPERTY(QSize size READ size NOTIFY sizeChanged)
 
