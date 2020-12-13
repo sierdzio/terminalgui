@@ -363,13 +363,13 @@ void Tg::Widget::setStyle(const Tg::StylePointer &style, const bool propagate)
 
 Tg::Layout::Type Tg::Widget::layoutType() const
 {
-    return _layout->type;
+    return _layout->type();
 }
 
 void Tg::Widget::setLayoutType(const Tg::Layout::Type type)
 {
     if (_layout) {
-        if (_layout->type == type) {
+        if (_layout->type() == type) {
             return;
         } else {
             delete _layout;
@@ -383,10 +383,10 @@ void Tg::Widget::setLayoutType(const Tg::Layout::Type type)
     case Layout::Type::ChildFillsParent:
         _layout = new ChildFillsParentLayout;
         break;
-    case Layout::Type::Column:
+    case Layout::Type::Row:
         _layout = new RowLayout;
         break;
-    case Layout::Type::Row:
+    case Layout::Type::Column:
         _layout = new ColumnLayout;
         break;
     case Layout::Type::Grid:
@@ -394,7 +394,7 @@ void Tg::Widget::setLayoutType(const Tg::Layout::Type type)
         break;
     }
 
-    _layout->parent = this;
+    _layout->setParent(this);
     doLayout();
 }
 

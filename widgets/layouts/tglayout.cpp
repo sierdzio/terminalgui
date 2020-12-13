@@ -3,12 +3,27 @@
 
 #include <QRect>
 
+Tg::Layout::Type Tg::Layout::type() const
+{
+    return _type;
+}
+
+Tg::Widget *Tg::Layout::parent() const
+{
+    return _parent;
+}
+
+void Tg::Layout::setParent(Tg::Widget *parent)
+{
+    _parent = parent;
+}
+
 void Tg::Layout::doLayout()
 {
-    if (type == Layout::Type::None) {
+    if (_type == Layout::Type::None) {
         _overshoot = Overshoot::None;
-        const QSize contentsSize = parent->contentsRectangle().size();
-        for (const auto child : parent->children()) {
+        const QSize contentsSize = _parent->contentsRectangle().size();
+        for (const auto child : _parent->children()) {
             const auto widget = qobject_cast<Widget*>(child);
             if (widget) {
                 if (widget->size().width() > contentsSize.width()) {
@@ -28,6 +43,6 @@ Tg::SizeOvershoot Tg::Layout::overshoot() const
     return _overshoot;
 }
 
-Tg::Layout::Layout(const Tg::Layout::Type atype) : type(atype)
+Tg::Layout::Layout(const Tg::Layout::Type atype) : _type(atype)
 {
 }

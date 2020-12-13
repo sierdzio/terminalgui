@@ -11,7 +11,8 @@
 
 /*!
  * All Terminal GUI classes (both core and widgets) are defined within the Tg
- * namespace.
+ * namespace. Additionally, all source and header files are prefixed with "tg",
+ * followed by class name written all in lower case.
  */
 namespace Tg {
 class Terminal;

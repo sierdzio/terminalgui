@@ -9,12 +9,12 @@ Tg::ChildFillsParentLayout::ChildFillsParentLayout() : Layout(Type::ChildFillsPa
 
 void Tg::ChildFillsParentLayout::doLayout()
 {
-    if (type == Layout::Type::ChildFillsParent && parent) {
+    if (_type == Layout::Type::ChildFillsParent && _parent) {
         _overshoot = Overshoot::None;
-        for (const auto child : parent->children()) {
+        for (const auto child : _parent->children()) {
             auto widget = qobject_cast<Widget*>(child);
             if (widget) {
-                widget->setSize(parent->contentsRectangle().size());
+                widget->setSize(_parent->contentsRectangle().size());
 
                 if (widget->widgetOvershoot().testFlag(Overshoot::None) == false) {
                     _overshoot = widget->widgetOvershoot();

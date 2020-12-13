@@ -11,9 +11,9 @@ void Tg::GridLayout::doLayout()
 {
     // TODO: LayoutSettings class!
 
-    if (type == Layout::Type::Grid && parent) {
+    if (_type == Layout::Type::Grid && _parent) {
         _overshoot = Overshoot::None;
-        const QSize contentsSize = parent->contentsRectangle().size();
+        const QSize contentsSize = _parent->contentsRectangle().size();
         const int width = contentsSize.width();
         const int height = contentsSize.height();
 
@@ -25,7 +25,7 @@ void Tg::GridLayout::doLayout()
         int currentX = 0;
         int currentY = 0;
 
-        for (const auto child : parent->children()) {
+        for (const auto child : _parent->children()) {
             auto widget = qobject_cast<Widget*>(child);
             if (widget) {
                 const QSize currentSize = widget->size();

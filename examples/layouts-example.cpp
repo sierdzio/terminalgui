@@ -63,30 +63,30 @@ int main(int argc, char *argv[])
     quitButton2.setObjectName("quitButton2");
     quitButton2.show();
 
-    Tg::Widget widgetColumn(&screen);
+    Tg::Widget widgetRow(&screen);
     auto style = Tg::StylePointer::create();
     style->setBorderStyleValues(Tg::TableBorderStyle());
     style->border->backgroundColor = Tg::Color::Predefined::Green;
     style->backgroundColor = Tg::Color::Predefined::Red;
     style->inactiveBackgroundColor = Tg::Color::Predefined::LightMagenta;
-    widgetColumn.setStyle(style, true);
+    widgetRow.setStyle(style, true);
 
-    widgetColumn.setObjectName("widgetColumn");
-    widgetColumn.setLayoutType(Tg::Layout::Type::Column);
-    widgetColumn.setPosition(QPoint(1, 7));
-    widgetColumn.setSize(size);
-    widgetColumn.show();
-
-    populateWidget(&widgetColumn);
-
-    Tg::Widget widgetRow(&screen);
     widgetRow.setObjectName("widgetRow");
     widgetRow.setLayoutType(Tg::Layout::Type::Row);
-    widgetRow.setPosition(QPoint(13, 7));
+    widgetRow.setPosition(QPoint(1, 7));
     widgetRow.setSize(size);
     widgetRow.show();
 
     populateWidget(&widgetRow);
+
+    Tg::Widget widgetColumn(&screen);
+    widgetColumn.setObjectName("widgetColumn");
+    widgetColumn.setLayoutType(Tg::Layout::Type::Column);
+    widgetColumn.setPosition(QPoint(13, 7));
+    widgetColumn.setSize(size);
+    widgetColumn.show();
+
+    populateWidget(&widgetColumn);
 
     Tg::Widget widgetGrid(&screen);
     widgetGrid.setObjectName("widgetGrid");

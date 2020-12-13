@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
     widget.setObjectName("widget");
     widget.setPosition(QPoint(1, 1));
     widget.setSize(QSize(20, 10));
-    widget.setLayoutType(Tg::Layout::Type::Column);
+    widget.setLayoutType(Tg::Layout::Type::Row);
     widget.show();
 
     Tg::Button quitButton(QObject::tr("Quit"), &widget);

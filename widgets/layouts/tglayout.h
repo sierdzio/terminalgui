@@ -9,6 +9,9 @@ class Widget;
  * Helper class for Widget, manages positions and sizes of Widget's children.
  *
  * When subclassing, reimplement doLayout().
+ *
+ * \note Currently, all child Widgets will be sized equally by the layout.
+ * Stretch and size hint functionality from QtWidgets are not implemented.
  */
 class Layout
 {
@@ -23,17 +26,17 @@ public:
         None,
         //! A single child Widget will fill the entirety of parent Widget.
         ChildFillsParent,
-        //! Each child Widget will be put in a separate column. All columns are
-        //! as high as the parent Widget.
-        //! For example, when a Widget has 3 children, it will have 3 columns,
-        //! each occupying 33% of parent Widget's width. All 3 children will be
-        //! as high as the parent Widget.
-        Column,
-        //! Each child Widget will be put in a separate row. Each row is as wide
-        //! as the parent Widget.
-        //! For example, when a Widget has 3 children, it will have 3 rows,
+        //! Each child Widget will be put below previous one in a single column.
+        //! All Widgets are as wide as the parent Widget.
+        //! For example, when a Widget has 3 children, it will have 3 "rows",
         //! each occupying 33% of parent Widget's height. All 3 children will be
         //! as wide as the parent Widget.
+        Column,
+        //! Each child Widget will be put after previous one in a single row.
+        //! All Widgets are as high as the parent Widget.
+        //! For example, when a Widget has 3 children, it will have 3 "columns",
+        //! each occupying 33% of parent Widget's width. All 3 children will be
+        //! as high as the parent Widget.
         Row,
         //! Each child Widget will be put in a same-sized grid item.
         //! \todo Improve description (and implementation... ;-))
@@ -44,16 +47,10 @@ public:
     Layout() {}
     virtual ~Layout() {}
 
-    /*!
-     * Type of a Layout. Each subclass sets it's own Type.
-     */
-    const Type type = Type::None;
+    Type type() const;
 
-    /*!
-     * Parent Widget. Layout will work on correct positioning and resizing of
-     * this Widget's children when doLayout() is called.
-     */
-    Widget *parent = nullptr;
+    Widget *parent() const;
+    void setParent(Widget *parent);
 
     /*!
      * Lays out children of Widget (parent). It stretches first child to fill
@@ -78,5 +75,16 @@ protected:
      * direction they fail to fit.
      */
     SizeOvershoot _overshoot = Overshoot::None;
+
+    /*!
+     * Parent Widget. Layout will work on correct positioning and resizing of
+     * this Widget's children when doLayout() is called.
+     */
+    Widget *_parent = nullptr;
+
+    /*!
+     * Type of a Layout. Each subclass sets it's own Type.
+     */
+    const Type _type = Type::None;
 };
 }
