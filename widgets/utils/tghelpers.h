@@ -38,7 +38,14 @@ namespace Helpers {
 namespace Tg {
 class Widget;
 class Style;
+/*!
+ * Convenient alias of QPointer<Widget>.
+ */
 using WidgetPointer = QPointer<Widget>;
+
+/*!
+ * Convenient alias of QSharedPointer<Style>.
+ */
 using StylePointer = QSharedPointer<Style>;
 
 /*!

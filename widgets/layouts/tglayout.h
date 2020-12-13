@@ -47,9 +47,24 @@ public:
     Layout() {}
     virtual ~Layout() {}
 
+    /*!
+     * Returns the Type of this Layout.
+     */
     Type type() const;
 
+    /*!
+     * Returns the parent Widget - on which Layout is working to resize and
+     * position it's children.
+     *
+     * \sa setParent
+     */
     Widget *parent() const;
+
+    /*!
+     * Sets the \a parent Widget.
+     *
+     * \sa parent
+     */
     void setParent(Widget *parent);
 
     /*!

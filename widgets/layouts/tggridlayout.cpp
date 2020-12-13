@@ -9,16 +9,12 @@ Tg::GridLayout::GridLayout() : Layout(Type::Grid)
 
 void Tg::GridLayout::doLayout()
 {
-    // TODO: LayoutSettings class!
-
     if (_type == Layout::Type::Grid && _parent) {
         _overshoot = Overshoot::None;
         const QSize contentsSize = _parent->contentsRectangle().size();
         const int width = contentsSize.width();
         const int height = contentsSize.height();
-
-        const int columns = 2;
-        const int itemWidth = width / columns;
+        const int itemWidth = width / _columnCount;
 
         int currentColumn = 0;
         int currentRow = 0;
@@ -53,7 +49,7 @@ void Tg::GridLayout::doLayout()
                     _overshoot = _overshoot | widget->widgetOvershoot();
                 }
 
-                if (currentColumn >= columns) {
+                if (currentColumn >= _columnCount) {
                     currentColumn = 0;
                     currentX = 0;
                     currentRow = currentY;
@@ -61,4 +57,14 @@ void Tg::GridLayout::doLayout()
             }
         }
     }
+}
+
+int Tg::GridLayout::columnCount() const
+{
+    return _columnCount;
+}
+
+void Tg::GridLayout::setColumnCount(const int count)
+{
+    _columnCount = count;
 }

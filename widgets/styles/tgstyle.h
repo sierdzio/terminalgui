@@ -9,13 +9,30 @@
 #include <QString>
 
 namespace Tg {
+/*!
+ * Defines how Widget (and all it's subclasses) draw their contents.
+ *
+ * Colors and characters composing borders are handled by BorderStyle.
+ */
 class Style
 {
 public:
+    /*!
+     * Style object used to draw Widget borders.
+     */
     BorderStyle *border = new BorderStyle;
+
+    /*!
+     * Copies all information from \a borderStyle into border object held by
+     * this Style object.
+     */
     void setBorderStyleValues(const BorderStyle &borderStyle);
 
-    // Screen
+    /*!
+     * Character drawn in empty space on a Screen.
+     *
+     * \todo implement ;-)
+     */
     QChar screenBackground = Tg::Key::space;
 
     // Base widget

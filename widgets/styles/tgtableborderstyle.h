@@ -5,6 +5,10 @@
 #include <tgcolor.h>
 
 namespace Tg {
+/*!
+ * Alternative to BorderStyle: it draws the borders using 2 parallel lines
+ * instead of one.
+ */
 class TableBorderStyle : public BorderStyle
 {
 public:
