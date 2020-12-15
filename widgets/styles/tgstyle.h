@@ -35,32 +35,74 @@ public:
      */
     QChar screenBackground = Tg::Key::space;
 
-    // Base widget
+    /*!
+     * See Widget::textColor.
+     */
     Tg::Color textColor =Tg::Color::Predefined::White;
+
+    /*!
+     * See Widget::backgroundColor
+     */
     Tg::Color backgroundColor = Tg::Color::Predefined::Black;
+
+    /*!
+     * See ListView::alternativeBackgroundColor
+     */
     Tg::Color alternativeBackgroundColor = Tg::Color::Predefined::Gray;
+
+    /*!
+     * See Widget::backgroundCharacter
+     */
     QChar backgroundCharacter = Tg::Key::space;
 
-    // LineEdit
+    /*!
+     * See LineEdit::placeholderTextColor
+     */
     Tg::Color placeholderTextColor = Tg::Color::Predefined::Gray;
+
+    /*!
+     * See LineEdit::placeholderBackgroundColor
+     */
     Tg::Color placeholderBackgroundColor = Tg::Color::Predefined::Black;
 
-    // Button
+    /*!
+     * See Button::activeTextColor
+     */
     Tg::Color activeTextColor = Tg::Color::Predefined::Black;
+
+    /*!
+     * See Button::activeBackgroundColor
+     */
     Tg::Color activeBackgroundColor = Tg::Color::Predefined::White;
 
+    /*!
+     * See Button::inactiveTextColor
+     */
     Tg::Color inactiveTextColor = Tg::Color::Predefined::White;
+
+    /*!
+     * See Button::inactiveBackgroundColor
+     */
     Tg::Color inactiveBackgroundColor = Tg::Color::Predefined::Gray;
 
+    /*!
+     * See Button::pressedTextColor
+     */
     Tg::Color pressedTextColor = Tg::Color::Predefined::Green;
+
+    /*!
+     * See Button::pressedBackgroundColor
+     */
     Tg::Color pressedBackgroundColor = Tg::Color::Predefined::LightWhite;
 
     // CheckBox
+    // TODO: add these as properties to Tg:Checkbox!
     QString checkBoxChecked = u8"\u2612 ";
     QString checkBoxPartiallyChecked = u8"\u25A3 ";
     QString checkBoxUnChecked = u8"\u2610 ";
 
     // RadioButton
+    // TODO: add these as properties to Tg:RadioButton!
     QString radioButtonChecked = u8"\u25C9 ";
     QString radioButtonUnChecked = u8"\u25CE ";
 
