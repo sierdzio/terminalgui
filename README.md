@@ -26,6 +26,8 @@ serial port etc. support
 
 ## For developers
 
+[Full online documentation for Terminal GUI can be found here](https://sierdzio.github.io/terminalgui/)
+
 Terminal GUI is very easy to use, especially if you know QtWidgets - many class
 names and APIs are similar.
 
