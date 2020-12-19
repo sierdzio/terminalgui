@@ -1,0 +1,4 @@
+<map id="Tg::ChildFillsParentLayout" name="Tg::ChildFillsParentLayout">
+<area shape="rect" id="node1" title="This Layout works only on a single child of parent() Widget and stretches it to fill the parent()." alt="" coords="5,80,196,107"/>
+<area shape="rect" id="node2" href="$classTg_1_1Layout.html" title="Helper class for Widget, manages positions and sizes of Widget&#39;s children." alt="" coords="55,5,146,32"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="Tg::Style" name="Tg::Style">
+<area shape="rect" id="node1" title="Defines how Widget (and all it&#39;s subclasses) draw their contents." alt="" coords="83,377,162,404"/>
+<area shape="rect" id="node2" href="$classTg_1_1BorderStyle.html" title="Defines colors, characters with which Widget draws it&#39;s borders." alt="" coords="313,213,436,240"/>
+<area shape="rect" id="node3" href="$classTg_1_1Color.html" title="Represents colors in a terminal." alt="" coords="5,5,85,32"/>
+</map>

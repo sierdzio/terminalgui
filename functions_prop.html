@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.18"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>terminalgui: Terminal GUI</title>
+<title>terminalgui: Class Members - Properties</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -62,55 +62,47 @@ $(function() {
 </iframe>
 </div>
 
-<div class="PageDoc"><div class="header">
-  <div class="headertitle">
-<div class="title">Terminal GUI </div>  </div>
-</div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md_README"></a> <em><b>This project is still pre-alpha</b></em></p>
-<p>Widgets for your terminal, powered by Qt! Create textual GUI (TUI) in your console easily.</p>
-<p><img src="terminal-gui.gif" alt="" class="inline" title="Terminal GUI showcase"/>   </p>
-<h1><a class="anchor" id="autotoc_md1"></a>
-Features</h1>
-<ul>
-<li>a multitude of widgets (Label, LineEdit, Button, CheckBox, RadioButton, ListView, ...)</li>
-<li>layouts (fill, row, column, grid, ...)</li>
-<li>fully dynamic widget properties, with support for signals and slots, animations, and other meta-object hight-level control</li>
-<li>custom styling support</li>
-<li>mouse support</li>
-<li>convenient and intuitive API</li>
-<li>support for Linux and Windows</li>
-<li>backed by the power of Qt: file access, networking, remote objects, serial port etc. support</li>
-<li>depends <b>only on QtCore</b> module - no need for QtGui, QtWidgets etc.</li>
+&#160;<ul>
+<li>acceptsFocus
+: <a class="el" href="classTg_1_1Widget.html#a2c36c41294c37342d2919257073ada49">Tg::Widget</a>
+</li>
+<li>backgroundCharacter
+: <a class="el" href="classTg_1_1Widget.html#a3fba86be42d21295405b329f4e12c0f6">Tg::Widget</a>
+</li>
+<li>backgroundColor
+: <a class="el" href="classTg_1_1Widget.html#ac776f4e5c830c900b4df48d59a81ce15">Tg::Widget</a>
+</li>
+<li>borderBackgroundColor
+: <a class="el" href="classTg_1_1Widget.html#ad51eec43451cf467652a681f1afb19f6">Tg::Widget</a>
+</li>
+<li>borderTextColor
+: <a class="el" href="classTg_1_1Widget.html#a8944e7a612874d2f9db64291da230bec">Tg::Widget</a>
+</li>
+<li>borderVisible
+: <a class="el" href="classTg_1_1Widget.html#a7c8bfcab837cdad7893685287f235339">Tg::Widget</a>
+</li>
+<li>hasFocus
+: <a class="el" href="classTg_1_1Widget.html#a0f25f5782233e9083c8a441c071795d8">Tg::Widget</a>
+</li>
+<li>position
+: <a class="el" href="classTg_1_1Widget.html#a8210af5502b8edbd689e570580e18111">Tg::Widget</a>
+</li>
+<li>propagatesStyle
+: <a class="el" href="classTg_1_1Widget.html#ae4db632db74956f183857004779184ae">Tg::Widget</a>
+</li>
+<li>size
+: <a class="el" href="classTg_1_1Screen.html#a481acbe1d12653cc64c5e1a33adfde47">Tg::Screen</a>
+, <a class="el" href="classTg_1_1Terminal.html#adf36cf8f5e82e43da2569348162a7dc3">Tg::Terminal</a>
+, <a class="el" href="classTg_1_1Widget.html#a1fc1305249014639c2acbd254dfa437c">Tg::Widget</a>
+</li>
+<li>textColor
+: <a class="el" href="classTg_1_1Widget.html#a46e96d190fd4578975bb73a4b8b32138">Tg::Widget</a>
+</li>
+<li>visible
+: <a class="el" href="classTg_1_1Widget.html#ab5c3f307ccbcc37a709c630a9bc66f91">Tg::Widget</a>
+</li>
 </ul>
-<p><img src="terminal-gui-2.gif" alt="" class="inline" title="Terminal GUI widgets"/>   </p>
-<h1><a class="anchor" id="autotoc_md2"></a>
-For developers</h1>
-<p>Terminal GUI is very easy to use, especially if you know QtWidgets - many class names and APIs are similar.</p>
-<p>For more information, check examples and go therough our <a class="el" href="md_doc_developer_guide.html">developer guide</a>.</p>
-<h1><a class="anchor" id="autotoc_md3"></a>
-Builds</h1>
-<p>What? Builds? Not available yet. It's still a very young project!</p>
-<h1><a class="anchor" id="autotoc_md4"></a>
-Compile</h1>
-<p>All that Terminal GUI requires is:</p><ul>
-<li>C++17</li>
-<li>CMake</li>
-<li>QtCore module (both Qt 5 and Qt 6 are supported)</li>
-</ul>
-<p>By default, TG builds itself as a set of libraries (core and widgets). It is easy to link to them (see examples/CMakeLists.txt). If you prefer, you can include all the sources in your code, too. The license is <em>extremely</em> permissive.</p>
-<h1><a class="anchor" id="autotoc_md5"></a>
-Linux</h1>
-<p>It just works, and looks great (in terminal emulators) - no worries!</p>
-<h1><a class="anchor" id="autotoc_md6"></a>
-Windows</h1>
-<p>Windows has poor UTF-8 support and poor fonts in default <code>cmd.exe</code>. Terminal GUI works but looks worse and is more glitchy than on Linux.</p>
-<p><b>Recommendation:</b> use the new Windows Terminal: <a href="https://aka.ms/terminal">link</a>.</p>
-<p>Windows PowerShell also seems to work pretty well.</p>
-<h1><a class="anchor" id="autotoc_md7"></a>
-License</h1>
-<p>See LICENSE.md - TG is available under WTFPL. It links to Qt, though, so you need to keep that in mind. </p>
-</div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -1,0 +1,4 @@
+<map id="Tg::BorderStyle" name="Tg::BorderStyle">
+<area shape="rect" id="node1" title="Defines colors, characters with which Widget draws it&#39;s borders." alt="" coords="22,5,145,32"/>
+<area shape="rect" id="node2" href="$classTg_1_1TableBorderStyle.html" title="Alternative to BorderStyle: it draws the borders using 2 parallel lines instead of one." alt="" coords="5,80,161,107"/>
+</map>

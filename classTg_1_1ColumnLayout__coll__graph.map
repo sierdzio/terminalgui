@@ -1,0 +1,6 @@
+<map id="Tg::ColumnLayout" name="Tg::ColumnLayout">
+<area shape="rect" id="node1" title="Arranges all children of parent() Widget in a single column." alt="" coords="5,247,145,273"/>
+<area shape="rect" id="node2" href="$classTg_1_1Layout.html" title="Helper class for Widget, manages positions and sizes of Widget&#39;s children." alt="" coords="30,171,121,197"/>
+<area shape="rect" id="node3" href="$classTg_1_1Widget.html" title="Base class for all widgets in a Terminal Gui application." alt="" coords="29,81,121,108"/>
+<area shape="rect" id="node4" title=" " alt="" coords="38,5,113,32"/>
+</map>

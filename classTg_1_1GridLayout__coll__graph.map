@@ -1,0 +1,6 @@
+<map id="Tg::GridLayout" name="Tg::GridLayout">
+<area shape="rect" id="node1" title="Arranges children of parent() Widget in a grid." alt="" coords="5,247,123,273"/>
+<area shape="rect" id="node2" href="$classTg_1_1Layout.html" title="Helper class for Widget, manages positions and sizes of Widget&#39;s children." alt="" coords="19,171,109,197"/>
+<area shape="rect" id="node3" href="$classTg_1_1Widget.html" title="Base class for all widgets in a Terminal Gui application." alt="" coords="18,81,110,108"/>
+<area shape="rect" id="node4" title=" " alt="" coords="27,5,101,32"/>
+</map>

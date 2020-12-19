@@ -1,0 +1,8 @@
+<map id="Tg::Button" name="Tg::Button">
+<area shape="rect" id="node1" title=" " alt="" coords="87,229,176,256"/>
+<area shape="rect" id="node5" href="$classTg_1_1CheckBox.html" title=" " alt="" coords="5,304,116,331"/>
+<area shape="rect" id="node6" href="$classTg_1_1RadioButton.html" title=" " alt="" coords="140,304,267,331"/>
+<area shape="rect" id="node2" href="$classTg_1_1Label.html" title=" " alt="" coords="91,155,172,181"/>
+<area shape="rect" id="node3" href="$classTg_1_1Widget.html" title="Base class for all widgets in a Terminal Gui application." alt="" coords="85,80,177,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="94,5,169,32"/>
+</map>
