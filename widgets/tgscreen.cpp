@@ -5,6 +5,7 @@
 
 #include <tgterminal.h>
 
+#include <QCoreApplication>
 #include <QPoint>
 #include <QRect>
 #include <QDebug>
@@ -219,6 +220,10 @@ void Tg::Screen::checkKeyboard()
     QString characters;
     for (int i = 0; i < bufferSize; ++i) {
         characters.append(Terminal::getChar());
+    }
+
+    if (characters.contains(Key::ctrlC) || characters.contains(Key::ctrlD)) {
+        QCoreApplication::instance()->quit();
     }
 
     if (characters.contains(Command::mouseEventBegin)) {

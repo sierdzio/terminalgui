@@ -60,5 +60,15 @@ const QString del = Command::ansiEscape + "3~";
  * Space key.
  */
 const QChar space = ' ';
+
+/*!
+ * Ctrl+C
+ */
+const QChar ctrlC = '\003';
+
+/*!
+ * Ctrl+D
+ */
+const QChar ctrlD = '\004';
 }
 }

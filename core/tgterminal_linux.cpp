@@ -12,6 +12,8 @@
 #include <unistd.h>
 #include <signal.h>
 
+static struct sigaction sigIntHandler;
+
 static void linuxSignalHandler(const int signal)
 {
     const auto terminal = Tg::Terminal::globalTerminal();
@@ -57,10 +59,14 @@ int Tg::Terminal::getChar()
 
 void Tg::Terminal::registerSignalHandler()
 {
-    if (signal(SIGWINCH, linuxSignalHandler) == SIG_ERR) {
-        fputs("An error occurred while setting a signal handler.\n", stderr);
-        return;
-    }
+    sigIntHandler.sa_handler = linuxSignalHandler;
+    sigemptyset(&sigIntHandler.sa_mask);
+    sigIntHandler.sa_flags = 0;
+
+    sigaction(SIGWINCH, &sigIntHandler, NULL);
+    sigaction(SIGQUIT, &sigIntHandler, NULL);
+    sigaction(SIGTERM, &sigIntHandler, NULL);
+    sigaction(SIGKILL, &sigIntHandler, NULL);
 }
 
 void Tg::Terminal::enableMouseTracking()
@@ -77,17 +83,8 @@ void Tg::Terminal::disableMouseTracking()
     _isMouseReporting = false;
 }
 
-// TODO: use termios! Right?
-//#include <termios.h>
-
 Tg::RawTerminalLocker::RawTerminalLocker()
 {
-    //struct termios term;
-    //tcgetattr(standardInputIndex, &term);
-    //term.c_lflag &= ~ICANON;
-    //tcsetattr(standardInputIndex, TCSANOW, &term);
-    //setbuf(stdin, NULL);
-
     const int result = system("stty raw -echo");
     if (result != 0) {
         qWarning() << Q_FUNC_INFO << "could not lock the terminal" << result;
