@@ -14,7 +14,7 @@ Tg::Widget::Widget(Widget *parent)
       _screen(parent->screen()),
       _parentWidget(parent)
 {
-    init();
+    Widget::init();
 }
 
 Tg::Widget::Widget(Tg::Screen *screen)
@@ -22,7 +22,7 @@ Tg::Widget::Widget(Tg::Screen *screen)
       _screen(screen),
       _parentWidget(nullptr)
 {
-    init();
+    Widget::init();
 }
 
 Tg::Widget::~Widget()

@@ -5,12 +5,12 @@
 
 Tg::ScrollBar::ScrollBar(Tg::Widget *parent) : Tg::Widget(parent)
 {
-    init();
+    ScrollBar::init();
 }
 
 Tg::ScrollBar::ScrollBar(Tg::Screen *screen) : Tg::Widget(screen)
 {
-    init();
+    ScrollBar::init();
 }
 
 QString Tg::ScrollBar::drawPixel(const QPoint &pixel) const

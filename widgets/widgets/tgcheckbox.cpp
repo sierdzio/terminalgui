@@ -3,22 +3,22 @@
 
 Tg::CheckBox::CheckBox(Tg::Widget *parent) : Tg::Button(parent)
 {
-    init();
+    CheckBox::init();
 }
 
 Tg::CheckBox::CheckBox(Tg::Screen *screen) : Tg::Button(screen)
 {
-    init();
+    CheckBox::init();
 }
 
 Tg::CheckBox::CheckBox(const QString &text, Tg::Widget *parent) : Tg::Button(text, parent)
 {
-    init();
+    CheckBox::init();
 }
 
 Tg::CheckBox::CheckBox(const QString &text, Tg::Screen *screen) : Tg::Button(text, screen)
 {
-    init();
+    CheckBox::init();
 }
 
 Qt::CheckState Tg::CheckBox::checkState() const

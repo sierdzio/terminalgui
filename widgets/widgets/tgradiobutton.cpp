@@ -58,22 +58,22 @@ void Tg::ExclusiveGroup::onRadioButtonCheckedChanged(const bool checked)
 
 Tg::RadioButton::RadioButton(Tg::Widget *parent) : Tg::Button(parent)
 {
-    init();
+    RadioButton::init();
 }
 
 Tg::RadioButton::RadioButton(Tg::Screen *screen) : Tg::Button(screen)
 {
-    init();
+    RadioButton::init();
 }
 
 Tg::RadioButton::RadioButton(const QString &text, Tg::Widget *parent) : Tg::Button(text, parent)
 {
-    init();
+    RadioButton::init();
 }
 
 Tg::RadioButton::RadioButton(const QString &text, Tg::Screen *screen) : Tg::Button(text, screen)
 {
-    init();
+    RadioButton::init();
 }
 
 void Tg::RadioButton::toggleState()

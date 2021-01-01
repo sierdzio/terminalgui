@@ -6,12 +6,12 @@
 
 Tg::ListView::ListView(Tg::Widget *parent) : Tg::ScrollArea(parent)
 {
-    init();
+    ListView::init();
 }
 
 Tg::ListView::ListView(Tg::Screen *screen) : Tg::ScrollArea(screen)
 {
-    init();
+    ListView::init();
 }
 
 QString Tg::ListView::drawAreaContents(const QPoint &pixel) const

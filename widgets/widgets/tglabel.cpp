@@ -10,24 +10,24 @@
 
 Tg::Label::Label(Tg::Widget *parent) : Tg::Widget(parent)
 {
-    init();
+    Label::init();
 }
 
 Tg::Label::Label(Tg::Screen *screen) : Tg::Widget(screen)
 {
-    init();
+    Label::init();
 }
 
 Tg::Label::Label(const QString &text, Widget *parent) : Tg::Widget(parent)
 {
     setText(text);
-    init();
+    Label::init();
 }
 
 Tg::Label::Label(const QString &text, Tg::Screen *screen) : Tg::Widget(screen)
 {
     setText(text);
-    init();
+    Label::init();
 }
 
 QString Tg::Label::text() const

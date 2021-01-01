@@ -7,26 +7,26 @@
 
 Tg::LineEdit::LineEdit(Tg::Widget *parent) : Tg::Label(parent)
 {
-    init();
+    LineEdit::init();
 }
 
 Tg::LineEdit::LineEdit(Tg::Screen *screen) : Tg::Label(screen)
 {
-    init();
+    LineEdit::init();
 }
 
 Tg::LineEdit::LineEdit(const QString &placeholderText, Tg::Widget *parent)
     : Tg::Label(parent),
       _placeholderText(placeholderText)
 {
-    init();
+    LineEdit::init();
 }
 
 Tg::LineEdit::LineEdit(const QString &placeholderText, Tg::Screen *screen)
     : Tg::Label(screen),
       _placeholderText(placeholderText)
 {
-    init();
+    LineEdit::init();
 }
 
 QString Tg::LineEdit::placeholderText() const

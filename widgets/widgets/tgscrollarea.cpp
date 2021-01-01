@@ -7,12 +7,12 @@
 
 Tg::ScrollArea::ScrollArea(Tg::Widget *parent) : Tg::Widget(parent)
 {
-    init();
+    ScrollArea::init();
 }
 
 Tg::ScrollArea::ScrollArea(Tg::Screen *screen) : Tg::Widget(screen)
 {
-    init();
+    ScrollArea::init();
 }
 
 QString Tg::ScrollArea::drawPixel(const QPoint &pixel) const

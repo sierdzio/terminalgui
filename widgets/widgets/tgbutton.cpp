@@ -4,24 +4,24 @@
 
 Tg::Button::Button(Tg::Widget *parent) : Tg::Label(parent)
 {
-    init();
+    Button::init();
 }
 
 Tg::Button::Button(Tg::Screen *screen) : Tg::Label(screen)
 {
-    init();
+    Button::init();
 }
 
 Tg::Button::Button(const QString &text, Tg::Widget *parent)
     : Tg::Label(text, parent)
 {
-    init();
+    Button::init();
 }
 
 Tg::Button::Button(const QString &text, Tg::Screen *screen)
     : Tg::Label(text, screen)
 {
-    init();
+    Button::init();
 }
 
 Tg::Color Tg::Button::activeTextColor() const
