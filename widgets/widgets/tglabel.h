@@ -18,7 +18,6 @@ public:
 
     QString text() const;
 
-
     bool highlighted() const;
 
 signals:

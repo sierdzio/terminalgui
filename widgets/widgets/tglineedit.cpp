@@ -98,6 +98,12 @@ void Tg::LineEdit::init()
     setAcceptsFocus(true);
     Label::init();
 
+    CHECK(connect(this, &LineEdit::placeholderTextChanged,
+                  this, &LineEdit::schedulePartialRedraw));
+    CHECK(connect(this, &LineEdit::placeholderTextColorChanged,
+                  this, &LineEdit::schedulePartialRedraw));
+    CHECK(connect(this, &LineEdit::placeholderBackgroundColorChanged,
+                  this, &LineEdit::schedulePartialRedraw));
     CHECK(connect(this, &LineEdit::cursorPositionChanged,
                   this, &LineEdit::schedulePartialRedraw));
 
@@ -127,7 +133,7 @@ void Tg::LineEdit::consumeKeyboardBuffer(const QString &keyboardBuffer)
     // Right Arrow
     if (const QString command(Tg::Key::right);
         keyboardBuffer.contains(command)) {
-        if (cursorPosition() <= _realText.size()) {
+        if (cursorPosition() < _realText.size()) {
             setCursorPosition(cursorPosition() + 1);
         }
         return;
@@ -167,10 +173,9 @@ void Tg::LineEdit::consumeKeyboardBuffer(const QString &keyboardBuffer)
     if (_realText.isEmpty() && keyboardBuffer.isEmpty()) {
         displayPlaceholderText();
     } else {
-        // TODO: include cursor position!
-        _realText.append(keyboardBuffer);
+        _realText.insert(cursorPosition(), keyboardBuffer);
         setText(_realText);
-        setCursorPosition(_realText.size());
+        setCursorPosition(cursorPosition() + 1);
         setTextColor(style()->textColor);
     }
 }
