@@ -25,7 +25,7 @@ signals:
     void highlightedChanged(const bool highlighted) const;
 
 public slots:
-    void setText(const QString &text, const bool expand = true);
+    void setText(const QString &text, const bool expand = false);
     void setHighlighted(const bool highlighted);
 
 protected:

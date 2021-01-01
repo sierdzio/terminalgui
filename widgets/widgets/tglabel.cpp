@@ -20,13 +20,13 @@ Tg::Label::Label(Tg::Screen *screen) : Tg::Widget(screen)
 
 Tg::Label::Label(const QString &text, Widget *parent) : Tg::Widget(parent)
 {
-    setText(text);
+    setText(text, true);
     Label::init();
 }
 
 Tg::Label::Label(const QString &text, Tg::Screen *screen) : Tg::Widget(screen)
 {
-    setText(text);
+    setText(text, true);
     Label::init();
 }
 
@@ -145,7 +145,8 @@ void Tg::Label::layoutText()
             currentX += reserved;
         }
 
-        for (const QChar &character : text()) {
+        const QString &fullText(text());
+        for (const QChar &character : fullText) {
             if (currentY > height) {
                 overshoot = overshoot | Overshoot::Vertical;
                 setWidgetOvershoot(overshoot);

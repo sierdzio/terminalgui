@@ -20,6 +20,7 @@ Tg::LineEdit::LineEdit(const QString &placeholderText, Tg::Widget *parent)
       _placeholderText(placeholderText)
 {
     LineEdit::init();
+    setSize(QSize(placeholderText.size(), 1));
 }
 
 Tg::LineEdit::LineEdit(const QString &placeholderText, Tg::Screen *screen)
@@ -27,6 +28,7 @@ Tg::LineEdit::LineEdit(const QString &placeholderText, Tg::Screen *screen)
       _placeholderText(placeholderText)
 {
     LineEdit::init();
+    setSize(QSize(placeholderText.size(), 1));
 }
 
 QString Tg::LineEdit::placeholderText() const
@@ -156,7 +158,6 @@ void Tg::LineEdit::consumeKeyboardBuffer(const QString &keyboardBuffer)
             _realText.remove(cursorPosition(), 1);
             setText(_realText);
         }
-
         return;
     }
 
