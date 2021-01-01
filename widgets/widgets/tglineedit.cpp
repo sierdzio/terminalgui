@@ -157,6 +157,10 @@ void Tg::LineEdit::consumeKeyboardBuffer(const QString &keyboardBuffer)
             setCursorPosition(cursorPosition() - 1);
             _realText.remove(cursorPosition(), 1);
             setText(_realText);
+
+            if (_realText.isEmpty()) {
+                displayPlaceholderText();
+            }
         }
         return;
     }
@@ -167,6 +171,10 @@ void Tg::LineEdit::consumeKeyboardBuffer(const QString &keyboardBuffer)
         if (_realText.isEmpty() == false) {
             _realText.remove(cursorPosition(), 1);
             setText(_realText);
+
+            if (_realText.isEmpty()) {
+                displayPlaceholderText();
+            }
         }
         return;
     }
