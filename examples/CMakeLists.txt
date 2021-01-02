@@ -18,11 +18,11 @@ if(WIN32)
   ADD_DEFINITIONS(-D_UNICODE)
 endif()
 
-add_executable(terminalgui-example terminalgui-example.cpp)
-target_link_libraries(terminalgui-example PUBLIC terminalgui)
+add_executable(animation-example animation-example.cpp)
+target_link_libraries(animation-example PUBLIC terminalgui)
 
-add_executable(showcase-example showcase-example.cpp)
-target_link_libraries(showcase-example PUBLIC terminalgui)
+add_executable(widgets-example widgets-example.cpp)
+target_link_libraries(widgets-example PUBLIC terminalgui)
 
 add_executable(layouts-example layouts-example.cpp)
 target_link_libraries(layouts-example PUBLIC terminalgui)
