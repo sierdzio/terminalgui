@@ -304,6 +304,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:a65a49d39778f6bfcbc4cc39a05b8b563"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classTg_1_1Widget.html">Widget</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTg_1_1Widget.html#a65a49d39778f6bfcbc4cc39a05b8b563">parentWidget</a> () const</td></tr>
 <tr class="memdesc:a65a49d39778f6bfcbc4cc39a05b8b563"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the parent <a class="el" href="classTg_1_1Widget.html" title="Base class for all widgets in a Terminal Gui application.">Widget</a>.  <a href="classTg_1_1Widget.html#a65a49d39778f6bfcbc4cc39a05b8b563">More...</a><br /></td></tr>
 <tr class="separator:a65a49d39778f6bfcbc4cc39a05b8b563"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab61d9cc869ad96c7884c4a50c152c20c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTg_1_1Widget.html#ab61d9cc869ad96c7884c4a50c152c20c">isTopLevel</a> () const</td></tr>
+<tr class="memdesc:ab61d9cc869ad96c7884c4a50c152c20c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <code>true</code> if this <a class="el" href="classTg_1_1Widget.html" title="Base class for all widgets in a Terminal Gui application.">Widget</a> is top-level.  <a href="classTg_1_1Widget.html#ab61d9cc869ad96c7884c4a50c152c20c">More...</a><br /></td></tr>
+<tr class="separator:ab61d9cc869ad96c7884c4a50c152c20c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8e6b053ab642906cf44ade7fd2a0e33"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTg_1_1Widget.html#aa8e6b053ab642906cf44ade7fd2a0e33">isBorder</a> (const QPoint &amp;pixel) const</td></tr>
 <tr class="memdesc:aa8e6b053ab642906cf44ade7fd2a0e33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <code>true</code> when <em>pixel</em> lies within the border of the <a class="el" href="classTg_1_1Widget.html" title="Base class for all widgets in a Terminal Gui application.">Widget</a>.  <a href="classTg_1_1Widget.html#aa8e6b053ab642906cf44ade7fd2a0e33">More...</a><br /></td></tr>
 <tr class="separator:aa8e6b053ab642906cf44ade7fd2a0e33"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -948,6 +951,26 @@ Styling</h1>
 <p>Returns <code>true</code> when <em>pixel</em> lies within the border of the <a class="el" href="classTg_1_1Widget.html" title="Base class for all widgets in a Terminal Gui application.">Widget</a>. </p>
 <p>If border is not visible, it will always return <code>false</code>.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classTg_1_1Widget.html#a7c8bfcab837cdad7893685287f235339" title="Controls whether border is drawn.">borderVisible</a> </dd></dl>
+
+</div>
+</div>
+<a id="ab61d9cc869ad96c7884c4a50c152c20c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab61d9cc869ad96c7884c4a50c152c20c">&#9670;&nbsp;</a></span>isTopLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Tg::Widget::isTopLevel </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns <code>true</code> if this <a class="el" href="classTg_1_1Widget.html" title="Base class for all widgets in a Terminal Gui application.">Widget</a> is top-level. </p>
+<p>This means that <a class="el" href="classTg_1_1Widget.html#a65a49d39778f6bfcbc4cc39a05b8b563" title="Returns the parent Widget.">parentWidget()</a> returns <code>nullptr</code>. </p>
 
 </div>
 </div>

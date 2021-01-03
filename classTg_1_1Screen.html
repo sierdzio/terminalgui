@@ -113,6 +113,9 @@ Public Slots</h2></td></tr>
 <tr class="memitem:a045549a846b67a3af5f42dce1f01fa7b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTg_1_1Screen.html#a045549a846b67a3af5f42dce1f01fa7b">moveFocusToNextWidget</a> ()</td></tr>
 <tr class="memdesc:a045549a846b67a3af5f42dce1f01fa7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds previous <a class="el" href="classTg_1_1Widget.html" title="Base class for all widgets in a Terminal Gui application.">Widget</a> ready to accept keyboard focus and moves the focus to it.  <a href="classTg_1_1Screen.html#a045549a846b67a3af5f42dce1f01fa7b">More...</a><br /></td></tr>
 <tr class="separator:a045549a846b67a3af5f42dce1f01fa7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6506ba32fe2e9529c6f87c1a8798b2b7"><td class="memItemLeft" align="right" valign="top"><a id="a6506ba32fe2e9529c6f87c1a8798b2b7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setCanDragWidgets</b> (const bool <a class="el" href="classTg_1_1Screen.html#a9966644cdd147f4be01da6c21c0021c2">canDragWidgets</a>)</td></tr>
+<tr class="separator:a6506ba32fe2e9529c6f87c1a8798b2b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="signals"></a>
 Signals</h2></td></tr>
@@ -120,6 +123,9 @@ Signals</h2></td></tr>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTg_1_1Screen.html#a50763a914b247fe2c8b672f28c39bc34">sizeChanged</a> (const QSize &amp;<a class="el" href="classTg_1_1Screen.html#a481acbe1d12653cc64c5e1a33adfde47">size</a>) const</td></tr>
 <tr class="memdesc:a50763a914b247fe2c8b672f28c39bc34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted when <a class="el" href="classTg_1_1Screen.html" title="Screen is the &quot;canvas&quot; on which widgets (subclasses of Widget) are drawn.">Screen</a>'s <em>size</em> is modified. <br /></td></tr>
 <tr class="separator:a50763a914b247fe2c8b672f28c39bc34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59ffad4ba84ff1334911d208d32a1703"><td class="memItemLeft" align="right" valign="top"><a id="a59ffad4ba84ff1334911d208d32a1703"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>canDragWidgetsChanged</b> (const bool <a class="el" href="classTg_1_1Screen.html#a9966644cdd147f4be01da6c21c0021c2">canDragWidgets</a>) const</td></tr>
+<tr class="separator:a59ffad4ba84ff1334911d208d32a1703"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -133,12 +139,18 @@ Public Member Functions</h2></td></tr>
 <a class="el" href="namespaceTg.html#ad20301c84f075e8720fd2470853819f7">StylePointer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTg_1_1Screen.html#aa775084938c22d351005399cc34512cf">style</a> () const</td></tr>
 <tr class="memdesc:aa775084938c22d351005399cc34512cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the default style, shared with all <a class="el" href="classTg_1_1Widget.html" title="Base class for all widgets in a Terminal Gui application.">Widget</a> instances. <br /></td></tr>
 <tr class="separator:aa775084938c22d351005399cc34512cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af11a13028c39a9baa59064da61323017"><td class="memItemLeft" align="right" valign="top"><a id="af11a13028c39a9baa59064da61323017"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>canDragWidgets</b> () const</td></tr>
+<tr class="separator:af11a13028c39a9baa59064da61323017"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
 <tr class="memitem:a481acbe1d12653cc64c5e1a33adfde47"><td class="memItemLeft" align="right" valign="top">QSize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTg_1_1Screen.html#a481acbe1d12653cc64c5e1a33adfde47">size</a></td></tr>
 <tr class="memdesc:a481acbe1d12653cc64c5e1a33adfde47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of the <a class="el" href="classTg_1_1Screen.html" title="Screen is the &quot;canvas&quot; on which widgets (subclasses of Widget) are drawn.">Screen</a>.  <a href="classTg_1_1Screen.html#a481acbe1d12653cc64c5e1a33adfde47">More...</a><br /></td></tr>
 <tr class="separator:a481acbe1d12653cc64c5e1a33adfde47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9966644cdd147f4be01da6c21c0021c2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTg_1_1Screen.html#a9966644cdd147f4be01da6c21c0021c2">canDragWidgets</a></td></tr>
+<tr class="memdesc:a9966644cdd147f4be01da6c21c0021c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">When <code>true</code>, widgets can be dragged around on the <a class="el" href="classTg_1_1Screen.html" title="Screen is the &quot;canvas&quot; on which widgets (subclasses of Widget) are drawn.">Screen</a> using a mouse.  <a href="classTg_1_1Screen.html#a9966644cdd147f4be01da6c21c0021c2">More...</a><br /></td></tr>
+<tr class="separator:a9966644cdd147f4be01da6c21c0021c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -302,6 +314,31 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Widget</b></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Property Documentation</h2>
+<a id="a9966644cdd147f4be01da6c21c0021c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9966644cdd147f4be01da6c21c0021c2">&#9670;&nbsp;</a></span>canDragWidgets</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Tg::Screen::canDragWidgets</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">read</span><span class="mlabel">write</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>When <code>true</code>, widgets can be dragged around on the <a class="el" href="classTg_1_1Screen.html" title="Screen is the &quot;canvas&quot; on which widgets (subclasses of Widget) are drawn.">Screen</a> using a mouse. </p>
+<p>To drag, click and hold your mouse over <a class="el" href="classTg_1_1Widget.html" title="Base class for all widgets in a Terminal Gui application.">Widget</a>'s border, then move the mouse. </p>
+
+</div>
+</div>
 <a id="a481acbe1d12653cc64c5e1a33adfde47"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a481acbe1d12653cc64c5e1a33adfde47">&#9670;&nbsp;</a></span>size</h2>
 

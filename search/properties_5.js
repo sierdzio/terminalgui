@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['textcolor_471',['textColor',['../classTg_1_1Widget.html#a46e96d190fd4578975bb73a4b8b32138',1,'Tg::Widget']]]
+  ['size_484',['size',['../classTg_1_1Terminal.html#adf36cf8f5e82e43da2569348162a7dc3',1,'Tg::Terminal::size()'],['../classTg_1_1Screen.html#a481acbe1d12653cc64c5e1a33adfde47',1,'Tg::Screen::size()'],['../classTg_1_1Widget.html#a1fc1305249014639c2acbd254dfa437c',1,'Tg::Widget::size()']]]
 ];

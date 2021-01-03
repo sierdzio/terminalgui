@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['position_468',['position',['../classTg_1_1Widget.html#a8210af5502b8edbd689e570580e18111',1,'Tg::Widget']]],
-  ['propagatesstyle_469',['propagatesStyle',['../classTg_1_1Widget.html#ae4db632db74956f183857004779184ae',1,'Tg::Widget']]]
+  ['hasfocus_481',['hasFocus',['../classTg_1_1Widget.html#a0f25f5782233e9083c8a441c071795d8',1,'Tg::Widget']]]
 ];

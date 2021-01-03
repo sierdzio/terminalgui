@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['size_470',['size',['../classTg_1_1Terminal.html#adf36cf8f5e82e43da2569348162a7dc3',1,'Tg::Terminal::size()'],['../classTg_1_1Screen.html#a481acbe1d12653cc64c5e1a33adfde47',1,'Tg::Screen::size()'],['../classTg_1_1Widget.html#a1fc1305249014639c2acbd254dfa437c',1,'Tg::Widget::size()']]]
+  ['position_482',['position',['../classTg_1_1Widget.html#a8210af5502b8edbd689e570580e18111',1,'Tg::Widget']]],
+  ['propagatesstyle_483',['propagatesStyle',['../classTg_1_1Widget.html#ae4db632db74956f183857004779184ae',1,'Tg::Widget']]]
 ];
