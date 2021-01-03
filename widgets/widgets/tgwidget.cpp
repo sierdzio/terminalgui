@@ -206,8 +206,13 @@ QString Tg::Widget::drawBorderPixel(const QPoint &pixel) const
         result.append(color);
         result.append(style()->border->bottomLeft);
     } else if (pixel == rect.bottomRight()) {
-        result.append(color);
-        result.append(style()->border->bottomRight);
+        if (_resizableByMouse) {
+            result.append(color);
+            result.append(style()->border->resizableCorner);
+        } else {
+            result.append(color);
+            result.append(style()->border->bottomRight);
+        }
     } else if (pixel.y() == rect.top()) {
         result.append(color);
         result.append(style()->border->horizontal);

@@ -122,6 +122,12 @@ private slots:
     void setSize(const QSize &size);
 
 private:
+    enum class DragType {
+        Unknown,
+        Move,
+        Resize
+    };
+
     /*!
      * Registers \a widget with this Screen. When contents are being drawn,
      * Screen uses the list of registered widgets to delegate drawing to
@@ -157,6 +163,7 @@ private:
     QPointer<Terminal> _terminal;
 
     bool _canDragWidgets = true;
+    DragType _dragType = DragType::Unknown;
     WidgetPointer _dragWidget;
     QPoint _dragRelativePosition;
 };

@@ -761,6 +761,7 @@ private:
     void updatePreviousBoundingRect();
 
     const int _borderWidth = 1;
+    bool _resizableByMouse = true;
 
     QPointer<Screen> _screen;
     QPointer<Widget> _parentWidget;

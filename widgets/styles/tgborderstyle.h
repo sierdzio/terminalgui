@@ -35,6 +35,9 @@ public:
     //! Character used to draw all vertical edges
     QString vertical = u8"\u2502";
 
+    //! Character used to draw resizable corner "icon"
+    QString resizableCorner = u8"\u25C6";
+
     //! Character used to draw horizontal overshoot (when Widget contents do not
     //! fit it's size)
     QChar horizontalOvershoot = 0x025BC;

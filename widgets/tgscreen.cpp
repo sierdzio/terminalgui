@@ -393,9 +393,14 @@ void Tg::Screen::handleDrag(const QPoint &point, const bool isPressActive)
                 const QRect rectangle = widget->globalBoundingRectangle();
                 if (widget->isTopLevel() && rectangle.contains(point)) {
                     if (point.x() == rectangle.left()
-                            || point.x() == (rectangle.x() + rectangle.width())
+                            || point.x() == rectangle.right()
                             || point.y() == rectangle.top()
-                            || point.y() == (rectangle.y() + rectangle.height())) {
+                            || point.y() == rectangle.bottom()) {
+                        if (point == rectangle.bottomRight()) {
+                            _dragType = DragType::Resize;
+                        } else {
+                            _dragType = DragType::Move;
+                        }
                         _dragWidget = widget;
                         _dragRelativePosition = widget->mapFromGlobal(point);
                     } else {
@@ -406,15 +411,32 @@ void Tg::Screen::handleDrag(const QPoint &point, const bool isPressActive)
         }
 
         if (_dragWidget) {
-            // Make sure widget can't be pushed off-screen
-            QPoint position = point - _dragRelativePosition;
-            if (position.x() < 1) {
-                position.setX(1);
+            if (_dragType == DragType::Move) {
+                // Make sure widget can't be pushed off-screen
+                QPoint position = point - _dragRelativePosition;
+                if (position.x() < 1) {
+                    position.setX(1);
+                }
+                _dragWidget->setPosition(position);
+            } else if (_dragType == DragType::Resize) {
+                const QRect rectangle = _dragWidget->globalBoundingRectangle();
+                QSize size(point.x() - rectangle.x(), point.y() - rectangle.y());
+
+                const int borders = _dragWidget->effectiveBorderWidth() * 2;
+                if (size.width() <= borders) {
+                    size.setWidth(borders + 1);
+                }
+
+                if (size.height() <= borders) {
+                    size.setHeight(borders + 1);
+                }
+
+                _dragWidget->setSize(size);
             }
-            _dragWidget->setPosition(position);
         }
     } else {
         _dragRelativePosition = QPoint();
         _dragWidget.clear();
+        _dragType = DragType::Unknown;
     }
 }
