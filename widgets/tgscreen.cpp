@@ -390,10 +390,15 @@ void Tg::Screen::handleDrag(const QPoint &point, const bool isPressActive)
             QListIterator<WidgetPointer> iterator(_widgets);
             while (iterator.hasNext()) {
                 const WidgetPointer widget = iterator.next();
-                if (widget->isTopLevel()
-                        && widget->globalBoundingRectangle().contains(point)) {
-                    _dragWidget = widget;
-                    _dragRelativePosition = widget->mapFromGlobal(point);
+                const QRect rectangle = widget->globalBoundingRectangle();
+                if (widget->isTopLevel() && rectangle.contains(point)) {
+                    if (point.x() == rectangle.left() || point.x() == rectangle.right()
+                            || point.y() == rectangle.top() || point.y() == rectangle.bottom()) {
+                        _dragWidget = widget;
+                        _dragRelativePosition = widget->mapFromGlobal(point);
+                    } else {
+                        return;
+                    }
                 }
             }
         }
