@@ -254,6 +254,11 @@ void Tg::Screen::checkKeyboard()
             const QStringList strings = positionString.split(Command::separator);
             const QPoint click(strings.at(0).toInt(), strings.at(1).toInt());
 
+            if (_dragWidget.isNull() == false) {
+                handleDrag(click, false);
+                return;
+            }
+
             QListIterator<WidgetPointer> iterator(_widgets);
             while (iterator.hasNext()) {
                 const WidgetPointer widget = iterator.next();
