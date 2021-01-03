@@ -23,6 +23,8 @@ animations, and other meta-object hight-level control
 serial port etc. support
 * depends **only on QtCore** module - no need for QtGui, QtWidgets etc.
 
+![Terminal GUI widgets](doc/img/resizable-widgets.gif "Mouse support in Terminal GUI")
+
 ![Terminal GUI widgets](doc/img/terminal-gui-2.gif "Terminal GUI widgets")
 
 ## For developers
