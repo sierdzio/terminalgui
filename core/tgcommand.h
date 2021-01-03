@@ -119,6 +119,11 @@ const QString mouseClickReporting = ansiEscape + "?1000" + on;
 const QString mouseExtendedCoordinates = ansiEscape + "?1006" + on;
 
 /*!
+ * Enables extended mouse reporting (hover tracking).
+ */
+const QString mouseMovementReporting = ansiEscape + "?1003" + on;
+
+/*!
  * End mouse state reporting.
  */
 const QString mouseEndReporting = ansiEscape + "?1000" + off;
@@ -152,6 +157,11 @@ const QString mouseWheelUp = mouseEventBegin + "64" + separator;
  * Indicates a mouse wheel down event.
  */
 const QString mouseWheelDown = mouseEventBegin + "65" + separator;
+
+/*!
+ * Indicates a mouse wheel down event.
+ */
+const QString mouseMoveEvent = mouseEventBegin + "35" + separator;
 
 /*!
  * Returns terminal command which will move the cursor to position \a x, \a y.

@@ -72,7 +72,9 @@ void Tg::Terminal::registerSignalHandler()
 void Tg::Terminal::enableMouseTracking()
 {
     QTextStream stream(stdout);
-    stream << Command::mouseClickReporting << Command::mouseExtendedCoordinates;
+    stream << Command::mouseClickReporting
+           << Command::mouseMovementReporting
+           << Command::mouseExtendedCoordinates;
     _isMouseReporting = true;
 }
 

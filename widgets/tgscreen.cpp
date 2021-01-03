@@ -226,9 +226,12 @@ void Tg::Screen::checkKeyboard()
         QCoreApplication::instance()->quit();
     }
 
-    if (characters.contains(Command::mouseEventBegin)) {
+    const int mouseEventBegin = characters.indexOf(Command::mouseEventBegin);
+    if (mouseEventBegin != -1) {
         const int clickIndex = characters.indexOf(Command::mouseClick);
         const int clickEnd = characters.indexOf(Command::mouseReleaseSuffix, clickIndex);
+
+        // Click & release
         if (clickIndex != -1 && clickEnd != -1) {
             const int positionBeginning = clickIndex + Command::mouseClick.length();
             const int positionLength = clickEnd - positionBeginning;
@@ -250,6 +253,31 @@ void Tg::Screen::checkKeyboard()
                     }
                     return;
                 }
+            }
+        }
+        // Click & drag
+        else {
+            // "[<0;12;5M[<32;12;5M[<32;12;5M[<32;12;6M[<32;12;6M["
+            const int clickIndex = characters.indexOf(Command::separator, mouseEventBegin);
+            const int clickEnd = characters.indexOf(Command::mousePressSuffix, clickIndex);
+            const int positionBeginning = clickIndex + 1;
+            const int positionLength = clickEnd - positionBeginning;
+            const QString positionString = characters.mid(
+                        positionBeginning, positionLength);
+            const QStringList strings = positionString.split(Command::separator);
+            const QPoint point(strings.at(0).toInt(), strings.at(1).toInt());
+
+            QListIterator<WidgetPointer> iterator(_widgets);
+            while (iterator.hasNext()) {
+                const WidgetPointer widget = iterator.next();
+//                if (auto label = qobject_cast<Label*>(widget); label != nullptr) {
+                    if (clickIndex != -1 && clickEnd != -1) {
+//                        label->setText(QString("%1 x %2").arg(point.x()).arg(point.y()));
+                        widget->setPosition(point);
+//                    } else {
+//                        label->setText(QString("Unknown coords"));
+                    }
+//                }
             }
         }
     }
