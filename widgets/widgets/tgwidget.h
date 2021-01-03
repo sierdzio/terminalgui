@@ -337,6 +337,12 @@ public:
     Widget *parentWidget() const;
 
     /*!
+     * Returns `true` if this Widget is top-level. This means that
+     * parentWidget() returns `nullptr`.
+     */
+    bool isTopLevel() const;
+
+    /*!
      * Returns `true` when \a pixel lies within the border of the Widget.
      *
      * If border is not visible, it will always return `false`.

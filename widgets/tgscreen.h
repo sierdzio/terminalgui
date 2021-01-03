@@ -148,7 +148,7 @@ private:
 
     QTimer _keyboardTimer;
     QTimer _redrawTimer;
-    QList<QRect> _redrawRegions;
+    QVector<QRect> _redrawRegions;
     QSize _size;
 
     QList<WidgetPointer> _widgets;

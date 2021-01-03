@@ -3,7 +3,7 @@
 
 #include <tgterminal.h>
 #include <tgscreen.h>
-#include <widgets/tglabel.h>
+#include <widgets/tgbutton.h>
 
 int main(int argc, char *argv[])
 {
@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
 
     Tg::Screen screen;
 
-    Tg::Label label(QObject::tr("Drag me!"), &screen);
+    Tg::Button label(QObject::tr("Drag me!"), &screen);
     label.setPosition(QPoint(5, 5));
     label.setSize(QSize(15, 3));
     label.show();

@@ -176,10 +176,10 @@ void Tg::Screen::draw()
                 }
 
                 // TODO: sort by Z value...
-                QList<WidgetPointer> affectedWidgets;
+                QVector<WidgetPointer> affectedWidgets;
                 for (const WidgetPointer &widget : qAsConst(_widgets)) {
                     // Only draw direct children
-                    if (widget->parentWidget() != nullptr) {
+                    if (widget->isTopLevel() == false) {
                         // TODO: get top-level parent and append it to
                         // affectedWidgets
                         continue;
@@ -271,20 +271,18 @@ void Tg::Screen::checkKeyboard()
         }
         // Click & drag
         else if (canDragWidgets()) {
-            // TODO: handle drag beginning and ending
-            // (set and reset _dragRelativePosition)
-
             // "[<0;12;5M[<32;12;5M[<32;12;5M[<32;12;6M[<32;12;6M["
-            const int clickIndex = characters.indexOf(Command::separator, mouseEventBegin);
-            const int pressIndex = characters.indexOf(Command::mousePressSuffix, clickIndex);
-            const int positionBeginning = clickIndex + 1;
+            const int coordinatesIndex = characters.indexOf(Command::separator, mouseEventBegin);
+            const int pressIndex = characters.indexOf(Command::mousePressSuffix, coordinatesIndex);
+            const int positionBeginning = coordinatesIndex + 1;
             const int positionLength = pressIndex - positionBeginning;
             const QString positionString = characters.mid(
                         positionBeginning, positionLength);
             const QStringList strings = positionString.split(Command::separator);
             const QPoint point(strings.at(0).toInt(), strings.at(1).toInt());
 
-            handleDrag(point, (clickIndex != -1 && pressIndex != -1));
+            handleDrag(point, (coordinatesIndex != -1 && pressIndex != -1));
+            return;
         }
     }
 
@@ -387,14 +385,20 @@ void Tg::Screen::handleDrag(const QPoint &point, const bool isPressActive)
             QListIterator<WidgetPointer> iterator(_widgets);
             while (iterator.hasNext()) {
                 const WidgetPointer widget = iterator.next();
-                if (widget->globalBoundingRectangle().contains(point)) {
+                if (widget->isTopLevel()
+                        && widget->globalBoundingRectangle().contains(point)) {
                     _dragWidget = widget;
                     _dragRelativePosition = widget->mapFromGlobal(point);
                 }
             }
         }
 
-        _dragWidget->setPosition(point - _dragRelativePosition);
+        // Make sure widget can't be pushed off-screen
+        QPoint position = point - _dragRelativePosition;
+        if (position.x() < 1) {
+            position.setX(1);
+        }
+        _dragWidget->setPosition(position);
     } else {
         _dragRelativePosition = QPoint();
         _dragWidget.clear();

@@ -162,7 +162,7 @@ QString Tg::RadioButton::radioButtonText() const
 void Tg::RadioButton::prepareAutoExclusiveGroup()
 {
     // Standalone widget cannot be auto exclusive
-    if (parentWidget() == nullptr) {
+    if (isTopLevel() == false) {
         return;
     }
 

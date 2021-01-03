@@ -181,6 +181,11 @@ Tg::Widget *Tg::Widget::parentWidget() const
     return _parentWidget;
 }
 
+bool Tg::Widget::isTopLevel() const
+{
+    return _parentWidget.isNull();
+}
+
 QString Tg::Widget::drawBorderPixel(const QPoint &pixel) const
 {
     QString result;
@@ -428,7 +433,7 @@ void Tg::Widget::setPosition(const QPoint &position)
     if (_position == position)
         return;
 
-    if (parentWidget() == nullptr) {
+    if (isTopLevel()) {
         if (position.x() == 0) {
             qWarning() << "Minimal x coordinate on terminal is 1, not 0";
         }
