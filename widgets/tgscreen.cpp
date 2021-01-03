@@ -392,8 +392,10 @@ void Tg::Screen::handleDrag(const QPoint &point, const bool isPressActive)
                 const WidgetPointer widget = iterator.next();
                 const QRect rectangle = widget->globalBoundingRectangle();
                 if (widget->isTopLevel() && rectangle.contains(point)) {
-                    if (point.x() == rectangle.left() || point.x() == rectangle.right()
-                            || point.y() == rectangle.top() || point.y() == rectangle.bottom()) {
+                    if (point.x() == rectangle.left()
+                            || point.x() == (rectangle.x() + rectangle.width())
+                            || point.y() == rectangle.top()
+                            || point.y() == (rectangle.y() + rectangle.height())) {
                         _dragWidget = widget;
                         _dragRelativePosition = widget->mapFromGlobal(point);
                     } else {
@@ -403,12 +405,14 @@ void Tg::Screen::handleDrag(const QPoint &point, const bool isPressActive)
             }
         }
 
-        // Make sure widget can't be pushed off-screen
-        QPoint position = point - _dragRelativePosition;
-        if (position.x() < 1) {
-            position.setX(1);
+        if (_dragWidget) {
+            // Make sure widget can't be pushed off-screen
+            QPoint position = point - _dragRelativePosition;
+            if (position.x() < 1) {
+                position.setX(1);
+            }
+            _dragWidget->setPosition(position);
         }
-        _dragWidget->setPosition(position);
     } else {
         _dragRelativePosition = QPoint();
         _dragWidget.clear();
