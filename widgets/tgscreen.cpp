@@ -71,6 +71,11 @@ Tg::StylePointer Tg::Screen::style() const
     return _style;
 }
 
+bool Tg::Screen::canDragWidgets() const
+{
+    return _canDragWidgets;
+}
+
 void Tg::Screen::scheduleRedraw(const RedrawType type, const Widget *widget)
 {
     updateRedrawRegions(type, widget);
@@ -139,6 +144,15 @@ void Tg::Screen::moveFocusToNextWidget()
             return;
         }
     }
+}
+
+void Tg::Screen::setCanDragWidgets(const bool canDragWidgets)
+{
+    if (_canDragWidgets == canDragWidgets)
+        return;
+
+    _canDragWidgets = canDragWidgets;
+    emit canDragWidgetsChanged(_canDragWidgets);
 }
 
 void Tg::Screen::draw()
@@ -229,12 +243,12 @@ void Tg::Screen::checkKeyboard()
     const int mouseEventBegin = characters.indexOf(Command::mouseEventBegin);
     if (mouseEventBegin != -1) {
         const int clickIndex = characters.indexOf(Command::mouseClick);
-        const int clickEnd = characters.indexOf(Command::mouseReleaseSuffix, clickIndex);
+        const int releaseIndex = characters.indexOf(Command::mouseReleaseSuffix, clickIndex);
 
         // Click & release
-        if (clickIndex != -1 && clickEnd != -1) {
+        if (clickIndex != -1 && releaseIndex != -1) {
             const int positionBeginning = clickIndex + Command::mouseClick.length();
-            const int positionLength = clickEnd - positionBeginning;
+            const int positionLength = releaseIndex - positionBeginning;
             const QString positionString = characters.mid(
                         positionBeginning, positionLength);
             const QStringList strings = positionString.split(Command::separator);
@@ -256,29 +270,21 @@ void Tg::Screen::checkKeyboard()
             }
         }
         // Click & drag
-        else {
+        else if (canDragWidgets()) {
+            // TODO: handle drag beginning and ending
+            // (set and reset _dragRelativePosition)
+
             // "[<0;12;5M[<32;12;5M[<32;12;5M[<32;12;6M[<32;12;6M["
             const int clickIndex = characters.indexOf(Command::separator, mouseEventBegin);
-            const int clickEnd = characters.indexOf(Command::mousePressSuffix, clickIndex);
+            const int pressIndex = characters.indexOf(Command::mousePressSuffix, clickIndex);
             const int positionBeginning = clickIndex + 1;
-            const int positionLength = clickEnd - positionBeginning;
+            const int positionLength = pressIndex - positionBeginning;
             const QString positionString = characters.mid(
                         positionBeginning, positionLength);
             const QStringList strings = positionString.split(Command::separator);
             const QPoint point(strings.at(0).toInt(), strings.at(1).toInt());
 
-            QListIterator<WidgetPointer> iterator(_widgets);
-            while (iterator.hasNext()) {
-                const WidgetPointer widget = iterator.next();
-//                if (auto label = qobject_cast<Label*>(widget); label != nullptr) {
-                    if (clickIndex != -1 && clickEnd != -1) {
-//                        label->setText(QString("%1 x %2").arg(point.x()).arg(point.y()));
-                        widget->setPosition(point);
-//                    } else {
-//                        label->setText(QString("Unknown coords"));
-                    }
-//                }
-            }
+            handleDrag(point, (clickIndex != -1 && pressIndex != -1));
         }
     }
 
@@ -372,4 +378,25 @@ void Tg::Screen::clearActiveFocusWidget()
 {
     _activeFocusWidget->setHasFocus(false);
     _activeFocusWidget = nullptr;
+}
+
+void Tg::Screen::handleDrag(const QPoint &point, const bool isPressActive)
+{
+    if (isPressActive) {
+        if (_dragWidget.isNull()) {
+            QListIterator<WidgetPointer> iterator(_widgets);
+            while (iterator.hasNext()) {
+                const WidgetPointer widget = iterator.next();
+                if (widget->globalBoundingRectangle().contains(point)) {
+                    _dragWidget = widget;
+                    _dragRelativePosition = widget->mapFromGlobal(point);
+                }
+            }
+        }
+
+        _dragWidget->setPosition(point - _dragRelativePosition);
+    } else {
+        _dragRelativePosition = QPoint();
+        _dragWidget.clear();
+    }
 }

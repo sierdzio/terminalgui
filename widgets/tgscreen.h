@@ -43,6 +43,13 @@ class Screen : public QObject
      */
     Q_PROPERTY(QSize size READ size NOTIFY sizeChanged)
 
+    /*!
+     * When `true`, widgets can be dragged around on the Screen using a mouse.
+     * To drag, click and hold your mouse over Widget's border, then move the
+     * mouse.
+     */
+    Q_PROPERTY(bool canDragWidgets READ canDragWidgets WRITE setCanDragWidgets NOTIFY canDragWidgetsChanged)
+
     friend class Widget;
 
 public:
@@ -67,6 +74,8 @@ public:
      * Returns the default style, shared with all Widget instances.
      */
     StylePointer style() const;
+
+    bool canDragWidgets() const;
 
 public slots:
     /*!
@@ -97,11 +106,15 @@ public slots:
      */
     void moveFocusToNextWidget();
 
+    void setCanDragWidgets(const bool canDragWidgets);
+
 signals:
     /*!
      * Emitted when Screen's \a size is modified.
      */
     void sizeChanged(const QSize &size) const;
+
+    void canDragWidgetsChanged(const bool canDragWidgets) const;
 
 private slots:
     void draw();
@@ -131,6 +144,8 @@ private:
     void setActiveFocusWidget(const WidgetPointer &widget);
     void clearActiveFocusWidget();
 
+    void handleDrag(const QPoint &point, const bool isPressActive);
+
     QTimer _keyboardTimer;
     QTimer _redrawTimer;
     QList<QRect> _redrawRegions;
@@ -140,5 +155,9 @@ private:
     WidgetPointer _activeFocusWidget;
     StylePointer _style;
     QPointer<Terminal> _terminal;
+
+    bool _canDragWidgets = true;
+    WidgetPointer _dragWidget;
+    QPoint _dragRelativePosition;
 };
 }

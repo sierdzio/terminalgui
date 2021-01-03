@@ -16,6 +16,7 @@ ListView, ...)
 animations, and other meta-object hight-level control
 * custom styling support
 * mouse support
+* widget drag & drop
 * convenient and intuitive API
 * support for Linux and Windows
 * backed by the power of Qt: file access, networking, remote objects,
