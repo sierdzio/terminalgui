@@ -433,6 +433,11 @@ Tg::SizeOvershoot Tg::Widget::widgetOvershoot() const
     return _widgetOvershoot;
 }
 
+int Tg::Widget::z() const
+{
+    return _z;
+}
+
 void Tg::Widget::setPosition(const QPoint &position)
 {
     if (_position == position)
@@ -545,6 +550,15 @@ void Tg::Widget::setBorderVisible(const bool visible)
 
     _borderVisible = visible;
     emit borderVisibleChanged(_borderVisible);
+}
+
+void Tg::Widget::setZ(const int z)
+{
+    if (_z == z)
+        return;
+
+    _z = z;
+    emit zChanged(_z);
 }
 
 int Tg::Widget::effectiveBorderWidth() const

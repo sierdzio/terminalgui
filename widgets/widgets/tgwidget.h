@@ -80,6 +80,12 @@ class Widget : public QObject
     Q_PROPERTY(QSize size READ size WRITE setSize NOTIFY sizeChanged)
 
     /*!
+     * Widget position on the `z` axis - this is used to control which Widgets
+     * should be displayed above and which below if they overlap.
+     */
+    Q_PROPERTY(int z READ z WRITE setZ NOTIFY zChanged)
+
+    /*!
      * Color of the background of Widget's interior (contentsRectangle()).
      *
      * \note If no color is set (or Color::Predefined::Invalid is set), a default
@@ -422,6 +428,11 @@ public:
      */
     SizeOvershoot widgetOvershoot() const;
 
+    /*!
+     * Returns the z value - position of this Widget on z order stack.
+     */
+    int z() const;
+
 signals:
     /*!
      * Indicates that \a widget (usually `this`) needs to be redrawn using
@@ -520,12 +531,17 @@ signals:
     /*!
      * Emitted when a \a child Widget has been added.
      */
-    void childAdded(Widget *child);
+    void childAdded(Widget *child) const;
 
     /*!
      * Emitted when a child Widget has been removed.
      */
-    void childRemoved();
+    void childRemoved() const;
+
+    /*!
+     * Emitted when \a z value changes.
+     */
+    void zChanged(const int z) const;
 
 public slots:
     /*!
@@ -589,6 +605,8 @@ public slots:
      * Makes Widget's border \a visible (or not).
      */
     void setBorderVisible(const bool visible);
+
+    void setZ(const int z);
 
 protected:
     /*!
@@ -775,6 +793,7 @@ private:
     QPoint _previousGlobalPosition = { 0, 0 };
     QSize _size = { 1, 1 };
     QSize _previousSize = { 1, 1 };
+    int _z = 0;
 
     Tg::Color _backgroundColor;
     Tg::Color _textColor;
