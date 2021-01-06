@@ -32,9 +32,6 @@ CHECK(QMetaObject::invokeMethod(
 #endif
 #endif
 
-namespace Helpers {
-}
-
 namespace Tg {
 class Widget;
 class Style;
@@ -42,6 +39,11 @@ class Style;
  * Convenient alias of QPointer<Widget>.
  */
 using WidgetPointer = QPointer<Widget>;
+
+/*!
+ * Convenient alias for QList<WidgetPointer>.
+ */
+using WidgetList = QList<WidgetPointer>;
 
 /*!
  * Convenient alias of QSharedPointer<Style>.
@@ -78,4 +80,26 @@ enum class RedrawType {
     // TODO: consider adding: FullWidget
 };
 
+enum class WidgetType {
+    TopLevel,
+    All
+};
+
+namespace Helpers {
+    /*!
+     * Returns one of the \a widgets - topmost one on `z` value stack at
+     * \a pixel location. Depending on \a type, search will be conducted only
+     * among top level Widgets or among all.
+     *
+     * For example, when several top=level widgets overlap, this function will
+     * return the Widget visible to the user.
+     *
+     * If none of the \a widgets is present at \a pixel, a `nullptr` will be
+     * returned.
+     *
+     * \note Children of \a widgets are not searched!
+     */
+    WidgetPointer topWidget(const WidgetList &widgets, const QPoint &pixel,
+                            const WidgetType type);
+}
 }

@@ -256,7 +256,7 @@ QString Tg::Widget::drawPixel(const QPoint &pixel) const
             const QPoint contentsPixel(pixel - contentsRectangle().topLeft());
 
             // TODO: sort by Z value...
-            QList<WidgetPointer> affectedWidgets;
+            WidgetList affectedWidgets;
             for (const WidgetPointer &widget : qAsConst(children)) {
                 // Only draw direct children
                 if (widget->parentWidget() != this) {

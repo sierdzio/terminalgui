@@ -157,7 +157,7 @@ private:
     QVector<QRect> _redrawRegions;
     QSize _size;
 
-    QList<WidgetPointer> _widgets;
+    WidgetList _widgets;
     WidgetPointer _activeFocusWidget;
     StylePointer _style;
     QPointer<Terminal> _terminal;

@@ -23,7 +23,7 @@ QString Tg::ScrollArea::drawPixel(const QPoint &pixel) const
         const auto children = findChildren<Widget *>();
         if (children.isEmpty() == false) {
             // TODO: sort by Z value...
-            QList<WidgetPointer> affectedWidgets;
+            WidgetList affectedWidgets;
             for (const WidgetPointer &widget : qAsConst(children)) {
                 if (widget == _verticalScrollBar
                         || widget == _horizontalScrollBar) {
