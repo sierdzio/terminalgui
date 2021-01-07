@@ -387,9 +387,8 @@ void Tg::Screen::handleDrag(const QPoint &point, const bool isPressActive)
 {
     if (isPressActive) {
         if (_dragWidget.isNull()) {
-            QListIterator<WidgetPointer> iterator(_widgets);
-            while (iterator.hasNext()) {
-                const WidgetPointer widget = iterator.next();
+            const WidgetPointer widget = Helpers::topWidget(_widgets, point, WidgetType::TopLevel);
+            if (widget) {
                 const QRect rectangle = widget->globalBoundingRectangle();
                 if (widget->isTopLevel() && rectangle.contains(point)) {
                     if (point.x() == rectangle.left()
