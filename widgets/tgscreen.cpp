@@ -296,6 +296,9 @@ void Tg::Screen::checkKeyboard()
             }
         }
 
+        // TODO: check if topWidget() and parent of _activeFocusWidget match
+        // (to see if clicked button is visible to the user)
+        // const WidgetPointer widget = Helpers::topWidget(_widgets, pixel, WidgetType::TopLevel);
 
         _activeFocusWidget->consumeKeyboardBuffer(characters);
     }
