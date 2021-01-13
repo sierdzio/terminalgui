@@ -251,33 +251,14 @@ QString Tg::Widget::drawPixel(const QPoint &pixel) const
     if (isBorder(pixel)) {
         return drawBorderPixel(pixel);
     } else {
-        const auto children = findChildren<Widget *>();
+        const auto children = childrenWidgets();
         if (children.isEmpty() == false) {
             const QPoint contentsPixel(pixel - contentsRectangle().topLeft());
-
-            // TODO: sort by Z value...
-            WidgetList affectedWidgets;
-            for (const WidgetPointer &widget : qAsConst(children)) {
-                // Only draw direct children
-                if (widget->parentWidget() != this) {
-                    continue;
-                }
-
-                if (widget->visible()
-                        && widget->boundingRectangle().contains(contentsPixel))
-                {
-                    affectedWidgets.append(widget);
-                }
-            }
-
-            // TODO: properly handle Z value...
-            if (affectedWidgets.isEmpty() == false) {
-                WidgetPointer widget = affectedWidgets.last();
-                if (widget.isNull() == false) {
-                    const QPoint childPixel(mapToChild(widget, pixel));
-                    result.append(widget->drawPixel(childPixel));
-                    return result;
-                }
+            const WidgetPointer widget = Helpers::topWidget(children, contentsPixel, WidgetType::All);
+            if (widget.isNull() == false) {
+                const QPoint childPixel(mapToChild(widget, pixel));
+                result.append(widget->drawPixel(childPixel));
+                return result;
             }
         }
     }
@@ -421,6 +402,18 @@ void Tg::Widget::doLayout()
             emit widgetOvershootChanged(_widgetOvershoot);
         }
     }
+}
+
+Tg::WidgetList Tg::Widget::childrenWidgets() const
+{
+    WidgetList result;
+    for (QObject *child : qAsConst(children())) {
+        Widget *childWidget = qobject_cast<Widget *>(child);
+        if (childWidget) {
+            result.append(WidgetPointer(childWidget));
+        }
+    }
+    return result;
 }
 
 Tg::SizeOvershoot Tg::Widget::layoutOvershoot() const

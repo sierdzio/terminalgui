@@ -749,6 +749,11 @@ protected:
      */
     void doLayout();
 
+    /*!
+     * Returns all children of this Widget which can be cast to Widget.
+     */
+    WidgetList childrenWidgets() const;
+
 protected slots:
     /*!
      * Instructs Screen that full redraw of entire Screen area should be
