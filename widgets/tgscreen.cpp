@@ -175,22 +175,7 @@ void Tg::Screen::draw()
                     continue;
                 }
 
-                // TODO: sort by Z value...
-                QVector<WidgetPointer> affectedWidgets;
-                for (const WidgetPointer &widget : qAsConst(_widgets)) {
-                    // Only draw direct children
-                    if (widget->isTopLevel() == false) {
-                        // TODO: get top-level parent and append it to
-                        // affectedWidgets
-                        continue;
-                    }
-
-                    if (widget->visible()
-                            && widget->globalBoundingRectangle().contains(pixel))
-                    {
-                        affectedWidgets.append(widget);
-                    }
-                }
+                const WidgetPointer widget = Helpers::topWidget(_widgets, pixel, WidgetType::TopLevel);
 
                 // TODO: consider using Terminal::currentPosition() to
                 // prevent move operation if it's not needed. This could
@@ -198,14 +183,10 @@ void Tg::Screen::draw()
                 stream << Tg::Command::moveToPosition(x, y);
 
                 bool drawn = false;
-                // TODO: properly handle Z value...
-                if (affectedWidgets.isEmpty() == false) {
-                    WidgetPointer widget = affectedWidgets.last();
-                    if (widget.isNull() == false) {
-                        const QPoint localPixel(widget->mapFromGlobal(pixel));
-                        stream << widget->drawPixel(localPixel);
-                        drawn = true;
-                    }
+                if (widget.isNull() == false) {
+                    const QPoint localPixel(widget->mapFromGlobal(pixel));
+                    stream << widget->drawPixel(localPixel);
+                    drawn = true;
                 }
 
                 if (drawn == false) {
