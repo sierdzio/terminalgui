@@ -376,9 +376,10 @@ void Tg::Screen::handleDrag(const QPoint &point, const bool isPressActive)
                 const QRect rectangle = widget->globalBoundingRectangle();
                 if (widget->isTopLevel() && rectangle.contains(point)) {
                     if (point.x() == rectangle.left()
-                            || point.x() == rectangle.right()
+                            || (point.x() == rectangle.x() + rectangle.width())
                             || point.y() == rectangle.top()
-                            || point.y() == rectangle.bottom()) {
+                            || (point.y() == rectangle.y() + rectangle.height()))
+                    {
                         if (point == rectangle.bottomRight()) {
                             _dragType = DragType::Resize;
                         } else {
