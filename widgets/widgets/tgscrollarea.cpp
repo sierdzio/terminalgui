@@ -20,52 +20,26 @@ QString Tg::ScrollArea::drawPixel(const QPoint &pixel) const
     if (isBorder(pixel)) {
         return drawBorderPixel(pixel);
     } else {
-        const auto children = findChildren<Widget *>();
-        if (children.isEmpty() == false) {
-            // TODO: sort by Z value...
-            WidgetList affectedWidgets;
-            for (const WidgetPointer &widget : qAsConst(children)) {
-                if (widget == _verticalScrollBar
-                        || widget == _horizontalScrollBar) {
-                    continue;
-                }
-
-                // Only draw direct children
-                if (widget->parentWidget() != this) {
-                    continue;
-                }
-
-                const QPoint childPx(childPixel(pixel));
-                const QRect boundingRect(widget->boundingRectangle());
-                if (widget->visible() && boundingRect.contains(childPx))
-                {
-                    affectedWidgets.append(widget);
-                }
+        const QRect contents = contentsRectangle();
+        const bool isCorner = (pixel == contents.bottomRight());
+        if (isCorner == false) {
+            const int borderWidth = effectiveBorderWidth();
+            const QPoint adjustedPixel(pixel - QPoint(borderWidth, borderWidth));
+            if (_verticalScrollBar->visible() && pixel.x() == contents.right()) {
+                return _verticalScrollBar->drawPixel(adjustedPixel);
             }
 
-            const QRect contents = contentsRectangle();
-            const bool isCorner = (pixel == contents.bottomRight());
-            if (isCorner == false) {
-                const int borderWidth = effectiveBorderWidth();
-                const QPoint adjustedPixel(pixel - QPoint(borderWidth, borderWidth));
-                if (_verticalScrollBar->visible() && pixel.x() == contents.right()) {
-                    return _verticalScrollBar->drawPixel(adjustedPixel);
-                }
-
-                if (_horizontalScrollBar->visible() && pixel.y() == contents.bottom()) {
-                    return _horizontalScrollBar->drawPixel(adjustedPixel);
-                }
+            if (_horizontalScrollBar->visible() && pixel.y() == contents.bottom()) {
+                return _horizontalScrollBar->drawPixel(adjustedPixel);
             }
+        }
 
-            // TODO: properly handle Z value...
-            if (affectedWidgets.isEmpty() == false) {
-                WidgetPointer widget = affectedWidgets.last();
-                if (widget.isNull() == false) {
-                    const QPoint childPx(childPixel(pixel));
-                    const QPoint childPos(widget->position());
-                    return widget->drawPixel(childPx - childPos);
-                }
-            }
+        const auto children = childrenWidgets();
+        const WidgetPointer widget = Helpers::topWidget(children, pixel, WidgetType::All);
+        if (widget.isNull() == false) {
+            const QPoint childPx(childPixel(pixel));
+            const QPoint childPos(widget->position());
+            return widget->drawPixel(childPx - childPos);
         }
 
         const QString result = drawAreaContents(pixel);
