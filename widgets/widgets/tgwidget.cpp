@@ -216,7 +216,7 @@ QString Tg::Widget::drawBorderPixel(const QPoint &pixel) const
     } else if (pixel.y() == rect.top()) {
         result.append(color);
         result.append(style()->border->horizontal);
-    } else if (pixel.y() == rect.y() + rect.height()) {
+    } else if (pixel.y() == rect.bottom()) {
         if (widgetOvershoot().testFlag(Overshoot::Vertical)
                 || layoutOvershoot().testFlag(Overshoot::Vertical)) {
             result.append(overshootColor);
@@ -228,7 +228,7 @@ QString Tg::Widget::drawBorderPixel(const QPoint &pixel) const
     } else if (pixel.x() == rect.left()) {
         result.append(color);
         result.append(style()->border->vertical);
-    } else if (pixel.x() == rect.x() + rect.width()) {
+    } else if (pixel.x() == rect.right()) {
         if (widgetOvershoot().testFlag(Overshoot::Horizontal)
                 || layoutOvershoot().testFlag(Overshoot::Horizontal)) {
             result.append(overshootColor);
@@ -277,11 +277,11 @@ bool Tg::Widget::isBorder(const QPoint &pixel) const
     }
 
     const QRect rect(QPoint(0, 0), size());
-    if (pixel.x() == rect.left() || (pixel.x() == rect.x() + rect.width())) {
+    if (pixel.x() == rect.left() || (pixel.x() == rect.right())) {
         return true;
     }
 
-    if (pixel.y() == rect.top() || (pixel.y() == rect.y() + rect.height())) {
+    if (pixel.y() == rect.top() || (pixel.y() == rect.bottom())) {
         return true;
     }
 

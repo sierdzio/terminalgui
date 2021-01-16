@@ -21,15 +21,21 @@ QString Tg::ScrollArea::drawPixel(const QPoint &pixel) const
         return drawBorderPixel(pixel);
     } else {
         const QRect contents = contentsRectangle();
+        const int right = contents.right();
+        const int bottom = contents.bottom();
+        if (pixel.x() > right || pixel.y() > bottom) {
+            return {};
+        }
+
         const bool isCorner = (pixel == contents.bottomRight());
         if (isCorner == false) {
             const int borderWidth = effectiveBorderWidth();
             const QPoint adjustedPixel(pixel - QPoint(borderWidth, borderWidth));
-            if (_verticalScrollBar->visible() && (pixel.x() == contents.x() + contents.width())) {
+            if (_verticalScrollBar->visible() && pixel.x() == right) {
                 return _verticalScrollBar->drawPixel(adjustedPixel);
             }
 
-            if (_horizontalScrollBar->visible() && (pixel.y() == contents.y() + contents.height())) {
+            if (_horizontalScrollBar->visible() && pixel.y() == bottom) {
                 return _horizontalScrollBar->drawPixel(adjustedPixel);
             }
         }
