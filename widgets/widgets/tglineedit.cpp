@@ -151,7 +151,7 @@ void Tg::LineEdit::consumeKeyboardBuffer(const QString &keyboardBuffer)
     }
 
     // Backspace!
-    if (const int command(Tg::Key::backspace);
+    if (const char command(Tg::Key::backspace);
         keyboardBuffer.contains(command)) {
         if (_cursorPosition > 0) {
             setCursorPosition(cursorPosition() - 1);
