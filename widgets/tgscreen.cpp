@@ -214,7 +214,7 @@ void Tg::Screen::checkKeyboard()
 
     QString characters;
     for (int i = 0; i < bufferSize; ++i) {
-        characters.append(char(Terminal::getChar()));
+        characters.append(uint(Terminal::getChar()));
     }
 
     if (characters.contains(Key::ctrlC) || characters.contains(Key::ctrlD)) {
