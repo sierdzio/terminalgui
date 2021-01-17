@@ -8,11 +8,12 @@
 // For reading terminal size
 // https://stackoverflow.com/questions/1022957/getting-terminal-width-in-c
 #include <sys/ioctl.h>
-#include <stdio.h>
 #include <unistd.h>
 #include <signal.h>
+#include <termios.h>
 
 static struct sigaction sigIntHandler;
+struct termios previousTermios;
 
 static void linuxSignalHandler(const int signal)
 {
@@ -85,9 +86,24 @@ void Tg::Terminal::disableMouseTracking()
     _isMouseReporting = false;
 }
 
+// Adapted from https://viewsourcecode.org/snaptoken/kilo/02.enteringRawMode.html
+void disableRawMode()
+{
+    const int result = tcsetattr(STDIN_FILENO, TCSAFLUSH, &previousTermios);
+    if (result != 0) {
+        qWarning() << Q_FUNC_INFO << "could not unlock the terminal" << result;
+    }
+}
+
 Tg::RawTerminalLocker::RawTerminalLocker()
 {
-    const int result = system("stty raw -echo");
+    tcgetattr(STDIN_FILENO, &previousTermios);
+    //atexit(disableRawMode);
+
+    struct termios raw = previousTermios;
+    raw.c_lflag &= ~(ECHO | ICANON);
+
+    const int result = tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
     if (result != 0) {
         qWarning() << Q_FUNC_INFO << "could not lock the terminal" << result;
     }
@@ -95,8 +111,6 @@ Tg::RawTerminalLocker::RawTerminalLocker()
 
 Tg::RawTerminalLocker::~RawTerminalLocker()
 {
-    const int result = system("stty cooked echo");
-    if (result != 0) {
-        qWarning() << Q_FUNC_INFO << "could not unlock the terminal" << result;
-    }
+    disableRawMode();
 }
+
