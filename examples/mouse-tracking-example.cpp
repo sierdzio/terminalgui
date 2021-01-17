@@ -20,6 +20,9 @@ int main(int argc, char *argv[])
     button.setSize(QSize(15, 3));
     button.show();
 
+    CHECK(QObject::connect(&button, &Tg::Button::clicked,
+                           &app, &QCoreApplication::quit));
+
     Tg::Label label(QObject::tr("Drag me 2!"), &screen);
     label.setPosition(QPoint(25, 5));
     label.setSize(QSize(15, 3));

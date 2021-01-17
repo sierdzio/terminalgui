@@ -190,7 +190,7 @@ void Tg::Screen::draw()
                 }
 
                 if (drawn == false) {
-                    stream << Color::code(Color::Predefined::Invalid, style()->backgroundColor);
+                    stream << Color::code(Color::Predefined::Empty, Color::Predefined::Empty);
                     stream << style()->screenBackground;
                     stream << Color::end();
                 }
