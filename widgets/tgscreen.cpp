@@ -180,7 +180,7 @@ void Tg::Screen::draw()
                 // TODO: consider using Terminal::currentPosition() to
                 // prevent move operation if it's not needed. This could
                 // speed things up (or slow them down...)
-                stream << Tg::Command::moveToPosition(x, y);
+                stream << Command::moveToPosition(x, y);
 
                 bool drawn = false;
                 if (widget.isNull() == false) {
@@ -190,8 +190,9 @@ void Tg::Screen::draw()
                 }
 
                 if (drawn == false) {
+                    stream << Color::code(Color::Predefined::Invalid, style()->backgroundColor);
                     stream << style()->screenBackground;
-                    stream << Tg::Color::end();
+                    stream << Color::end();
                 }
 
                 points.append(pixel);
@@ -200,8 +201,8 @@ void Tg::Screen::draw()
     }
 
     // Reset cursor to bottom-right corner
-    stream << Tg::Color::end();
-    stream << Tg::Command::moveToPosition(size().width(), size().height());
+    stream << Color::end();
+    stream << Command::moveToPosition(size().width(), size().height());
     _redrawRegions.clear();
 }
 
