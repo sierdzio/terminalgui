@@ -7,7 +7,9 @@ Tg::Terminal::Terminal(QObject *parent) : QObject(parent)
     _globalTerminal = this;
     _size = terminalWindowSize();
     registerSignalHandler();
+#ifndef Q_OS_OSX
     enableMouseTracking();
+#endif
 }
 
 Tg::Terminal::~Terminal()
