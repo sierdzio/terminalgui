@@ -108,7 +108,7 @@ public:
 
     // ScrollBar
     // https://decodeunicode.org/en/u+025C8
-    QString sliderCharacter = u8"0x025C8";
+    QString sliderCharacter = u8"\u25C8";
     Tg::Color sliderColor = Tg::Color::Predefined::Yellow;
     Tg::Color sliderActiveColor = Tg::Color::Predefined::Green;
     Tg::Color sliderInactiveColor = Tg::Color::Predefined::Gray;
@@ -116,8 +116,8 @@ public:
     Tg::Color sliderActiveBackgroundColor = Tg::Color::Predefined::Gray;
     Tg::Color sliderInactiveBackgroundColor = Tg::Color::Predefined::Black;
 
-    QString backwardArrowUpCharacter = u8"0x025B2";
-    QString backwardArrowLeftCharacter = u8"0x025C0";
+    QString backwardArrowUpCharacter = u8"\u25B2";
+    QString backwardArrowLeftCharacter = u8"\u25C0";
     Tg::Color backwardArrowColor = Tg::Color::Predefined::Green;
     Tg::Color backwardArrowActiveColor = Tg::Color::Predefined::Black;
     Tg::Color backwardArrowInactiveColor = Tg::Color::Predefined::White;
@@ -125,8 +125,8 @@ public:
     Tg::Color backwardArrowActiveBackgroundColor = Tg::Color::Predefined::Green;
     Tg::Color backwardArrowInactiveBackgroundColor = Tg::Color::Predefined::Gray;
 
-    QString forwardArrowDownCharacter = u8"0x025BC";
-    QString forwardArrowRightCharacter = u8"0x025B6";
+    QString forwardArrowDownCharacter = u8"\u25BC";
+    QString forwardArrowRightCharacter = u8"\u25B6";
     Tg::Color forwardArrowColor = backwardArrowColor;
     Tg::Color forwardArrowActiveColor = backwardArrowActiveColor;
     Tg::Color forwardArrowInactiveColor = backwardArrowInactiveColor;
