@@ -66,6 +66,11 @@ works but looks worse and is more glitchy than on Linux.
 
 Windows PowerShell also seems to work pretty well.
 
+## macOS
+
+Works well. The only missing feature is mouse position tracking, so dragging
+Widgets to move or resize them does not work.
+
 ## License
 
 See LICENSE.md - TG is available under WTFPL. It links to Qt, though, so you
