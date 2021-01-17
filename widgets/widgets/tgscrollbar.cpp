@@ -71,7 +71,7 @@ int Tg::ScrollBar::sliderPosition() const
     return _sliderPosition;
 }
 
-QChar Tg::ScrollBar::sliderCharacter() const
+QString Tg::ScrollBar::sliderCharacter() const
 {
     if (_sliderCharacter.isNull()) {
         return style()->sliderCharacter;
@@ -134,7 +134,7 @@ Tg::Color Tg::ScrollBar::sliderInactiveColor() const
     }
 }
 
-QChar Tg::ScrollBar::backwardArrowUpCharacter() const
+QString Tg::ScrollBar::backwardArrowUpCharacter() const
 {
     if (_backwardArrowUpCharacter.isNull()) {
         return style()->backwardArrowUpCharacter;
@@ -143,7 +143,7 @@ QChar Tg::ScrollBar::backwardArrowUpCharacter() const
     }
 }
 
-QChar Tg::ScrollBar::backwardArrowLeftCharacter() const
+QString Tg::ScrollBar::backwardArrowLeftCharacter() const
 {
     if (_backwardArrowLeftCharacter.isNull()) {
         return style()->backwardArrowLeftCharacter;
@@ -206,7 +206,7 @@ Tg::Color Tg::ScrollBar::backwardArrowInactiveBackgroundColor() const
     }
 }
 
-QChar Tg::ScrollBar::forwardArrowDownCharacter() const
+QString Tg::ScrollBar::forwardArrowDownCharacter() const
 {
     if (_forwardArrowDownCharacter.isNull()) {
         return style()->forwardArrowDownCharacter;
@@ -215,7 +215,7 @@ QChar Tg::ScrollBar::forwardArrowDownCharacter() const
     }
 }
 
-QChar Tg::ScrollBar::forwardArrowRightCharacter() const
+QString Tg::ScrollBar::forwardArrowRightCharacter() const
 {
     if (_forwardArrowRightCharacter.isNull()) {
         return style()->forwardArrowRightCharacter;
@@ -319,7 +319,7 @@ void Tg::ScrollBar::setSliderPosition(const int sliderPosition)
     emit sliderPositionChanged(_sliderPosition);
 }
 
-void Tg::ScrollBar::setSliderCharacter(const QChar &sliderCharacter)
+void Tg::ScrollBar::setSliderCharacter(const QString &sliderCharacter)
 {
     if (_sliderCharacter == sliderCharacter)
         return;
@@ -382,7 +382,7 @@ void Tg::ScrollBar::setSliderInactiveColor(const Tg::Color &sliderInactiveColor)
     emit sliderInactiveColorChanged(_sliderInactiveColor);
 }
 
-void Tg::ScrollBar::setBackwardArrowUpCharacter(const QChar &backwardArrowUpCharacter)
+void Tg::ScrollBar::setBackwardArrowUpCharacter(const QString &backwardArrowUpCharacter)
 {
     if (_backwardArrowUpCharacter == backwardArrowUpCharacter)
         return;
@@ -391,7 +391,7 @@ void Tg::ScrollBar::setBackwardArrowUpCharacter(const QChar &backwardArrowUpChar
     emit backwardArrowUpCharacterChanged(_backwardArrowUpCharacter);
 }
 
-void Tg::ScrollBar::setBackwardArrowLeftCharacter(const QChar &backwardArrowLeftCharacter)
+void Tg::ScrollBar::setBackwardArrowLeftCharacter(const QString &backwardArrowLeftCharacter)
 {
     if (_backwardArrowLeftCharacter == backwardArrowLeftCharacter)
         return;
@@ -454,7 +454,7 @@ void Tg::ScrollBar::setBackwardArrowInactiveBackgroundColor(const Tg::Color &bac
     emit backwardArrowInactiveColorBackgroundChanged(_backwardArrowInactiveBackgroundColor);
 }
 
-void Tg::ScrollBar::setForwardArrowDownCharacter(const QChar &forwardArrowDownCharacter)
+void Tg::ScrollBar::setForwardArrowDownCharacter(const QString &forwardArrowDownCharacter)
 {
     if (_forwardArrowDownCharacter == forwardArrowDownCharacter)
         return;
@@ -463,7 +463,7 @@ void Tg::ScrollBar::setForwardArrowDownCharacter(const QChar &forwardArrowDownCh
     emit forwardArrowDownCharacterChanged(_forwardArrowDownCharacter);
 }
 
-void Tg::ScrollBar::setForwardArrowRightCharacter(const QChar &forwardArrowRightCharacter)
+void Tg::ScrollBar::setForwardArrowRightCharacter(const QString &forwardArrowRightCharacter)
 {
     if (_forwardArrowRightCharacter == forwardArrowRightCharacter)
         return;

@@ -40,11 +40,11 @@ public:
 
     //! Character used to draw horizontal overshoot (when Widget contents do not
     //! fit it's size)
-    QChar horizontalOvershoot = uint(0x025BC);
+    QString horizontalOvershoot = u8"0x025BC";
 
     //! Character used to draw vertical overshoot (when Widget contents do not
     //! fit it's size)
-    QChar verticalOvershoot = uint(0x025B6);
+    QString verticalOvershoot = u8"0x025B6";
 
     //! Color used to draw border characters
     Tg::Color textColor = Tg::Color::Predefined::White;
