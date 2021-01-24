@@ -338,9 +338,19 @@ public:
      * this Widget is a top level Widget, usually drawn with border (unless
      * setBorderVisible() has overriden the default behavior).
      *
-     * \sa setBorderVisible()
+     * \sa setBorderVisible, topLevelParentWidget
      */
     Widget *parentWidget() const;
+
+    /*!
+     * Returns top-level parent of current Widget. If current Widget is already
+     * top-level, it will return a pointer to itself.
+     *
+     * This function will never return a `nullptr`.
+     *
+     * \sa parentWidget, isTopLevel
+     */
+    Widget *topLevelParentWidget() const;
 
     /*!
      * Returns `true` if this Widget is top-level. This means that

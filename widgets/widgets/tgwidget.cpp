@@ -181,6 +181,16 @@ Tg::Widget *Tg::Widget::parentWidget() const
     return _parentWidget;
 }
 
+Tg::Widget *Tg::Widget::topLevelParentWidget() const
+{
+    Widget *current = const_cast<Widget *>(this);
+    while (current->isTopLevel() == false) {
+        current = current->parentWidget();
+    }
+
+    return current;
+}
+
 bool Tg::Widget::isTopLevel() const
 {
     return _parentWidget.isNull();

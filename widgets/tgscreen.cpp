@@ -247,12 +247,17 @@ void Tg::Screen::checkKeyboard()
                 if (widget->acceptsFocus()
                         && widget->globalBoundingRectangle().contains(click))
                 {
-                    setActiveFocusWidget(widget);
-                    auto button = qobject_cast<Button*>(widget);
-                    if (button) {
-                        button->click();
+                    // Check if topWidget() and parent of _activeFocusWidget match
+                    // (to see if clicked button is visible to the user)
+                    const WidgetPointer topLevel = Helpers::topWidget(_widgets, click, WidgetType::TopLevel);
+                    if (widget->topLevelParentWidget() == topLevel) {
+                        setActiveFocusWidget(widget);
+                        auto button = qobject_cast<Button*>(widget);
+                        if (button) {
+                            button->click();
+                        }
+                        return;
                     }
-                    return;
                 }
             }
         }
@@ -296,10 +301,6 @@ void Tg::Screen::checkKeyboard()
                 characters.remove(command);
             }
         }
-
-        // TODO: check if topWidget() and parent of _activeFocusWidget match
-        // (to see if clicked button is visible to the user)
-        // const WidgetPointer widget = Helpers::topWidget(_widgets, pixel, WidgetType::TopLevel);
 
         _activeFocusWidget->consumeKeyboardBuffer(characters);
     }
