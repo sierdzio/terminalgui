@@ -134,6 +134,14 @@ void Tg::Label::layoutText()
             txt.append(Tg::Key::space);
         }
         _laidOutTextCache.append(txt);
+
+        if (height < 1) {
+            overshoot = Overshoot::Vertical;
+        } else {
+            overshoot = Overshoot::None;
+        }
+        setWidgetOvershoot(overshoot);
+
         return;
     } else {
         int currentX = 0;
