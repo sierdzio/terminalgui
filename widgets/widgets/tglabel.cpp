@@ -114,7 +114,7 @@ void Tg::Label::init()
 void Tg::Label::layoutText()
 {
     _laidOutTextCache.clear();
-    SizeOvershoot overshoot = widgetOvershoot();
+    SizeOvershoot overshoot = Overshoot::None;
 
     const QRect contents = contentsRectangle();
     const int width = contents.width();
@@ -140,9 +140,6 @@ void Tg::Label::layoutText()
         } else {
             overshoot = Overshoot::None;
         }
-        setWidgetOvershoot(overshoot);
-
-        return;
     } else {
         int currentX = 0;
         int currentY = 0;
@@ -155,9 +152,8 @@ void Tg::Label::layoutText()
 
         const QString &fullText(text());
         for (const QChar &character : fullText) {
-            if (currentY > height) {
+            if (currentY >= height) {
                 overshoot = overshoot | Overshoot::Vertical;
-                setWidgetOvershoot(overshoot);
                 break;
             }
 
@@ -180,6 +176,8 @@ void Tg::Label::layoutText()
         }
         _laidOutTextCache.append(currentString);
     }
+
+    setWidgetOvershoot(overshoot);
 }
 
 int Tg::Label::reservedCharactersCount() const
