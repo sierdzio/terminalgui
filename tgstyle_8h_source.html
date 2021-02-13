@@ -128,7 +128,7 @@ $(function() {
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="comment">// ScrollBar</span></div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="comment">// https://decodeunicode.org/en/u+025C8</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    QChar sliderCharacter = 0x025C8;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    QString sliderCharacter = u8<span class="stringliteral">&quot;\u25C8&quot;</span>;</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> sliderColor = <a class="code" href="classTg_1_1Color.html#a993d42c3016d5bc555a1d009b9e834aaa51e6cd92b6c45f9affdc158ecca2b8b8">Tg::Color::Predefined::Yellow</a>;</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> sliderActiveColor = <a class="code" href="classTg_1_1Color.html#a993d42c3016d5bc555a1d009b9e834aaad382816a3cbeed082c9e216e7392eed1">Tg::Color::Predefined::Green</a>;</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> sliderInactiveColor = <a class="code" href="classTg_1_1Color.html#a993d42c3016d5bc555a1d009b9e834aaa994ae1d9731cebe455aff211bcb25b93">Tg::Color::Predefined::Gray</a>;</div>
@@ -136,8 +136,8 @@ $(function() {
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> sliderActiveBackgroundColor = <a class="code" href="classTg_1_1Color.html#a993d42c3016d5bc555a1d009b9e834aaa994ae1d9731cebe455aff211bcb25b93">Tg::Color::Predefined::Gray</a>;</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> sliderInactiveBackgroundColor = <a class="code" href="classTg_1_1Color.html#a993d42c3016d5bc555a1d009b9e834aaae90dfb84e30edf611e326eeb04d680de">Tg::Color::Predefined::Black</a>;</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    QChar backwardArrowUpCharacter = 0x025B2;</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    QChar backwardArrowLeftCharacter = 0x025C0;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    QString backwardArrowUpCharacter = u8<span class="stringliteral">&quot;\u25B2&quot;</span>;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    QString backwardArrowLeftCharacter = u8<span class="stringliteral">&quot;\u25C0&quot;</span>;</div>
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> backwardArrowColor = <a class="code" href="classTg_1_1Color.html#a993d42c3016d5bc555a1d009b9e834aaad382816a3cbeed082c9e216e7392eed1">Tg::Color::Predefined::Green</a>;</div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> backwardArrowActiveColor = <a class="code" href="classTg_1_1Color.html#a993d42c3016d5bc555a1d009b9e834aaae90dfb84e30edf611e326eeb04d680de">Tg::Color::Predefined::Black</a>;</div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> backwardArrowInactiveColor = <a class="code" href="classTg_1_1Color.html#a993d42c3016d5bc555a1d009b9e834aaa25a81701fbfa4a1efdf660a950c1d006">Tg::Color::Predefined::White</a>;</div>
@@ -145,8 +145,8 @@ $(function() {
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> backwardArrowActiveBackgroundColor = <a class="code" href="classTg_1_1Color.html#a993d42c3016d5bc555a1d009b9e834aaad382816a3cbeed082c9e216e7392eed1">Tg::Color::Predefined::Green</a>;</div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> backwardArrowInactiveBackgroundColor = <a class="code" href="classTg_1_1Color.html#a993d42c3016d5bc555a1d009b9e834aaa994ae1d9731cebe455aff211bcb25b93">Tg::Color::Predefined::Gray</a>;</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    QChar forwardArrowDownCharacter = 0x025BC;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    QChar forwardArrowRightCharacter = 0x025B6;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    QString forwardArrowDownCharacter = u8<span class="stringliteral">&quot;\u25BC&quot;</span>;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    QString forwardArrowRightCharacter = u8<span class="stringliteral">&quot;\u25B6&quot;</span>;</div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> forwardArrowColor = backwardArrowColor;</div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> forwardArrowActiveColor = backwardArrowActiveColor;</div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> forwardArrowInactiveColor = backwardArrowInactiveColor;</div>

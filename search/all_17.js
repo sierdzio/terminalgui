@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['_7erawterminallocker_227',['~RawTerminalLocker',['../classTg_1_1RawTerminalLocker.html#a0143b87ad258c8750c68c3b28c5ae61c',1,'Tg::RawTerminalLocker']]],
-  ['_7eterminal_228',['~Terminal',['../classTg_1_1Terminal.html#a38943ff61b04d6a1c42008805b32f18d',1,'Tg::Terminal']]],
-  ['_7ewidget_229',['~Widget',['../classTg_1_1Widget.html#a9f4646aa7375162fc336b4fb38b47498',1,'Tg::Widget']]]
+  ['z_230',['z',['../classTg_1_1Widget.html#a4549b3c88d191825b6145e0220bac7b3',1,'Tg::Widget::z()'],['../classTg_1_1Widget.html#a9172f94a995f1a86148d4ce8a219a93b',1,'Tg::Widget::z() const']]],
+  ['zchanged_231',['zChanged',['../classTg_1_1Widget.html#a1db3c0dd493b177d2fc7b048f3c5f84f',1,'Tg::Widget']]]
 ];

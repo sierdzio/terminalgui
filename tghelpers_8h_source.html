@@ -86,46 +86,55 @@ $(function() {
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">namespace </span>Helpers {</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceTg.html">Tg</a> {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">class </span>Widget;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">class </span>Style;</div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="namespaceTg.html#a835e04107fc273527b26d207d99ad997">   44</a></span>&#160;<span class="keyword">using</span> <a class="code" href="namespaceTg.html#a835e04107fc273527b26d207d99ad997">WidgetPointer</a> = QPointer&lt;Widget&gt;;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="namespaceTg.html#ad20301c84f075e8720fd2470853819f7">   49</a></span>&#160;<span class="keyword">using</span> <a class="code" href="namespaceTg.html#ad20301c84f075e8720fd2470853819f7">StylePointer</a> = QSharedPointer&lt;Style&gt;;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="namespaceTg.html#ae0accfd6a73e972329e46c6d24cefa0d">   55</a></span>&#160;<span class="keyword">enum class</span> <a class="code" href="namespaceTg.html#ae0accfd6a73e972329e46c6d24cefa0d">Overshoot</a> {</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <a class="code" href="namespaceTg.html#ae0accfd6a73e972329e46c6d24cefa0da6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0x00,</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="namespaceTg.html#ae0accfd6a73e972329e46c6d24cefa0dac1b5fa03ecdb95d4a45dd1c40b02527f">Horizontal</a> = 0x01,</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <a class="code" href="namespaceTg.html#ae0accfd6a73e972329e46c6d24cefa0da06ce2a25e5d12c166a36f654dbea6012">Vertical</a> = 0x02</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;};</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;Q_DECLARE_FLAGS(SizeOvershoot, <a class="code" href="namespaceTg.html#ae0accfd6a73e972329e46c6d24cefa0d">Overshoot</a>)</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;Q_DECLARE_OPERATORS_FOR_FLAGS(SizeOvershoot)</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="namespaceTg.html#a3ef2d0a1fde3345594ed1d235b95d2f2">   70</a></span>&#160;enum class <a class="code" href="namespaceTg.html#a3ef2d0a1fde3345594ed1d235b95d2f2">RedrawType</a> {</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <a class="code" href="namespaceTg.html#a3ef2d0a1fde3345594ed1d235b95d2f2a44ffd38a6dea695cbe2b34efdcc6cf27">Partial</a>,</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    FulLWidget = <a class="code" href="namespaceTg.html#a3ef2d0a1fde3345594ed1d235b95d2f2a44ffd38a6dea695cbe2b34efdcc6cf27">Partial</a>,</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="namespaceTg.html#a3ef2d0a1fde3345594ed1d235b95d2f2ad9e41587bf4d4ef7e1e808f0824f232d">PreviousPosition</a>,</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <a class="code" href="namespaceTg.html#a3ef2d0a1fde3345594ed1d235b95d2f2abbd47109890259c0127154db1af26c75">Full</a></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="comment">// TODO: consider adding: FullWidget</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;};</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;}</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceTg.html">Tg</a> {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">class </span>Widget;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">class </span>Style;</div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="namespaceTg.html#a835e04107fc273527b26d207d99ad997">   41</a></span>&#160;<span class="keyword">using</span> <a class="code" href="namespaceTg.html#a835e04107fc273527b26d207d99ad997">WidgetPointer</a> = QPointer&lt;Widget&gt;;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="namespaceTg.html#a3f68dd109b76eb949440c8d262603440">   46</a></span>&#160;<span class="keyword">using</span> <a class="code" href="namespaceTg.html#a3f68dd109b76eb949440c8d262603440">WidgetList</a> = QList&lt;WidgetPointer&gt;;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="namespaceTg.html#ad20301c84f075e8720fd2470853819f7">   51</a></span>&#160;<span class="keyword">using</span> <a class="code" href="namespaceTg.html#ad20301c84f075e8720fd2470853819f7">StylePointer</a> = QSharedPointer&lt;Style&gt;;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="namespaceTg.html#ae0accfd6a73e972329e46c6d24cefa0d">   57</a></span>&#160;<span class="keyword">enum class</span> <a class="code" href="namespaceTg.html#ae0accfd6a73e972329e46c6d24cefa0d">Overshoot</a> {</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="namespaceTg.html#ae0accfd6a73e972329e46c6d24cefa0da6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0x00,</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <a class="code" href="namespaceTg.html#ae0accfd6a73e972329e46c6d24cefa0dac1b5fa03ecdb95d4a45dd1c40b02527f">Horizontal</a> = 0x01,</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="namespaceTg.html#ae0accfd6a73e972329e46c6d24cefa0da06ce2a25e5d12c166a36f654dbea6012">Vertical</a> = 0x02</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;};</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;Q_DECLARE_FLAGS(SizeOvershoot, <a class="code" href="namespaceTg.html#ae0accfd6a73e972329e46c6d24cefa0d">Overshoot</a>)</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;Q_DECLARE_OPERATORS_FOR_FLAGS(SizeOvershoot)</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="namespaceTg.html#a3ef2d0a1fde3345594ed1d235b95d2f2">   72</a></span>&#160;enum class <a class="code" href="namespaceTg.html#a3ef2d0a1fde3345594ed1d235b95d2f2">RedrawType</a> {</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <a class="code" href="namespaceTg.html#a3ef2d0a1fde3345594ed1d235b95d2f2a44ffd38a6dea695cbe2b34efdcc6cf27">Partial</a>,</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    FulLWidget = <a class="code" href="namespaceTg.html#a3ef2d0a1fde3345594ed1d235b95d2f2a44ffd38a6dea695cbe2b34efdcc6cf27">Partial</a>,</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <a class="code" href="namespaceTg.html#a3ef2d0a1fde3345594ed1d235b95d2f2ad9e41587bf4d4ef7e1e808f0824f232d">PreviousPosition</a>,</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <a class="code" href="namespaceTg.html#a3ef2d0a1fde3345594ed1d235b95d2f2abbd47109890259c0127154db1af26c75">Full</a></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="comment">// TODO: consider adding: FullWidget</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;};</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="keyword">enum class</span> WidgetType {</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    TopLevel,</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    All</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;};</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="keyword">namespace </span>Helpers {</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <a class="code" href="namespaceTg.html#a835e04107fc273527b26d207d99ad997">WidgetPointer</a> topWidget(<span class="keyword">const</span> <a class="code" href="namespaceTg.html#a3f68dd109b76eb949440c8d262603440">WidgetList</a> &amp;widgets, <span class="keyword">const</span> QPoint &amp;pixel,</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                            <span class="keyword">const</span> WidgetType type);</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;}</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="anamespaceTg_html_ae0accfd6a73e972329e46c6d24cefa0da6adf97f83acf6453d4a6a4b1070f3754"><div class="ttname"><a href="namespaceTg.html#ae0accfd6a73e972329e46c6d24cefa0da6adf97f83acf6453d4a6a4b1070f3754">Tg::Overshoot::None</a></div><div class="ttdeci">@ None</div></div>
 <div class="ttc" id="anamespaceTg_html_a3ef2d0a1fde3345594ed1d235b95d2f2ad9e41587bf4d4ef7e1e808f0824f232d"><div class="ttname"><a href="namespaceTg.html#a3ef2d0a1fde3345594ed1d235b95d2f2ad9e41587bf4d4ef7e1e808f0824f232d">Tg::RedrawType::PreviousPosition</a></div><div class="ttdeci">@ PreviousPosition</div><div class="ttdoc">Area where widget used to be should be redrawn.</div></div>
-<div class="ttc" id="anamespaceTg_html_ae0accfd6a73e972329e46c6d24cefa0d"><div class="ttname"><a href="namespaceTg.html#ae0accfd6a73e972329e46c6d24cefa0d">Tg::Overshoot</a></div><div class="ttdeci">Overshoot</div><div class="ttdoc">Describes situation when items in layout cannot fit into parent widget or widget contents do not fit ...</div><div class="ttdef"><b>Definition:</b> tghelpers.h:55</div></div>
+<div class="ttc" id="anamespaceTg_html_ae0accfd6a73e972329e46c6d24cefa0d"><div class="ttname"><a href="namespaceTg.html#ae0accfd6a73e972329e46c6d24cefa0d">Tg::Overshoot</a></div><div class="ttdeci">Overshoot</div><div class="ttdoc">Describes situation when items in layout cannot fit into parent widget or widget contents do not fit ...</div><div class="ttdef"><b>Definition:</b> tghelpers.h:57</div></div>
 <div class="ttc" id="anamespaceTg_html"><div class="ttname"><a href="namespaceTg.html">Tg</a></div><div class="ttdoc">All Terminal GUI classes (both core and widgets) are defined within the Tg namespace.</div><div class="ttdef"><b>Definition:</b> tgcolor.h:6</div></div>
 <div class="ttc" id="anamespaceTg_html_a3ef2d0a1fde3345594ed1d235b95d2f2a44ffd38a6dea695cbe2b34efdcc6cf27"><div class="ttname"><a href="namespaceTg.html#a3ef2d0a1fde3345594ed1d235b95d2f2a44ffd38a6dea695cbe2b34efdcc6cf27">Tg::RedrawType::Partial</a></div><div class="ttdeci">@ Partial</div><div class="ttdoc">Only redraw a part of the screen.</div></div>
-<div class="ttc" id="anamespaceTg_html_ad20301c84f075e8720fd2470853819f7"><div class="ttname"><a href="namespaceTg.html#ad20301c84f075e8720fd2470853819f7">Tg::StylePointer</a></div><div class="ttdeci">QSharedPointer&lt; Style &gt; StylePointer</div><div class="ttdoc">Convenient alias of QSharedPointer&lt;Style&gt;.</div><div class="ttdef"><b>Definition:</b> tghelpers.h:49</div></div>
+<div class="ttc" id="anamespaceTg_html_ad20301c84f075e8720fd2470853819f7"><div class="ttname"><a href="namespaceTg.html#ad20301c84f075e8720fd2470853819f7">Tg::StylePointer</a></div><div class="ttdeci">QSharedPointer&lt; Style &gt; StylePointer</div><div class="ttdoc">Convenient alias of QSharedPointer&lt;Style&gt;.</div><div class="ttdef"><b>Definition:</b> tghelpers.h:51</div></div>
+<div class="ttc" id="anamespaceTg_html_a3f68dd109b76eb949440c8d262603440"><div class="ttname"><a href="namespaceTg.html#a3f68dd109b76eb949440c8d262603440">Tg::WidgetList</a></div><div class="ttdeci">QList&lt; WidgetPointer &gt; WidgetList</div><div class="ttdoc">Convenient alias for QList&lt;WidgetPointer&gt;.</div><div class="ttdef"><b>Definition:</b> tghelpers.h:46</div></div>
 <div class="ttc" id="anamespaceTg_html_a3ef2d0a1fde3345594ed1d235b95d2f2abbd47109890259c0127154db1af26c75"><div class="ttname"><a href="namespaceTg.html#a3ef2d0a1fde3345594ed1d235b95d2f2abbd47109890259c0127154db1af26c75">Tg::RedrawType::Full</a></div><div class="ttdeci">@ Full</div><div class="ttdoc">Redraw everything.</div></div>
 <div class="ttc" id="anamespaceTg_html_ae0accfd6a73e972329e46c6d24cefa0da06ce2a25e5d12c166a36f654dbea6012"><div class="ttname"><a href="namespaceTg.html#ae0accfd6a73e972329e46c6d24cefa0da06ce2a25e5d12c166a36f654dbea6012">Tg::Overshoot::Vertical</a></div><div class="ttdeci">@ Vertical</div><div class="ttdoc">Children widgets do not fit in the vertical direction.</div></div>
 <div class="ttc" id="anamespaceTg_html_ae0accfd6a73e972329e46c6d24cefa0dac1b5fa03ecdb95d4a45dd1c40b02527f"><div class="ttname"><a href="namespaceTg.html#ae0accfd6a73e972329e46c6d24cefa0dac1b5fa03ecdb95d4a45dd1c40b02527f">Tg::Overshoot::Horizontal</a></div><div class="ttdeci">@ Horizontal</div><div class="ttdoc">Children widgets do not fit in the horizontal direction.</div></div>
-<div class="ttc" id="anamespaceTg_html_a835e04107fc273527b26d207d99ad997"><div class="ttname"><a href="namespaceTg.html#a835e04107fc273527b26d207d99ad997">Tg::WidgetPointer</a></div><div class="ttdeci">QPointer&lt; Widget &gt; WidgetPointer</div><div class="ttdoc">Convenient alias of QPointer&lt;Widget&gt;.</div><div class="ttdef"><b>Definition:</b> tghelpers.h:44</div></div>
-<div class="ttc" id="anamespaceTg_html_a3ef2d0a1fde3345594ed1d235b95d2f2"><div class="ttname"><a href="namespaceTg.html#a3ef2d0a1fde3345594ed1d235b95d2f2">Tg::RedrawType</a></div><div class="ttdeci">RedrawType</div><div class="ttdoc">Specifies how much of the Tg::Screen needs to be redrawn.</div><div class="ttdef"><b>Definition:</b> tghelpers.h:70</div></div>
+<div class="ttc" id="anamespaceTg_html_a835e04107fc273527b26d207d99ad997"><div class="ttname"><a href="namespaceTg.html#a835e04107fc273527b26d207d99ad997">Tg::WidgetPointer</a></div><div class="ttdeci">QPointer&lt; Widget &gt; WidgetPointer</div><div class="ttdoc">Convenient alias of QPointer&lt;Widget&gt;.</div><div class="ttdef"><b>Definition:</b> tghelpers.h:41</div></div>
+<div class="ttc" id="anamespaceTg_html_a3ef2d0a1fde3345594ed1d235b95d2f2"><div class="ttname"><a href="namespaceTg.html#a3ef2d0a1fde3345594ed1d235b95d2f2">Tg::RedrawType</a></div><div class="ttdeci">RedrawType</div><div class="ttdoc">Specifies how much of the Tg::Screen needs to be redrawn.</div><div class="ttdef"><b>Definition:</b> tghelpers.h:72</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

@@ -89,7 +89,7 @@ $(function() {
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="comment">// Slider</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    Q_PROPERTY(<span class="keywordtype">int</span> minimum READ minimum WRITE setMinimum NOTIFY minimumChanged)</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    Q_PROPERTY(<span class="keywordtype">int</span> maximum READ maximum WRITE setMaximum NOTIFY maximumChanged)</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    Q_PROPERTY(QChar sliderCharacter READ sliderCharacter WRITE setSliderCharacter NOTIFY sliderCharacterChanged)</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    Q_PROPERTY(QString sliderCharacter READ sliderCharacter WRITE setSliderCharacter NOTIFY sliderCharacterChanged)</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    Q_PROPERTY(<a class="code" href="classTg_1_1Color.html">Tg::Color</a> sliderColor READ sliderColor WRITE setSliderColor NOTIFY sliderColorChanged)</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    Q_PROPERTY(<a class="code" href="classTg_1_1Color.html">Tg::Color</a> sliderActiveColor READ sliderActiveColor WRITE setSliderActiveColor NOTIFY sliderActiveColorChanged)</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    Q_PROPERTY(<a class="code" href="classTg_1_1Color.html">Tg::Color</a> sliderInactiveColor READ sliderInactiveColor WRITE setSliderInactiveColor NOTIFY sliderInactiveColorChanged)</div>
@@ -99,8 +99,8 @@ $(function() {
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    Q_PROPERTY(<a class="code" href="classTg_1_1Color.html">Tg::Color</a> sliderInactiveBackgroundColor READ sliderInactiveBackgroundColor WRITE setSliderInactiveBackgroundColor NOTIFY sliderInactiveBackgroundColorChanged)</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="comment">// Backward arrow (up or left)</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    Q_PROPERTY(QChar backwardArrowUpCharacter READ backwardArrowUpCharacter WRITE setBackwardArrowUpCharacter NOTIFY backwardArrowUpCharacterChanged)</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    Q_PROPERTY(QChar backwardArrowLeftCharacter READ backwardArrowLeftCharacter WRITE setBackwardArrowLeftCharacter NOTIFY backwardArrowLeftCharacterChanged)</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    Q_PROPERTY(QString backwardArrowUpCharacter READ backwardArrowUpCharacter WRITE setBackwardArrowUpCharacter NOTIFY backwardArrowUpCharacterChanged)</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    Q_PROPERTY(QString backwardArrowLeftCharacter READ backwardArrowLeftCharacter WRITE setBackwardArrowLeftCharacter NOTIFY backwardArrowLeftCharacterChanged)</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    Q_PROPERTY(<a class="code" href="classTg_1_1Color.html">Tg::Color</a> backwardArrowColor READ backwardArrowColor WRITE setBackwardArrowColor NOTIFY backwardArrowColorChanged)</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    Q_PROPERTY(<a class="code" href="classTg_1_1Color.html">Tg::Color</a> backwardArrowActiveColor READ backwardArrowActiveColor WRITE setBackwardArrowActiveColor NOTIFY backwardArrowActiveColorChanged)</div>
@@ -111,8 +111,8 @@ $(function() {
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    Q_PROPERTY(<a class="code" href="classTg_1_1Color.html">Tg::Color</a> backwardArrowInactiveBackgroundColor READ backwardArrowInactiveBackgroundColor WRITE setBackwardArrowInactiveBackgroundColor NOTIFY backwardArrowInactiveColorBackgroundChanged)</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="comment">// Forward arrow (down or right)</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    Q_PROPERTY(QChar forwardArrowDownCharacter READ forwardArrowDownCharacter WRITE setForwardArrowDownCharacter NOTIFY forwardArrowDownCharacterChanged)</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    Q_PROPERTY(QChar forwardArrowRightCharacter READ forwardArrowRightCharacter WRITE setForwardArrowRightCharacter NOTIFY forwardArrowRightCharacterChanged)</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    Q_PROPERTY(QString forwardArrowDownCharacter READ forwardArrowDownCharacter WRITE setForwardArrowDownCharacter NOTIFY forwardArrowDownCharacterChanged)</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    Q_PROPERTY(QString forwardArrowRightCharacter READ forwardArrowRightCharacter WRITE setForwardArrowRightCharacter NOTIFY forwardArrowRightCharacterChanged)</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    Q_PROPERTY(<a class="code" href="classTg_1_1Color.html">Tg::Color</a> forwardArrowColor READ forwardArrowColor WRITE setForwardArrowColor NOTIFY forwardArrowColorChanged)</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    Q_PROPERTY(<a class="code" href="classTg_1_1Color.html">Tg::Color</a> forwardArrowActiveColor READ forwardArrowActiveColor WRITE setForwardArrowActiveColor NOTIFY forwardArrowActiveColorChanged)</div>
@@ -136,7 +136,7 @@ $(function() {
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">int</span> minimum() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordtype">int</span> maximum() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordtype">int</span> sliderPosition() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    QChar sliderCharacter() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    QString sliderCharacter() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> sliderColor() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> sliderActiveColor() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> sliderInactiveColor() <span class="keyword">const</span>;</div>
@@ -144,8 +144,8 @@ $(function() {
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> sliderActiveBackgroundColor() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> sliderInactiveBackgroundColor() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    QChar backwardArrowUpCharacter() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    QChar backwardArrowLeftCharacter() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    QString backwardArrowUpCharacter() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    QString backwardArrowLeftCharacter() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> backwardArrowColor() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> backwardArrowActiveColor() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> backwardArrowInactiveColor() <span class="keyword">const</span>;</div>
@@ -153,8 +153,8 @@ $(function() {
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> backwardArrowActiveBackgroundColor() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> backwardArrowInactiveBackgroundColor() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    QChar forwardArrowDownCharacter() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    QChar forwardArrowRightCharacter() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    QString forwardArrowDownCharacter() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    QString forwardArrowRightCharacter() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> forwardArrowColor() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> forwardArrowActiveColor() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> forwardArrowInactiveColor() <span class="keyword">const</span>;</div>
@@ -169,7 +169,7 @@ $(function() {
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordtype">void</span> setMaximum(<span class="keyword">const</span> <span class="keywordtype">int</span> maximum);</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordtype">void</span> setValue(<span class="keyword">const</span> <span class="keywordtype">int</span> value);</div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordtype">void</span> setSliderPosition(<span class="keyword">const</span> <span class="keywordtype">int</span> sliderPosition);</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordtype">void</span> setSliderCharacter(<span class="keyword">const</span> QChar &amp;sliderCharacter);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordtype">void</span> setSliderCharacter(<span class="keyword">const</span> QString &amp;sliderCharacter);</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordtype">void</span> setSliderColor(<span class="keyword">const</span> <a class="code" href="classTg_1_1Color.html">Tg::Color</a> &amp;sliderColor);</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordtype">void</span> setSliderActiveColor(<span class="keyword">const</span> <a class="code" href="classTg_1_1Color.html">Tg::Color</a> &amp;sliderActiveColor);</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordtype">void</span> setSliderInactiveColor(<span class="keyword">const</span> <a class="code" href="classTg_1_1Color.html">Tg::Color</a> &amp;sliderInactiveColor);</div>
@@ -177,8 +177,8 @@ $(function() {
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordtype">void</span> setSliderActiveBackgroundColor(<span class="keyword">const</span> <a class="code" href="classTg_1_1Color.html">Tg::Color</a> &amp;sliderActiveBackgroundColor);</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordtype">void</span> setSliderInactiveBackgroundColor(<span class="keyword">const</span> <a class="code" href="classTg_1_1Color.html">Tg::Color</a> &amp;sliderInactiveBackgroundColor);</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordtype">void</span> setBackwardArrowUpCharacter(<span class="keyword">const</span> QChar &amp;backwardArrowUpCharacter);</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordtype">void</span> setBackwardArrowLeftCharacter(<span class="keyword">const</span> QChar &amp;backwardArrowLeftCharacter);</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordtype">void</span> setBackwardArrowUpCharacter(<span class="keyword">const</span> QString &amp;backwardArrowUpCharacter);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordtype">void</span> setBackwardArrowLeftCharacter(<span class="keyword">const</span> QString &amp;backwardArrowLeftCharacter);</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordtype">void</span> setBackwardArrowColor(<span class="keyword">const</span> <a class="code" href="classTg_1_1Color.html">Tg::Color</a> &amp;backwardArrowColor);</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordtype">void</span> setBackwardArrowActiveColor(<span class="keyword">const</span> <a class="code" href="classTg_1_1Color.html">Tg::Color</a> &amp;backwardArrowActiveColor);</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keywordtype">void</span> setBackwardArrowInactiveColor(<span class="keyword">const</span> <a class="code" href="classTg_1_1Color.html">Tg::Color</a> &amp;backwardArrowInactiveColor);</div>
@@ -186,8 +186,8 @@ $(function() {
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordtype">void</span> setBackwardArrowActiveBackgroundColor(<span class="keyword">const</span> <a class="code" href="classTg_1_1Color.html">Tg::Color</a> &amp;backwardArrowActiveBackgroundColor);</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordtype">void</span> setBackwardArrowInactiveBackgroundColor(<span class="keyword">const</span> <a class="code" href="classTg_1_1Color.html">Tg::Color</a> &amp;backwardArrowInactiveBackgroundColor);</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordtype">void</span> setForwardArrowDownCharacter(<span class="keyword">const</span> QChar &amp;forwardArrowDownCharacter);</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordtype">void</span> setForwardArrowRightCharacter(<span class="keyword">const</span> QChar &amp;forwardArrowRightCharacter);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordtype">void</span> setForwardArrowDownCharacter(<span class="keyword">const</span> QString &amp;forwardArrowDownCharacter);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordtype">void</span> setForwardArrowRightCharacter(<span class="keyword">const</span> QString &amp;forwardArrowRightCharacter);</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keywordtype">void</span> setForwardArrowColor(<span class="keyword">const</span> <a class="code" href="classTg_1_1Color.html">Tg::Color</a> &amp;forwardArrowColor);</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keywordtype">void</span> setForwardArrowActiveColor(<span class="keyword">const</span> <a class="code" href="classTg_1_1Color.html">Tg::Color</a> &amp;forwardArrowActiveColor);</div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordtype">void</span> setForwardArrowInactiveColor(<span class="keyword">const</span> <a class="code" href="classTg_1_1Color.html">Tg::Color</a> &amp;forwardArrowInactiveColor);</div>
@@ -204,7 +204,7 @@ $(function() {
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keywordtype">void</span> minimumChanged(<span class="keyword">const</span> <span class="keywordtype">int</span> minimum) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keywordtype">void</span> maximumChanged(<span class="keyword">const</span> <span class="keywordtype">int</span> maximum) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="keywordtype">void</span> sliderPositionChanged(<span class="keyword">const</span> <span class="keywordtype">int</span> sliderPosition) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="keywordtype">void</span> sliderCharacterChanged(<span class="keyword">const</span> QChar &amp;sliderCharacter) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="keywordtype">void</span> sliderCharacterChanged(<span class="keyword">const</span> QString &amp;sliderCharacter) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keywordtype">void</span> sliderColorChanged(<span class="keyword">const</span> <a class="code" href="classTg_1_1Color.html">Tg::Color</a>  &amp;sliderColor) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="keywordtype">void</span> sliderActiveColorChanged(<span class="keyword">const</span> <a class="code" href="classTg_1_1Color.html">Tg::Color</a>  &amp;sliderActiveColor) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keywordtype">void</span> sliderInactiveColorChanged(<span class="keyword">const</span> <a class="code" href="classTg_1_1Color.html">Tg::Color</a> &amp;sliderInactiveColor) <span class="keyword">const</span>;</div>
@@ -212,8 +212,8 @@ $(function() {
 <div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="keywordtype">void</span> sliderActiveBackgroundColorChanged(<span class="keyword">const</span> <a class="code" href="classTg_1_1Color.html">Tg::Color</a> &amp;sliderActiveBackgroundColor) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="keywordtype">void</span> sliderInactiveBackgroundColorChanged(<span class="keyword">const</span> <a class="code" href="classTg_1_1Color.html">Tg::Color</a> &amp;sliderInactiveBackgroundColor) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keywordtype">void</span> backwardArrowUpCharacterChanged(<span class="keyword">const</span> QChar &amp;backwardArrowUpCharacter) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="keywordtype">void</span> backwardArrowLeftCharacterChanged(<span class="keyword">const</span> QChar &amp;backwardArrowLeftCharacter) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keywordtype">void</span> backwardArrowUpCharacterChanged(<span class="keyword">const</span> QString &amp;backwardArrowUpCharacter) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="keywordtype">void</span> backwardArrowLeftCharacterChanged(<span class="keyword">const</span> QString &amp;backwardArrowLeftCharacter) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="keywordtype">void</span> backwardArrowColorChanged(<span class="keyword">const</span> <a class="code" href="classTg_1_1Color.html">Tg::Color</a>  &amp;backwardArrowColor) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="keywordtype">void</span> backwardArrowActiveColorChanged(<span class="keyword">const</span> <a class="code" href="classTg_1_1Color.html">Tg::Color</a>  &amp;backwardArrowActiveColor) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="keywordtype">void</span> backwardArrowInactiveColorChanged(<span class="keyword">const</span> <a class="code" href="classTg_1_1Color.html">Tg::Color</a>  &amp;backwardArrowInactiveColor) <span class="keyword">const</span>;</div>
@@ -221,8 +221,8 @@ $(function() {
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    <span class="keywordtype">void</span> backwardArrowActiveColorBackgroundChanged(<span class="keyword">const</span> <a class="code" href="classTg_1_1Color.html">Tg::Color</a>  &amp;backwardArrowActiveBackgroundColor) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keywordtype">void</span> backwardArrowInactiveColorBackgroundChanged(<span class="keyword">const</span> <a class="code" href="classTg_1_1Color.html">Tg::Color</a>  &amp;backwardArrowInactiveBackgroundColor) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <span class="keywordtype">void</span> forwardArrowDownCharacterChanged(<span class="keyword">const</span> QChar &amp;forwardArrowDownCharacter) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keywordtype">void</span> forwardArrowRightCharacterChanged(<span class="keyword">const</span> QChar &amp;forwardArrowRightCharacter) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <span class="keywordtype">void</span> forwardArrowDownCharacterChanged(<span class="keyword">const</span> QString &amp;forwardArrowDownCharacter) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keywordtype">void</span> forwardArrowRightCharacterChanged(<span class="keyword">const</span> QString &amp;forwardArrowRightCharacter) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keywordtype">void</span> forwardArrowColorChanged(<span class="keyword">const</span> <a class="code" href="classTg_1_1Color.html">Tg::Color</a>  &amp;forwardArrowColor) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="keywordtype">void</span> forwardArrowActiveColorChanged(<span class="keyword">const</span> <a class="code" href="classTg_1_1Color.html">Tg::Color</a>  &amp;forwardArrowActiveColor) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keywordtype">void</span> forwardArrowInactiveColorChanged(<span class="keyword">const</span> <a class="code" href="classTg_1_1Color.html">Tg::Color</a>  &amp;forwardArrowInactiveColor) <span class="keyword">const</span>;</div>
@@ -237,45 +237,44 @@ $(function() {
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classTg_1_1ScrollBar.html#a79c8f8fa01490485984f5d590dac8b9d">init</a>() <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classTg_1_1ScrollBar.html#a470ed09ecfe763abd5e7eeed4f290e44">consumeKeyboardBuffer</a>(<span class="keyword">const</span> QString &amp;keyboardBuffer) <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    QString <a class="code" href="classTg_1_1ScrollBar.html#ab09815471e4d5e047851712be3ce5ec7">drawPixel</a>(<span class="keyword">const</span> QPoint &amp;pixel) <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    QString linearPixel(<span class="keyword">const</span> <span class="keywordtype">int</span> pixel, <span class="keyword">const</span> <span class="keywordtype">int</span> length) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160; </div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    Qt::Orientation _orientation = Qt::Orientation::Vertical;</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160; </div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <span class="keywordtype">int</span> _minimum = 0;</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <span class="keywordtype">int</span> _maximum = 100;</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <span class="keywordtype">int</span> _sliderPosition = 3;</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    QChar _sliderCharacter;</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _sliderColor;</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _sliderActiveColor;</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _sliderInactiveColor;</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _sliderBackgroundColor;</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _sliderActiveBackgroundColor;</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _sliderInactiveBackgroundColor;</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    QTimer _sliderPressTimer;</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160; </div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    QChar _backwardArrowUpCharacter;</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    QChar _backwardArrowLeftCharacter;</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _backwardArrowColor;</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _backwardArrowActiveColor;</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _backwardArrowInactiveColor;</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _backwardArrowBackgroundColor;</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _backwardArrowActiveBackgroundColor;</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _backwardArrowInactiveBackgroundColor;</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    QTimer _backwardArrowPressTimer;</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160; </div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    QChar _forwardArrowDownCharacter;</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    QChar _forwardArrowRightCharacter;</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _forwardArrowColor;</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _forwardArrowActiveColor;</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _forwardArrowInactiveColor;</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _forwardArrowBackgroundColor;</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _forwardArrowActiveBackgroundColor;</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _forwardArrowInactiveBackgroundColor;</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    QTimer _forwardArrowPressTimer;</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;};</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;}</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    QString linearPixel(<span class="keyword">const</span> <span class="keywordtype">int</span> pixel, <span class="keyword">const</span> <span class="keywordtype">int</span> length) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    Qt::Orientation _orientation = Qt::Orientation::Vertical;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="keywordtype">int</span> _minimum = 0;</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <span class="keywordtype">int</span> _maximum = 100;</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <span class="keywordtype">int</span> _sliderPosition = 3;</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    QString _sliderCharacter;</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _sliderColor;</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _sliderActiveColor;</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _sliderInactiveColor;</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _sliderBackgroundColor;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _sliderActiveBackgroundColor;</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _sliderInactiveBackgroundColor;</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    QTimer _sliderPressTimer;</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160; </div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    QString _backwardArrowUpCharacter;</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    QString _backwardArrowLeftCharacter;</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _backwardArrowColor;</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _backwardArrowActiveColor;</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _backwardArrowInactiveColor;</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _backwardArrowBackgroundColor;</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _backwardArrowActiveBackgroundColor;</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _backwardArrowInactiveBackgroundColor;</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    QTimer _backwardArrowPressTimer;</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160; </div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    QString _forwardArrowDownCharacter;</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    QString _forwardArrowRightCharacter;</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _forwardArrowColor;</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _forwardArrowActiveColor;</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _forwardArrowInactiveColor;</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _forwardArrowBackgroundColor;</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _forwardArrowActiveBackgroundColor;</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    <a class="code" href="classTg_1_1Color.html">Tg::Color</a> _forwardArrowInactiveBackgroundColor;</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    QTimer _forwardArrowPressTimer;</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;};</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassTg_1_1Screen_html"><div class="ttname"><a href="classTg_1_1Screen.html">Tg::Screen</a></div><div class="ttdoc">Screen is the &quot;canvas&quot; on which widgets (subclasses of Widget) are drawn.</div><div class="ttdef"><b>Definition:</b> tgscreen.h:31</div></div>
 <div class="ttc" id="anamespaceTg_html"><div class="ttname"><a href="namespaceTg.html">Tg</a></div><div class="ttdoc">All Terminal GUI classes (both core and widgets) are defined within the Tg namespace.</div><div class="ttdef"><b>Definition:</b> tgcolor.h:6</div></div>
