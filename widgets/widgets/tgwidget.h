@@ -618,6 +618,11 @@ public slots:
 
     void setZ(const int z);
 
+    /*!
+     * Returns all children of this Widget which can be cast to Widget.
+     */
+    WidgetList childrenWidgets() const;
+
 protected:
     /*!
      * Initializes Widget and it's connections. All subclasses should call
@@ -758,11 +763,6 @@ protected:
      * \sa layoutType
      */
     void doLayout();
-
-    /*!
-     * Returns all children of this Widget which can be cast to Widget.
-     */
-    WidgetList childrenWidgets() const;
 
 protected slots:
     /*!

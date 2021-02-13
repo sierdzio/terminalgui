@@ -23,16 +23,15 @@ void Tg::Layout::doLayout()
     if (_type == Layout::Type::None) {
         _overshoot = Overshoot::None;
         const QSize contentsSize = _parent->contentsRectangle().size();
-        for (const auto child : _parent->children()) {
-            const auto widget = qobject_cast<Widget*>(child);
-            if (widget) {
-                if (widget->size().width() > contentsSize.width()) {
-                    _overshoot = _overshoot | Overshoot::Horizontal;
-                }
+        const auto children = _parent->childrenWidgets();
 
-                if (widget->size().height() > contentsSize.height()) {
-                    _overshoot = _overshoot | Overshoot::Vertical;
-                }
+        for (const auto &widget : children) {
+            if (widget->size().width() > contentsSize.width()) {
+                _overshoot = _overshoot | Overshoot::Horizontal;
+            }
+
+            if (widget->size().height() > contentsSize.height()) {
+                _overshoot = _overshoot | Overshoot::Vertical;
             }
         }
     }
