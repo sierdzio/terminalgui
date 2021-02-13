@@ -16,44 +16,37 @@ void Tg::GridLayout::doLayout()
         const QSize contentsSize = _parent->contentsRectangle().size();
         const int width = contentsSize.width();
         const int height = contentsSize.height();
-        const int itemWidth = width / _columnCount;
 
-        int currentColumn = 0;
-        int currentRow = 0;
+        if (width < 0 || height < 0) {
+            return;
+        }
+
+        const int cellWidth = width / _columnCount;
+        const auto children = _parent->childrenWidgets();
+        const int childrenCount = children.size();
+
+        if (childrenCount < 1) {
+            return;
+        }
+
+        const int cellHeight = height / std::max(childrenCount / _columnCount, 1);
+        const QSize cellSize = QSize(cellWidth, cellHeight);
+
         int currentX = 0;
         int currentY = 0;
 
-        const auto children = _parent->childrenWidgets();
         for (const auto &widget : children) {
-            const QSize currentSize = widget->size();
-            const bool tooTall = ((currentY + currentSize.height()) > height);
-            const bool tooWide = ((currentX + currentSize.width()) > width);
-            if (tooTall || tooWide) {
-                if (tooTall) {
-                    _overshoot = _overshoot | Overshoot::Vertical;
-                }
+            widget->setPosition(QPoint(currentX, currentY));
+            widget->setSize(cellSize);
+            currentX = currentX + cellWidth;
 
-                if (tooWide) {
-                    _overshoot = _overshoot | Overshoot::Horizontal;
-                }
-
-                //continue;
+            if (currentX > width) {
+                currentX = 0;
+                currentY += cellHeight;
             }
-
-            widget->setPosition(QPoint(currentX, currentRow));
-            currentX = currentX + itemWidth;
-            currentY = std::max(currentY, currentRow + currentSize.height());
-            currentColumn++;
-            widget->setSize(QSize(itemWidth, currentY));
 
             if (widget->widgetOvershoot().testFlag(Overshoot::None) == false) {
                 _overshoot = _overshoot | widget->widgetOvershoot();
-            }
-
-            if (currentColumn >= _columnCount) {
-                currentColumn = 0;
-                currentX = 0;
-                currentRow = currentY;
             }
         }
     }
