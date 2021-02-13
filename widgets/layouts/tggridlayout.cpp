@@ -32,16 +32,16 @@ void Tg::GridLayout::doLayout()
         const int cellHeight = height / std::max(childrenCount / _columnCount, 1);
         const QSize cellSize = QSize(cellWidth, cellHeight);
 
-        int currentX = 0;
+        int currentX = 1;
         int currentY = 0;
 
         for (const auto &widget : children) {
             widget->setPosition(QPoint(currentX, currentY));
             widget->setSize(cellSize);
-            currentX = currentX + cellWidth;
+            currentX += cellWidth;
 
-            if (currentX > width) {
-                currentX = 0;
+            if (currentX >= width) {
+                currentX = 1;
                 currentY += cellHeight;
             }
 
