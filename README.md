@@ -1,6 +1,6 @@
 # Terminal GUI
 
-***This project is still pre-alpha***
+***This project is in alpha stage***
 
 Widgets for your terminal, powered by Qt! Create textual GUI (TUI) in your
 console easily.
