@@ -35,3 +35,5 @@ target_link_libraries(item-views-example PUBLIC terminalgui)
 
 add_executable(mouse-tracking-example mouse-tracking-example.cpp)
 target_link_libraries(mouse-tracking-example PUBLIC terminalgui)
+
+add_subdirectory(raspi-config-example)

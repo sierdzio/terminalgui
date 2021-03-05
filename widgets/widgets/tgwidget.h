@@ -121,6 +121,13 @@ class Widget : public QObject
     Q_PROPERTY(Tg::Color textColor READ textColor WRITE setTextColor NOTIFY textColorChanged)
 
     /*!
+     * Widget title, displayed on top border (if border is visible).
+     */
+    Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
+
+    // TODO: customizable title color!
+
+    /*!
      * Color of the characters ("foreground color") printed on the borders of
      * the Widget (see boundingRectangle()).
      *
@@ -269,6 +276,11 @@ public:
      * \sa style, setTextColor
      */
     Tg::Color textColor() const;
+
+    /*!
+     * Returns Widget's title.
+     */
+    QString title() const;
 
     /*!
      * Returns current border text color - either taken from Style or value set
@@ -476,6 +488,11 @@ signals:
     void textColorChanged(const Tg::Color &color) const;
 
     /*!
+     * Indicates that Widget's \a title has changed.
+     */
+    void titleChanged(const QString &title);
+
+    /*!
      * Indicates that Widget's border text \a color has changed.
      */
     void borderTextColorChanged(const Tg::Color &color) const;
@@ -579,6 +596,11 @@ public slots:
      * Changes text \a color.
      */
     void setTextColor(const Tg::Color &color);
+
+    /*!
+     * Changes Widget's \a title.
+     */
+    void setTitle(const QString &title);
 
     /*!
      * Changes border text \a color.
@@ -822,5 +844,6 @@ private:
     bool _verticalArrowsMoveFocus = false;
     bool _propagatesStyle = true;
     QChar _backgroundCharacter;
+    QString _title;
 };
 }

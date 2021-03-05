@@ -117,6 +117,11 @@ Tg::Color Tg::Widget::textColor() const
     }
 }
 
+QString Tg::Widget::title() const
+{
+    return _title;
+}
+
 Tg::Color Tg::Widget::borderTextColor() const
 {
     if (_borderTextColor.isEmpty()) {
@@ -225,7 +230,23 @@ QString Tg::Widget::drawBorderPixel(const QPoint &pixel) const
         }
     } else if (pixel.y() == rect.top()) {
         result.append(color);
-        result.append(style()->border->horizontal);
+
+        const auto border = style()->border->horizontal;
+        if (title().isEmpty()) {
+            result.append(border);
+        } else {
+            const int width = rect.width() - (2 * _borderWidth);
+            const int textWidth = title().size();
+            const int margin = (width - textWidth) / 2;
+            // TODO: handle case where margin < 0
+            const int x = pixel.x() - _borderWidth;
+
+            if (x < margin || x >= (margin + textWidth)) {
+                result.append(border);
+            } else {
+                result.append(title().at(x - margin));
+            }
+        }
     } else if (pixel.y() == rect.bottom()) {
         if (widgetOvershoot().testFlag(Overshoot::Vertical)
                 || layoutOvershoot().testFlag(Overshoot::Vertical)) {
@@ -498,6 +519,15 @@ void Tg::Widget::setTextColor(const Tg::Color &color)
 
     _textColor = color;
     emit textColorChanged(_textColor);
+}
+
+void Tg::Widget::setTitle(const QString &title)
+{
+    if (_title == title)
+        return;
+
+    _title = title;
+    emit titleChanged(_title);
 }
 
 void Tg::Widget::setBorderTextColor(const Tg::Color &color)

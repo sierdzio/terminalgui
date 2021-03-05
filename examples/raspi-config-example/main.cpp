@@ -15,6 +15,7 @@ int main(int argc, char *argv[])
     Tg::Screen screen;
 
     Tg::Button button(QObject::tr("Drag me!"), &screen);
+    button.setTitle(QObject::tr("Title!"));
     button.setPosition(QPoint(5, 5));
     button.setSize(QSize(15, 3));
     button.show();
@@ -22,15 +23,6 @@ int main(int argc, char *argv[])
     CHECK(QObject::connect(&button, &Tg::Button::clicked,
                            &app, &QCoreApplication::quit));
 
-    Tg::Label label(QObject::tr("Drag me 2!"), &screen);
-    label.setPosition(QPoint(25, 5));
-    label.setSize(QSize(15, 3));
-    label.show();
-
-    Tg::Widget widget(&screen);
-    widget.setPosition(QPoint(5, 10));
-    widget.setSize(QSize(15, 3));
-    widget.show();
-
     return app.exec();
 }
+
