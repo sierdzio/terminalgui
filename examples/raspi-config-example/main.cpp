@@ -2,9 +2,10 @@
 
 #include <tgterminal.h>
 #include <tgscreen.h>
-#include <widgets/tgwidget.h>
 #include <widgets/tglabel.h>
-#include <widgets/tgbutton.h>
+#include <styles/tgstyle.h>
+
+#include "mainwindow.h"
 
 int main(int argc, char *argv[])
 {
@@ -12,16 +13,22 @@ int main(int argc, char *argv[])
 
     Tg::RawTerminalLocker locker;
 
+    const auto background = Tg::Color::Predefined::Blue;
+
     Tg::Screen screen;
+    screen.style()->screenBackgroundColor = background;
 
-    Tg::Button button(QObject::tr("Drag me!"), &screen);
-    button.setTitle(QObject::tr("Title!"));
-    button.setPosition(QPoint(5, 5));
-    button.setSize(QSize(15, 3));
-    button.show();
+    Tg::Label model(QObject::tr("Raspberry Pi X Model Y Rev Z.Ż"), &screen);
+    model.setBorderVisible(false);
+    model.setBackgroundColor(background);
+    model.setPosition(QPoint(1, 1));
+    model.setSize(QSize(30, 1));
+    model.show();
 
-    CHECK(QObject::connect(&button, &Tg::Button::clicked,
-                           &app, &QCoreApplication::quit));
+    MainWindow mainWindow(&screen);
+    mainWindow.setBorderBackgroundColor(background);
+    mainWindow.setPosition(QPoint(10, 6));
+    mainWindow.setSize(QSize(80, 30));
 
     return app.exec();
 }

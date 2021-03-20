@@ -33,7 +33,14 @@ public:
      *
      * \todo implement ;-)
      */
-    QChar screenBackground = Tg::Key::space;
+    QChar screenBackgroundCharacter = Tg::Key::space;
+
+    /*!
+     * Color drawn in empty space on a Screen.
+     *
+     * \todo implement ;-)
+     */
+    Tg::Color screenBackgroundColor = Tg::Color::Predefined::Empty;
 
     /*!
      * See Widget::textColor.
