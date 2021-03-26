@@ -14,7 +14,7 @@ MainWindow::MainWindow(Tg::Screen *screen) : Tg::Widget(screen)
 
     _listView = new Tg::ListView(this);
     _listView->setModel(new QStringListModel(_mainMenuLabels, _listView));
-    _listView->setSize(QSize(size().width(), 6));
+    _listView->setSize(QSize(1, 6));
     _listView->show();
 
     _spacer = new Tg::Widget(this);

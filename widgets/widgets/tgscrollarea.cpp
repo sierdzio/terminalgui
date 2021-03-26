@@ -29,13 +29,15 @@ QString Tg::ScrollArea::drawPixel(const QPoint &pixel) const
 
         const bool isCorner = (pixel == contents.bottomRight());
         if (isCorner == false) {
-            const int borderWidth = effectiveBorderWidth();
-            const QPoint adjustedPixel(pixel - QPoint(borderWidth, borderWidth));
             if (_verticalScrollBar->visible() && pixel.x() == right) {
+                const int borderWidth = effectiveBorderWidth();
+                const QPoint adjustedPixel(pixel - QPoint(borderWidth, borderWidth));
                 return _verticalScrollBar->drawPixel(adjustedPixel);
             }
 
             if (_horizontalScrollBar->visible() && pixel.y() == bottom) {
+                const int borderWidth = effectiveBorderWidth();
+                const QPoint adjustedPixel(pixel - QPoint(borderWidth, borderWidth));
                 return _horizontalScrollBar->drawPixel(adjustedPixel);
             }
         }
@@ -107,7 +109,9 @@ void Tg::ScrollArea::init()
     CHECK(connect(this, &ScrollArea::childRemoved,
                   this, &ScrollArea::updateChildrenDimensions));
 
-    updateChildrenDimensions();
+    QTimer::singleShot(1, this, [=](){
+        updateChildrenDimensions();
+    });
 }
 
 void Tg::ScrollArea::consumeKeyboardBuffer(const QString &keyboardBuffer)
