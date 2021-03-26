@@ -17,6 +17,10 @@ MainWindow::MainWindow(Tg::Screen *screen) : Tg::Widget(screen)
     _listView->setSize(QSize(size().width(), 6));
     _listView->show();
 
+    _spacer = new Tg::Widget(this);
+    _spacer->setBackgroundColor(Tg::Color::Predefined::Gray);
+    _spacer->show();
+
     _finishButton = new Tg::Button(tr("Finish"), this);
     _finishButton->setTextColor(Tg::Color::Predefined::White);
     _finishButton->setBackgroundColor(Tg::Color::Predefined::Black);
@@ -25,6 +29,19 @@ MainWindow::MainWindow(Tg::Screen *screen) : Tg::Widget(screen)
 
     CHECK(connect(_finishButton, &Tg::Button::clicked,
                   QCoreApplication::instance(), &QCoreApplication::quit));
+    CHECK(connect(this, &MainWindow::sizeChanged,
+                  this, &MainWindow::updateSpacerHeight));
 
+    updateSpacerHeight();
     show();
+}
+
+void MainWindow::updateSpacerHeight()
+{
+    _spacer->setSize(QSize(size().width(), spacerHeight()));
+}
+
+int MainWindow::spacerHeight() const
+{
+    return size().height() - 2 - _listView->size().height() - _finishButton->size().height();
 }
