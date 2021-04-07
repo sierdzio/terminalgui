@@ -29,6 +29,8 @@ MainWindow::MainWindow(Tg::Screen *screen) : Tg::Widget(screen)
 
     CHECK(connect(_finishButton, &Tg::Button::clicked,
                   QCoreApplication::instance(), &QCoreApplication::quit));
+    CHECK(connect(_listView, &Tg::ListView::indexPressed,
+                  this, &MainWindow::onIndexPressed));
     CHECK(connect(this, &MainWindow::sizeChanged,
                   this, &MainWindow::updateSpacerHeight));
 
@@ -39,6 +41,11 @@ MainWindow::MainWindow(Tg::Screen *screen) : Tg::Widget(screen)
 void MainWindow::updateSpacerHeight()
 {
     _spacer->setSize(QSize(size().width(), spacerHeight()));
+}
+
+void MainWindow::onIndexPressed(const QModelIndex &index)
+{
+
 }
 
 int MainWindow::spacerHeight() const

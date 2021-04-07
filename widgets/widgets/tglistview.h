@@ -46,6 +46,7 @@ signals:
     void alternativeBackgroundColorChanged(const Tg::Color &alternativeBackgroundColor) const;
     void currentIndexChanged(const qsizetype currentIndex) const;
     void currentIndexColorChanged(const Tg::Color &currentIndexColor) const;
+    void indexPressed(const QModelIndex &index) const;
 
 protected:
     void init() override;

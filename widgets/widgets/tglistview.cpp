@@ -217,17 +217,26 @@ void Tg::ListView::consumeKeyboardBuffer(const QString &keyboardBuffer)
         }
     }
 
-    if (keyboardBuffer.contains(Tg::Key::space)) {
+    const bool select = keyboardBuffer.contains(Tg::Key::space);
+    const bool push = keyboardBuffer.contains(Tg::Key::enter)
+            || keyboardBuffer.contains(Tg::Key::ret);
+
+    if (select || push) {
         const QModelIndex index = model()->index(currentIndex(), 0);
-        const Qt::CheckState state = model()->data(index, Qt::ItemDataRole::CheckStateRole)
-                .value<Qt::CheckState>();
-        Qt::CheckState newState;
-        if (state == Qt::CheckState::Unchecked) {
-            newState = Qt::CheckState::Checked;
+
+        if (select && model()->flags(index).testFlag(Qt::ItemFlag::ItemIsUserCheckable)) {
+            const Qt::CheckState state = model()->data(index, Qt::ItemDataRole::CheckStateRole)
+                    .value<Qt::CheckState>();
+            Qt::CheckState newState;
+            if (state == Qt::CheckState::Unchecked) {
+                newState = Qt::CheckState::Checked;
+            } else {
+                newState = Qt::CheckState::Unchecked;
+            }
+            model()->setData(index, newState, Qt::ItemDataRole::CheckStateRole);
         } else {
-            newState = Qt::CheckState::Unchecked;
+            emit indexPressed(index);
         }
-        model()->setData(index, newState, Qt::ItemDataRole::CheckStateRole);
     }
 }
 

@@ -17,6 +17,7 @@ public:
 
 private slots:
     void updateSpacerHeight();
+    void onIndexPressed(const QModelIndex &index);
 
 private:
     Tg::ListView *_listView = nullptr;
