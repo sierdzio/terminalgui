@@ -13,6 +13,18 @@ class MainWindow : public Tg::Widget
     Q_OBJECT
 
 public:
+    enum class MenuItem {
+        // Main menu
+        SystemOptions,
+        DisplayOptions,
+        InterfaceOptions,
+        PerformanceOptions,
+        LocalisationOptions,
+        AdvancedOptions,
+        Update,
+        About
+    };
+
     MainWindow(Tg::Screen *screen);
 
 private slots:
@@ -26,15 +38,15 @@ private:
 
     int spacerHeight() const;
 
-    const QStringList _mainMenuLabels = {
-        tr("System Options"),
-        tr("Display Options"),
-        tr("Interface Options"),
-        tr("Performance Options"),
-        tr("Localisation Options"),
-        tr("Advanced Options"),
-        tr("Update"),
-        tr("About raspi-config-tg")
+    const QHash<MenuItem, QString> _mainMenuLabels = {
+        { MenuItem::SystemOptions, tr("System Options") },
+        { MenuItem::DisplayOptions, tr("Display Options") },
+        { MenuItem::InterfaceOptions, tr("Interface Options") },
+        { MenuItem::PerformanceOptions, tr("Performance Options") },
+        { MenuItem::LocalisationOptions, tr("Localisation Options") },
+        { MenuItem::AdvancedOptions, tr("Advanced Options") },
+        { MenuItem::Update, tr("Update") },
+        { MenuItem::About, tr("About raspi-config-tg") }
     };
 };
 

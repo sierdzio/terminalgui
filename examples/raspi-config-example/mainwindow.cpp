@@ -13,7 +13,7 @@ MainWindow::MainWindow(Tg::Screen *screen) : Tg::Widget(screen)
     setBackgroundColor(Tg::Color::Predefined::Gray);
 
     _listView = new Tg::ListView(this);
-    _listView->setModel(new QStringListModel(_mainMenuLabels, _listView));
+    _listView->setModel(new QStringListModel(_mainMenuLabels.values(), _listView));
     _listView->setSize(QSize(1, 6));
     _listView->show();
 
@@ -45,7 +45,14 @@ void MainWindow::updateSpacerHeight()
 
 void MainWindow::onIndexPressed(const QModelIndex &index)
 {
+    if (index.isValid() == false) {
+        return;
+    }
 
+    const int row = index.row();
+    if (_currentMenuItem == MenuItem::Root) {
+
+    }
 }
 
 int MainWindow::spacerHeight() const
