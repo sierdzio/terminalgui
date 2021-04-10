@@ -23,7 +23,16 @@ public:
         LocalisationOptions,
         AdvancedOptions,
         Update,
-        About
+        About,
+        // System options
+        WirelessLan,
+        Audio,
+        Password,
+        Hostname,
+        BootAutoLogin,
+        NetworkAtBoot,
+        SplashScreen,
+        PowerLed
     };
 
     MainWindow(Tg::Screen *screen);
@@ -51,6 +60,19 @@ private:
         { MenuItem::Update, tr("Update") },
         { MenuItem::About, tr("About raspi-config-tg") }
     };
+
+    const QHash<MenuItem, QString> _systemOptionsLabels = {
+        { MenuItem::WirelessLan, tr("Wireless LAN") },
+        { MenuItem::Audio, tr("Audio") },
+        { MenuItem::Password, tr("Password") },
+        { MenuItem::Hostname, tr("Hostname") },
+        { MenuItem::BootAutoLogin, tr("Boot / Auto Login") },
+        { MenuItem::NetworkAtBoot, tr("Network At Boot") },
+        { MenuItem::SplashScreen, tr("Splash Screen") },
+        { MenuItem::PowerLed, tr("Power LED") }
+    };
 };
+
+uint qHash(const MainWindow::MenuItem item);
 
 #endif // MAINWINDOW_H

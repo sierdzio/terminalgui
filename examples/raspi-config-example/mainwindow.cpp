@@ -51,11 +51,30 @@ void MainWindow::onIndexPressed(const QModelIndex &index)
 
     const int row = index.row();
     if (_currentMenuItem == MenuItem::Root) {
+        if (row >= _mainMenuLabels.size()) {
+            return;
+        }
 
+        const MenuItem selected = MenuItem(row - int(MenuItem::Root));
+        _currentMenuItem = selected;
+
+        _listView->model()->deleteLater();
+
+        switch (selected) {
+        case MenuItem::SystemOptions:
+            _listView->setModel(new QStringListModel(_systemOptionsLabels.values(), _listView));
+            break;
+        default: return;
+        }
     }
 }
 
 int MainWindow::spacerHeight() const
 {
     return size().height() - 2 - _listView->size().height() - _finishButton->size().height();
+}
+
+uint qHash(const MainWindow::MenuItem item)
+{
+    return qHash(int(item));
 }
