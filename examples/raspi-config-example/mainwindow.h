@@ -14,6 +14,7 @@ class MainWindow : public Tg::Widget
 
 public:
     enum class MenuItem {
+        Root,
         // Main menu
         SystemOptions,
         DisplayOptions,
@@ -35,6 +36,8 @@ private:
     Tg::ListView *_listView = nullptr;
     Tg::Widget *_spacer = nullptr;
     Tg::Button *_finishButton = nullptr;
+
+    MenuItem _currentMenuItem = MenuItem::Root;
 
     int spacerHeight() const;
 
