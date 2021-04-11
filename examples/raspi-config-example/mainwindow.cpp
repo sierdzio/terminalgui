@@ -55,9 +55,9 @@ void MainWindow::onIndexPressed(const QModelIndex &index)
             return;
         }
 
-        const MenuItem selected = MenuItem(row - int(MenuItem::Root));
-        _currentMenuItem = selected;
+        const MenuItem selected = MenuItem(int(_currentMenuItem) - row);
 
+        _currentMenuItem = selected;
         _listView->model()->deleteLater();
 
         switch (selected) {
