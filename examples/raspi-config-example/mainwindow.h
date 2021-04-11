@@ -32,7 +32,21 @@ public:
         BootAutoLogin,
         NetworkAtBoot,
         SplashScreen,
-        PowerLed
+        PowerLed,
+        // Display options
+        Resolution,
+        Underscan,
+        PixelDoubling,
+        ScreenBlanking,
+        // Interface options
+        Camera,
+        Ssh,
+        Vnc,
+        Spi,
+        I2c,
+        SerialPort,
+        OneWire,
+        RemoteGpio
     };
 
     MainWindow(Tg::Screen *screen);
@@ -50,7 +64,8 @@ private:
 
     int spacerHeight() const;
 
-    const QHash<MenuItem, QString> _mainMenuLabels = {
+    // QMap because order matters
+    const QMap<MenuItem, QString> _mainMenuLabels = {
         { MenuItem::SystemOptions, tr("System Options") },
         { MenuItem::DisplayOptions, tr("Display Options") },
         { MenuItem::InterfaceOptions, tr("Interface Options") },
@@ -61,7 +76,8 @@ private:
         { MenuItem::About, tr("About raspi-config-tg") }
     };
 
-    const QHash<MenuItem, QString> _systemOptionsLabels = {
+    // QMap because order matters
+    const QMap<MenuItem, QString> _systemOptionsLabels = {
         { MenuItem::WirelessLan, tr("Wireless LAN") },
         { MenuItem::Audio, tr("Audio") },
         { MenuItem::Password, tr("Password") },
@@ -70,6 +86,26 @@ private:
         { MenuItem::NetworkAtBoot, tr("Network At Boot") },
         { MenuItem::SplashScreen, tr("Splash Screen") },
         { MenuItem::PowerLed, tr("Power LED") }
+    };
+
+    // QMap because order matters
+    const QMap<MenuItem, QString> _displayOptionsLabels = {
+        { MenuItem::Resolution, tr("Resolution") },
+        { MenuItem::Underscan, tr("Underscan") },
+        { MenuItem::PixelDoubling, tr("Pixel Doubling") },
+        { MenuItem::ScreenBlanking, tr("Screen Blanking") }
+    };
+
+    // QMap because order matters
+    const QMap<MenuItem, QString> _interfaceOptionsLabels = {
+        { MenuItem::Camera, tr("Camera") },
+        { MenuItem::Ssh, tr("SSH") },
+        { MenuItem::Vnc, tr("VNC") },
+        { MenuItem::Spi, tr("SPI") },
+        { MenuItem::I2c, tr("I2C") },
+        { MenuItem::SerialPort, tr("Serial Port") },
+        { MenuItem::OneWire, tr("1-Wire") },
+        { MenuItem::RemoteGpio, tr("Remote GPIO") },
     };
 };
 

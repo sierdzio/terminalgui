@@ -64,6 +64,12 @@ void MainWindow::onIndexPressed(const QModelIndex &index)
         case MenuItem::SystemOptions:
             _listView->setModel(new QStringListModel(_systemOptionsLabels.values(), _listView));
             break;
+        case MenuItem::DisplayOptions:
+            _listView->setModel(new QStringListModel(_displayOptionsLabels.values(), _listView));
+            break;
+        case MenuItem::InterfaceOptions:
+            _listView->setModel(new QStringListModel(_interfaceOptionsLabels.values(), _listView));
+            break;
         default: return;
         }
     }
