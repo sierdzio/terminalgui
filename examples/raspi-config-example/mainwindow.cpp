@@ -55,10 +55,10 @@ void MainWindow::onIndexPressed(const QModelIndex &index)
             return;
         }
 
-        const MenuItem selected = MenuItem(int(_currentMenuItem) - row);
+        const MenuItem selected = MenuItem(int(_currentMenuItem) + row + 1);
 
         _currentMenuItem = selected;
-        _listView->model()->deleteLater();
+        auto oldModel = _listView->model();
 
         switch (selected) {
         case MenuItem::SystemOptions:
@@ -71,6 +71,10 @@ void MainWindow::onIndexPressed(const QModelIndex &index)
             _listView->setModel(new QStringListModel(_interfaceOptionsLabels.values(), _listView));
             break;
         default: return;
+        }
+
+        if (_listView->model() != oldModel) {
+            oldModel->deleteLater();
         }
     }
 }
