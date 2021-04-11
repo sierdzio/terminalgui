@@ -162,7 +162,7 @@ protected slots:
 
 protected:
     void init() override;
-    void consumeKeyboardBuffer(const QString &keyboardBuffer) override;
+    bool consumeKeyboardBuffer(const QString &keyboardBuffer) override;
     QString drawPixel(const QPoint &pixel) const override;
     QString linearPixel(const int pixel, const int length) const;
 

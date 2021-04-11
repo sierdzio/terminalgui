@@ -180,13 +180,16 @@ void Tg::Button::init()
     }
 }
 
-void Tg::Button::consumeKeyboardBuffer(const QString &keyboardBuffer)
+bool Tg::Button::consumeKeyboardBuffer(const QString &keyboardBuffer)
 {
     if (keyboardBuffer.contains(Tg::Key::enter)
         || keyboardBuffer.contains(Tg::Key::ret))
     {
         click();
+        return true;
     }
+
+    return false;
 }
 
 void Tg::Button::onButtonPressTimeout()

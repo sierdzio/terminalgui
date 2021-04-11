@@ -51,6 +51,9 @@ public:
 
     MainWindow(Tg::Screen *screen);
 
+protected:
+    bool consumeKeyboardBuffer(const QString &keyboardBuffer) override;
+
 private slots:
     void updateSpacerHeight();
     void onIndexPressed(const QModelIndex &index);

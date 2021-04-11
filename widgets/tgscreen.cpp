@@ -302,6 +302,7 @@ void Tg::Screen::checkKeyboard()
             }
         }
 
+        // TODO: cycle through keyboard events, like QtWidgets do
         _activeFocusWidget->consumeKeyboardBuffer(characters);
     }
 }

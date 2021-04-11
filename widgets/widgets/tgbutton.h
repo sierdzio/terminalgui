@@ -53,7 +53,7 @@ signals:
 
 protected:
     void init() override;
-    void consumeKeyboardBuffer(const QString &keyboardBuffer) override;
+    bool consumeKeyboardBuffer(const QString &keyboardBuffer) override;
 
 protected slots:
     void onButtonPressTimeout();

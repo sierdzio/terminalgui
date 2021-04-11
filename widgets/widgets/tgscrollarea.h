@@ -36,7 +36,7 @@ signals:
 
 protected:
     void init() override;
-    void consumeKeyboardBuffer(const QString &keyboardBuffer) override;
+    bool consumeKeyboardBuffer(const QString &keyboardBuffer) override;
     QString drawPixel(const QPoint &pixel) const override;
     virtual QString drawAreaContents(const QPoint &pixel) const;
 

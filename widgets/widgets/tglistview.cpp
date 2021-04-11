@@ -179,11 +179,11 @@ void Tg::ListView::init()
                   this, &ListView::schedulePartialRedraw));
 }
 
-void Tg::ListView::consumeKeyboardBuffer(const QString &keyboardBuffer)
+bool Tg::ListView::consumeKeyboardBuffer(const QString &keyboardBuffer)
 {
     if (keyboardBuffer.contains(Tg::Key::right)
             || keyboardBuffer.contains(Tg::Key::left)) {
-        ScrollArea::consumeKeyboardBuffer(keyboardBuffer);
+        return ScrollArea::consumeKeyboardBuffer(keyboardBuffer);
     }
 
     if (keyboardBuffer.contains(Tg::Key::down)) {
@@ -199,6 +199,8 @@ void Tg::ListView::consumeKeyboardBuffer(const QString &keyboardBuffer)
             pos.setY(currentY - 1);
             setContentsPosition(pos);
         }
+
+        return true;
     }
 
     if (keyboardBuffer.contains(Tg::Key::up)) {
@@ -215,6 +217,8 @@ void Tg::ListView::consumeKeyboardBuffer(const QString &keyboardBuffer)
                 setContentsPosition(pos);
             }
         }
+
+        return true;
     }
 
     const bool select = keyboardBuffer.contains(Tg::Key::space);
@@ -234,10 +238,14 @@ void Tg::ListView::consumeKeyboardBuffer(const QString &keyboardBuffer)
                 newState = Qt::CheckState::Unchecked;
             }
             model()->setData(index, newState, Qt::ItemDataRole::CheckStateRole);
+            return true;
         } else {
             emit indexPressed(index);
+            return true;
         }
     }
+
+    return false;
 }
 
 QString Tg::ListView::getLine(const int row) const

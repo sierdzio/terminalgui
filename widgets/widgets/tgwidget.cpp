@@ -656,9 +656,10 @@ void Tg::Widget::init()
     setLayoutType(Layout::Type::None);
 }
 
-void Tg::Widget::consumeKeyboardBuffer(const QString &keyboardBuffer)
+bool Tg::Widget::consumeKeyboardBuffer(const QString &keyboardBuffer)
 {
     Q_UNUSED(keyboardBuffer)
+    return false;
 }
 
 void Tg::Widget::setVerticalArrowsMoveFocus(const bool enable)

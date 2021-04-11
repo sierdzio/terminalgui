@@ -29,7 +29,7 @@ public slots:
 
 protected:
     void init() override;
-    void consumeKeyboardBuffer(const QString &keyboardBuffer) override;
+    bool consumeKeyboardBuffer(const QString &keyboardBuffer) override;
     QString checkBoxText() const;
 
 private:

@@ -138,16 +138,16 @@ void Tg::RadioButton::init()
                   this, &RadioButton::toggleState));
 }
 
-void Tg::RadioButton::consumeKeyboardBuffer(const QString &keyboardBuffer)
+bool Tg::RadioButton::consumeKeyboardBuffer(const QString &keyboardBuffer)
 {
     if (keyboardBuffer.contains(Tg::Key::space)) {
         setTextColor(pressedTextColor());
         setBackgroundColor(pressedBackgroundColor());
         emit clicked();
-        return;
+        return true;
     }
 
-    Button::consumeKeyboardBuffer(keyboardBuffer);
+    return Button::consumeKeyboardBuffer(keyboardBuffer);
 }
 
 QString Tg::RadioButton::radioButtonText() const

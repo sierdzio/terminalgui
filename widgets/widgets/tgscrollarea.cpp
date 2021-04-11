@@ -114,7 +114,7 @@ void Tg::ScrollArea::init()
     });
 }
 
-void Tg::ScrollArea::consumeKeyboardBuffer(const QString &keyboardBuffer)
+bool Tg::ScrollArea::consumeKeyboardBuffer(const QString &keyboardBuffer)
 {
     if (keyboardBuffer.contains(Tg::Key::right)) {
         const int currentX = contentsPosition().x();
@@ -126,6 +126,8 @@ void Tg::ScrollArea::consumeKeyboardBuffer(const QString &keyboardBuffer)
             pos.setX(currentX - 1);
             setContentsPosition(pos);
         }
+
+        return true;
     }
 
     if (keyboardBuffer.contains(Tg::Key::left)) {
@@ -135,6 +137,8 @@ void Tg::ScrollArea::consumeKeyboardBuffer(const QString &keyboardBuffer)
             pos.setX(currentX + 1);
             setContentsPosition(pos);
         }
+
+        return true;
     }
 
     if (keyboardBuffer.contains(Tg::Key::down)) {
@@ -147,6 +151,8 @@ void Tg::ScrollArea::consumeKeyboardBuffer(const QString &keyboardBuffer)
             pos.setY(currentY - 1);
             setContentsPosition(pos);
         }
+
+        return true;
     }
 
     if (keyboardBuffer.contains(Tg::Key::up)) {
@@ -156,7 +162,11 @@ void Tg::ScrollArea::consumeKeyboardBuffer(const QString &keyboardBuffer)
             pos.setY(currentY + 1);
             setContentsPosition(pos);
         }
+
+        return true;
     }
+
+    return false;
 }
 
 void Tg::ScrollArea::updateChildrenDimensions()

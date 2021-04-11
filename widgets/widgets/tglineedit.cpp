@@ -114,19 +114,19 @@ void Tg::LineEdit::init()
     }
 }
 
-void Tg::LineEdit::consumeKeyboardBuffer(const QString &keyboardBuffer)
+bool Tg::LineEdit::consumeKeyboardBuffer(const QString &keyboardBuffer)
 {
     if (contentsRectangle().height() == 1) {
         // Up Arrow
         if (keyboardBuffer.contains(Tg::Key::up)) {
             emit moveFocusToPreviousWidget();
-            return;
+            return true;
         }
 
         // Down Arrow
         if (keyboardBuffer.contains(Tg::Key::down)) {
             emit moveFocusToNextWidget();
-            return;
+            return true;
         }
     } else {
         // TODO: set cursor position up/down
@@ -138,7 +138,7 @@ void Tg::LineEdit::consumeKeyboardBuffer(const QString &keyboardBuffer)
         if (cursorPosition() < _realText.size()) {
             setCursorPosition(cursorPosition() + 1);
         }
-        return;
+        return true;
     }
 
     // Left Arrow
@@ -147,7 +147,7 @@ void Tg::LineEdit::consumeKeyboardBuffer(const QString &keyboardBuffer)
         if (cursorPosition() > 0) {
             setCursorPosition(cursorPosition() - 1);
         }
-        return;
+        return true;
     }
 
     // Backspace!
@@ -162,7 +162,7 @@ void Tg::LineEdit::consumeKeyboardBuffer(const QString &keyboardBuffer)
                 displayPlaceholderText();
             }
         }
-        return;
+        return true;
     }
 
     // Delete!
@@ -176,17 +176,21 @@ void Tg::LineEdit::consumeKeyboardBuffer(const QString &keyboardBuffer)
                 displayPlaceholderText();
             }
         }
-        return;
+        return true;
     }
 
     if (_realText.isEmpty() && keyboardBuffer.isEmpty()) {
         displayPlaceholderText();
+        return true;
     } else {
         _realText.insert(cursorPosition(), keyboardBuffer);
         setText(_realText);
         setCursorPosition(cursorPosition() + 1);
         setTextColor(style()->textColor);
+        return true;
     }
+
+    return false;
 }
 
 void Tg::LineEdit::displayPlaceholderText()

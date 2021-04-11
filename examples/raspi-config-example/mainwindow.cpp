@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 
+#include <tgkey.h>
+
 #include <widgets/tgbutton.h>
 #include <widgets/tglistview.h>
 
@@ -8,6 +10,7 @@
 
 MainWindow::MainWindow(Tg::Screen *screen) : Tg::Widget(screen)
 {
+    setAcceptsFocus(true);
     setTitle(QObject::tr("Raspberry Pi Configuration Tool (raspi-config-tg)"));
     setLayoutType(Tg::Layout::Type::Column);
     setBackgroundColor(Tg::Color::Predefined::Gray);
@@ -36,6 +39,31 @@ MainWindow::MainWindow(Tg::Screen *screen) : Tg::Widget(screen)
 
     updateSpacerHeight();
     show();
+}
+
+bool MainWindow::consumeKeyboardBuffer(const QString &keyboardBuffer)
+{
+    if (keyboardBuffer.contains('q' /*Tg::Key::escape*/)) {
+        auto oldModel = _listView->model();
+
+        switch (_currentMenuItem) {
+        case MenuItem::SystemOptions:
+        case MenuItem::DisplayOptions:
+        case MenuItem::InterfaceOptions:
+            _listView->setModel(new QStringListModel(_mainMenuLabels.values(), _listView));
+            break;
+        default:
+            break;
+        };
+
+        if (_listView->model() != oldModel) {
+            oldModel->deleteLater();
+        }
+
+        return true;
+    }
+
+    return false;
 }
 
 void MainWindow::updateSpacerHeight()

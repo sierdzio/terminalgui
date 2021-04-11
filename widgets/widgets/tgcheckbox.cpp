@@ -72,16 +72,16 @@ void Tg::CheckBox::init()
                   this, &CheckBox::toggleState));
 }
 
-void Tg::CheckBox::consumeKeyboardBuffer(const QString &keyboardBuffer)
+bool Tg::CheckBox::consumeKeyboardBuffer(const QString &keyboardBuffer)
 {
     if (keyboardBuffer.contains(Tg::Key::space)) {
         setTextColor(pressedTextColor());
         setBackgroundColor(pressedBackgroundColor());
         emit clicked();
-        return;
+        return true;
     }
 
-    Button::consumeKeyboardBuffer(keyboardBuffer);
+    return Button::consumeKeyboardBuffer(keyboardBuffer);
 }
 
 QString Tg::CheckBox::checkBoxText() const

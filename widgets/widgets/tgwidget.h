@@ -668,7 +668,7 @@ protected:
      *
      * \sa acceptsFocus
      */
-    virtual void consumeKeyboardBuffer(const QString &keyboardBuffer);
+    virtual bool consumeKeyboardBuffer(const QString &keyboardBuffer);
 
     /*!
      * Returns ANSI-encoded string, used by Screen to draw the \a pixel.

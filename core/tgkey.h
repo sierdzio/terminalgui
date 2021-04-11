@@ -52,6 +52,11 @@ const QChar ret = '\r';
 const int backspace = 0x007f;
 
 /*!
+ * Escape key.
+ */
+const int escape = 0x001b;
+
+/*!
  * Delete key.
  */
 const QString del = Command::ansiEscape + "3~";

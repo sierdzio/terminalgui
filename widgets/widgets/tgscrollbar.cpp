@@ -610,7 +610,7 @@ void Tg::ScrollBar::init()
     //setBackgroundColor(Tg::Color::Predefined::Gray);
 }
 
-void Tg::ScrollBar::consumeKeyboardBuffer(const QString &keyboardBuffer)
+bool Tg::ScrollBar::consumeKeyboardBuffer(const QString &keyboardBuffer)
 {
      if (keyboardBuffer.contains(Tg::Key::up)
              || keyboardBuffer.contains(Tg::Key::left)) {
@@ -621,6 +621,7 @@ void Tg::ScrollBar::consumeKeyboardBuffer(const QString &keyboardBuffer)
              emit sliderPositionChanged(position);
          }
          emit backwardArrowClicked();
+         return true;
      }
 
      if (keyboardBuffer.contains(Tg::Key::down)
@@ -633,7 +634,10 @@ void Tg::ScrollBar::consumeKeyboardBuffer(const QString &keyboardBuffer)
              emit sliderPositionChanged(position);
          }
          emit forwardArrowClicked();
+         return true;;
      }
+
+     return false;
 }
 
 QString Tg::ScrollBar::linearPixel(const int pixel, const int length) const
