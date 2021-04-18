@@ -43,7 +43,7 @@ MainWindow::MainWindow(Tg::Screen *screen) : Tg::Widget(screen)
 
 bool MainWindow::consumeKeyboardBuffer(const QString &keyboardBuffer)
 {
-    if (keyboardBuffer.contains('q' /*Tg::Key::escape*/)) {
+    if (keyboardBuffer.contains('q') || keyboardBuffer.contains(Tg::Key::escape)) {
         auto oldModel = _listView->model();
 
         switch (_currentMenuItem) {

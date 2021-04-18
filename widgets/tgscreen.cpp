@@ -302,8 +302,13 @@ void Tg::Screen::checkKeyboard()
             }
         }
 
-        // TODO: cycle through keyboard events, like QtWidgets do
-        _activeFocusWidget->consumeKeyboardBuffer(characters);
+        Widget *widget = _activeFocusWidget;
+        while (widget->consumeKeyboardBuffer(characters) == false) {
+            widget = widget->parentWidget();
+            if (widget == nullptr) {
+                break;
+            }
+        }
     }
 }
 
