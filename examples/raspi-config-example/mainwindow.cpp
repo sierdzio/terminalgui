@@ -47,10 +47,14 @@ bool MainWindow::consumeKeyboardBuffer(const QString &keyboardBuffer)
         auto oldModel = _listView->model();
 
         switch (_currentMenuItem) {
+        case MenuItem::Root:
+            quit();
+            break;
         case MenuItem::SystemOptions:
         case MenuItem::DisplayOptions:
         case MenuItem::InterfaceOptions:
             _listView->setModel(new QStringListModel(_mainMenuLabels.values(), _listView));
+            _currentMenuItem = MenuItem::Root;
             break;
         default:
             break;
@@ -105,6 +109,16 @@ void MainWindow::onIndexPressed(const QModelIndex &index)
             oldModel->deleteLater();
         }
     }
+}
+
+void MainWindow::quit()
+{
+    if (_isDirty) {
+        // ... popup with reboot question to user
+        return;
+    }
+
+    QCoreApplication::instance()->quit();
 }
 
 int MainWindow::spacerHeight() const

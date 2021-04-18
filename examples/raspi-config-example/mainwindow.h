@@ -57,12 +57,14 @@ protected:
 private slots:
     void updateSpacerHeight();
     void onIndexPressed(const QModelIndex &index);
+    void quit();
 
 private:
     Tg::ListView *_listView = nullptr;
     Tg::Widget *_spacer = nullptr;
     Tg::Button *_finishButton = nullptr;
 
+    bool _isDirty = false;
     MenuItem _currentMenuItem = MenuItem::Root;
 
     int spacerHeight() const;
