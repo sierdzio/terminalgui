@@ -46,7 +46,26 @@ public:
         I2c,
         SerialPort,
         OneWire,
-        RemoteGpio
+        RemoteGpio,
+        // Performance options
+        Overclock,
+        GpuMemory,
+        OverlayFileSystem,
+        Fan,
+        // Localisation options
+        Locale,
+        Timezone,
+        Keyboard,
+        WlanCountry,
+        // AdvancedOptions
+        ExpandFilesystem,
+        GlDriver,
+        Compositor,
+        NetworkInterfaceNames,
+        NetworkProxySettings,
+        BootOrder,
+        BootloaderVersion,
+        HdmiComposite
     };
 
     MainWindow(Tg::Screen *screen);
@@ -112,6 +131,39 @@ private:
         { MenuItem::OneWire, tr("1-Wire") },
         { MenuItem::RemoteGpio, tr("Remote GPIO") },
     };
+
+    // QMap because order matters
+    const QMap<MenuItem, QString> _performanceOptionsLabels = {
+        { MenuItem::Overclock, tr("Overclock") },
+        { MenuItem::GpuMemory, tr("GPU Memory") },
+        { MenuItem::OverlayFileSystem, tr("Overlay File System") },
+        { MenuItem::Fan, tr("Fan") }
+    };
+
+    // QMap because order matters
+    const QMap<MenuItem, QString> _localisationOptionsLabels = {
+        { MenuItem::Locale, tr("Locale") },
+        { MenuItem::Timezone, tr("Timezone") },
+        { MenuItem::Keyboard, tr("Keyboard") },
+        { MenuItem::WlanCountry, tr("WLAN Country") }
+    };
+
+    // QMap because order matters
+    const QMap<MenuItem, QString> _advancedOptionsLabels = {
+        { MenuItem::ExpandFilesystem, tr("ExpandFilesystem") },
+        { MenuItem::GlDriver, tr("GL Driver") },
+        { MenuItem::Compositor, tr("Compositor") },
+        { MenuItem::NetworkInterfaceNames, tr("Network Interface Names") },
+        { MenuItem::NetworkProxySettings, tr("Network Proxy Settings") },
+        { MenuItem::BootOrder, tr("Boot Order") },
+        { MenuItem::BootloaderVersion, tr("Bootloader Version") },
+        { MenuItem::HdmiComposite, tr("Hdmi / Composite") }
+    };
+
+    const QString _aboutText = tr("This tool provides a straightforward way of "
+        "doing initial configuration of the Raspberry Pi. Although it can be "
+        "run at any time, some of the options may have difficulties if you "
+        "have heavily customised your installation.");
 };
 
 uint qHash(const MainWindow::MenuItem item);

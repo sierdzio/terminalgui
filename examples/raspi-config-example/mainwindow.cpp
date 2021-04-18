@@ -102,6 +102,15 @@ void MainWindow::onIndexPressed(const QModelIndex &index)
         case MenuItem::InterfaceOptions:
             _listView->setModel(new QStringListModel(_interfaceOptionsLabels.values(), _listView));
             break;
+        case MenuItem::PerformanceOptions:
+            _listView->setModel(new QStringListModel(_performanceOptionsLabels.values(), _listView));
+            break;
+        case MenuItem::LocalisationOptions:
+            _listView->setModel(new QStringListModel(_localisationOptionsLabels.values(), _listView));
+            break;
+        case MenuItem::AdvancedOptions:
+            _listView->setModel(new QStringListModel(_advancedOptionsLabels.values(), _listView));
+            break;
         default: return;
         }
 
