@@ -330,6 +330,15 @@ public:
     bool hasFocus() const;
 
     /*!
+     * If this Widget accepts focus (acceptsFocus() returns `true`), calling
+     * this method will make it the currect active focus widget.
+     *
+     * If Widget does not accepts focus, or if it already has active focus,
+     * this method does nothing.
+     */
+    void setActiveFocus();
+
+    /*!
      * When \a accept is `true`, this Widget will receive keyboard events from
      * Screen instance - but only when it actively holds focus (see hasFocus()).
      *

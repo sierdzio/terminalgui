@@ -160,6 +160,13 @@ bool Tg::Widget::hasFocus() const
     return _hasFocus;
 }
 
+void Tg::Widget::setActiveFocus()
+{
+    if (acceptsFocus() && hasFocus() == false) {
+        screen()->setActiveFocusWidget(this);
+    }
+}
+
 void Tg::Widget::setAcceptsFocus(const bool accept)
 {
     if (_acceptsFocus != accept) {

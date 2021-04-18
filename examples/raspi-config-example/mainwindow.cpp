@@ -2,6 +2,7 @@
 
 #include <tgkey.h>
 
+#include <widgets/tglabel.h>
 #include <widgets/tgbutton.h>
 #include <widgets/tglistview.h>
 
@@ -53,6 +54,11 @@ bool MainWindow::consumeKeyboardBuffer(const QString &keyboardBuffer)
         case MenuItem::SystemOptions:
         case MenuItem::DisplayOptions:
         case MenuItem::InterfaceOptions:
+        case MenuItem::PerformanceOptions:
+        case MenuItem::LocalisationOptions:
+        case MenuItem::AdvancedOptions:
+        case MenuItem::Update:
+        case MenuItem::About:
             _listView->setModel(new QStringListModel(_mainMenuLabels.values(), _listView));
             _currentMenuItem = MenuItem::Root;
             break;
@@ -110,6 +116,29 @@ void MainWindow::onIndexPressed(const QModelIndex &index)
             break;
         case MenuItem::AdvancedOptions:
             _listView->setModel(new QStringListModel(_advancedOptionsLabels.values(), _listView));
+            break;
+        case MenuItem::Update:
+            // TODO: update
+            break;
+        case MenuItem::About:
+        {
+            // TODO: make it center itself, move implementation somewhere else!
+            auto *popup = new Tg::Widget(screen());
+            popup->setLayoutType(Tg::Layout::Type::Column);
+            popup->setSize(QSize(55, 9));
+            popup->show();
+            auto label = new Tg::Label(_aboutText, popup);
+            label->setSize(QSize(53, 6));
+            label->show();
+            auto ok = new Tg::Button(tr("OK"), popup);
+            ok->show();
+            ok->setActiveFocus();
+
+            CHECK(connect(ok, &Tg::Button::clicked,
+                          popup, &Tg::Widget::hide));
+            CHECK(connect(ok, &Tg::Button::clicked,
+                          popup, &Tg::Widget::deleteLater));
+        }
             break;
         default: return;
         }
