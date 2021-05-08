@@ -105,7 +105,7 @@ class Widget : public QObject
      * Widgets, including children, will still get baground character from
      * propagated Style object.
      */
-    Q_PROPERTY(QChar backgroundCharacter READ backgroundCharacter WRITE setBackgroundCharacter NOTIFY backgroundCharacterChanged)
+    Q_PROPERTY(QByteArray backgroundCharacter READ backgroundCharacter WRITE setBackgroundCharacter NOTIFY backgroundCharacterChanged)
 
     /*!
      * Color of the characters ("foreground color") printed inside of the
@@ -267,7 +267,7 @@ public:
     /*!
      * Returns character drawn on empty space in this Widget.
      */
-    QChar backgroundCharacter() const;
+    QByteArray backgroundCharacter() const;
 
     /*!
      * Returns current text color - either taken from Style or value set using
@@ -489,7 +489,7 @@ signals:
     /*!
      * Indicates that Widget's background \a character has changed.
      */
-    void backgroundCharacterChanged(const QChar &character) const;
+    void backgroundCharacterChanged(const QByteArray &character) const;
 
     /*!
      * Indicates that Widget's text \a color has changed.
@@ -599,7 +599,7 @@ public slots:
     /*!
      * Changes \a character drawn in the empty space of this Widget.
      */
-    void setBackgroundCharacter(const QChar &character);
+    void setBackgroundCharacter(const QByteArray &character);
 
     /*!
      * Changes text \a color.
@@ -852,7 +852,7 @@ private:
     bool _hasFocus = false;
     bool _verticalArrowsMoveFocus = false;
     bool _propagatesStyle = true;
-    QChar _backgroundCharacter;
+    QByteArray _backgroundCharacter;
     QString _title;
 };
 }

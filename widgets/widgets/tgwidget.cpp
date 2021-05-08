@@ -99,7 +99,7 @@ Tg::Color Tg::Widget::backgroundColor() const
     }
 }
 
-QChar Tg::Widget::backgroundCharacter() const
+QByteArray Tg::Widget::backgroundCharacter() const
 {
     if (_backgroundCharacter.isNull()) {
         return style()->backgroundCharacter;
@@ -510,7 +510,7 @@ void Tg::Widget::setBackgroundColor(const Tg::Color &color)
     emit backgroundColorChanged(_backgroundColor);
 }
 
-void Tg::Widget::setBackgroundCharacter(const QChar &character)
+void Tg::Widget::setBackgroundCharacter(const QByteArray &character)
 {
     if (_backgroundCharacter == character)
         return;

@@ -2,8 +2,7 @@
 
 #include "tgcommand.h"
 
-#include <QChar>
-#include <QString>
+#include <QByteArray>
 
 namespace Tg {
 /*!
@@ -14,66 +13,66 @@ namespace Key {
 /*!
  * Up arrow key.
  */
-const QString up = Command::ansiEscape + 'A';
+const QByteArray up = Command::ansiEscape + "A";
 
 /*!
  * Down arrow key.
  */
-const QString down = Command::ansiEscape + 'B';
+const QByteArray down = Command::ansiEscape + "B";
 
 /*!
  * Right arrow key.
  */
-const QString right = Command::ansiEscape + 'C';
+const QByteArray right = Command::ansiEscape + "C";
 
 /*!
  * Left arrow key.
  */
-const QString left = Command::ansiEscape + 'D';
+const QByteArray left = Command::ansiEscape + "D";
 
 /*!
  * Tab key.
  */
-const QChar tab = '\t';
+const QByteArray tab = "\t";
 
 /*!
  * Enter key.
  */
-const QChar enter = '\n';
+const QByteArray enter = "\n";
 
 /*!
  * Return key.
  */
-const QChar ret = '\r';
+const QByteArray ret = "\r";
 
 /*!
  * Backspace key.
  */
-const QChar backspace = QChar::fromLatin1(0x007f);
+const QByteArray backspace = QByteArray(1, 0x007f);
 
 /*!
  * Escape key.
  */
-const QChar escape = QChar::fromLatin1(0x001b);
+const QByteArray escape = QByteArray(1, 0x001b);
 
 /*!
  * Delete key.
  */
-const QString del = Command::ansiEscape + "3~";
+const QByteArray del = Command::ansiEscape + "3~";
 
 /*!
  * Space key.
  */
-const QChar space = ' ';
+const QByteArray space = " ";
 
 /*!
  * Ctrl+C
  */
-const QChar ctrlC = '\003';
+const QByteArray ctrlC = "\003";
 
 /*!
  * Ctrl+D
  */
-const QChar ctrlD = '\004';
+const QByteArray ctrlD = "\004";
 }
 }

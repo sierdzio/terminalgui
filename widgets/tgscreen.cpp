@@ -6,6 +6,7 @@
 #include <tgterminal.h>
 
 #include <QCoreApplication>
+#include <QChar>
 #include <QPoint>
 #include <QRect>
 #include <QDebug>

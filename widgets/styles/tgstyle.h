@@ -5,7 +5,6 @@
 
 #include "tgborderstyle.h"
 
-#include <QChar>
 #include <QString>
 
 namespace Tg {
@@ -33,7 +32,7 @@ public:
      *
      * \todo implement ;-)
      */
-    QChar screenBackgroundCharacter = Tg::Key::space;
+    QByteArray screenBackgroundCharacter = Tg::Key::space;
 
     /*!
      * Color drawn in empty space on a Screen.
@@ -60,7 +59,7 @@ public:
     /*!
      * See Widget::backgroundCharacter
      */
-    QChar backgroundCharacter = Tg::Key::space;
+    QByteArray backgroundCharacter = Tg::Key::space;
 
     /*!
      * See LineEdit::placeholderTextColor

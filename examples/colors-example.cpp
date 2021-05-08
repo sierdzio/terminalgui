@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
     w2->show();
 
     auto w3 = new Tg::Label("defg", &widget);
-    w3->setBackgroundCharacter('Z');
+    w3->setBackgroundCharacter("Z");
     w3->show();
 
     auto w4 = new Tg::Label("efgh", &widget);

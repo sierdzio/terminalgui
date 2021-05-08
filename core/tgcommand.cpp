@@ -1,8 +1,8 @@
 #include "tgcommand.h"
 
-QString Tg::Command::moveToPosition(const int x, const int y)
+QByteArray Tg::Command::moveToPosition(const int x, const int y)
 {
-    return Command::ansiEscape + QString::number(y)
-            + Command::separator + QString::number(x)
+    return Command::ansiEscape + QByteArray::number(y)
+            + Command::separator + QByteArray::number(x)
             + Command::ansiPositionEnd;
 }

@@ -5,6 +5,7 @@
 #include <tgkey.h>
 #include <tgcommand.h>
 
+#include <QChar>
 #include <QRect>
 #include <QDebug>
 

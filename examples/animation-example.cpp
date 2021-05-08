@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
     Tg::Widget widget(&screen);
     widget.setPosition(QPoint(18, 6));
     widget.setSize(QSize(18, 10));
-    widget.setBackgroundCharacter('x');
+    widget.setBackgroundCharacter("x");
     widget.show();
 
     Tg::Button button(QObject::tr("Hide widget"), &widget);

@@ -2,7 +2,6 @@
 
 #include <widgets/tgwidget.h>
 
-#include <QChar>
 #include <QString>
 #include <QTimer>
 
