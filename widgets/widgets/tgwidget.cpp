@@ -28,6 +28,11 @@ Tg::Widget::Widget(Tg::Screen *screen)
 Tg::Widget::~Widget()
 {
     if (_screen) {
+        if (hasFocus()) {
+            blockSignals(true);
+            _screen->moveFocusToPreviousWidget();
+            blockSignals(false);
+        }
         _screen->deregisterWidget(this);
     }
 }
@@ -571,6 +576,10 @@ void Tg::Widget::setVisible(const bool visible)
             parentWidget()->propagateStyleToChild(this);
         }
     }
+
+    for (const auto &child : childrenWidgets()) {
+        child->setVisible(visible);
+    }
 }
 
 void Tg::Widget::show()
@@ -658,6 +667,8 @@ void Tg::Widget::init()
 
         CHECK(connect(this, &Widget::destroyed,
                       _parentWidget, &Widget::childRemoved));
+
+        setVisible(_parentWidget->visible());
     }
 
     setLayoutType(Layout::Type::None);

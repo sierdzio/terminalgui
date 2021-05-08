@@ -15,7 +15,7 @@ Tg::WidgetPointer Tg::Helpers::topWidget(const Tg::WidgetList &widgets,
     // TODO: sort by Z value...
     WidgetList affectedWidgets;
     for (const WidgetPointer &widget : widgets) {
-        if (widget->visible()) {
+        if (widget && widget->visible()) {
             if ((type == WidgetType::TopLevel && widget->isTopLevel())
                     || type == WidgetType::All) {
                 if (widget->boundingRectangle().contains(pixel)) {

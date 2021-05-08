@@ -52,6 +52,10 @@ const QByteArray backspace = QByteArray(1, 0x007f);
 
 /*!
  * Escape key.
+ *
+ * \warning This sequence is often passed in other comments, when using it in
+ * keyboard handling compare whole string agains it, don't use
+ * QString::contains().
  */
 const QByteArray escape = QByteArray(1, 0x001b);
 

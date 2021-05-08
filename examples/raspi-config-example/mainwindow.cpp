@@ -5,6 +5,7 @@
 #include <widgets/tglabel.h>
 #include <widgets/tgbutton.h>
 #include <widgets/tglistview.h>
+#include <widgets/tgpopup.h>
 
 #include <QCoreApplication>
 #include <QStringListModel>
@@ -32,7 +33,7 @@ MainWindow::MainWindow(Tg::Screen *screen) : Tg::Widget(screen)
     _finishButton->show();
 
     CHECK(connect(_finishButton, &Tg::Button::clicked,
-                  QCoreApplication::instance(), &QCoreApplication::quit));
+                  this, &MainWindow::quit));
     CHECK(connect(_listView, &Tg::ListView::indexPressed,
                   this, &MainWindow::onIndexPressed));
     CHECK(connect(this, &MainWindow::sizeChanged,
@@ -44,7 +45,7 @@ MainWindow::MainWindow(Tg::Screen *screen) : Tg::Widget(screen)
 
 bool MainWindow::consumeKeyboardBuffer(const QString &keyboardBuffer)
 {
-    if (keyboardBuffer.contains('q') || keyboardBuffer.contains(Tg::Key::escape)) {
+    if (keyboardBuffer.contains('q') || keyboardBuffer == Tg::Key::escape) {
         auto oldModel = _listView->model();
 
         switch (_currentMenuItem) {
@@ -122,16 +123,12 @@ void MainWindow::onIndexPressed(const QModelIndex &index)
             break;
         case MenuItem::About:
         {
-            // TODO: make it center itself, move implementation somewhere else!
-            auto *popup = new Tg::Widget(screen());
+            auto *popup = new Tg::Popup(QSize(55, 9), screen());
             popup->setLayoutType(Tg::Layout::Type::Column);
-            popup->setSize(QSize(55, 9));
-            popup->show();
             auto label = new Tg::Label(_aboutText, popup);
             label->setSize(QSize(53, 6));
-            label->show();
             auto ok = new Tg::Button(tr("OK"), popup);
-            ok->show();
+            popup->show();
             ok->setActiveFocus();
 
             CHECK(connect(ok, &Tg::Button::clicked,

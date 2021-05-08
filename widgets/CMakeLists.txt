@@ -35,6 +35,7 @@ add_library(terminalgui STATIC
   widgets/tgscrollbar.cpp
   widgets/tgscrollarea.cpp
   widgets/tglistview.cpp
+  widgets/tgpopup.cpp
   models/tgcheckablestringlistmodel.cpp
   tgscreen.cpp
 )
