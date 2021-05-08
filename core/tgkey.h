@@ -49,12 +49,12 @@ const QChar ret = '\r';
 /*!
  * Backspace key.
  */
-const int backspace = 0x007f;
+const QChar backspace = QChar::fromLatin1(0x007f);
 
 /*!
  * Escape key.
  */
-const int escape = 0x001b;
+const QChar escape = QChar::fromLatin1(0x001b);
 
 /*!
  * Delete key.
