@@ -70,6 +70,9 @@ public:
 
     MainWindow(Tg::Screen *screen);
 
+signals:
+    void update();
+
 protected:
     bool consumeKeyboardBuffer(const QString &keyboardBuffer) override;
 
@@ -79,14 +82,15 @@ private slots:
     void quit();
 
 private:
+    int spacerHeight() const;
+    void showPopup(const QString &message) const;
+
     Tg::ListView *_listView = nullptr;
     Tg::Widget *_spacer = nullptr;
     Tg::Button *_finishButton = nullptr;
 
     bool _isDirty = false;
     MenuItem _currentMenuItem = MenuItem::Root;
-
-    int spacerHeight() const;
 
     // QMap because order matters
     const QMap<MenuItem, QString> _mainMenuLabels = {

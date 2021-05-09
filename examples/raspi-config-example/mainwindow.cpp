@@ -119,23 +119,11 @@ void MainWindow::onIndexPressed(const QModelIndex &index)
             _listView->setModel(new QStringListModel(_advancedOptionsLabels.values(), _listView));
             break;
         case MenuItem::Update:
-            // TODO: update
+            showPopup(tr("Update will be performed!"));
+            emit update();
             break;
         case MenuItem::About:
-        {
-            auto *popup = new Tg::Popup(QSize(55, 9), screen());
-            popup->setLayoutType(Tg::Layout::Type::Column);
-            auto label = new Tg::Label(_aboutText, popup);
-            label->setSize(QSize(53, 6));
-            auto ok = new Tg::Button(tr("OK"), popup);
-            popup->show();
-            ok->setActiveFocus();
-
-            CHECK(connect(ok, &Tg::Button::clicked,
-                          popup, &Tg::Widget::hide));
-            CHECK(connect(ok, &Tg::Button::clicked,
-                          popup, &Tg::Widget::deleteLater));
-        }
+            showPopup(_aboutText);
             break;
         default: return;
         }
@@ -158,7 +146,24 @@ void MainWindow::quit()
 
 int MainWindow::spacerHeight() const
 {
-    return size().height() - 2 - _listView->size().height() - _finishButton->size().height();
+    return size().height() - 2 - _listView->size().height()
+            - _finishButton->size().height();
+}
+
+void MainWindow::showPopup(const QString &message) const
+{
+    auto *popup = new Tg::Popup(QSize(55, 9), screen());
+    popup->setLayoutType(Tg::Layout::Type::Column);
+    auto label = new Tg::Label(message, popup);
+    label->setSize(QSize(53, 6));
+    auto ok = new Tg::Button(tr("OK"), popup);
+    popup->show();
+    ok->setActiveFocus();
+
+    CHECK(connect(ok, &Tg::Button::clicked,
+                  popup, &Tg::Widget::hide));
+    CHECK(connect(ok, &Tg::Button::clicked,
+                  popup, &Tg::Widget::deleteLater));
 }
 
 uint qHash(const MainWindow::MenuItem item)
