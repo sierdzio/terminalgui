@@ -28,11 +28,19 @@ public:
 
     QPoint contentsPosition() const;
 
+    ScrollBarPolicy verticalScrollBarPolicy() const;
+    void setVerticalScrollBarPolicy(const ScrollBarPolicy newVerticalScrollBarPolicy);
+
+    ScrollBarPolicy horizontalScrollBarPolicy() const;
+    void setHorizontalScrollBarPolicy(const ScrollBarPolicy newHorizontalScrollBarPolicy);
+
 public slots:
     void setContentsPosition(const QPoint &contentsPosition);
 
 signals:
     void contentsPositionChanged(const QPoint &contentsPosition) const;
+    void verticalScrollBarPolicyChanged(const ScrollBarPolicy newPolicy) const;
+    void horizontalScrollBarPolicyChanged(const ScrollBarPolicy newPolicy) const;
 
 protected:
     void init() override;

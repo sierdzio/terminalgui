@@ -283,5 +283,38 @@ void Tg::ScrollArea::updateScrollBarPositions()
 {
     _horizontalScrollBar->setSliderPosition(std::abs(contentsPosition().x()));
     _verticalScrollBar->setSliderPosition(std::abs(contentsPosition().y()));
+}
 
+Tg::ScrollArea::ScrollBarPolicy Tg::ScrollArea::horizontalScrollBarPolicy() const
+{
+    return _horizontalScrollBarPolicy;
+}
+
+void Tg::ScrollArea::setHorizontalScrollBarPolicy(const ScrollBarPolicy newHorizontalScrollBarPolicy)
+{
+    if (_horizontalScrollBarPolicy == newHorizontalScrollBarPolicy) {
+        return;
+    }
+
+    _horizontalScrollBarPolicy = newHorizontalScrollBarPolicy;
+    emit horizontalScrollBarPolicyChanged(newHorizontalScrollBarPolicy);
+    updateScrollBarStates();
+    schedulePartialRedraw();
+}
+
+Tg::ScrollArea::ScrollBarPolicy Tg::ScrollArea::verticalScrollBarPolicy() const
+{
+    return _verticalScrollBarPolicy;
+}
+
+void Tg::ScrollArea::setVerticalScrollBarPolicy(const ScrollBarPolicy newVerticalScrollBarPolicy)
+{
+    if (_verticalScrollBarPolicy == newVerticalScrollBarPolicy) {
+        return;
+    }
+
+    _verticalScrollBarPolicy = newVerticalScrollBarPolicy;
+    emit verticalScrollBarPolicyChanged(newVerticalScrollBarPolicy);
+    updateScrollBarStates();
+    schedulePartialRedraw();
 }

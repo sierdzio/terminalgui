@@ -20,6 +20,7 @@ MainWindow::MainWindow(Tg::Screen *screen) : Tg::Widget(screen)
     _listView = new Tg::ListView(this);
     _listView->setModel(new QStringListModel(_mainMenuLabels.values(), _listView));
     _listView->setSize(QSize(1, 6));
+    _listView->setHorizontalScrollBarPolicy(Tg::ScrollArea::ScrollBarPolicy::NeverShow);
     _listView->show();
 
     _spacer = new Tg::Widget(this);
@@ -58,10 +59,11 @@ bool MainWindow::consumeKeyboardBuffer(const QString &keyboardBuffer)
         case MenuItem::PerformanceOptions:
         case MenuItem::LocalisationOptions:
         case MenuItem::AdvancedOptions:
-        case MenuItem::Update:
-        case MenuItem::About:
             _listView->setModel(new QStringListModel(_mainMenuLabels.values(), _listView));
             _currentMenuItem = MenuItem::Root;
+            break;
+        case MenuItem::Update:
+        case MenuItem::About:
             break;
         default:
             break;
@@ -119,10 +121,12 @@ void MainWindow::onIndexPressed(const QModelIndex &index)
             _listView->setModel(new QStringListModel(_advancedOptionsLabels.values(), _listView));
             break;
         case MenuItem::Update:
+            _currentMenuItem = MenuItem::Root;
             showPopup(tr("Update will be performed!"));
             emit update();
             break;
         case MenuItem::About:
+            _currentMenuItem = MenuItem::Root;
             showPopup(_aboutText);
             break;
         default: return;
