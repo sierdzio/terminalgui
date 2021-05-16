@@ -13,7 +13,7 @@
 MainWindow::MainWindow(Tg::Screen *screen) : Tg::Widget(screen)
 {
     setAcceptsFocus(true);
-    setTitle(QObject::tr("Raspberry Pi Configuration Tool (raspi-config-tg)"));
+    setTitle(tr("Raspberry Pi Configuration Tool (raspi-config-tg)"));
     setLayoutType(Tg::Layout::Type::Column);
     setBackgroundColor(Tg::Color::Predefined::Gray);
 

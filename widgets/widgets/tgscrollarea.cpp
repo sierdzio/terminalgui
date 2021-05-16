@@ -29,13 +29,17 @@ QString Tg::ScrollArea::drawPixel(const QPoint &pixel) const
 
         const bool isCorner = (pixel == contents.bottomRight());
         if (isCorner == false) {
-            if (_verticalScrollBar->visible() && pixel.x() == right) {
+            if (_verticalScrollBar->visible()
+                    && _verticalScrollBarPolicy != ScrollBarPolicy::NeverShow
+                    && pixel.x() == right) {
                 const int borderWidth = effectiveBorderWidth();
                 const QPoint adjustedPixel(pixel - QPoint(borderWidth, borderWidth));
                 return _verticalScrollBar->drawPixel(adjustedPixel);
             }
 
-            if (_horizontalScrollBar->visible() && pixel.y() == bottom) {
+            if (_horizontalScrollBar->visible()
+                    && _horizontalScrollBarPolicy != ScrollBarPolicy::NeverShow
+                    && pixel.y() == bottom) {
                 const int borderWidth = effectiveBorderWidth();
                 const QPoint adjustedPixel(pixel - QPoint(borderWidth, borderWidth));
                 return _horizontalScrollBar->drawPixel(adjustedPixel);
@@ -44,7 +48,7 @@ QString Tg::ScrollArea::drawPixel(const QPoint &pixel) const
 
         const auto children = childrenWidgets();
         const WidgetPointer widget = Helpers::topWidget(children, pixel, WidgetType::All);
-        if (widget.isNull() == false) {
+        if (widget.isNull() == false && widget->visible()) {
             const QPoint childPx(childPixel(pixel));
             const QPoint childPos(widget->position());
             return widget->drawPixel(childPx - childPos);
@@ -226,11 +230,11 @@ int Tg::ScrollArea::childrenHeight() const
 QRect Tg::ScrollArea::scrollableArea() const
 {
     QRect result = contentsRectangle();
-    if (_horizontalScrollBar->visible()) {
+    if (_horizontalScrollBar->visible() && _horizontalScrollBarPolicy != ScrollBarPolicy::NeverShow) {
         result.setHeight(result.height() - _horizontalScrollBar->size().height());
     }
 
-    if (_verticalScrollBar->visible()) {
+    if (_verticalScrollBar->visible() && _verticalScrollBarPolicy != ScrollBarPolicy::NeverShow) {
         result.setWidth(result.width() - _verticalScrollBar->size().width());
     }
 
@@ -239,12 +243,18 @@ QRect Tg::ScrollArea::scrollableArea() const
 
 void Tg::ScrollArea::updateScrollBarStates()
 {
+    const QSignalBlocker vBlock(_verticalScrollBar);
+    const QSignalBlocker hBlock(_horizontalScrollBar);
+
     if (_verticalScrollBarPolicy == ScrollBarPolicy::NeverShow
             && _horizontalScrollBarPolicy == ScrollBarPolicy::NeverShow) {
         _verticalScrollBar->setVisible(false);
         _horizontalScrollBar->setVisible(false);
         return;
     }
+
+    _verticalScrollBar->setVisible(true);
+    _horizontalScrollBar->setVisible(true);
 
     const QRect contents = contentsRectangle();
     _verticalScrollBar->setPosition(QPoint(contents.right(), 0));
@@ -261,21 +271,32 @@ void Tg::ScrollArea::updateScrollBarStates()
         _horizontalScrollBar->setVisible(true);
     }
 
-    if (childrenWidth() >= (contents.width() - 1)
+    if (_horizontalScrollBarPolicy == ScrollBarPolicy::NeverShow) {
+            _horizontalScrollBar->setVisible(false);
+    } else if (childrenWidth() >= (contents.width() - 1)
             && _horizontalScrollBarPolicy != ScrollBarPolicy::NeverShow) {
         _horizontalScrollBar->setVisible(true);
     }
 
-    if (childrenHeight() >= (contents.height() - 1)
+    if (_verticalScrollBarPolicy == ScrollBarPolicy::NeverShow) {
+             _verticalScrollBar->setVisible(false);
+    } else if (childrenHeight() >= (contents.height() - 1)
             && _verticalScrollBarPolicy != ScrollBarPolicy::NeverShow) {
         _verticalScrollBar->setVisible(true);
     }
 
     const QRect scrollable = scrollableArea();
-    _horizontalScrollBar->setMinimum(0);
-    _horizontalScrollBar->setMaximum(childrenWidth() - scrollable.width());
-    _verticalScrollBar->setMinimum(0);
-    _verticalScrollBar->setMaximum(childrenHeight() - scrollable.height());
+
+    if (_horizontalScrollBar->visible()) {
+        _horizontalScrollBar->setMinimum(0);
+        _horizontalScrollBar->setMaximum(childrenWidth() - scrollable.width());
+    }
+
+    if (_verticalScrollBar->visible()) {
+        _verticalScrollBar->setMinimum(0);
+        _verticalScrollBar->setMaximum(childrenHeight() - scrollable.height());
+    }
+
     updateScrollBarPositions();
 }
 
