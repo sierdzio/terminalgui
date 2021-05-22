@@ -27,8 +27,10 @@ QString Tg::ScrollArea::drawPixel(const QPoint &pixel) const
             return {};
         }
 
-        const bool isCorner = (pixel == contents.bottomRight());
-        if (isCorner == false) {
+        const bool isCornerEmpty = (pixel == contents.bottomRight()
+                                    && (_verticalScrollBar->visible() && _horizontalScrollBar->visible()));
+
+        if (isCornerEmpty == false) {
             if (_verticalScrollBar->visible()
                     && _verticalScrollBarPolicy != ScrollBarPolicy::NeverShow
                     && pixel.x() == right) {
@@ -46,14 +48,6 @@ QString Tg::ScrollArea::drawPixel(const QPoint &pixel) const
             }
         }
 
-        const auto children = childrenWidgets();
-        const WidgetPointer widget = Helpers::topWidget(children, pixel, WidgetType::All);
-        if (widget.isNull() == false && widget->visible()) {
-            const QPoint childPx(childPixel(pixel));
-            const QPoint childPos(widget->position());
-            return widget->drawPixel(childPx - childPos);
-        }
-
         const QString result = drawAreaContents(pixel);
         if (result.isEmpty() == false) {
             return result;
@@ -62,15 +56,24 @@ QString Tg::ScrollArea::drawPixel(const QPoint &pixel) const
 
     // Draw default widget background
     QString result;
-    result.append(Tg::Color::code(Tg::Color::Predefined::Empty,
-                                        backgroundColor()));
+    result.append(Tg::Color::code(Tg::Color::Predefined::Empty, backgroundColor()));
     result.append(backgroundCharacter());
     return result;
 }
 
 QString Tg::ScrollArea::drawAreaContents(const QPoint &pixel) const
 {
-    Q_UNUSED(pixel);
+    const auto children = childrenWidgets();
+    const WidgetPointer widget = Helpers::topWidget(children, pixel, WidgetType::All);
+    if (widget.isNull() == false
+            && widget->visible()
+            && widget != _verticalScrollBar
+            && widget != _horizontalScrollBar) {
+        const QPoint childPx(childPixel(pixel));
+        const QPoint childPos(widget->position());
+        return widget->drawPixel(childPx - childPos);
+    }
+
     return {};
 }
 
