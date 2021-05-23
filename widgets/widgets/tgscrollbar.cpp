@@ -648,11 +648,13 @@ QString Tg::ScrollBar::linearPixel(const int pixel, const int length) const
         // TODO: handle all the color madness ;-) Active, normal, inactive colors
         if (_backwardArrowPressTimer.isActive()) {
             result.append(Tg::Color::code(
-                              backwardArrowActiveColor(), backwardArrowActiveBackgroundColor()
+                              backwardArrowActiveColor(),
+                              backwardArrowActiveBackgroundColor()
                               ));
         } else {
             result.append(Tg::Color::code(
-                              backwardArrowColor(), backwardArrowBackgroundColor()
+                              backwardArrowColor(),
+                              backwardArrowBackgroundColor()
                               ));
         }
 
@@ -668,11 +670,13 @@ QString Tg::ScrollBar::linearPixel(const int pixel, const int length) const
         // TODO: handle all the color madness ;-) Active, normal, inactive colors
         if (_forwardArrowPressTimer.isActive()) {
             result.append(Tg::Color::code(
-                              forwardArrowActiveColor(), forwardArrowActiveBackgroundColor()
+                              forwardArrowActiveColor(),
+                              forwardArrowActiveBackgroundColor()
                               ));
         } else {
             result.append(Tg::Color::code(
-                              forwardArrowColor(), forwardArrowBackgroundColor()
+                              forwardArrowColor(),
+                              forwardArrowBackgroundColor()
                               ));
         }
 
@@ -685,14 +689,14 @@ QString Tg::ScrollBar::linearPixel(const int pixel, const int length) const
         return result;
     }
 
-    const int adjustedLength = length - 2;
+    const int adjustedLength = length - 3;
     const qreal percentileOfValue = qreal(sliderPosition()) / qreal(maximum());
     const qreal percentileOfLength = percentileOfValue * adjustedLength;
     int position = -1;
 
-    if (percentileOfValue < .1) {
+    if (percentileOfValue < .05) {
         position = 0;
-    } else if (percentileOfValue > .9) {
+    } else if (percentileOfValue > .95) {
         position = adjustedLength;
     } else {
         position = std::ceil(percentileOfLength);
