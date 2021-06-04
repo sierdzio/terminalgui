@@ -140,6 +140,8 @@ Tg::Label::TextLayout Tg::Label::generateTextLayout(const QSize &size, const QSt
     const int height = size.height();
     const int reserved = reservedCharactersCount();
 
+    // TODO: implement handling for _wrapMode
+
     if ((text.size() + reserved) <= width) {
         QString txt;
 
