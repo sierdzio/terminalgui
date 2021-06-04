@@ -9,6 +9,8 @@
 #include <QRect>
 #include <QDebug>
 
+#include <algorithm>
+
 Tg::Label::Label(Tg::Widget *parent) : Tg::Widget(parent)
 {
     Label::init();
@@ -83,8 +85,19 @@ void Tg::Label::setText(const QString &text, const bool expand)
 
     QSize current(size());
     if (expand && current.width() != _text.length()) {
-        current.setWidth(text.length());
-        current.setHeight(1);
+        QSize parentSize(current);
+        if (parentWidget()) {
+            parentSize = parentWidget()->contentsRectangle().size();
+            parentSize.setHeight(parentSize.height() - effectiveBorderWidth());
+            parentSize.setWidth(parentSize.width() - effectiveBorderWidth());
+        }
+
+        current.setWidth(std::min(qsizetype(parentSize.width()), text.length()));
+
+        const auto shortLayout = generateTextLayout(QSize(current.width(), 1), _text);
+
+        current.setHeight(std::min(qsizetype(parentSize.height()), shortLayout.text.size()));
+
         setSize(current);
     }
 
@@ -114,32 +127,37 @@ void Tg::Label::init()
 
 void Tg::Label::layoutText()
 {
-    _laidOutTextCache.clear();
-    SizeOvershoot overshoot = Overshoot::None;
+    const auto result = generateTextLayout(contentsRectangle().size(), text());
+    _laidOutTextCache = result.text;
+    setWidgetOvershoot(result.overshoot);
+}
 
-    const QRect contents = contentsRectangle();
-    const int width = contents.width();
-    const int height = contents.height();
+Tg::Label::TextLayout Tg::Label::generateTextLayout(const QSize &size, const QString &text) const
+{
+    TextLayout result;
+
+    const int width = size.width();
+    const int height = size.height();
     const int reserved = reservedCharactersCount();
 
-    if ((text().size() + reserved) <= width) {
+    if ((text.size() + reserved) <= width) {
         QString txt;
 
         if (reserved != 0) {
             txt.append(reservedText());
         }
 
-        txt.append(text());
+        txt.append(text);
         while (txt.length() < width) {
             // Fill with spaces
             txt.append(Tg::Key::space);
         }
-        _laidOutTextCache.append(txt);
+        result.text.append(txt);
 
         if (height < 1) {
-            overshoot = Overshoot::Vertical;
+            result.overshoot = Overshoot::Vertical;
         } else {
-            overshoot = Overshoot::None;
+            result.overshoot = Overshoot::None;
         }
     } else {
         int currentX = 0;
@@ -151,10 +169,10 @@ void Tg::Label::layoutText()
             currentX += reserved;
         }
 
-        const QString &fullText(text());
+        const QString &fullText(text);
         for (const QChar &character : fullText) {
             if (currentY >= height) {
-                overshoot = overshoot | Overshoot::Vertical;
+                result.overshoot = result.overshoot | Overshoot::Vertical;
                 break;
             }
 
@@ -162,7 +180,7 @@ void Tg::Label::layoutText()
                 currentString.append(character);
                 currentX++;
             } else {
-                _laidOutTextCache.append(currentString);
+                result.text.append(currentString);
                 currentString.clear();
                 currentY++;
                 currentString.append(character);
@@ -175,10 +193,10 @@ void Tg::Label::layoutText()
             // Fill with spaces
             currentString.append(Tg::Key::space);
         }
-        _laidOutTextCache.append(currentString);
+        result.text.append(currentString);
     }
 
-    setWidgetOvershoot(overshoot);
+    return result;
 }
 
 int Tg::Label::reservedCharactersCount() const
@@ -198,3 +216,17 @@ void Tg::Label::setReservedText(const QString &reserved)
         emit textChanged(text());
     }
 }
+
+Tg::Text::Wrap Tg::Label::wrapMode() const
+{
+    return _wrapMode;
+}
+
+void Tg::Label::setWrapMode(const Text::Wrap newWrapMode)
+{
+    if (_wrapMode != newWrapMode) {
+        _wrapMode = newWrapMode;
+        layoutText();
+    }
+}
+

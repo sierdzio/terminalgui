@@ -1,6 +1,7 @@
 #pragma once
 
 #include <widgets/tgwidget.h>
+#include <utils/tgtext.h>
 
 namespace Tg {
 class Label : public Widget
@@ -19,6 +20,9 @@ public:
     QString text() const;
 
     bool highlighted() const;
+
+    Text::Wrap wrapMode() const;
+    void setWrapMode(const Text::Wrap newWrapMode);
 
 signals:
     void textChanged(const QString &text) const;
@@ -40,7 +44,15 @@ private slots:
     void layoutText();
 
 private:
+    struct TextLayout {
+        QStringList text;
+        SizeOvershoot overshoot = Overshoot::None;
+    };
+
+    TextLayout generateTextLayout(const QSize &size, const QString &text) const;
+
     bool _highlighted = false;
+    Text::Wrap _wrapMode = Text::Wrap::Words;
 
     QString _text;
     QString _reservedText;
