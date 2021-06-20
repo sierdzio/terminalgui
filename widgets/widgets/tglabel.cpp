@@ -222,7 +222,7 @@ void Tg::Label::breakLine(const QChar &character,
     currentY++;
 
     if (character.isNull()) {
-        currentX = 0;
+        *currentX = 0;
     } else {
         currentString->append(character);
         // One because one character is already added, in line above
