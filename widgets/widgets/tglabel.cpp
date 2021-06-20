@@ -171,23 +171,35 @@ Tg::Label::TextLayout Tg::Label::generateTextLayout(const QSize &size, const QSt
             currentX += reserved;
         }
 
-        const QString &fullText(text);
-        for (const QChar &character : fullText) {
-            if (currentY >= height) {
-                result.overshoot = result.overshoot | Overshoot::Vertical;
-                break;
+        //const QString &fullText(text);
+
+        const QStringList words(text.split(' '));
+        for (const QString &word : words) {
+            if (wrapMode() == Text::Wrap::Words) {
+                if (currentX + word.length() > width) {
+                    breakLine(QChar(), &currentX, &currentY,
+                              &currentString, &result.text);
+                }
+            }
+
+            for (const QChar &character : word) {
+                if (currentY >= height) {
+                    result.overshoot = result.overshoot | Overshoot::Vertical;
+                    break;
+                }
+
+                if (currentX < width) {
+                    currentString.append(character);
+                    currentX++;
+                } else {
+                    breakLine(character, &currentX, &currentY,
+                              &currentString, &result.text);
+                }
             }
 
             if (currentX < width) {
-                currentString.append(character);
                 currentX++;
-            } else {
-                result.text.append(currentString);
-                currentString.clear();
-                currentY++;
-                currentString.append(character);
-                // One because one character is already added, in line above
-                currentX = 1;
+                currentString.append(' ');
             }
         }
 
@@ -199,6 +211,23 @@ Tg::Label::TextLayout Tg::Label::generateTextLayout(const QSize &size, const QSt
     }
 
     return result;
+}
+
+void Tg::Label::breakLine(const QChar &character,
+                          int *currentX, int *currentY,
+                          QString *currentString, QStringList *result) const
+{
+    result->append(*currentString);
+    currentString->clear();
+    currentY++;
+
+    if (character.isNull()) {
+        currentX = 0;
+    } else {
+        currentString->append(character);
+        // One because one character is already added, in line above
+        *currentX = 1;
+    }
 }
 
 int Tg::Label::reservedCharactersCount() const

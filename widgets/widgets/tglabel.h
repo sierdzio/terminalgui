@@ -50,6 +50,9 @@ private:
     };
 
     TextLayout generateTextLayout(const QSize &size, const QString &text) const;
+    void breakLine(const QChar &character, int *currentX, int *currentY,
+                   QString *currentString,
+                   QStringList *result) const;
 
     bool _highlighted = false;
     Text::Wrap _wrapMode = Text::Wrap::Words;
