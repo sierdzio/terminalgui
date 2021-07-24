@@ -80,7 +80,7 @@ public:
     bool canDragWidgets() const;
 
     bool mouseTracking() const;
-    void setMouseTracking(bool newMouseTracking);
+    void setMouseTracking(const bool newMouseTracking);
 
 public slots:
     /*!
@@ -173,6 +173,5 @@ private:
     DragType _dragType = DragType::Unknown;
     WidgetPointer _dragWidget;
     QPoint _dragRelativePosition;
-    bool _mouseTracking;
 };
 }
