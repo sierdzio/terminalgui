@@ -445,3 +445,16 @@ void Tg::Screen::handleDrag(const QPoint &point, const bool isPressActive)
         _dragType = DragType::Unknown;
     }
 }
+
+bool Tg::Screen::mouseTracking() const
+{
+    return _mouseTracking;
+}
+
+void Tg::Screen::setMouseTracking(bool newMouseTracking)
+{
+    if (_mouseTracking == newMouseTracking)
+        return;
+    _mouseTracking = newMouseTracking;
+    emit mouseTrackingChanged();
+}

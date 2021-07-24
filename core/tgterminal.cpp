@@ -35,4 +35,8 @@ void Tg::Terminal::setSize(const QSize &newSize)
     }
 }
 
+bool Tg::Terminal::mouseTracking() const
+{
+    return _isMouseReporting;
+}
 

@@ -50,6 +50,8 @@ class Screen : public QObject
      */
     Q_PROPERTY(bool canDragWidgets READ canDragWidgets WRITE setCanDragWidgets NOTIFY canDragWidgetsChanged)
 
+    Q_PROPERTY(bool mouseTracking READ mouseTracking WRITE setMouseTracking NOTIFY mouseTrackingChanged)
+
     friend class Widget;
 
 public:
@@ -76,6 +78,9 @@ public:
     StylePointer style() const;
 
     bool canDragWidgets() const;
+
+    bool mouseTracking() const;
+    void setMouseTracking(bool newMouseTracking);
 
 public slots:
     /*!
@@ -115,6 +120,8 @@ signals:
     void sizeChanged(const QSize &size) const;
 
     void canDragWidgetsChanged(const bool canDragWidgets) const;
+
+    void mouseTrackingChanged() const;
 
 private slots:
     void draw();
@@ -166,5 +173,6 @@ private:
     DragType _dragType = DragType::Unknown;
     WidgetPointer _dragWidget;
     QPoint _dragRelativePosition;
+    bool _mouseTracking;
 };
 }

@@ -83,6 +83,10 @@ public:
      */
     static int getChar();
 
+    bool mouseTracking() const;
+    void enableMouseTracking();
+    void disableMouseTracking();
+
 signals:
     /*!
      * Emitted when terminal window changes size to \a size.
@@ -91,8 +95,6 @@ signals:
 
 private:
     void registerSignalHandler();
-    void enableMouseTracking();
-    void disableMouseTracking();
 
     static Terminal *_globalTerminal;
     static const int standardInputIndex = 0;
