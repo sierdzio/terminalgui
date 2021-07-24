@@ -80,7 +80,7 @@ public:
     bool canDragWidgets() const;
 
     bool mouseTracking() const;
-    void setMouseTracking(const bool newMouseTracking);
+    void setMouseTracking(const bool enable);
 
 public slots:
     /*!
