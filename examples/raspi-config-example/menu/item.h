@@ -1,5 +1,4 @@
-#ifndef ITEM_H
-#define ITEM_H
+#pragma once
 
 #include <QString>
 #include <QList>
@@ -11,7 +10,7 @@ public:
 
     Item *parent() const;
 
-    virtual bool isMenu() const;
+    virtual bool isList() const;
     virtual bool isAction() const;
 
 private:
@@ -21,9 +20,12 @@ private:
 
 using Items = QList<Item*>;
 
-class MenuItem : public Item
+class ListItem : public Item
 {
-    MenuItem(const QString &title, Item *parent = nullptr);
+    ListItem(const QString &title, Item *parent = nullptr);
+
+    bool isList() const override;
+    bool isAction() const override;
 
     Items items() const;
 
@@ -31,4 +33,12 @@ private:
     Items _items;
 };
 
-#endif // ITEM_H
+class ActionItem : public Item
+{
+    ActionItem(const QString &title, Item *parent = nullptr);
+
+    virtual bool trigger();
+
+    bool isList() const override;
+    bool isAction() const override;
+};

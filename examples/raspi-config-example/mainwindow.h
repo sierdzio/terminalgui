@@ -1,5 +1,4 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#pragma once
 
 #include <widgets/tgwidget.h>
 
@@ -171,5 +170,3 @@ private:
 };
 
 uint qHash(const MainWindow::MenuItem item);
-
-#endif // MAINWINDOW_H
