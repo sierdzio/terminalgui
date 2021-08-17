@@ -7,6 +7,7 @@ class Item
 {
 public:
     Item(const QString &title, Item *parent = nullptr);
+    virtual ~Item();
 
     Item *parent() const;
 
@@ -23,11 +24,17 @@ using Items = QList<Item*>;
 class ListItem : public Item
 {
     ListItem(const QString &title, Item *parent = nullptr);
+    virtual ~ListItem();
 
     bool isList() const override;
     bool isAction() const override;
 
     Items items() const;
+
+    friend class ActionItem;
+
+protected:
+    void addItem(Item *item);
 
 private:
     Items _items;
@@ -35,7 +42,8 @@ private:
 
 class ActionItem : public Item
 {
-    ActionItem(const QString &title, Item *parent = nullptr);
+    ActionItem(const QString &title, ListItem *parent = nullptr);
+    virtual ~ActionItem();
 
     virtual bool trigger();
 

@@ -6,6 +6,10 @@ Item::Item(const QString &title, Item *parent) : _title(title), _parent(parent)
 {
 }
 
+Item::~Item()
+{
+}
+
 Item *Item::parent() const
 {
     return _parent;
@@ -26,6 +30,11 @@ ListItem::ListItem(const QString &title, Item *parent)
 {
 }
 
+ListItem::~ListItem()
+{
+    qDeleteAll(_items);
+}
+
 bool ListItem::isList() const
 {
     return true;
@@ -41,8 +50,21 @@ Items ListItem::items() const
     return _items;
 }
 
-ActionItem::ActionItem(const QString &title, Item *parent)
+void ListItem::addItem(Item *item)
+{
+    // TODO: check for duplicates!
+    _items.append(item);
+}
+
+ActionItem::ActionItem(const QString &title, ListItem *parent)
     : Item(title, parent)
+{
+    if (parent) {
+        parent->addItem(this);
+    }
+}
+
+ActionItem::~ActionItem()
 {
 }
 
