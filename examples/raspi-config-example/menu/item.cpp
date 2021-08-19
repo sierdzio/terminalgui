@@ -25,9 +25,22 @@ bool Item::isAction() const
     return false;
 }
 
+void Item::setParent(Item *item)
+{
+    _parent = item;
+}
+
 ListItem::ListItem(const QString &title, Item *parent)
     : Item(title, parent)
 {
+}
+
+ListItem::ListItem(const QString &title, const Items &children, Item *parent)
+    : Item(title, parent), _items(children)
+{
+    for (Item *item : qAsConst(_items)) {
+        item->setParent(this);
+    }
 }
 
 ListItem::~ListItem()

@@ -14,6 +14,11 @@ public:
     virtual bool isList() const;
     virtual bool isAction() const;
 
+    friend class ListItem;
+
+protected:
+    void setParent(Item *item);
+
 private:
     const QString _title;
     Item *_parent = nullptr;
@@ -24,6 +29,7 @@ using Items = QList<Item*>;
 class ListItem : public Item
 {
     ListItem(const QString &title, Item *parent = nullptr);
+    ListItem(const QString &title, const Items &children, Item *parent = nullptr);
     virtual ~ListItem();
 
     bool isList() const override;

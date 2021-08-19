@@ -2,6 +2,8 @@
 
 #include <widgets/tgwidget.h>
 
+#include "menu/item.h"
+
 namespace Tg {
 class Button;
 class ListView;
@@ -90,6 +92,16 @@ private:
 
     bool _isDirty = false;
     MenuItem _currentMenuItem = MenuItem::Root;
+
+    ListItem *_menu = new ListItem {
+        "Main menu",
+
+        {
+            new ListItem { "System options", {}, nullptr }
+        },
+
+        nullptr
+    };
 
     // QMap because order matters
     const QMap<MenuItem, QString> _mainMenuLabels = {
