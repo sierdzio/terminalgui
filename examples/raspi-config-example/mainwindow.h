@@ -3,6 +3,7 @@
 #include <widgets/tgwidget.h>
 
 #include "menu/item.h"
+#include "menu/actions.h"
 
 namespace Tg {
 class Button;
@@ -14,61 +15,6 @@ class MainWindow : public Tg::Widget
     Q_OBJECT
 
 public:
-    enum class MenuItem {
-        Root,
-        // Main menu
-        SystemOptions,
-        DisplayOptions,
-        InterfaceOptions,
-        PerformanceOptions,
-        LocalisationOptions,
-        AdvancedOptions,
-        Update,
-        About,
-        // System options
-        WirelessLan,
-        Audio,
-        Password,
-        Hostname,
-        BootAutoLogin,
-        NetworkAtBoot,
-        SplashScreen,
-        PowerLed,
-        // Display options
-        Resolution,
-        Underscan,
-        PixelDoubling,
-        ScreenBlanking,
-        // Interface options
-        Camera,
-        Ssh,
-        Vnc,
-        Spi,
-        I2c,
-        SerialPort,
-        OneWire,
-        RemoteGpio,
-        // Performance options
-        Overclock,
-        GpuMemory,
-        OverlayFileSystem,
-        Fan,
-        // Localisation options
-        Locale,
-        Timezone,
-        Keyboard,
-        WlanCountry,
-        // AdvancedOptions
-        ExpandFilesystem,
-        GlDriver,
-        Compositor,
-        NetworkInterfaceNames,
-        NetworkProxySettings,
-        BootOrder,
-        BootloaderVersion,
-        HdmiComposite
-    };
-
     MainWindow(Tg::Screen *screen);
 
 signals:
@@ -81,104 +27,81 @@ private slots:
     void updateSpacerHeight();
     void onIndexPressed(const QModelIndex &index);
     void quit();
+    const ListItem *currentMenu() const;
 
 private:
     int spacerHeight() const;
-    void showPopup(const QString &message) const;
+    //void showPopup(const QString &message) const;
 
     Tg::ListView *_listView = nullptr;
     Tg::Widget *_spacer = nullptr;
     Tg::Button *_finishButton = nullptr;
 
     bool _isDirty = false;
-    MenuItem _currentMenuItem = MenuItem::Root;
 
-    ListItem *_menu = new ListItem {
-        "Main menu",
-
+    const ListItem *_menu = new ListItem
+    {
+        tr("Main menu"),
         {
-            new ListItem { "System options", {}, nullptr }
+            new ListItem { tr("System options"),
+            {
+                new ListItem { tr("Wireless LAN"), {} },
+                new ListItem { tr("Audio"), {} },
+                new ListItem { tr("Password"), {} },
+                new ListItem { tr("Hostname"), {} },
+                new ListItem { tr("Boot / Auto Login"), {} },
+                new ListItem { tr("Network At Boot"), {} },
+                new ListItem { tr("Splash Screen"), {} },
+                new ListItem { tr("Power LED"), {} }
+            }},
+            new ListItem { tr("Display Options"),
+            {
+                new ListItem { tr("Resolution"), {} },
+                new ListItem { tr("Underscan"), {} },
+                new ListItem { tr("Pixel Doubling"), {} },
+                new ListItem { tr("Screen Blanking"), {} }
+            }},
+            new ListItem { tr("Interface Options"),
+            {
+                new ListItem { tr("Camera"), {} },
+                new ListItem { tr("SSH"), {} },
+                new ListItem { tr("VNC"), {} },
+                new ListItem { tr("SPI"), {} },
+                new ListItem { tr("I2C"), {} },
+                new ListItem { tr("Serial Port"), {} },
+                new ListItem { tr("1-Wire"), {} },
+                new ListItem { tr("Remote GPIO"), {} }
+            }},
+            new ListItem { tr("Performance Options"),
+            {
+                new ListItem { tr("Overclock"), {} },
+                new ListItem { tr("GPU Memory"), {} },
+                new ListItem { tr("Overlay File System"), {} },
+                new ListItem { tr("Fan"), {} }
+            }},
+            new ListItem { tr("Localisation Options"),
+            {
+                new ListItem { tr("Locale"), {} },
+                new ListItem { tr("Timezone"), {} },
+                new ListItem { tr("Keyboard"), {} },
+                new ListItem { tr("WLAN Country"), {} }
+            }},
+            new ListItem { tr("Advanced Options"),
+            {
+                new ListItem { tr("Expand Filesystem"), {} },
+                new ListItem { tr("GL Driver"), {} },
+                new ListItem { tr("Compositor"), {} },
+                new ListItem { tr("Network Interface Names"), {} },
+                new ListItem { tr("Network Proxy Settings"), {} },
+                new ListItem { tr("Boot Order"), {} },
+                new ListItem { tr("Bootloader Version"), {} },
+                new ListItem { tr("Hdmi / Composite"), {} }
+            }},
+            new UpdateItem,
+            new AboutItem
         },
-
         nullptr
     };
 
-    // QMap because order matters
-    const QMap<MenuItem, QString> _mainMenuLabels = {
-        { MenuItem::SystemOptions, tr("System Options") },
-        { MenuItem::DisplayOptions, tr("Display Options") },
-        { MenuItem::InterfaceOptions, tr("Interface Options") },
-        { MenuItem::PerformanceOptions, tr("Performance Options") },
-        { MenuItem::LocalisationOptions, tr("Localisation Options") },
-        { MenuItem::AdvancedOptions, tr("Advanced Options") },
-        { MenuItem::Update, tr("Update") },
-        { MenuItem::About, tr("About raspi-config-tg") }
-    };
-
-    // QMap because order matters
-    const QMap<MenuItem, QString> _systemOptionsLabels = {
-        { MenuItem::WirelessLan, tr("Wireless LAN") },
-        { MenuItem::Audio, tr("Audio") },
-        { MenuItem::Password, tr("Password") },
-        { MenuItem::Hostname, tr("Hostname") },
-        { MenuItem::BootAutoLogin, tr("Boot / Auto Login") },
-        { MenuItem::NetworkAtBoot, tr("Network At Boot") },
-        { MenuItem::SplashScreen, tr("Splash Screen") },
-        { MenuItem::PowerLed, tr("Power LED") }
-    };
-
-    // QMap because order matters
-    const QMap<MenuItem, QString> _displayOptionsLabels = {
-        { MenuItem::Resolution, tr("Resolution") },
-        { MenuItem::Underscan, tr("Underscan") },
-        { MenuItem::PixelDoubling, tr("Pixel Doubling") },
-        { MenuItem::ScreenBlanking, tr("Screen Blanking") }
-    };
-
-    // QMap because order matters
-    const QMap<MenuItem, QString> _interfaceOptionsLabels = {
-        { MenuItem::Camera, tr("Camera") },
-        { MenuItem::Ssh, tr("SSH") },
-        { MenuItem::Vnc, tr("VNC") },
-        { MenuItem::Spi, tr("SPI") },
-        { MenuItem::I2c, tr("I2C") },
-        { MenuItem::SerialPort, tr("Serial Port") },
-        { MenuItem::OneWire, tr("1-Wire") },
-        { MenuItem::RemoteGpio, tr("Remote GPIO") },
-    };
-
-    // QMap because order matters
-    const QMap<MenuItem, QString> _performanceOptionsLabels = {
-        { MenuItem::Overclock, tr("Overclock") },
-        { MenuItem::GpuMemory, tr("GPU Memory") },
-        { MenuItem::OverlayFileSystem, tr("Overlay File System") },
-        { MenuItem::Fan, tr("Fan") }
-    };
-
-    // QMap because order matters
-    const QMap<MenuItem, QString> _localisationOptionsLabels = {
-        { MenuItem::Locale, tr("Locale") },
-        { MenuItem::Timezone, tr("Timezone") },
-        { MenuItem::Keyboard, tr("Keyboard") },
-        { MenuItem::WlanCountry, tr("WLAN Country") }
-    };
-
-    // QMap because order matters
-    const QMap<MenuItem, QString> _advancedOptionsLabels = {
-        { MenuItem::ExpandFilesystem, tr("ExpandFilesystem") },
-        { MenuItem::GlDriver, tr("GL Driver") },
-        { MenuItem::Compositor, tr("Compositor") },
-        { MenuItem::NetworkInterfaceNames, tr("Network Interface Names") },
-        { MenuItem::NetworkProxySettings, tr("Network Proxy Settings") },
-        { MenuItem::BootOrder, tr("Boot Order") },
-        { MenuItem::BootloaderVersion, tr("Bootloader Version") },
-        { MenuItem::HdmiComposite, tr("Hdmi / Composite") }
-    };
-
-    const QString _aboutText = tr("This tool provides a straightforward way of "
-        "doing initial configuration of the Raspberry Pi. Although it can be "
-        "run at any time, some of the options may have difficulties if you "
-        "have heavily customised your installation.");
+    const Item *_currentMenuItem = _menu;
 };
-
-uint qHash(const MainWindow::MenuItem item);
