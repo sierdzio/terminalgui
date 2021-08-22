@@ -31,7 +31,6 @@ private slots:
 
 private:
     int spacerHeight() const;
-    //void showPopup(const QString &message) const;
 
     Tg::ListView *_listView = nullptr;
     Tg::Widget *_spacer = nullptr;

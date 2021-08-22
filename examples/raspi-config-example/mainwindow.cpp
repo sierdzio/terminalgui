@@ -115,19 +115,3 @@ int MainWindow::spacerHeight() const
     return size().height() - 2 - _listView->size().height()
             - _finishButton->size().height();
 }
-
-//void MainWindow::showPopup(const QString &message) const
-//{
-//    auto *popup = new Tg::Popup(QSize(55, 9), screen());
-//    popup->setLayoutType(Tg::Layout::Type::Column);
-//    auto label = new Tg::Label(message, popup);
-//    label->setSize(QSize(53, 6));
-//    auto ok = new Tg::Button(tr("OK"), popup);
-//    popup->show();
-//    ok->setActiveFocus();
-
-//    CHECK(connect(ok, &Tg::Button::clicked,
-//                  popup, &Tg::Widget::hide));
-//    CHECK(connect(ok, &Tg::Button::clicked,
-//                  popup, &Tg::Widget::deleteLater));
-//}
