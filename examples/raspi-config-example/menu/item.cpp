@@ -5,6 +5,7 @@
 #include <widgets/tgbutton.h>
 
 #include <QObject>
+#include <QProcess>
 
 #include <QDebug>
 
@@ -139,4 +140,24 @@ void ActionItem::showPopup(Tg::Widget *parent, const QString &message) const
                            popup, &Tg::Widget::hide));
     CHECK(QObject::connect(ok, &Tg::Button::clicked,
                            popup, &Tg::Widget::deleteLater));
+}
+
+void ActionItem::runProcess(Tg::Widget *parent, const QString &program, const QStringList &arguments) const
+{
+    /* TODO:
+     * - display scrollable Label with process output
+     * - show OK button after command finishes
+     * - etc.
+     */
+
+    QProcess process;
+    process.setProgram(program);
+    process.setArguments(arguments);
+    process.setProcessChannelMode(QProcess::ProcessChannelMode::MergedChannels);
+    // TODO: set to root?
+    //process.setWorkingDirectory();
+
+    // TODO: connect to output stuff
+
+    process.start();
 }
