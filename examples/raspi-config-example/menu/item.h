@@ -70,4 +70,5 @@ public:
 
 protected:
     void showPopup(Tg::Widget *parent, const QString &message) const;
+    void runProcess(Tg::Widget *parent, const QString &program, const QStringList &arguments) const;
 };
