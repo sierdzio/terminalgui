@@ -141,6 +141,7 @@ Tg::Label::TextLayout Tg::Label::generateTextLayout(const QSize &size, const QSt
     const int reserved = reservedCharactersCount();
 
     // TODO: implement handling for _wrapMode
+    // TODO: implement handling for newlines in short strings
 
     if ((text.size() + reserved) <= width) {
         QString txt;
@@ -171,36 +172,40 @@ Tg::Label::TextLayout Tg::Label::generateTextLayout(const QSize &size, const QSt
             currentX += reserved;
         }
 
-        //const QString &fullText(text);
-
-        const QStringList words(text.split(' '));
-        for (const QString &word : words) {
-            if (wrapMode() == Text::Wrap::Words) {
-                if (currentX + word.length() > width) {
-                    breakLine(QChar(), &currentX, &currentY,
-                              &currentString, &result.text);
+        const QStringList lines(text.split("\n"));
+        for (const QString &line : lines) {
+            const QStringList words(line.split(' '));
+            for (const QString &word : words) {
+                if (wrapMode() == Text::Wrap::Words) {
+                    if (currentX + word.length() > width) {
+                        breakLine(QChar(), &currentX, &currentY,
+                                  &currentString, &result.text);
+                    }
                 }
-            }
 
-            for (const QChar &character : word) {
-                if (currentY >= height) {
-                    result.overshoot = result.overshoot | Overshoot::Vertical;
-                    break;
+                for (const QChar &character : word) {
+                    if (currentY >= height) {
+                        result.overshoot = result.overshoot | Overshoot::Vertical;
+                        break;
+                    }
+
+                    if (currentX < width) {
+                        currentString.append(character);
+                        currentX++;
+                    } else {
+                        breakLine(character, &currentX, &currentY,
+                                  &currentString, &result.text);
+                    }
                 }
 
                 if (currentX < width) {
-                    currentString.append(character);
                     currentX++;
-                } else {
-                    breakLine(character, &currentX, &currentY,
-                              &currentString, &result.text);
+                    currentString.append(' ');
                 }
             }
 
-            if (currentX < width) {
-                currentX++;
-                currentString.append(' ');
-            }
+            breakLine(QChar(), &currentX, &currentY,
+                      &currentString, &result.text);
         }
 
         while (currentString.length() < width) {

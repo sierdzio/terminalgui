@@ -145,13 +145,6 @@ void ActionItem::showPopup(Tg::Widget *parent, const QString &message) const
 
 void ActionItem::runProcess(Tg::Widget *parent, const QString &question, const QString &program, const QStringList &arguments) const
 {
-    /* TODO:
-     * - ask to confirm
-     * - display scrollable Label with process output
-     * - show OK button after command finishes
-     * - etc.
-     */
-
     const auto isConfirmed = "isConfirmed";
 
     auto process = new QProcess;
