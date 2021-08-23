@@ -261,3 +261,8 @@ void Tg::Label::setWrapMode(const Text::Wrap newWrapMode)
     }
 }
 
+void Tg::Label::clear()
+{
+    setText(QString());
+}
+

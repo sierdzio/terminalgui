@@ -24,6 +24,8 @@ public:
     Text::Wrap wrapMode() const;
     void setWrapMode(const Text::Wrap newWrapMode);
 
+    void clear();
+
 signals:
     void textChanged(const QString &text) const;
     void highlightedChanged(const bool highlighted) const;

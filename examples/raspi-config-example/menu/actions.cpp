@@ -26,7 +26,8 @@ UpdateItem::UpdateItem(ListItem *parent)
 
 bool UpdateItem::trigger(Tg::Widget *displayWidget) const
 {
-    showPopup(displayWidget, QObject::tr("Update will be performed!"));
+    runProcess(displayWidget, QObject::tr("Update will be performed!"),
+               "ls", { "-aGl" });
 
     return true;
 }

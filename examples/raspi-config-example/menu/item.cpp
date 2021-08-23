@@ -1,5 +1,6 @@
 #include "item.h"
 
+#include <tgscreen.h>
 #include <widgets/tgpopup.h>
 #include <widgets/tglabel.h>
 #include <widgets/tgbutton.h>
@@ -142,22 +143,70 @@ void ActionItem::showPopup(Tg::Widget *parent, const QString &message) const
                            popup, &Tg::Widget::deleteLater));
 }
 
-void ActionItem::runProcess(Tg::Widget *parent, const QString &program, const QStringList &arguments) const
+void ActionItem::runProcess(Tg::Widget *parent, const QString &question, const QString &program, const QStringList &arguments) const
 {
     /* TODO:
+     * - ask to confirm
      * - display scrollable Label with process output
      * - show OK button after command finishes
      * - etc.
      */
 
-    QProcess process;
-    process.setProgram(program);
-    process.setArguments(arguments);
-    process.setProcessChannelMode(QProcess::ProcessChannelMode::MergedChannels);
-    // TODO: set to root?
-    //process.setWorkingDirectory();
+    const auto isConfirmed = "isConfirmed";
 
-    // TODO: connect to output stuff
+    auto process = new QProcess;
+    process->setProgram(program);
+    process->setArguments(arguments);
+    process->setWorkingDirectory("/");
+    process->setProperty(isConfirmed, false);
 
-    process.start();
+    auto *popup = new Tg::Popup(parent->size(), parent->screen());
+    popup->setLayoutType(Tg::Layout::Type::Column);
+    auto label = new Tg::Label(question, popup);
+    label->setSize(QSize(popup->size().width() - 2, popup->size().height() - 4));
+    auto ok = new Tg::Button(QObject::tr("OK"), popup);
+    auto cancel = new Tg::Button(QObject::tr("Cancel"), popup);
+
+    auto onReadyReadError = [=]() {
+        label->setText(label->text() + "\n" + process->readAllStandardError());
+    };
+
+    auto onReadyReadOutput = [=]() {
+        label->setText(label->text() + "\n" + process->readAllStandardOutput());
+    };
+
+    auto onOk = [=]() {
+        if (process->property(isConfirmed).toBool()) {
+            if (process->state() == QProcess::ProcessState::NotRunning) {
+                popup->hide();
+                popup->deleteLater();
+                process->deleteLater();
+                return;
+            } else {
+                return;
+            }
+        }
+
+        process->setProperty(isConfirmed, true);
+        label->clear();
+        process->start();
+    };
+
+    CHECK(QObject::connect(ok, &Tg::Button::clicked,
+                           popup, onOk));
+
+    CHECK(QObject::connect(cancel, &Tg::Button::clicked,
+                           popup, &Tg::Widget::hide));
+    CHECK(QObject::connect(cancel, &Tg::Button::clicked,
+                           popup, &Tg::Widget::deleteLater));
+    CHECK(QObject::connect(cancel, &Tg::Button::clicked,
+                           process, &QProcess::deleteLater));
+
+    CHECK(QObject::connect(process, &QProcess::readyReadStandardError,
+                           label, onReadyReadError));
+    CHECK(QObject::connect(process, &QProcess::readyReadStandardOutput,
+                           label, onReadyReadOutput));
+
+    popup->show();
+    ok->setActiveFocus();
 }
