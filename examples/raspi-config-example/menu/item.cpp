@@ -4,6 +4,7 @@
 #include <widgets/tgpopup.h>
 #include <widgets/tglabel.h>
 #include <widgets/tgbutton.h>
+#include <widgets/tgscrollarea.h>
 
 #include <QObject>
 #include <QProcess>
@@ -155,8 +156,13 @@ void ActionItem::runProcess(Tg::Widget *parent, const QString &question, const Q
 
     auto *popup = new Tg::Popup(parent->size(), parent->screen());
     popup->setLayoutType(Tg::Layout::Type::Column);
-    auto label = new Tg::Label(question, popup);
-    label->setSize(QSize(popup->size().width() - 2, popup->size().height() - 4));
+
+    auto scrollArea = new Tg::ScrollArea(popup);
+    scrollArea->setSize(QSize(popup->size().width() - 2, popup->size().height() - 4));
+
+    auto label = new Tg::Label(question, scrollArea);
+    label->setSize(QSize(scrollArea->size().width(), scrollArea->size().height()));
+
     auto ok = new Tg::Button(QObject::tr("OK"), popup);
     auto cancel = new Tg::Button(QObject::tr("Cancel"), popup);
 
