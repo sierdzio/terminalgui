@@ -66,6 +66,19 @@ void Tg::Screen::deregisterWidget(Tg::Widget *widget)
     _widgets.removeOne(widget);
 }
 
+void Tg::Screen::registerCurrentModalWidget(Widget *widget)
+{
+    _activeModalWidget = widget;
+}
+
+void Tg::Screen::deregisterCurrentModalWidget(Widget *widget)
+{
+    if (_activeModalWidget == widget) {
+        _activeModalWidget = nullptr;
+        // TODO: scan other widgets for modality!
+    }
+}
+
 Tg::StylePointer Tg::Screen::style() const
 {
     return _style;
@@ -86,8 +99,8 @@ void Tg::Screen::moveFocusToPreviousWidget()
 {
     WidgetList widgets;
 
-    if (_activeFocusWidget && _activeFocusWidget->isModal()) {
-        widgets = _activeFocusWidget->allFocusableChildrenWidgets();
+    if (_activeModalWidget && _activeModalWidget->isModal()) {
+        widgets = _activeModalWidget->allFocusableChildrenWidgets();
     } else {
         widgets = _widgets;
     }
@@ -127,8 +140,8 @@ void Tg::Screen::moveFocusToNextWidget()
 {
     WidgetList widgets;
 
-    if (_activeFocusWidget && _activeFocusWidget->isModal()) {
-        widgets = _activeFocusWidget->allFocusableChildrenWidgets();
+    if (_activeModalWidget && _activeModalWidget->isModal()) {
+        widgets = _activeModalWidget->allFocusableChildrenWidgets();
     } else {
         widgets = _widgets;
     }

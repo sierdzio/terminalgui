@@ -34,6 +34,7 @@ Tg::Widget::~Widget()
             blockSignals(false);
         }
         _screen->deregisterWidget(this);
+        _screen->deregisterCurrentModalWidget(this);
     }
 }
 
@@ -773,6 +774,12 @@ bool Tg::Widget::isModal() const
 void Tg::Widget::setIsModal(const bool newIsModal)
 {
     if (_isModal != newIsModal) {
+        if (newIsModal) {
+            _screen->registerCurrentModalWidget(this);
+        } else {
+            _screen->deregisterCurrentModalWidget(this);
+        }
+
         _isModal = newIsModal;
         emit isModalChanged(newIsModal);
     }

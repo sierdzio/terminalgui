@@ -149,6 +149,9 @@ private:
     void registerWidget(Widget *widget);
     void deregisterWidget(Widget *widget);
 
+    void registerCurrentModalWidget(Widget *widget);
+    void deregisterCurrentModalWidget(Widget *widget);
+
     void updateRedrawRegions(const RedrawType type, const Widget *widget);
     void updateRedrawRegion(const QRect &region);
 
@@ -170,6 +173,7 @@ private:
 
     WidgetList _widgets;
     WidgetPointer _activeFocusWidget;
+    WidgetPointer _activeModalWidget;
     StylePointer _style;
     QPointer<Terminal> _terminal;
 
