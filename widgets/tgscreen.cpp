@@ -84,6 +84,14 @@ void Tg::Screen::scheduleRedraw(const RedrawType type, const Widget *widget)
 
 void Tg::Screen::moveFocusToPreviousWidget()
 {
+    WidgetList widgets;
+
+    if (_activeFocusWidget && _activeFocusWidget->isModal()) {
+        widgets = _activeFocusWidget->allFocusableChildrenWidgets();
+    } else {
+        widgets = _widgets;
+    }
+
     QListIterator<WidgetPointer> iterator(_widgets);
     iterator.findNext(_activeFocusWidget);
 
@@ -117,7 +125,15 @@ void Tg::Screen::moveFocusToPreviousWidget()
 
 void Tg::Screen::moveFocusToNextWidget()
 {
-    QListIterator<WidgetPointer> iterator(_widgets);
+    WidgetList widgets;
+
+    if (_activeFocusWidget && _activeFocusWidget->isModal()) {
+        widgets = _activeFocusWidget->allFocusableChildrenWidgets();
+    } else {
+        widgets = _widgets;
+    }
+
+    QListIterator<WidgetPointer> iterator(widgets);
     iterator.findNext(_activeFocusWidget);
 
     // Search from current focus widget forward

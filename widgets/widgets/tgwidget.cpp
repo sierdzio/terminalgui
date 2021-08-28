@@ -459,6 +459,22 @@ Tg::WidgetList Tg::Widget::childrenWidgets() const
     return result;
 }
 
+Tg::WidgetList Tg::Widget::allFocusableChildrenWidgets() const
+{
+    WidgetList result;
+    for (QObject *child : qAsConst(children())) {
+        Widget *childWidget = qobject_cast<Widget *>(child);
+        if (childWidget) {
+            if (childWidget->acceptsFocus()) {
+                result.append(WidgetPointer(childWidget));
+            }
+
+            result.append(childWidget->allFocusableChildrenWidgets());
+        }
+    }
+    return result;
+}
+
 Tg::SizeOvershoot Tg::Widget::layoutOvershoot() const
 {
     return _layoutOvershoot;
@@ -747,4 +763,17 @@ void Tg::Widget::updatePreviousBoundingRect()
 {
     _previousGlobalPosition = _position;
     _previousSize = _size;
+}
+
+bool Tg::Widget::isModal() const
+{
+    return _isModal;
+}
+
+void Tg::Widget::setIsModal(const bool newIsModal)
+{
+    if (_isModal != newIsModal) {
+        _isModal = newIsModal;
+        emit isModalChanged(newIsModal);
+    }
 }

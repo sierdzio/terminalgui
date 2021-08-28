@@ -6,12 +6,14 @@ Tg::Popup::Popup(const QSize &size, Widget *parent) : Widget(parent)
 {
     setSize(size);
     centerInParent();
+    setIsModal(true);
 }
 
 Tg::Popup::Popup(const QSize &size, Screen *parent) : Widget(parent)
 {
     setSize(size);
     centerInParent();
+    setIsModal(true);
 }
 
 void Tg::Popup::centerInParent()

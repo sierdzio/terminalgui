@@ -50,6 +50,10 @@ class Screen : public QObject
      */
     Q_PROPERTY(bool canDragWidgets READ canDragWidgets WRITE setCanDragWidgets NOTIFY canDragWidgetsChanged)
 
+    /*!
+     * When `true`, mouse movements will be tracked, allowing for mouse clicking
+     * of buttons, drag & drop etc.
+     */
     Q_PROPERTY(bool mouseTracking READ mouseTracking WRITE setMouseTracking NOTIFY mouseTrackingChanged)
 
     friend class Widget;

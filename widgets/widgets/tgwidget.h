@@ -179,12 +179,23 @@ class Widget : public QObject
     Q_PROPERTY(bool acceptsFocus READ acceptsFocus NOTIFY acceptsFocusChanged)
 
     /*!
-     * Returns `true` when Widget is currently actively listening to keyboard
+     * Holds `true` when Widget is currently actively listening to keyboard
      * signals.
      *
      * \sa acceptsFocus
      */
     Q_PROPERTY(bool hasFocus READ hasFocus NOTIFY hasFocusChanged)
+
+    /*!
+     * Holds modality of this Widget. This property is only effective for
+     * top-level widgets.
+     *
+     * When isModal is `true`, input to other windows in this application will
+     * be blocked.
+     *
+     * \sa isTopLevel
+     */
+    Q_PROPERTY(bool isModal READ isModal WRITE setIsModal NOTIFY isModalChanged)
 
     /*!
      * If `true`, Widget will set its Style object on its children widgets.
@@ -464,6 +475,23 @@ public:
      */
     int z() const;
 
+    /*!
+     * Returns `true` if this Widget is modal (when it is blocking input to
+     * other top-level Widgets).
+     *
+     * This only applies when Widget is top-level.
+     *
+     * \sa isTopLevel
+     */
+    bool isModal() const;
+
+    /*!
+     * Sets this Widget's modality to \a newIsModal.
+     *
+     * \sa isModal
+     */
+    void setIsModal(const bool newIsModal);
+
 signals:
     /*!
      * Indicates that \a widget (usually `this`) needs to be redrawn using
@@ -579,6 +607,8 @@ signals:
      */
     void zChanged(const int z) const;
 
+    void isModalChanged(const bool isModal) const;
+
 public slots:
     /*!
      * Moves Widget to a new \a position. The position is relative to parent
@@ -653,6 +683,16 @@ public slots:
      * Returns all children of this Widget which can be cast to Widget.
      */
     WidgetList childrenWidgets() const;
+
+    /*!
+     * Returns a list of all (direct and indirect) children of which Widget
+     * which can accept keyboard focus and events.
+     *
+     * \warning Recursive!
+     *
+     * \sa acceptsFocus
+     */
+    WidgetList allFocusableChildrenWidgets() const;
 
 protected:
     /*!
@@ -854,5 +894,6 @@ private:
     bool _propagatesStyle = true;
     QByteArray _backgroundCharacter;
     QString _title;
+    bool _isModal;
 };
 }
