@@ -75,8 +75,41 @@ void Tg::Screen::deregisterCurrentModalWidget(Widget *widget)
 {
     if (_activeModalWidget == widget) {
         _activeModalWidget = nullptr;
-        // TODO: scan other widgets for modality!
+
+        findNextModalWidget();
     }
+}
+
+bool Tg::Screen::findNextModalWidget()
+{
+    for (const auto &widget : qAsConst(_widgets)) {
+        if (findNextModalWidgetRecursive(widget)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool Tg::Screen::findNextModalWidgetRecursive(Widget *widget)
+{
+    if (widget == nullptr) {
+        return false;
+    }
+
+    if (widget->isModal()) {
+        registerCurrentModalWidget(widget);
+        return true;
+    }
+
+    const auto children = widget->childrenWidgets();
+    for (const auto &child : children) {
+        if (findNextModalWidgetRecursive(child)) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 Tg::StylePointer Tg::Screen::style() const

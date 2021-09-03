@@ -92,11 +92,11 @@ void Tg::Label::setText(const QString &text, const bool expand)
             parentSize.setWidth(parentSize.width() - effectiveBorderWidth());
         }
 
-        current.setWidth(std::min(qsizetype(parentSize.width()), text.length()));
+        current.setWidth(std::min(qsizetype(parentSize.width()), qsizetype(text.length())));
 
         const auto shortLayout = generateTextLayout(QSize(current.width(), 1), _text);
 
-        current.setHeight(std::min(qsizetype(parentSize.height()), shortLayout.text.size()));
+        current.setHeight(std::min(qsizetype(parentSize.height()), qsizetype(shortLayout.text.size())));
 
         setSize(current);
     }

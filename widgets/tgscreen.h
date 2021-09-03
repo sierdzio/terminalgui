@@ -152,6 +152,9 @@ private:
     void registerCurrentModalWidget(Widget *widget);
     void deregisterCurrentModalWidget(Widget *widget);
 
+    bool findNextModalWidget();
+    bool findNextModalWidgetRecursive(Widget *widget);
+
     void updateRedrawRegions(const RedrawType type, const Widget *widget);
     void updateRedrawRegion(const QRect &region);
 
