@@ -209,3 +209,8 @@ void ActionItem::runProcess(Tg::Widget *parent, const QString &question, const Q
     popup->show();
     ok->setActiveFocus();
 }
+
+void ActionItem::runScript(Tg::Widget *parent, const QString &question, const QString &script) const
+{
+    runProcess(parent, question, "/bin/bash", { "-c", script });
+}

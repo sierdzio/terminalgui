@@ -38,6 +38,8 @@ private:
 
     bool _isDirty = false;
 
+    // https://github.com/RPi-Distro/raspi-config/blob/master/raspi-config
+
     const ListItem *_menu = new ListItem
     {
         tr("Main menu"),
@@ -97,7 +99,8 @@ private:
                 new ListItem { tr("Hdmi / Composite"), {} }
             }},
             new UpdateItem,
-            new AboutItem
+            new AboutItem,
+            new ProcessTestItem
         },
         nullptr
     };

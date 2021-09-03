@@ -15,3 +15,10 @@ public:
     UpdateItem(ListItem *parent = nullptr);
     bool trigger(Tg::Widget *displayWidget) const override;
 };
+
+class ProcessTestItem : public ActionItem
+{
+public:
+    ProcessTestItem(ListItem *parent = nullptr);
+    bool trigger(Tg::Widget *displayWidget) const override;
+};

@@ -26,7 +26,25 @@ UpdateItem::UpdateItem(ListItem *parent)
 
 bool UpdateItem::trigger(Tg::Widget *displayWidget) const
 {
-    runProcess(displayWidget, QObject::tr("Update will be performed!"),
+    runScript(displayWidget, QObject::tr("Update will be performed!"),
+              "apt-get update &&"
+              "apt-get install raspi-config &&"
+              "printf 'Sleeping 5 seconds before reloading raspi-config\n' &&"
+              "sleep 5 &&"
+              "exec raspi-config"
+              );
+
+    return true;
+}
+
+ProcessTestItem::ProcessTestItem(ListItem *parent)
+    : ActionItem(QObject::tr("Process test"), parent)
+{
+}
+
+bool ProcessTestItem::trigger(Tg::Widget *displayWidget) const
+{
+    runProcess(displayWidget, QObject::tr("Testing QProcess!"),
                "ls", { "-aGl" });
 
     return true;

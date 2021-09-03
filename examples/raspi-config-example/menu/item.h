@@ -74,4 +74,7 @@ protected:
                     const QString &question,
                     const QString &program,
                     const QStringList &arguments) const;
+    void runScript(Tg::Widget *parent,
+                    const QString &question,
+                    const QString &script) const;
 };
