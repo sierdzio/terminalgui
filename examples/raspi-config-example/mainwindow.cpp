@@ -79,14 +79,14 @@ void MainWindow::onIndexPressed(const QModelIndex &index)
     auto oldModel = _listView->model();
 
     const int row = index.row();
-    const Item *clicked = currentMenu()->items().at(row);
+    const Tg::MenuItem *clicked = currentMenu()->items().at(row);
 
     if (clicked->isList()) {
-        const ListItem *newMenu = static_cast<const ListItem *>(clicked);
+        const Tg::ListMenuItem *newMenu = static_cast<const Tg::ListMenuItem *>(clicked);
         _currentMenuItem = newMenu;
         _listView->setModel(new QStringListModel(newMenu->listTitles(), _listView));
     } else if (clicked->isAction()) {
-        const ActionItem *action = static_cast<const ActionItem *>(clicked);
+        const Tg::ActionMenuItem *action = static_cast<const Tg::ActionMenuItem *>(clicked);
         action->trigger(this);
     }
 
@@ -105,9 +105,9 @@ void MainWindow::quit()
     QCoreApplication::instance()->quit();
 }
 
-const ListItem *MainWindow::currentMenu() const
+const Tg::ListMenuItem *MainWindow::currentMenu() const
 {
-    return static_cast<const ListItem*>(_currentMenuItem);
+    return static_cast<const Tg::ListMenuItem*>(_currentMenuItem);
 }
 
 int MainWindow::spacerHeight() const

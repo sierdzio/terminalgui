@@ -1,7 +1,6 @@
 add_executable(raspi-config-example
     main.cpp
     mainwindow.h mainwindow.cpp
-    menu/item.h menu/item.cpp
     menu/actions.h menu/actions.cpp
 )
 

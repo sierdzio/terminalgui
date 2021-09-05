@@ -10,6 +10,10 @@
 int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
+    app.setApplicationName("raspi-config-tg");
+    app.setApplicationVersion("0.1.0");
+    app.setOrganizationName("Raspi Config TG");
+    app.setOrganizationDomain("raspi.config.tg");
 
     Tg::RawTerminalLocker locker;
 

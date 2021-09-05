@@ -1,8 +1,10 @@
 #pragma once
 
 #include <widgets/tgwidget.h>
+#include <menus/menuitem.h>
+#include <menus/listmenuitem.h>
+#include <menus/actionmenuitem.h>
 
-#include "menu/item.h"
 #include "menu/actions.h"
 
 namespace Tg {
@@ -27,7 +29,7 @@ private slots:
     void updateSpacerHeight();
     void onIndexPressed(const QModelIndex &index);
     void quit();
-    const ListItem *currentMenu() const;
+    const Tg::ListMenuItem *currentMenu() const;
 
 private:
     int spacerHeight() const;
@@ -40,63 +42,63 @@ private:
 
     // https://github.com/RPi-Distro/raspi-config/blob/master/raspi-config
 
-    const ListItem *_menu = new ListItem
+    const Tg::ListMenuItem *_menu = new Tg::ListMenuItem
     {
         tr("Main menu"),
         {
-            new ListItem { tr("System options"),
+            new Tg::ListMenuItem { tr("System options"),
             {
-                new ListItem { tr("Wireless LAN"), {} },
-                new ListItem { tr("Audio"), {} },
-                new ListItem { tr("Password"), {} },
-                new ListItem { tr("Hostname"), {} },
-                new ListItem { tr("Boot / Auto Login"), {} },
-                new ListItem { tr("Network At Boot"), {} },
-                new ListItem { tr("Splash Screen"), {} },
-                new ListItem { tr("Power LED"), {} }
+                new Tg::ListMenuItem { tr("Wireless LAN"), {} },
+                new Tg::ListMenuItem { tr("Audio"), {} },
+                new Tg::ListMenuItem { tr("Password"), {} },
+                new Tg::ListMenuItem { tr("Hostname"), {} },
+                new Tg::ListMenuItem { tr("Boot / Auto Login"), {} },
+                new Tg::ListMenuItem { tr("Network At Boot"), {} },
+                new Tg::ListMenuItem { tr("Splash Screen"), {} },
+                new Tg::ListMenuItem { tr("Power LED"), {} }
             }},
-            new ListItem { tr("Display Options"),
+            new Tg::ListMenuItem { tr("Display Options"),
             {
-                new ListItem { tr("Resolution"), {} },
-                new ListItem { tr("Underscan"), {} },
-                new ListItem { tr("Pixel Doubling"), {} },
-                new ListItem { tr("Screen Blanking"), {} }
+                new Tg::ListMenuItem { tr("Resolution"), {} },
+                new Tg::ListMenuItem { tr("Underscan"), {} },
+                new Tg::ListMenuItem { tr("Pixel Doubling"), {} },
+                new Tg::ListMenuItem { tr("Screen Blanking"), {} }
             }},
-            new ListItem { tr("Interface Options"),
+            new Tg::ListMenuItem { tr("Interface Options"),
             {
-                new ListItem { tr("Camera"), {} },
-                new ListItem { tr("SSH"), {} },
-                new ListItem { tr("VNC"), {} },
-                new ListItem { tr("SPI"), {} },
-                new ListItem { tr("I2C"), {} },
-                new ListItem { tr("Serial Port"), {} },
-                new ListItem { tr("1-Wire"), {} },
-                new ListItem { tr("Remote GPIO"), {} }
+                new Tg::ListMenuItem { tr("Camera"), {} },
+                new Tg::ListMenuItem { tr("SSH"), {} },
+                new Tg::ListMenuItem { tr("VNC"), {} },
+                new Tg::ListMenuItem { tr("SPI"), {} },
+                new Tg::ListMenuItem { tr("I2C"), {} },
+                new Tg::ListMenuItem { tr("Serial Port"), {} },
+                new Tg::ListMenuItem { tr("1-Wire"), {} },
+                new Tg::ListMenuItem { tr("Remote GPIO"), {} }
             }},
-            new ListItem { tr("Performance Options"),
+            new Tg::ListMenuItem { tr("Performance Options"),
             {
-                new ListItem { tr("Overclock"), {} },
-                new ListItem { tr("GPU Memory"), {} },
-                new ListItem { tr("Overlay File System"), {} },
-                new ListItem { tr("Fan"), {} }
+                new Tg::ListMenuItem { tr("Overclock"), {} },
+                new Tg::ListMenuItem { tr("GPU Memory"), {} },
+                new Tg::ListMenuItem { tr("Overlay File System"), {} },
+                new Tg::ListMenuItem { tr("Fan"), {} }
             }},
-            new ListItem { tr("Localisation Options"),
+            new Tg::ListMenuItem { tr("Localisation Options"),
             {
-                new ListItem { tr("Locale"), {} },
-                new ListItem { tr("Timezone"), {} },
-                new ListItem { tr("Keyboard"), {} },
-                new ListItem { tr("WLAN Country"), {} }
+                new Tg::ListMenuItem { tr("Locale"), {} },
+                new Tg::ListMenuItem { tr("Timezone"), {} },
+                new Tg::ListMenuItem { tr("Keyboard"), {} },
+                new Tg::ListMenuItem { tr("WLAN Country"), {} }
             }},
-            new ListItem { tr("Advanced Options"),
+            new Tg::ListMenuItem { tr("Advanced Options"),
             {
-                new ListItem { tr("Expand Filesystem"), {} },
-                new ListItem { tr("GL Driver"), {} },
-                new ListItem { tr("Compositor"), {} },
-                new ListItem { tr("Network Interface Names"), {} },
-                new ListItem { tr("Network Proxy Settings"), {} },
-                new ListItem { tr("Boot Order"), {} },
-                new ListItem { tr("Bootloader Version"), {} },
-                new ListItem { tr("Hdmi / Composite"), {} }
+                new Tg::ListMenuItem { tr("Expand Filesystem"), {} },
+                new Tg::ListMenuItem { tr("GL Driver"), {} },
+                new Tg::ListMenuItem { tr("Compositor"), {} },
+                new Tg::ListMenuItem { tr("Network Interface Names"), {} },
+                new Tg::ListMenuItem { tr("Network Proxy Settings"), {} },
+                new Tg::ListMenuItem { tr("Boot Order"), {} },
+                new Tg::ListMenuItem { tr("Bootloader Version"), {} },
+                new Tg::ListMenuItem { tr("Hdmi / Composite"), {} }
             }},
             new UpdateItem,
             new AboutItem,
@@ -105,5 +107,5 @@ private:
         nullptr
     };
 
-    const Item *_currentMenuItem = _menu;
+    const Tg::MenuItem *_currentMenuItem = _menu;
 };

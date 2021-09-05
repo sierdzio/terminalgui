@@ -1,6 +1,6 @@
-#include "item.h"
+#include "actionmenuitem.h"
+#include "listmenuitem.h"
 
-#include <tgscreen.h>
 #include <widgets/tgpopup.h>
 #include <widgets/tglabel.h>
 #include <widgets/tgbutton.h>
@@ -11,124 +11,37 @@
 
 #include <QDebug>
 
-Item::Item(const QString &title, Item *parent) : _title(title), _parent(parent)
-{
-}
-
-Item::~Item()
-{
-}
-
-Item *Item::parent() const
-{
-    return _parent;
-}
-
-bool Item::hasParent() const
-{
-    return _parent != nullptr;
-}
-
-QString Item::title() const
-{
-    return _title;
-}
-
-bool Item::isList() const
-{
-    return false;
-}
-
-bool Item::isAction() const
-{
-    return false;
-}
-
-void Item::setParent(Item *item)
-{
-    _parent = item;
-}
-
-ListItem::ListItem(const QString &title, Item *parent)
-    : Item(title, parent)
-{
-}
-
-ListItem::ListItem(const QString &title, const Items &children, Item *parent)
-    : Item(title, parent), _items(children)
-{
-    for (Item *item : qAsConst(_items)) {
-        item->setParent(this);
-    }
-}
-
-ListItem::~ListItem()
-{
-    qDeleteAll(_items);
-}
-
-bool ListItem::isList() const
-{
-    return true;
-}
-
-bool ListItem::isAction() const
-{
-    return false;
-}
-
-Items ListItem::items() const
-{
-    return _items;
-}
-
-QStringList ListItem::listTitles() const
-{
-    QStringList result;
-
-    for (auto item : qAsConst(_items)) {
-        result.append(item->title());
-    }
-
-    return result;
-}
-
-void ListItem::addItem(Item *item)
-{
-    // TODO: check for duplicates!
-    _items.append(item);
-}
-
-ActionItem::ActionItem(const QString &title, ListItem *parent)
-    : Item(title, parent)
+Tg::ActionMenuItem::ActionMenuItem(const QString &title, ListMenuItem *parent)
+    : MenuItem(title, parent)
 {
     if (parent) {
         parent->addItem(this);
     }
 }
 
-ActionItem::~ActionItem()
+Tg::ActionMenuItem::~ActionMenuItem()
 {
 }
 
-bool ActionItem::trigger(Tg::Widget *displayWidget) const
+bool Tg::ActionMenuItem::trigger(Tg::Widget *displayWidget) const
 {
     qDebug() << "Base ActionItem::trigger()" << displayWidget;
 
     return true;
 }
 
-bool ActionItem::isList() const
+bool Tg::ActionMenuItem::isList() const
 {
     return false;
 }
 
-bool ActionItem::isAction() const
+bool Tg::ActionMenuItem::isAction() const
 {
     return true;
 }
 
-void ActionItem::showPopup(Tg::Widget *parent, const QString &message) const
+void Tg::ActionMenuItem::showPopup(Tg::Widget *parent,
+                                   const QString &message) const
 {
     auto *popup = new Tg::Popup(QSize(55, 9), parent->screen());
     popup->setLayoutType(Tg::Layout::Type::Column);
@@ -144,7 +57,9 @@ void ActionItem::showPopup(Tg::Widget *parent, const QString &message) const
                            popup, &Tg::Widget::deleteLater));
 }
 
-void ActionItem::runProcess(Tg::Widget *parent, const QString &question, const QString &program, const QStringList &arguments) const
+void Tg::ActionMenuItem::runProcess(Tg::Widget *parent, const QString &question,
+                                    const QString &program,
+                                    const QStringList &arguments) const
 {
     const auto isConfirmed = "isConfirmed";
 
@@ -158,7 +73,8 @@ void ActionItem::runProcess(Tg::Widget *parent, const QString &question, const Q
     popup->setLayoutType(Tg::Layout::Type::Column);
 
     auto scrollArea = new Tg::ScrollArea(popup);
-    scrollArea->setSize(QSize(popup->size().width() - 2, popup->size().height() - 4));
+    scrollArea->setSize(QSize(popup->size().width() - 2,
+                              popup->size().height() - 4));
 
     auto label = new Tg::Label(question, scrollArea);
     label->setSize(QSize(scrollArea->size().width(), scrollArea->size().height()));
@@ -210,7 +126,8 @@ void ActionItem::runProcess(Tg::Widget *parent, const QString &question, const Q
     ok->setActiveFocus();
 }
 
-void ActionItem::runScript(Tg::Widget *parent, const QString &question, const QString &script) const
+void Tg::ActionMenuItem::runScript(Tg::Widget *parent, const QString &question,
+                                   const QString &script) const
 {
     runProcess(parent, question, "/bin/bash", { "-c", script });
 }

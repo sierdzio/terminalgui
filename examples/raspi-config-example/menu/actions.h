@@ -1,24 +1,29 @@
 #pragma once
 
-#include "item.h"
+#include <menus/actionmenuitem.h>
 
-class AboutItem : public ActionItem
+namespace Tg {
+class Widget;
+class ListMenuItem;
+}
+
+class AboutItem : public Tg::ActionMenuItem
 {
 public:
-    AboutItem(ListItem *parent = nullptr);
+    AboutItem(Tg::ListMenuItem *parent = nullptr);
     bool trigger(Tg::Widget *displayWidget) const override;
 };
 
-class UpdateItem : public ActionItem
+class UpdateItem : public Tg::ActionMenuItem
 {
 public:
-    UpdateItem(ListItem *parent = nullptr);
+    UpdateItem(Tg::ListMenuItem *parent = nullptr);
     bool trigger(Tg::Widget *displayWidget) const override;
 };
 
-class ProcessTestItem : public ActionItem
+class ProcessTestItem : public Tg::ActionMenuItem
 {
 public:
-    ProcessTestItem(ListItem *parent = nullptr);
+    ProcessTestItem(Tg::ListMenuItem *parent = nullptr);
     bool trigger(Tg::Widget *displayWidget) const override;
 };

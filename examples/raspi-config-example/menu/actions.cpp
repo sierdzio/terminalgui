@@ -1,10 +1,13 @@
 #include "actions.h"
 
-#include <QObject>
 #include <widgets/tgpopup.h>
+#include <menus/listmenuitem.h>
 
-AboutItem::AboutItem(ListItem *parent)
-    : ActionItem(QObject::tr("About raspi-config-tg"), parent)
+#include <QObject>
+#include <QCoreApplication>
+
+AboutItem::AboutItem(Tg::ListMenuItem *parent)
+    : Tg::ActionMenuItem(QObject::tr("About raspi-config-tg"), parent)
 {
 }
 
@@ -14,13 +17,14 @@ bool AboutItem::trigger(Tg::Widget *displayWidget) const
         "This tool provides a straightforward way of "
         "doing initial configuration of the Raspberry Pi. Although it can be "
         "run at any time, some of the options may have difficulties if you "
-        "have heavily customised your installation."));
+        "have heavily customised your installation.\nVersion: %1")
+              .arg(QCoreApplication::applicationVersion()));
 
     return true;
 }
 
-UpdateItem::UpdateItem(ListItem *parent)
-    : ActionItem(QObject::tr("Update"), parent)
+UpdateItem::UpdateItem(Tg::ListMenuItem *parent)
+    : Tg::ActionMenuItem(QObject::tr("Update"), parent)
 {
 }
 
@@ -37,8 +41,8 @@ bool UpdateItem::trigger(Tg::Widget *displayWidget) const
     return true;
 }
 
-ProcessTestItem::ProcessTestItem(ListItem *parent)
-    : ActionItem(QObject::tr("Process test"), parent)
+ProcessTestItem::ProcessTestItem(Tg::ListMenuItem *parent)
+    : Tg::ActionMenuItem(QObject::tr("Process test"), parent)
 {
 }
 
