@@ -21,14 +21,14 @@ void Tg::ExclusiveGroup::registerRadioButton(Tg::RadioButton *radioButton)
 
     _members.append(radioButton);
 
+    CHECK(connect(radioButton, &RadioButton::checkedChanged,
+                  this, &ExclusiveGroup::onRadioButtonCheckedChanged));
+
     if (hasOneChecked) {
         radioButton->setChecked(false);
     } else {
         radioButton->setChecked(true);
     }
-
-    CHECK(connect(radioButton, &RadioButton::checkedChanged,
-                  this, &ExclusiveGroup::onRadioButtonCheckedChanged));
 }
 
 void Tg::ExclusiveGroup::deRegisterRadioButton(Tg::RadioButton *radioButton)
@@ -162,7 +162,7 @@ QString Tg::RadioButton::radioButtonText() const
 void Tg::RadioButton::prepareAutoExclusiveGroup()
 {
     // Standalone widget cannot be auto exclusive
-    if (isTopLevel() == false) {
+    if (isTopLevel()) {
         return;
     }
 

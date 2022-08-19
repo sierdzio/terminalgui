@@ -61,7 +61,7 @@ protected:
 private:
     void prepareAutoExclusiveGroup();
 
-    bool _checked = true;
+    bool _checked = false;
     bool _autoExclusive = true;
     ExclusiveGroupPointer _group;
 };

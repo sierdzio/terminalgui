@@ -25,7 +25,7 @@ CHECK(QMetaObject::invokeMethod(
  *
  */
 #if !defined(CHECK)
-#if defined(DEBUG_BUILD)
+#if defined(QT_DEBUG)
 #define CHECK(condition) if (!condition) qFatal("Check failed!")
 #else
 #define CHECK(condition) condition

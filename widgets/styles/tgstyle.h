@@ -110,7 +110,7 @@ public:
     // RadioButton
     // TODO: add these as properties to Tg:RadioButton!
     QString radioButtonChecked = u8"\u25C9 ";
-    QString radioButtonUnChecked = u8"\u25CE ";
+    QString radioButtonUnChecked = u8"\u25EF "; // OR \u25CE
 
     // ScrollBar
     // https://decodeunicode.org/en/u+025C8
