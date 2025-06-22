@@ -8,7 +8,7 @@ Tg::ExclusiveGroup::ExclusiveGroup() : QObject(nullptr)
 void Tg::ExclusiveGroup::registerRadioButton(Tg::RadioButton *radioButton)
 {
     bool hasOneChecked = false;
-    for (const auto &member : qAsConst(_members)) {
+    for (const auto &member : std::as_const(_members)) {
         if (member.isNull()) {
             continue;
         }
@@ -47,7 +47,7 @@ void Tg::ExclusiveGroup::onRadioButtonCheckedChanged(const bool checked)
         return;
     }
 
-    for (const auto &member : qAsConst(_members)) {
+    for (const auto &member : std::as_const(_members)) {
         if (member.isNull() || member == current) {
             continue;
         }
@@ -182,7 +182,7 @@ void Tg::RadioButton::prepareAutoExclusiveGroup()
     }
 
     _group = ExclusiveGroupPointer::create();
-    for (const auto &member : qAsConst(members)) {
+    for (const auto &member : std::as_const(members)) {
         _group->registerRadioButton(member);
     }
 }

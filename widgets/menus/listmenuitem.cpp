@@ -8,7 +8,7 @@ Tg::ListMenuItem::ListMenuItem(const QString &title, MenuItem *parent)
 Tg::ListMenuItem::ListMenuItem(const QString &title, const Items &children, MenuItem *parent)
     : MenuItem(title, parent), _items(children)
 {
-    for (MenuItem *item : qAsConst(_items)) {
+    for (MenuItem *item : std::as_const(_items)) {
         item->setParent(this);
     }
 }
@@ -37,7 +37,7 @@ QStringList Tg::ListMenuItem::listTitles() const
 {
     QStringList result;
 
-    for (auto item : qAsConst(_items)) {
+    for (auto item : std::as_const(_items)) {
         result.append(item->title());
     }
 

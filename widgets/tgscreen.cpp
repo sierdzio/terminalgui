@@ -82,7 +82,7 @@ void Tg::Screen::deregisterCurrentModalWidget(Widget *widget)
 
 bool Tg::Screen::findNextModalWidget()
 {
-    for (const auto &widget : qAsConst(_widgets)) {
+    for (const auto &widget : std::as_const(_widgets)) {
         if (findNextModalWidgetRecursive(widget)) {
             return true;
         }
@@ -230,7 +230,7 @@ void Tg::Screen::draw()
     stream.setAutoDetectUnicode(true);
 
     QVector<QPoint> points;
-    for (const QRect &region : qAsConst(_redrawRegions)) {
+    for (const QRect &region : std::as_const(_redrawRegions)) {
         for (int y = region.y(); y < (region.y() + region.height()); ++y) {
             for (int x = region.x(); x < (region.x() + region.width()); ++x) {
                 const QPoint pixel(x, y);

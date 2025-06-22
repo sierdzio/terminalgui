@@ -451,7 +451,7 @@ void Tg::Widget::doLayout()
 Tg::WidgetList Tg::Widget::childrenWidgets() const
 {
     WidgetList result;
-    for (QObject *child : qAsConst(children())) {
+    for (QObject *child : std::as_const(children())) {
         Widget *childWidget = qobject_cast<Widget *>(child);
         if (childWidget) {
             result.append(WidgetPointer(childWidget));
@@ -463,7 +463,7 @@ Tg::WidgetList Tg::Widget::childrenWidgets() const
 Tg::WidgetList Tg::Widget::allFocusableChildrenWidgets() const
 {
     WidgetList result;
-    for (QObject *child : qAsConst(children())) {
+    for (QObject *child : std::as_const(children())) {
         Widget *childWidget = qobject_cast<Widget *>(child);
         if (childWidget) {
             if (childWidget->acceptsFocus()) {
